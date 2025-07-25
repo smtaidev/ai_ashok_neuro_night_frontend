@@ -3,6 +3,27 @@ import { FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import Logo from '@/public/assets/logo.png';
 import Image from 'next/image';
 
+
+
+const socialLinks = [
+  {
+    Icon: FaTwitter,
+    url: "https://x.com/ClarhetHQ",
+    label: "Twitter",
+  },
+  {
+    Icon: FaInstagram,
+    url: "https://www.instagram.com/clarhethq/",
+    label: "Instagram",
+  },
+  {
+    Icon: FaLinkedinIn,
+    url: "https://ca.linkedin.com/company/clarhethq",
+    label: "LinkedIn",
+  },
+];
+
+
 const Footer = () => {
   return (
     <footer className="pt-10  bg-base-100 text-gray-600">
@@ -11,21 +32,29 @@ const Footer = () => {
         {/* Brand Info Section */}
         <div className="col-span-1">
          <Image src={Logo} alt="Logo" width={120} height={120} />
-          <p className="text-footerText text-sm leading-relaxed max-w-sm mb-6">
+          <p className="text-footerText mt-4 text-sm leading-relaxed max-w-sm mb-6">
             The only platform for seamless strategy development, communication, and translation into strategic actions.
           </p>
-          <div className="flex space-x-4">
-            {[FaTwitter, FaInstagram, FaLinkedinIn].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                className="btn btn-circle btn-outline border-gray-400 text-gray-700 hover:bg-gray-200 hover:border-gray-500 hover:text-gray-800 transition-colors duration-200"
-                aria-label="Social Icon"
-              >
-                <Icon className="text-lg" />
-              </a>
-            ))}
-          </div>
+          
+
+<div className="flex space-x-4">
+  {socialLinks.map(({ Icon, url, label }, i) => (
+    <a
+      key={i}
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="p-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-200 hover:border-gray-500 hover:text-gray-800 transition-colors duration-200"
+      aria-label={label}
+    >
+      <Icon className="text-lg" />
+    </a>
+  ))}
+</div>
+
+
+
+
         </div>
 
         {/* Navigation Sections */}

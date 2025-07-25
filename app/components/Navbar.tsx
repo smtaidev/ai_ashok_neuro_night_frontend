@@ -2,9 +2,12 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation"; // ✅ CHANGE: for active link
 import Logo from "@/public/assets/logo.png";
-import { FaInstagram, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
+import { LuTwitter } from "react-icons/lu";
+import { FiLinkedin, FiMenu } from "react-icons/fi";
+import { RxCross2 } from "react-icons/rx";
 
 const MainNavbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -45,7 +48,7 @@ const MainNavbar = () => {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: animatedUnderlineStyle }} />
-      <div className="bg-white/70 sticky top-0 z-10 py-4">
+      <div className="">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 flex items-center justify-between relative">
           {/* Logo */}
           <Link href="/" onClick={closeDropdown}>
@@ -88,35 +91,10 @@ const MainNavbar = () => {
               className="cursor-pointer"
             >
               {isDropdownOpen ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <RxCross2 size={30} />
               ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16m-7 6h7"
-                  />
-                </svg>
+                <FiMenu size={30} />
+                
               )}
             </button>
           </div>
@@ -145,16 +123,16 @@ const MainNavbar = () => {
 
             <div className="flex gap-6 my-6 ml-4">
               {[
-                { icon: <FaInstagram />, link: "https://instagram.com" },
-                { icon: <FaTwitter />, link: "https://twitter.com" },
-                { icon: <FaLinkedinIn />, link: "https://linkedin.com" },
+                { icon: <FaInstagram />, link: "https://www.instagram.com/clarhethq/" },
+                { icon: <LuTwitter />, link: "https://x.com/ClarhetHQ" },
+                { icon: <FiLinkedin />, link: "https://ca.linkedin.com/company/clarhethq" },
               ].map((item, i) => (
                 <a
                   key={i}
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-colors duration-200"
+                  className="flex items-center justify-center w-8 h-8 rounded-full text-gray-700 hover:text-blue-600 transition-colors duration-200"
                 >
                   {item.icon}
                 </a>

@@ -10,7 +10,7 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-between gap-12 relative">
         <div className="absolute top-0 left-0 w-full h-full bg-blue-300/70 rounded-full blur-3xl opacity-30 z-0"></div>
         {/* Left Content Area */}
-        <div className="w-full md:w-1/2 text-center md:text-left">
+        <div className="w-full md:w-1/2 flex flex-col items-center text-center md:items-start md:text-left">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-black leading-tight mb-6">
             Prioritize faster, act quicker, win sooner
           </h1>
@@ -18,7 +18,7 @@ const Hero = () => {
             The only platform for seamless strategy development, communication,
             and translation into strategic actions.
           </p>
-          <a href='get-a-demo' className="btn flex w-fit pt-3 pb-2 px-4 text-center gap-2 bg-blue-700 text-white font-semibold rounded-lg  hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">
+          <a href='get-a-demo' className="btn items-center justify-center flex w-fit pt-3 pb-2 px-4 text-center gap-2 bg-blue-700 text-white font-semibold rounded-lg  hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105">
             Get Started
             <GoArrowUpRight className="ml-2" size={30} />
             {/* Right arrow icon */}

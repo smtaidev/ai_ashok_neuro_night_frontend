@@ -1,10 +1,13 @@
 import AdaptiveStrategiesSection from "./components/homeComponents/AdaptiveStrategiesSection";
+import CTASection from "./components/homeComponents/CTASection";
 import EscapeSlideSection from "./components/homeComponents/EscapeSlideSection";
 import FeaturesSection from "./components/homeComponents/FeaturesSection";
 import Hero from "./components/homeComponents/Hero";
 import NoMoreComunication from "./components/homeComponents/NoMoreComunication";
 import PrioritizeCulture from "./components/homeComponents/PrioritizeCulture";
 import StrategyActionSection from "./components/homeComponents/StrategyActionSection";
+import StatsBanner from "./components/homeComponents/TodaysUpdateSection";
+import WhyClarhetSection from "./components/homeComponents/WhyClarhetSection";
 import YouTubeKeyfrem from "./components/homeComponents/YouTubeKeyfrem";
 
 
@@ -19,6 +22,9 @@ export default function Home() {
       <PrioritizeCulture></PrioritizeCulture>
       <NoMoreComunication></NoMoreComunication>
       <EscapeSlideSection></EscapeSlideSection>
+      <WhyClarhetSection></WhyClarhetSection>
+      <StatsBanner></StatsBanner>
+      <CTASection></CTASection>
     </div>
   );
 }

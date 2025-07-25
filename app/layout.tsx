@@ -24,8 +24,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="light">
-      <body className={`${poppins.variable} antialiased`}>
-        <header>
+      <body className={`${poppins.variable} antialiased relative`}>
+        <header className="bg-white/96 sticky top-0 z-10 py-4">
           <MainNavbar></MainNavbar>
         </header>
         <main className="min-h-[calc(100vh-370px)]">
