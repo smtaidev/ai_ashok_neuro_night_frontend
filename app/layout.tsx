@@ -3,8 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import MainNavbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
-// ✅ Load only Poppins
+import ScrollToTopButton from "./components/ScrollToTopButton"; 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
@@ -26,15 +25,17 @@ export default function RootLayout({
     <html lang="en" data-theme="light">
       <body className={`${poppins.variable} antialiased relative`}>
         <header className="bg-white/96 sticky top-0 z-10 py-4">
-          <MainNavbar></MainNavbar>
+          <MainNavbar />
         </header>
         <main className="min-h-[calc(100vh-370px)]">
-
-        {children}
+          {children}
         </main>
         <footer>
-          <Footer></Footer>
+          <Footer />
         </footer>
+
+        {/* ✅ Scroll to Top button */}
+        <ScrollToTopButton />
       </body>
     </html>
   );

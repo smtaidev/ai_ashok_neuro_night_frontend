@@ -2,8 +2,16 @@ import React from 'react';
 import { FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import Logo from '@/public/assets/logo.png';
 import Image from 'next/image';
+import Link from 'next/link';
 
-
+const linkRoutes: Record<string, string> = {
+  "Solutions": "/solutions",
+  "Pricing": "/pricing",
+  "Get a demo": "/get-a-demo",
+  "About Us": "/about",
+  "Contact Us": "/contact",
+  "Login": "/login",
+};
 
 const socialLinks = [
   {
@@ -57,33 +65,34 @@ const Footer = () => {
 
         </div>
 
-        {/* Navigation Sections */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-3">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              { title: 'Product', links: ['Solutions', 'Pricing'] },
-              { title: 'Get Started', links: ['Get a demo'] },
-              { title: 'Company', links: ['About Us', 'Contact Us'] },
-              { title: 'Get Started', links: ['Login'] }
-            ].map((section, index) => (
-              <div key={index}>
-                <h3 className="text-footerSectionTitle font-bold text-lg mb-4">{section.title}</h3>
-                <ul className="space-y-2">
-                  {section.links.map((link, i) => (
-                    <li key={i}>
-                      <a
-                        href="#"
-                        className="inline-block text-sm md:text-base duration-300 hover:translate-x-1 hover:scale-95"
-                      >
-                        {link}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
+       
+{/* Navigation Sections */}
+<div className="col-span-1 md:col-span-2 lg:col-span-3">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    {[
+      { title: 'Product', links: ['Solutions', 'Pricing'] },
+      { title: 'Get Started', links: ['Get a demo'] },
+      { title: 'Company', links: ['About Us', 'Contact Us'] },
+      { title: 'Get Started', links: ['Login'] }
+    ].map((section, index) => (
+      <div key={index}>
+        <h3 className="text-footerSectionTitle font-bold text-lg mb-4">{section.title}</h3>
+        <ul className="space-y-2">
+          {section.links.map((link, i) => (
+            <li key={i}>
+              <Link
+                href={linkRoutes[link] || "#"}
+                className="inline-block text-sm md:text-base duration-300 hover:translate-x-1 hover:scale-95"
+              >
+                {link}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</div>
       </div>
 
       {/* Bottom Bar */}

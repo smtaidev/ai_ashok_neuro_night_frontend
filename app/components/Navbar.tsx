@@ -77,10 +77,11 @@ const MainNavbar = () => {
           </div>
 
           {/* Support Button */}
-          <div className="hidden lg:flex">
+          <div className="hidden lg:flex gap-3">
             <Link href='get-a-demo' className="btn outline-1 rounded-full px-6 py-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors duration-200">
               Support
             </Link>
+            <Link href='dashboard'className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Dashboard </Link>
           </div>
 
           {/* Hamburger */}
@@ -139,10 +140,11 @@ const MainNavbar = () => {
               ))}
             </div>
 
-            <div className="mt-6 flex flex-col text-center items-center px-4">
+            <div className="mt-6 flex flex-col text-center gap-4 items-center px-4">
               <Link href="get-a-demo" className="btn w-full outline-1 rounded-full py-3 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors duration-200">
                 Support
               </Link>
+              <Link href='dashboard'className="btn w-full text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Dashboard </Link>
             </div>
           </div>
         )}
