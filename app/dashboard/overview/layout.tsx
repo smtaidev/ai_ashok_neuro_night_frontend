@@ -2,12 +2,11 @@
 
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Gauge } from "lucide-react"
+import SpeedMeterPage from "./_components/SpeedMeter"
+import Image from 'next/image';
 
 export default function OverViewPage() {
   const visionScore = 60
-
-  const pointerAngle = (visionScore / 100) * 180
 
   // Accordion section content
   const accordionItems = [
@@ -43,12 +42,16 @@ export default function OverViewPage() {
       <Card>
         <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-start gap-4">
-            <div className="p-2 bg-blue-100 rounded-md">
-              <Gauge className="w-6 h-6 text-blue-600" />
-            </div>
+            <Image
+              src="/image/dashboard-icon.png"
+              alt="dashboard icon"
+              width={48}
+              height={48}
+              className="size-20 text-blue-600"
+            />
             <div>
-              <CardTitle>Vision</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-xl font-bold text-gray-800">Vision</CardTitle>
+              <CardDescription className="text-gray-600 mt-1">
                 A Vision provides direction, motivation, and reinforcement for decision-making.
                 It inspires employees, differentiates the organization, and serves as a benchmark for measuring progress.
                 Crafting a clear Vision statement ensures alignment, focus, and success.
@@ -56,32 +59,10 @@ export default function OverViewPage() {
             </div>
           </div>
 
+
           {/* Vision Score */}
-          <div className="flex flex-col items-center justify-center">
-            <span className="text-2xl font-semibold">Vision Score</span>
-            <div className="relative w-32 h-16">
-              <svg viewBox="0 0 100 50" className="w-full h-full">
-                <path
-                  d="M 10 50 A 40 40 0 0 1 90 50"
-                  fill="none"
-                  stroke="#e5e7eb"
-                  strokeWidth="10"
-                />
-                <path
-                  d="M 10 50 A 40 40 0 0 1 90 50"
-                  fill="none"
-                  stroke="#84cc16"
-                  strokeDasharray="120"
-                  strokeDashoffset="60"
-                  strokeWidth="10"
-                />
-                <circle cx="60" cy="20" r="4" fill="#000" />
-              </svg>
-            </div>
-            <span className="text-lg font-bold text-green-600">{visionScore}</span>
-            <span className="text-xs text-muted-foreground text-center">
-              A vision score of 60 or higher is considered a guiding and compelling vision.
-            </span>
+          <div className="md:border-l-2 border-gray-200 pl-2">
+            <SpeedMeterPage score={visionScore} />
           </div>
         </CardHeader>
       </Card>
