@@ -15,34 +15,9 @@ import {
   SidebarMenuItem
 } from '@/components/ui/sidebar';
 
-interface Tenant {
-  id: string;
-  name: string;
-}
 
-export function OrgSwitcher({
-  tenants,
-  defaultTenant,
-  onTenantSwitch
-}: {
-  tenants: Tenant[];
-  defaultTenant: Tenant;
-  onTenantSwitch?: (tenantId: string) => void;
-}) {
-  // const [selectedTenant, setSelectedTenant] = React.useState<
-  //   Tenant | undefined
-  // >(defaultTenant || (tenants.length > 0 ? tenants[0] : undefined));
 
-  // const handleTenantSwitch = (tenant: Tenant) => {
-  //   setSelectedTenant(tenant);
-  //   if (onTenantSwitch) {
-  //     onTenantSwitch(tenant.id);
-  //   }
-  // };
-
-  // if (!selectedTenant) {
-  //   return null;
-  // }
+export function OrgSwitcher() {
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -57,27 +32,9 @@ export function OrgSwitcher({
               </div>
               <div className='flex flex-col gap-0.5 leading-none'>
                 <span className='font-semibold'>Bindu Soft</span>
-                {/* <span className=''>{selectedTenant.name}</span> */}
               </div>
-              {/* <ChevronsUpDown className='ml-auto' /> */}
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          {/* <DropdownMenuContent
-            className='w-[--radix-dropdown-menu-trigger-width]'
-            align='start'
-          >
-            {tenants.map((tenant) => (
-              <DropdownMenuItem
-                key={tenant.id}
-                onSelect={() => handleTenantSwitch(tenant)}
-              >
-                {tenant.name}{' '}
-                {tenant.id === selectedTenant.id && (
-                  <Check className='ml-auto' />
-                )}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent> */}
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>

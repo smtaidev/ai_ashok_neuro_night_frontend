@@ -11,10 +11,10 @@ const StatsBanner = () => {
       <div className="relative max-w-7xl mx-auto px-4 py-20 text-center">
         <div className="w-[70%] md:w-[60%] lg:w-[50%] mx-auto">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-            The math is easy. It's time to elevate.
+            The math is easy. It&apos;s time to elevate.
           </h2>
           <p className="text-sm sm:text-base  max-w-2xl mx-auto mb-10">
-            Experience Clarhet's AI-powered integrated strategy development,
+            Experience Clarhet&apos;s AI-powered integrated strategy development,
             communication, and translation into actions
           </p>
         </div>

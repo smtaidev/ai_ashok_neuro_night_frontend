@@ -9,9 +9,9 @@ const IntegratedPlatform = () => {
       </h1>
       <p className="text-base pt-3 lg:text-[22px] text-black/70 leading-relaxed">
         Embark on a journey of seamless development of adaptive strategies with
-        Clarhet's AI-powered platform. It simplifies complexity and offers
+        Clarhet&apos;s AI-powered platform. It simplifies complexity and offers
         clarity. Bid goodbye to communication chaos as silos disappear, enabling
-        effortless collaboration. Clarhet's holistic approach empowers you to
+        effortless collaboration. Clarhet&apos;s holistic approach empowers you to
         strengthen your present and shape your future, ensuring success in the
         constantly evolving business landscape.
       </p>
