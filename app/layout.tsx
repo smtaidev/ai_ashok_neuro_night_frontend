@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import MainNavbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import ScrollToTopButton from "./components/ScrollToTopButton"; 
+import MainNavbar from "@/components/shared/Navbar";
+import Footer from "@/components/shared/Footer";
+import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
@@ -24,7 +24,8 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light">
       <body className={`${poppins.variable} antialiased relative`}>
-        <header className="bg-white/96 sticky top-0 z-10 py-4">
+        {children}
+        {/* <header className="bg-white/96 sticky top-0 z-10 py-4">
           <MainNavbar />
         </header>
         <main className="min-h-[calc(100vh-370px)]">
@@ -33,9 +34,7 @@ export default function RootLayout({
         <footer>
           <Footer />
         </footer>
-
-        {/* ✅ Scroll to Top button */}
-        <ScrollToTopButton />
+        <ScrollToTopButton /> */}
       </body>
     </html>
   );
