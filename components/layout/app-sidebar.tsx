@@ -47,6 +47,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import * as React from 'react';
 import { Icons } from '../icons';
 import { OrgSwitcher } from '../org-switcher';
+import { cn } from './../../lib/utils';
 export const company = {
   name: 'Acme Inc',
   logo: IconPhotoUp,
@@ -67,7 +68,7 @@ export default function AppSidebar() {
     user: {
       imageUrl: 'https://example.com/image.jpg',
       fullName: 'John Doe',
-      emailAddresses: [{ emailAddress: 'f4faysal.gmail.com' }]
+      emailAddresses: [{ emailAddress: 'md.nasiruddin4067@gmail.com' }]
     }
   };
   const router = useRouter();
@@ -93,7 +94,7 @@ export default function AppSidebar() {
       <SidebarContent className='overflow-x-hidden'>
         <SidebarGroup>
           <SidebarGroupLabel>Overview</SidebarGroupLabel>
-          <SidebarMenu>
+          <SidebarMenu className='data-[active=true]:bg-blue-500 data-[active=true]:text-white'>
             {navItems.map((item) => {
               const Icon = item.icon ? Icons[item.icon] : Icons.logo;
               return item?.items && item?.items?.length > 0 ? (
@@ -102,6 +103,7 @@ export default function AppSidebar() {
                   asChild
                   defaultOpen={item.isActive}
                   className='group/collapsible'
+                // className='bg-blue-500 text-white'
                 >
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>

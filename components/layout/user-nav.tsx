@@ -17,7 +17,7 @@ export function UserNav() {
   const user = {
     imageUrl: 'https://example.com/image.jpg',
     fullName: 'John Doe',
-    emailAddresses: [{ emailAddress: 'f4faysal.gmail.com' }]
+    emailAddresses: [{ emailAddress: 'md.nasiruddin4067@gmail.com' }]
   };
 
   const router = useRouter();

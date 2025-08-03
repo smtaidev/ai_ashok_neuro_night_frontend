@@ -1,137 +1,107 @@
-import PageContainer from '@/components/layout/page-container';
-import { Badge } from '@/components/ui/badge';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardAction,
-  CardFooter
-} from '@/components/ui/card';
-import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-react';
-import React from 'react';
+"use client"
 
-export default function OverViewLayout({
-  sales,
-  pie_stats,
-  bar_stats,
-  area_stats
-}: {
-  sales: React.ReactNode;
-  pie_stats: React.ReactNode;
-  bar_stats: React.ReactNode;
-  area_stats: React.ReactNode;
-}) {
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Gauge } from "lucide-react"
+
+export default function OverViewPage() {
+  const visionScore = 60
+
+  const pointerAngle = (visionScore / 100) * 180
+
+  // Accordion section content
+  const accordionItems = [
+    {
+      value: "insight",
+      title: "Insight",
+      content: "Insight content goes here...",
+    },
+    {
+      value: "key-factors",
+      title: "Key Factors Impacting Strategy",
+      content: "Key Factors content goes here...",
+    },
+    {
+      value: "realignment",
+      title: "Realignment",
+      content: "Realignment content goes here...",
+    },
+    {
+      value: "future-outlook",
+      title: "Future Outlook: Strategic Trends",
+      content: "Future Outlook content goes here...",
+    },
+    {
+      value: "progress-overview",
+      title: "Progress Overview",
+      content: "Progress Overview content goes here...",
+    },
+  ]
+
   return (
-    <PageContainer>
-      <div className='flex flex-1 flex-col space-y-2'>
-        <div className='flex items-center justify-between space-y-2'>
-          <h2 className='text-2xl font-bold tracking-tight'>
-            Hi, Welcome back 👋
-          </h2>
-        </div>
-
-        <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-4'>
-          <Card className='@container/card'>
-            <CardHeader>
-              <CardDescription>Total Revenue</CardDescription>
-              <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                $1,250.00
-              </CardTitle>
-              <CardAction>
-                <Badge variant='outline'>
-                  <IconTrendingUp />
-                  +12.5%
-                </Badge>
-              </CardAction>
-            </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-              <div className='line-clamp-1 flex gap-2 font-medium'>
-                Trending up this month <IconTrendingUp className='size-4' />
-              </div>
-              <div className='text-muted-foreground'>
-                Visitors for the last 6 months
-              </div>
-            </CardFooter>
-          </Card>
-          <Card className='@container/card'>
-            <CardHeader>
-              <CardDescription>New Customers</CardDescription>
-              <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                1,234
-              </CardTitle>
-              <CardAction>
-                <Badge variant='outline'>
-                  <IconTrendingDown />
-                  -20%
-                </Badge>
-              </CardAction>
-            </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-              <div className='line-clamp-1 flex gap-2 font-medium'>
-                Down 20% this period <IconTrendingDown className='size-4' />
-              </div>
-              <div className='text-muted-foreground'>
-                Acquisition needs attention
-              </div>
-            </CardFooter>
-          </Card>
-          <Card className='@container/card'>
-            <CardHeader>
-              <CardDescription>Active Accounts</CardDescription>
-              <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                45,678
-              </CardTitle>
-              <CardAction>
-                <Badge variant='outline'>
-                  <IconTrendingUp />
-                  +12.5%
-                </Badge>
-              </CardAction>
-            </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-              <div className='line-clamp-1 flex gap-2 font-medium'>
-                Strong user retention <IconTrendingUp className='size-4' />
-              </div>
-              <div className='text-muted-foreground'>
-                Engagement exceed targets
-              </div>
-            </CardFooter>
-          </Card>
-          <Card className='@container/card'>
-            <CardHeader>
-              <CardDescription>Growth Rate</CardDescription>
-              <CardTitle className='text-2xl font-semibold tabular-nums @[250px]/card:text-3xl'>
-                4.5%
-              </CardTitle>
-              <CardAction>
-                <Badge variant='outline'>
-                  <IconTrendingUp />
-                  +4.5%
-                </Badge>
-              </CardAction>
-            </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
-              <div className='line-clamp-1 flex gap-2 font-medium'>
-                Steady performance increase{' '}
-                <IconTrendingUp className='size-4' />
-              </div>
-              <div className='text-muted-foreground'>
-                Meets growth projections
-              </div>
-            </CardFooter>
-          </Card>
-        </div>
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7'>
-          <div className='col-span-4'>{bar_stats}</div>
-          <div className='col-span-4 md:col-span-3'>
-            {/* sales arallel routes */}
-            {sales}
+    <div className="p-6 space-y-6 bg-[#F5F7FA] min-h-screen">
+      <Card>
+        <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex items-start gap-4">
+            <div className="p-2 bg-blue-100 rounded-md">
+              <Gauge className="w-6 h-6 text-blue-600" />
+            </div>
+            <div>
+              <CardTitle>Vision</CardTitle>
+              <CardDescription>
+                A Vision provides direction, motivation, and reinforcement for decision-making.
+                It inspires employees, differentiates the organization, and serves as a benchmark for measuring progress.
+                Crafting a clear Vision statement ensures alignment, focus, and success.
+              </CardDescription>
+            </div>
           </div>
-          <div className='col-span-4'>{area_stats}</div>
-          <div className='col-span-4 md:col-span-3'>{pie_stats}</div>
-        </div>
-      </div>
-    </PageContainer>
-  );
+
+          {/* Vision Score */}
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-2xl font-semibold">Vision Score</span>
+            <div className="relative w-32 h-16">
+              <svg viewBox="0 0 100 50" className="w-full h-full">
+                <path
+                  d="M 10 50 A 40 40 0 0 1 90 50"
+                  fill="none"
+                  stroke="#e5e7eb"
+                  strokeWidth="10"
+                />
+                <path
+                  d="M 10 50 A 40 40 0 0 1 90 50"
+                  fill="none"
+                  stroke="#84cc16"
+                  strokeDasharray="120"
+                  strokeDashoffset="60"
+                  strokeWidth="10"
+                />
+                <circle cx="60" cy="20" r="4" fill="#000" />
+              </svg>
+            </div>
+            <span className="text-lg font-bold text-green-600">{visionScore}</span>
+            <span className="text-xs text-muted-foreground text-center">
+              A vision score of 60 or higher is considered a guiding and compelling vision.
+            </span>
+          </div>
+        </CardHeader>
+      </Card>
+
+      {/* Accordion Sections */}
+      <Accordion type="multiple" className="w-full space-y-2">
+        {accordionItems.map((item) => (
+          <AccordionItem key={item.value} value={item.value} className="border-none">
+            <AccordionTrigger className="flex item-center gap-2 px-6 py-4 hover:no-underline hover:bg-gray-50 rounded-lg text-left font-medium">
+              <span className="text-sm font-semibold">{item.title}</span>
+              <div className="flex-1 h-px bg-gray-200 mt-2.5" />
+            </AccordionTrigger>
+            <AccordionContent className="px-6 pb-4 text-gray-600">
+              {item.content}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
+  )
 }
+
+

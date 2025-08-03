@@ -21,13 +21,67 @@ export const navItems: NavItem[] = [
     shortcut: ['d', 'd'],
     items: [] // Empty array as there are no child items for Dashboard
   },
+  // {
+  //   title: 'Product',
+  //   url: '/dashboard/product',
+  //   icon: 'product',
+  //   shortcut: ['p', 'p'],
+  //   isActive: false,
+  //   items: [] // No child items
+  // },
   {
-    title: 'Product',
-    url: '/dashboard/product',
-    icon: 'product',
-    shortcut: ['p', 'p'],
-    isActive: false,
-    items: [] // No child items
+    title: 'Admin',
+    url: '#', // Placeholder as there is no direct link for the parent
+    icon: 'billing',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Admin 1',
+        url: '/dashboard/foundation/identity',
+        icon: 'userPen',
+        shortcut: ['f', 'i']
+      },
+      {
+        title: 'Admin 2',
+        url: '/dashboard/foundation/zero-in',
+        icon: 'userPen',
+        shortcut: ['f', 'z']
+      },
+      {
+        title: 'Capability',
+        url: '/dashboard/foundation/capability',
+        icon: 'userPen',
+        shortcut: ['f', 'c']
+      },
+    ]
+  },
+  {
+    title: 'Foundation',
+    url: '#', // Placeholder as there is no direct link for the parent
+    icon: 'billing',
+    isActive: true,
+
+    items: [
+      {
+        title: 'Identity',
+        url: '/dashboard/foundation/identity',
+        icon: 'userPen',
+        shortcut: ['f', 'i']
+      },
+      {
+        title: 'Zero-in',
+        url: '/dashboard/foundation/zero-in',
+        icon: 'userPen',
+        shortcut: ['f', 'z']
+      },
+      {
+        title: 'Capability',
+        url: '/dashboard/foundation/capability',
+        icon: 'userPen',
+        shortcut: ['f', 'c']
+      },
+    ]
   },
   {
     title: 'Account',
