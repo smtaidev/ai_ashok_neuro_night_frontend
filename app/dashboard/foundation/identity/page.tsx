@@ -11,7 +11,6 @@ import {
   DialogTitle,
   DialogFooter,
   DialogClose,
-  DialogTrigger
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -53,6 +52,11 @@ export default function IdentityPage() {
     );
     setSections(updated);
     setOpen(false);
+  };
+
+  const handleMoreInfo = () => {
+    // Logic for more info can be added here
+    console.log("More info clicked");
   };
 
   return (
@@ -104,27 +108,49 @@ export default function IdentityPage() {
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Edit {activeSection?.title}</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
-              value={editedContent}
-              onChange={(e) => setEditedContent(e.target.value)}
-              placeholder="Enter updated description..."
-            />
+        <DialogContent className="p-0 border-0 sm:max-w-2xl w-11/12 max-w-2xl">
+          <div className="bg-white rounded-xl shadow-lg relative">
+            {/* Header - Blue Background */}
+            <div className="bg-blue-800 text-white p-4 -mt-1 rounded-t-xl">
+              <DialogTitle className="text-xl font-bold">
+                Edit {activeSection?.title}
+              </DialogTitle>
+            </div>
+
+            {/* Content Area */}
+            <div className="px-4 py-6 mb-4 h-60">
+              <div className="grid gap-4 h-full">
+                <Textarea
+                  id="description"
+                  value={editedContent}
+                  onChange={(e) => setEditedContent(e.target.value)}
+                  placeholder="Enter description..."
+                  className="w-full h-full resize-none"
+                />
+              </div>
+            </div>
+
+            {/* Footer Buttons */}
+            <div className="flex justify-end p-4 gap-4">
+              <Button
+                variant="link"
+                onClick={handleMoreInfo}
+                className=" text-[#22398A]"
+              >
+                More Info
+              </Button>
+              <Button
+                onClick={handleSave}
+                className="bg-[#22398A] hover:bg-[#22398A] text-white"
+              >
+                Save
+              </Button>
+            </div>
           </div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button onClick={handleSave}>Save</Button>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
+
+
     </div>
   );
 }

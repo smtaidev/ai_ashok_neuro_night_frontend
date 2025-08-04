@@ -7,6 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
+import { GoPlusCircle } from "react-icons/go";
 
 const coreComponents = [
   {
@@ -14,18 +16,21 @@ const coreComponents = [
     title: "Identity",
     description:
       "Your company's identity is its unique DNA in the business world. It encompasses your mission, values, and purpose. Through the Identity component of the Foundation module, you'll define what sets your company apart, clarifying your purpose and aligning your actions with your core beliefs. It helps you establish a clear direction and build authentic connections with your audience.",
+    link: "/dashboard/foundation/identity",
   },
   {
     id: "02",
     title: "Zero In",
     description:
       "Focus is key in a sea of possibilities. The Zero In component helps you sharpen your strategic focus by identifying your target customer and defining a value proposition. This component enables you to streamline your efforts, optimize your approach and achieve meaningful results with precision.",
+    link: "/dashboard/foundation/zero-in",
   },
   {
     id: "03",
     title: "Capability",
     description:
       "Your company's capabilities are its unique strengths and competencies. The Capability component of the Foundation module helps you identify and leverage these strengths to drive competitive advantage. By understanding your core and differentiating capabilities, you can tailor your offerings, optimize your operations, and outperform the competition. This component empowers you to build on your strengths, address weaknesses, and position your company for sustained success.",
+    link: "/dashboard/foundation/capability",
   },
 ];
 
@@ -89,7 +94,20 @@ const FoundationPage = () => {
                 <p className="text-gray-700 leading-relaxed text-sm">
                   {component.description}
                 </p>
+                <div className="flex items-center justify-end">
+                  {
+                    component.link ? (
+                      <Link
+                        href={component.link}
+                        className="text-[#22398A] flex items-center gap-2"
+                      >
+                        <GoPlusCircle className="size-8" />
+                      </Link>
+                    ) : null
+                  }
+                </div>
               </CardContent>
+
             </Card>
           ))}
         </div>
