@@ -45,7 +45,7 @@ export const navItems: NavItem[] = [
     title: 'Foundation',
     url: '/dashboard/foundation', 
     icon: 'billing',
-    isActive: true,
+    isActive: false,
     items: [
       {
         title: 'Identity',
