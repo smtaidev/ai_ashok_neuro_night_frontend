@@ -80,8 +80,8 @@ export default function AppSidebar() {
 
   return (
     <Sidebar collapsible='icon'>
-      <SidebarHeader>
-
+      <SidebarHeader className='p-4.5 border-b-2 border-gray-200'>
+        <h1 className='text-xl font-semibold'>Shoyas Soft</h1>
       </SidebarHeader>
       <SidebarContent className='overflow-x-hidden'>
         <SidebarGroup>
@@ -96,11 +96,12 @@ export default function AppSidebar() {
                   defaultOpen={item.isActive}
                   className='group/collapsible'
                 >
-                  <SidebarMenuItem>
+                  <SidebarMenuItem >
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton
                         tooltip={item.title}
                         isActive={pathname === item.url}
+                        className=''
                       >
                         {item.icon && <Icon />}
                         <span>{item.title}</span>

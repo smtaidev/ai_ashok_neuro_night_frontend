@@ -42,17 +42,13 @@ const SpeedMeterPage = ({ score = 60 }) => {
   const needleTipY = 100 + needleLength * Math.sin(needleAngleRad);
   return (
     <div className="flex flex-col items-center p-4 rounded-lg ">
-
-      <div className="flex flex-col items-start w-full mb-4">
+      <div className="flex flex-col items-center w-full mb-4">
         <h2 className="text-xl font-bold text-gray-800">Vision Score</h2>
-        <p className="text-3xl font-bold text-lime-600">{normalizedScore}</p>
-
       </div>
 
 
       <div className="relative w-full h-40">
         <svg viewBox="0 0 200 120" className="w-full h-full">
-
           {segments.map((seg, index) => (
             <path
               key={index}

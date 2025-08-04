@@ -8,7 +8,7 @@ import { ThemeProvider } from 'next-themes';
 import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
-  title: 'Next Shadcn Dashboard Starter',
+  title: 'Clarhet Dashboard',
   description: 'Basic dashboard with Next.js and Shadcn'
 };
 
