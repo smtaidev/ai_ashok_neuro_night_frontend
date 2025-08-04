@@ -1,7 +1,7 @@
 // app/before-page.tsx or wherever it's located
 import Image from "next/image";
 import visionImage from "@/public/image/blueprint-img.png";
-import VisionButton from "./VisionButton";
+import VisionButton from "./SharedModalButton";
 
 const BeforePage = () => {
   return (
@@ -19,7 +19,7 @@ const BeforePage = () => {
           </h1>
 
           {/* Now using the client component */}
-          <VisionButton />
+          <VisionButton label="Lets create the vision!"/>
         </div>
       </div>
     </div>
