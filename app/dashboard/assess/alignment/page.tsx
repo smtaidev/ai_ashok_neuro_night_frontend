@@ -1,9 +1,8 @@
-import React from 'react'
-
-const page = () => {
+export default function AlignmentPage() {
   return (
-    <div>page</div>
-  )
-}
-
-export default page
+    <div>
+      <h1>Assess  Alignment  Page</h1>
+      <p>This is the content of the Assess Alignment page.</p>
+    </div>
+  );
+}  

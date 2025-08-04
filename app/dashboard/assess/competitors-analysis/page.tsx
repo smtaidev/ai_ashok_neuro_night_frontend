@@ -1,9 +1,8 @@
-import React from 'react'
-
-const CompetitorApage = () => {
+export default function CompetitorsAnalysisPage() {
   return (
-    <div>CompetitorApage</div>
-  )
-}
-
-export default CompetitorApage
+    <div>
+      <h1>Assess  Competitors  Analysis  Page</h1>
+      <p>This is the content of the Assess Competitors Analysis page.</p>
+    </div>
+  );
+}  

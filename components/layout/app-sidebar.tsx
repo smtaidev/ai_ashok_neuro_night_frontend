@@ -18,7 +18,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarGroupLabel,
+  SidebarGroupLabel, 
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -86,7 +86,7 @@ export default function AppSidebar() {
       <SidebarContent className='overflow-x-hidden'>
         <SidebarGroup>
           <SidebarGroupLabel>Overview</SidebarGroupLabel>
-          <SidebarMenu className='data-[active=true]:bg-blue-500 data-[active=true]:text-white'>
+          <SidebarMenu className='data-[active=true]:bg-blue-500! data-[active=true]:text-sidebar-accent-foreground!'>
             {navItems.map((item) => {
               const Icon = item.icon ? Icons[item.icon] : Icons.logo;
               return item?.items && item?.items?.length > 0 ? (

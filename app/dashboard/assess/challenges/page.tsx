@@ -1,9 +1,8 @@
-import React from 'react'
-
-const page = () => {
+export default function ChallengePage() {
   return (
-    <div>page</div>
-  )
-}
-
-export default page
+    <div>
+      <h1>Assess Challenges Page</h1>
+      <p>This is the content of the Assess Challenges page.</p>
+    </div>
+  );
+}  

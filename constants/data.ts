@@ -11,7 +11,6 @@ export type Product = {
   updated_at: string;
 };
 
-//Info: The following data is used for the sidebar navigation and Cmd K bar.
 export const navItems: NavItem[] = [
   {
     title: 'Dashboard',
@@ -19,19 +18,11 @@ export const navItems: NavItem[] = [
     icon: 'dashboard',
     isActive: false,
     shortcut: ['d', 'd'],
-    items: [] // Empty array as there are no child items for Dashboard
+    items: [] 
   },
-  // {
-  //   title: 'Product',
-  //   url: '/dashboard/product',
-  //   icon: 'product',
-  //   shortcut: ['p', 'p'],
-  //   isActive: false,
-  //   items: [] // No child items
-  // },
   {
     title: 'Admin',
-    url: '#', // Placeholder as there is no direct link for the parent
+    url: '#', 
     icon: 'billing',
     isActive: true,
 
@@ -48,20 +39,13 @@ export const navItems: NavItem[] = [
         icon: 'userPen',
         shortcut: ['f', 'z']
       },
-      {
-        title: 'Capability',
-        url: '/dashboard/foundation/capability',
-        icon: 'userPen',
-        shortcut: ['f', 'c']
-      },
     ]
   },
   {
     title: 'Foundation',
-    url: '#', // Placeholder as there is no direct link for the parent
+    url: '/dashboard/foundation', 
     icon: 'billing',
     isActive: true,
-
     items: [
       {
         title: 'Identity',
@@ -84,34 +68,139 @@ export const navItems: NavItem[] = [
     ]
   },
   {
-    title: 'Account',
-    url: '#', // Placeholder as there is no direct link for the parent
+    title: 'Assess',
+    url: '/dashboard/assess', 
     icon: 'billing',
     isActive: true,
-
     items: [
       {
-        title: 'Profile',
-        url: '/dashboard/profile',
+        title: 'Trends',
+        url: '/dashboard/assess/trends',
         icon: 'userPen',
-        shortcut: ['m', 'm']
+        shortcut: ['a', 't']
       },
       {
-        title: 'Login',
-        shortcut: ['l', 'l'],
-        url: '/',
-        icon: 'login'
-      }
+        title: 'Swot',
+        url: '/dashboard/assess/swot',
+        icon: 'userPen',
+        shortcut: ['a', 's']
+      },
+      {
+        title: 'Challenges',
+        url: '/dashboard/assess/challenges',
+        icon: 'userPen',
+        shortcut: ['a', 'c']
+      },
+      {
+        title: 'Competitors Analysis',
+        url: '/dashboard/assess/competitors-analysis',
+        icon: 'userPen',
+        shortcut: ['a', 'c']
+      },
+      {
+        title: 'ClarhetAi Recommendations',
+        url: '/dashboard/assess/clarhet-ai',
+        icon: 'userPen',
+        shortcut: ['a', 'c']
+      },
+      {
+        title: 'Alignment',
+        url: '/dashboard/assess/alignment',
+        icon: 'userPen',
+        shortcut: ['a', 'a']
+      },
+    ]
+  },
+
+  {
+    title: 'Blueprint',
+    url: '/dashboard/blueprint', 
+    icon: 'billing',
+    isActive: true,
+    items: [
+      {
+        title: 'Vision',
+        url: '/dashboard/blueprint/vision',
+        icon: 'userPen',
+        shortcut: ['b', 'v']
+      },
+      {
+        title: 'Strategic Themes',
+        url: '/dashboard/blueprint/strategic-themes',
+        icon: 'userPen',
+        shortcut: ['b', 's']
+      },
+      {
+        title: 'Business Goals',
+        url: '/dashboard/blueprint/business-goals',
+        icon: 'userPen',
+        shortcut: ['b', 'g']
+      },
+      {
+        title: 'Alignment Check',
+        url: '/dashboard/blueprint/alignment-check',
+        icon: 'userPen',
+        shortcut: ['b', 'c']
+      },
+    ]
+  },
+
+  {
+    title: 'Choreography',
+    url: '/dashboard/choreography', 
+    icon: 'billing',
+    isActive: true,
+    items: [
+      {
+        title: 'Objectives',
+        url: '/dashboard/choreography/objectives',
+        icon: 'userPen',
+        shortcut: ['c', 'o']
+      },
+      {
+        title: 'Teams',
+        url: '/dashboard/choreography/teams',
+        icon: 'userPen',
+        shortcut: ['c', 't']
+      },
+      {
+        title: 'Alignment Check',
+        url: '/dashboard/choreography/alignment-check',
+        icon: 'userPen',
+        shortcut: ['c', 'a']
+      },
     ]
   },
   {
-    title: 'Kanban',
-    url: '/dashboard/kanban',
-    icon: 'kanban',
-    shortcut: ['k', 'k'],
+    title: 'Meetings',
+    url: '/dashboard/meetings', 
+    icon: 'billing',
+    isActive: true,
+    items: [
+      {
+        title: 'Agenda Builder',
+        url: '/dashboard/meetings/agenda-builder',
+        icon: 'userPen',
+        shortcut: ['m', 'a']
+      },
+      {
+        title: 'Archive',
+        url: '/dashboard/meetings/archive',
+        icon: 'userPen',
+        shortcut: ['m', 'a']
+      },
+      
+    ]
+  },
+  {
+    title: 'Reports',
+    url: '/dashboard/reports',
+    icon: 'dashboard',
     isActive: false,
-    items: [] // No child items
-  }
+    shortcut: ['d', 'r'],
+    items: [] // Empty array as there are no child items for Dashboard
+  },
+  
 ];
 
 export interface SaleUser {
