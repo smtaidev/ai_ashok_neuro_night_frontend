@@ -46,6 +46,7 @@ export const navItems: NavItem[] = [
     url: '/dashboard/foundation', 
     icon: 'billing',
     isActive: false,
+    shortcut: ['d', 'f'],
     items: [
       {
         title: 'Identity',
