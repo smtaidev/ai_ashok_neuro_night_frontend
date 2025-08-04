@@ -215,16 +215,28 @@ export const navItems: NavItem[] = [
     isActive: false,
     items: [
       {
-        title: 'Admin 1',
-        url: '/dashboard/foundation/identity',
+        title: 'Organization Info',
+        url: '/dashboard/admin/organization-info',
         icon: 'userPen',
         shortcut: ['f', 'i']
       },
       {
-        title: 'Admin 2',
-        url: '/dashboard/foundation/zero-in',
+        title: 'Business Functions',
+        url: '/dashboard/admin/business-functions',
         icon: 'userPen',
-        shortcut: ['f', 'z']
+        shortcut: ['f', 'b']
+      },
+      {
+        title: 'User Management',
+        url: '/dashboard/admin/user-management',
+        icon: 'userPen',
+        shortcut: ['f', 'u']
+      },
+      {
+        title: 'Subscription',
+        url: '/dashboard/admin/subscription',
+        icon: 'userPen',
+        shortcut: ['f', 'u']
       },
     ]
   },

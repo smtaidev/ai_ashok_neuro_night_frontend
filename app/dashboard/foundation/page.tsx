@@ -35,10 +35,10 @@ const FoundationPage = () => {
       <Card>
         <CardHeader className="flex flex-col md:flex-row md:justify-between gap-4">
           <div>
-            <CardTitle className="md:text-2xl text-lg font-bold text-gray-900 dark:text-white">
+            <CardTitle className="md:text-2xl text-lg font-bold text-gray-900">
               Welcome to Foundation
             </CardTitle>
-            <CardDescription className="text-gray-600 mt-1 dark:text-white">
+            <CardDescription className="text-gray-600 mt-1">
               The cornerstone of your company&apos;s strategic success! In the
               dynamic business landscape, having a solid base is paramount to
               navigating challenges and seizing opportunities with confidence.
@@ -64,11 +64,11 @@ const FoundationPage = () => {
         </CardHeader>
       </Card>
 
-      <div className="p-6 bg-white rounded-lg shadow-md dark:bg-[#171717] ">
-        <h1 className="md:text-2xl text-lg font-bold text-gray-900 dark:text-white">
+      <div className="p-6 bg-white rounded-lg shadow-md ">
+        <h1 className="md:text-2xl text-lg font-bold text-gray-900">
           Core Component of Foundation
         </h1>
-        <div className="flex flex-col md:flex-row gap-6 mt-4 space-y-4 md:space-y-0 dark:bg-[#171717]">
+        <div className="flex flex-col md:flex-row gap-6 mt-4 space-y-4 md:space-y-0">
           {coreComponents.map((component) => (
             <Card
               key={component.id}
