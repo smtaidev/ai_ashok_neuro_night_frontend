@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Modal from "./visionModal";
 import Drawer from "./DrawarModal";
-import {  VisionHTML } from "@/public/static-json-data/blueprint/blueprint-vision";
+import { VisionHTML } from "@/public/static-json-data/blueprint/blueprint-vision";
 import StrategicTheme from "@/public/static-json-data/blueprint/strategic-theme";
 
 const SharedModalButton = ({ label }: { label: string }) => {
@@ -26,11 +26,11 @@ const SharedModalButton = ({ label }: { label: string }) => {
 
     // Choose data based on pathname
     if (pathname === "/dashboard/blueprint/vision") {
-      setInfoData(<VisionHTML/>);
-    } 
+      setInfoData(<VisionHTML />);
+    }
     else if (pathname === "/dashboard/blueprint/strategic-themes") {
-      setInfoData(<StrategicTheme/>);
-    } 
+      setInfoData(<StrategicTheme />);
+    }
     // else {
     //   setInfoData(defaultData);
     // }

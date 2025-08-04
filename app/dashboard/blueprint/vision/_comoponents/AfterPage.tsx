@@ -25,25 +25,20 @@ const AfterPage: React.FC = () => {
       <div className="bg-white border border-gray-200 p-5 rounded-lg relative">
         <div className='flex justify-between items-center mb-5'>
 
-        <h2 className="text-2xl font-semibold mb-2">Vision</h2>
-        
+          <h2 className="text-2xl font-semibold mb-2">Vision</h2>
 
-
-
-
-
-                <div className="flex justify-between items-center">
-          <div>
-            {isEditing ? (
-              <>
-                <button onClick={handleSave} className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-lg mr-2">Save</button>
-                <button onClick={handleCancel} className="bg-white text-blue-500 border cursor-pointer border-blue-500 px-4 py-2 rounded-lg">Cancel</button>
-              </>
-            ) : (
-              <button onClick={handleEdit} className="text-blue-800 font-bold cursor-pointer">Edit</button>
-            )}
+          <div className="flex justify-between items-center">
+            <div>
+              {isEditing ? (
+                <>
+                  <button onClick={handleSave} className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-lg mr-2">Save</button>
+                  <button onClick={handleCancel} className="bg-white text-blue-500 border cursor-pointer border-blue-500 px-4 py-2 rounded-lg">Cancel</button>
+                </>
+              ) : (
+                <button onClick={handleEdit} className="text-blue-800 font-bold cursor-pointer">Edit</button>
+              )}
+            </div>
           </div>
-        </div>
 
 
 
@@ -62,11 +57,11 @@ const AfterPage: React.FC = () => {
         ) : (
           <p className="mb-2">{vision}</p>
         )}
-        
+
       </div>
       <div className='flex justify-end'>
 
-          <button className="bg-blue-900 mr-1 mt-5 text-white px-4 py-2 rounded-lg">ClaretiAI Insights</button>
+        <button className="bg-blue-900 mr-1 mt-5 text-white px-4 py-2 rounded-lg">ClaretiAI Insights</button>
       </div>
     </div>
   );
