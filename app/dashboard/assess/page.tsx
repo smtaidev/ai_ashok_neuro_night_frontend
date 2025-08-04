@@ -10,9 +10,9 @@ export default function assessPage() {
         {/* text left side  */}
         <div className="flex-1 space-y-4  md:text-left">
           <h1 className="text-3xl font-bold">Assess</h1>
-          <p >Stay tuned for more updates!</p>
-          <p>A robust strategy is imperative in the dynamic landscape of decision-making. Assess is designed to guide you through the <br /> intricacies of  decision-making by collecting relevant information and providing comprehensive insights across four vital <br /> elements: Trends, SWOT, Challenges, and Competitors Analysis.</p>
-          <p>In addition to these vital components, Assess has two additional components: Alignment and ClarhetAI Recommendations. <br /> Alignment ensures cohesion and  shared understanding among stakeholders regarding Trends, SWOT, Challenges, and <br /> Competitors Analysis. Meanwhile, the ClarhetAI Recommendations component showcases all recommendations generated <br /> by ClarhetAI.</p>
+          <p  className="text-sm text-gray-600 mt-2 leading-relaxed">Your compass for strategic excellence!</p>
+          <p className="text-sm text-gray-600 mt-2 leading-relaxed">A robust strategy is imperative in the dynamic landscape of decision-making. Assess is designed to guide you through the <br /> intricacies of  decision-making by collecting relevant information and providing comprehensive insights across four vital <br /> elements: Trends, SWOT, Challenges, and Competitors Analysis.</p>
+          <p className="text-sm text-gray-600 mt-2 leading-relaxed">In addition to these vital components, Assess has two additional components: Alignment and ClarhetAI Recommendations. <br /> Alignment ensures cohesion and  shared understanding among stakeholders regarding Trends, SWOT, Challenges, and <br /> Competitors Analysis. Meanwhile, the ClarhetAI Recommendations component showcases all recommendations generated <br /> by ClarhetAI.</p>
           
         </div>
         <div>
