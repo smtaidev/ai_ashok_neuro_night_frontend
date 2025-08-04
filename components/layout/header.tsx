@@ -3,9 +3,8 @@ import { SidebarTrigger } from '../ui/sidebar';
 import { Separator } from '../ui/separator';
 import { Breadcrumbs } from '../breadcrumbs';
 import { UserNav } from './user-nav';
-import { ThemeSelector } from '../theme-selector';
 import { ModeToggle } from './ThemeToggle/theme-toggle';
-import CtaGithub from './cta-github';
+import { TbBellRinging2 } from "react-icons/tb";
 
 export default function Header() {
   return (
@@ -20,8 +19,9 @@ export default function Header() {
         {/* <div className='hidden md:flex'>
           <SearchInput />
         </div> */}
+        <TbBellRinging2 className='text-white size-8' />
         <UserNav />
-        <ModeToggle />
+        {/* <ModeToggle /> */}
       </div>
     </header>
   );
