@@ -115,7 +115,9 @@ export default function AppSidebar() {
                         className=''
                       >
                         {item.icon && <Icon />}
-                        <span>{item.title}</span>
+                        <Link href={item.url}>
+                          <span>{item.title}</span>
+                        </Link>
                         <IconChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
