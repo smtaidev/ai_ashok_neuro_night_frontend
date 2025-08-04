@@ -40,7 +40,7 @@ export default function OverViewPage() {
   return (
     <div className="p-6 space-y-6 bg-[#F5F7FA] min-h-screen">
       <Card>
-        <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <CardHeader className="flex flex-col md:flex-row  md:justify-between gap-4">
           <div className="flex items-start gap-4">
             <Image
               src="/image/dashboard-icon.png"

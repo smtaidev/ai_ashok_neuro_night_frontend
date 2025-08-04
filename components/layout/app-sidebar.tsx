@@ -18,7 +18,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarGroupLabel, 
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -26,7 +26,8 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  SidebarRail
+  SidebarRail,
+  useSidebar
 } from '@/components/ui/sidebar';
 import { UserAvatarProfile } from '@/components/user-avatar-profile';
 import { navItems } from '@/constants/data';
@@ -48,21 +49,18 @@ import * as React from 'react';
 import { Icons } from '../icons';
 import { OrgSwitcher } from '../org-switcher';
 import { cn } from './../../lib/utils';
+
 export const company = {
-  name: 'Acme Inc',
+  name: 'Shoyas Soft Tech',
   logo: IconPhotoUp,
   plan: 'Enterprise'
 };
 
-const tenants = [
-  { id: '1', name: 'Acme Inc' },
-  { id: '2', name: 'Beta Corp' },
-  { id: '3', name: 'Gamma Ltd' }
-];
 
 export default function AppSidebar() {
   const pathname = usePathname();
   const { isOpen } = useMediaQuery();
+  const sidebar = useSidebar();
   // const { user } = useUser();
   const { user } = {
     user: {
@@ -78,11 +76,24 @@ export default function AppSidebar() {
     // Side effects based on sidebar state changes
   }, [isOpen]);
 
+
   return (
     <Sidebar collapsible='icon'>
-      <SidebarHeader>
-
+      <SidebarHeader className='pb-4.5 border-b-2 border-gray-200'>
+        <div className='flex items-center space-x-2'>
+          <span className='text-base font-bold whitespace-nowrap transition-all duration-300'>
+            {sidebar.open
+              ? company.name
+              : company.name
+                .split(' ')
+                .map(word => word[0])
+                .join('')
+                .toUpperCase()}
+          </span>
+        </div>
       </SidebarHeader>
+
+
       <SidebarContent className='overflow-x-hidden'>
         <SidebarGroup>
           <SidebarGroupLabel>Overview</SidebarGroupLabel>
@@ -96,11 +107,12 @@ export default function AppSidebar() {
                   defaultOpen={item.isActive}
                   className='group/collapsible'
                 >
-                  <SidebarMenuItem>
+                  <SidebarMenuItem >
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton
                         tooltip={item.title}
                         isActive={pathname === item.url}
+                        className=''
                       >
                         {item.icon && <Icon />}
                         <span>{item.title}</span>
