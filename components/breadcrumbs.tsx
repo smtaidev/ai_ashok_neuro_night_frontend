@@ -20,18 +20,18 @@ export function Breadcrumbs() {
       <BreadcrumbList>
         {items.map((item, index) => (
           <Fragment key={item.title}>
-            {index !== items.length - 1 && (
+            {/* {index !== items.length - 1 && (
               <BreadcrumbItem className='hidden md:block'>
                 <BreadcrumbLink href={item.link}>{item.title}</BreadcrumbLink>
               </BreadcrumbItem>
-            )}
-            {index < items.length - 1 && (
+            )} */}
+            {/* {index < items.length - 1 && (
               <BreadcrumbSeparator className='hidden md:block'>
                 <IconSlash />
               </BreadcrumbSeparator>
-            )}
+            )} */}
             {index === items.length - 1 && (
-              <BreadcrumbPage>{item.title}</BreadcrumbPage>
+              <BreadcrumbPage><span className='text-white'>{item.title}</span></BreadcrumbPage>
             )}
           </Fragment>
         ))}

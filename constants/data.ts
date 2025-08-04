@@ -20,27 +20,7 @@ export const navItems: NavItem[] = [
     shortcut: ['d', 'd'],
     items: [] 
   },
-  {
-    title: 'Admin',
-    url: '#', 
-    icon: 'billing',
-    isActive: true,
-
-    items: [
-      {
-        title: 'Admin 1',
-        url: '/dashboard/foundation/identity',
-        icon: 'userPen',
-        shortcut: ['f', 'i']
-      },
-      {
-        title: 'Admin 2',
-        url: '/dashboard/foundation/zero-in',
-        icon: 'userPen',
-        shortcut: ['f', 'z']
-      },
-    ]
-  },
+  
   {
     title: 'Foundation',
     url: '/dashboard/foundation', 
@@ -72,7 +52,7 @@ export const navItems: NavItem[] = [
     title: 'Assess',
     url: '/dashboard/assess', 
     icon: 'billing',
-    isActive: true,
+    isActive: false,
     items: [
       {
         title: 'Trends',
@@ -117,7 +97,7 @@ export const navItems: NavItem[] = [
     title: 'Blueprint',
     url: '/dashboard/blueprint', 
     icon: 'billing',
-    isActive: true,
+    isActive: false,
     items: [
       {
         title: 'Vision',
@@ -150,7 +130,7 @@ export const navItems: NavItem[] = [
     title: 'Choreography',
     url: '/dashboard/choreography', 
     icon: 'billing',
-    isActive: true,
+    isActive: false,
     items: [
       {
         title: 'Objectives',
@@ -173,11 +153,38 @@ export const navItems: NavItem[] = [
     ]
   },
   {
+    title: 'Capital and Talent',
+    url: '/dashboard/capital-and-talent',
+    icon: 'dashboard',
+    isActive: false,
+    shortcut: ['c', 't'],
+    items: [
+      {
+        title: 'Human Resources',
+        url: '/dashboard/capital-and-talent/human-resources',
+        icon: 'userPen',
+        shortcut: ['c', 'h']
+      },
+      {
+        title: 'Finance',
+        url: '/dashboard/capital-and-talent/finance',
+        icon: 'userPen',
+        shortcut: ['c', 'f']
+      },
+    ]
+  },
+  {
     title: 'Meetings',
     url: '/dashboard/meetings', 
     icon: 'billing',
-    isActive: true,
+    isActive: false,
     items: [
+      {
+        title: 'Add Meeting',
+        url: '/dashboard/meetings/add-meeting',
+        icon: 'userPen',
+        shortcut: ['m', 'e']
+      },
       {
         title: 'Agenda Builder',
         url: '/dashboard/meetings/agenda-builder',
@@ -188,7 +195,7 @@ export const navItems: NavItem[] = [
         title: 'Archive',
         url: '/dashboard/meetings/archive',
         icon: 'userPen',
-        shortcut: ['m', 'a']
+        shortcut: ['m', 'r']
       },
       
     ]
@@ -200,6 +207,26 @@ export const navItems: NavItem[] = [
     isActive: false,
     shortcut: ['d', 'r'],
     items: [] // Empty array as there are no child items for Dashboard
+  },
+  {
+    title: 'Admin',
+    url: '#', 
+    icon: 'billing',
+    isActive: false,
+    items: [
+      {
+        title: 'Admin 1',
+        url: '/dashboard/foundation/identity',
+        icon: 'userPen',
+        shortcut: ['f', 'i']
+      },
+      {
+        title: 'Admin 2',
+        url: '/dashboard/foundation/zero-in',
+        icon: 'userPen',
+        shortcut: ['f', 'z']
+      },
+    ]
   },
   
 ];

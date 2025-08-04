@@ -79,7 +79,7 @@ export default function AppSidebar() {
 
   return (
     <Sidebar collapsible='icon'>
-      <SidebarHeader className='pb-4.5 border-b-2 border-gray-200'>
+      <SidebarHeader className='pb-4.5 border-b-2 border-[#22398A]'>
         <div className='flex items-center space-x-2'>
           <span className='text-base font-bold whitespace-nowrap transition-all duration-300'>
             {sidebar.open

@@ -74,11 +74,13 @@ body {
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(45.188% 0.29859 264.202);
+  /* --sidebar-accent: oklch(45.188% 0.29859 264.202); */
+  --sidebar-accent: #22398A;
   --sidebar-accent-foreground: oklch(100% 0.00011 271.152);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }
+
 
 .dark {
   --background: oklch(0.145 0 0);
@@ -122,4 +124,8 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.dashboard-container {
+  @apply p-6 space-y-6 bg-[#F5F7FA] min-h-screen;
 }
