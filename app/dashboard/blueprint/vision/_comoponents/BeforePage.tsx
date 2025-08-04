@@ -19,7 +19,7 @@ const BeforePage = () => {
           </h1>
 
           {/* Now using the client component */}
-          <VisionButton label="Lets create the vision!"/>
+          <VisionButton label="Lets create the vision!" />
         </div>
       </div>
     </div>
