@@ -39,7 +39,9 @@ export default async function DashboardLayout({
             <SidebarInset>
               <Header />
               {/* page main content */}
-              {children}
+              <div className={`p-6 space-y-6 ${isScaled ? 'scale-90' : ''}`}>
+                {children}
+              </div>
               {/* page main content ends */}
             </SidebarInset>
           </SidebarProvider>
