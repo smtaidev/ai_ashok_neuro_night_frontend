@@ -6,6 +6,7 @@ import ReuseableDrawer from "../../_components/reuseable/ReuseableDrawer";
 import Image from "next/image";
 import LinkImage from "@/public/image/link-icon.svg";
 import Link from "next/link";
+import VisionAfter from "@/public/static-json-data/blueprint/vision-after-form-db";
 
 const AfterPage: React.FC = () => {
   const [vision, setVision] = useState(
@@ -34,7 +35,7 @@ const AfterPage: React.FC = () => {
 
   /** Open Drawer with AI insights */
   const handleMoreInfo = () => {
-    setInfoData(<p>AI-generated insights about Vision go here...</p>);
+    setInfoData(<VisionAfter/>);
     setIsDrawerOpen(true);
   };
 
@@ -73,7 +74,7 @@ const AfterPage: React.FC = () => {
       <ReuseableDrawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        title="Vision Insights"
+        title="ClarhetAI Insights"
       >
         {infoData || (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/10">
