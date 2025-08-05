@@ -5,7 +5,7 @@ const StragegicTheme = () => {
   return (
     <div>hello from StragegicTheme
 
-      <SharedModalButton label='Strategic Theme'></SharedModalButton>
+      <SharedModalButton label='Strategic Theme'></SharedModalButton>  
     </div>
   )
 }
