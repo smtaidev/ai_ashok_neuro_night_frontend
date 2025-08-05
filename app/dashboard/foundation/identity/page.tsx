@@ -1,9 +1,9 @@
-import IdentityComponent from "./components/IdentityComponent";
+import IdentityContainerComponent from "./components/IdentityContainerComponent";
 
 export default function IdentityPage() {
   return (
     <>
-      <IdentityComponent />
+      <IdentityContainerComponent />
     </>
   );
 }

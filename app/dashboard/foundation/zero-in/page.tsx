@@ -1,9 +1,9 @@
-import ZeroInComponent from "./components/ZeroInComponent";
+import ZeroInContainerComponent from "./components/ZeroInContainerComponent";
 
 export default function ZeroInPage() {
   return (
     <>
-      <ZeroInComponent />
+      <ZeroInContainerComponent />
     </>
   );
 }

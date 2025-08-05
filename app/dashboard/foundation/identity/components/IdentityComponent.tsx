@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FiEdit, FiPlus } from "react-icons/fi";
@@ -15,20 +15,29 @@ import { identitySectionsData } from "../../_components/dummyData";
 import Drawer from "@/app/dashboard/blueprint/vision/_comoponents/DrawarModal";
 import { renderDrawerBlocks, renderDrawerMission } from "../../_components/drawer-utils";
 
+interface Section {
+  id: string;
+  title: string;
+  content: string;
+  drawerContent: { title: string; description: string };
+}
 
 export default function IdentityComponent() {
-  const [sections, setSections] = useState(identitySectionsData);
+  const [sections, setSections] = useState<Section[]>(() => {
+    const savedData = localStorage.getItem('identityData');
+    return savedData ? JSON.parse(savedData) : identitySectionsData;
+  });
   const [open, setOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<{
-    id: string;
-    title: string;
-    content: string;
-    drawerContent: { title: string; description: string };
-  } | null>(null);
+  const [activeSection, setActiveSection] = useState<Section | null>(null);
   const [editedContent, setEditedContent] = useState("");
   const [openDrawerId, setOpenDrawerId] = useState<string | null>(null);
 
-  const handleEditClick = (section: (typeof identitySectionsData)[0]) => {
+  useEffect(() => {
+    // Save to localStorage whenever sections change
+    localStorage.setItem('identityData', JSON.stringify(sections));
+  }, [sections]);
+
+  const handleEditClick = (section: Section) => {
     setActiveSection(section);
     setEditedContent(section.content);
     setOpen(true);
@@ -39,7 +48,7 @@ export default function IdentityComponent() {
     const updated = sections.map((sec) =>
       sec.id === activeSection.id ? { ...sec, content: editedContent } : sec
     );
-    setSections(updated as any);
+    setSections(updated);
     setOpen(false);
   };
 
@@ -79,7 +88,7 @@ export default function IdentityComponent() {
                 <Button
                   variant="link"
                   className="flex items-center gap-1 text-[#22398A]"
-                  onClick={() => handleEditClick(section as any)}
+                  onClick={() => handleEditClick(section)}
                 >
                   <FiEdit className="h-4 w-4" />
                   <span>Edit</span>
@@ -88,7 +97,7 @@ export default function IdentityComponent() {
                 <Button
                   variant="default"
                   className="bg-[#22398A] hover:bg-[#1a2c6c] flex items-center gap-1"
-                  onClick={() => handleEditClick(section as any)}
+                  onClick={() => handleEditClick(section)}
                 >
                   <FiPlus className="h-4 w-4" />
                   <span>Add {section.title}</span>
@@ -102,14 +111,12 @@ export default function IdentityComponent() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="p-0 border-0 sm:max-w-2xl w-11/12 max-w-2xl">
           <div className="bg-white rounded-xl shadow-lg relative">
-            {/* Header - Blue Background */}
             <div className="bg-blue-800 text-white p-4 -mt-1 rounded-t-xl">
               <DialogTitle className="text-xl font-bold">
                 Edit {activeSection?.title}
               </DialogTitle>
             </div>
 
-            {/* Content Area */}
             <div className="px-4 py-6 mb-4 h-60">
               <Textarea
                 id="description"
@@ -120,13 +127,12 @@ export default function IdentityComponent() {
               />
             </div>
 
-            {/* Footer Buttons */}
             <div className="flex justify-end p-4 gap-4">
               <DialogClose asChild>
                 <Button
                   variant="link"
                   onClick={handleMoreInfoClick}
-                  className=" text-[#22398A]"
+                  className="text-[#22398A]"
                 >
                   More Info
                 </Button>
@@ -142,7 +148,6 @@ export default function IdentityComponent() {
         </DialogContent>
       </Dialog>
 
-      {/* Single Drawer Component */}
       {activeSection && (
         <Drawer
           isOpen={openDrawerId === activeSection.id}
