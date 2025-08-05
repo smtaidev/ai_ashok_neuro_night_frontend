@@ -11,23 +11,20 @@ type DrawerProps = {
 const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, title = "More Info", children }) => {
   return (
     <div
-      className={`fixed inset-0 z-50 transition-all duration-300 ${
-        isOpen ? "visible" : "invisible"
-      }`}
+      className={`fixed inset-0 z-50 transition-all duration-300 ${isOpen ? "visible" : "invisible"
+        }`}
     >
       {/* Background overlay */}
       <div
-        className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${
-          isOpen ? "opacity-100" : "opacity-0"
-        }`}
+        className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"
+          }`}
         onClick={onClose}
       />
 
       {/* Drawer content */}
       <div
-        className={`absolute top-0 right-0 w-[34rem] h-full bg-white shadow-lg transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`absolute top-0 right-0 w-[30rem] h-full bg-white shadow-lg transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Header */}
         <div className="flex justify-between items-center p-4 bg-yellow-500 text-black">
@@ -36,7 +33,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, title = "More Info", c
         </div>
 
         {/* Body */}
-        <div className="p-4  max-h-[calc(100vh-4rem)] overflow-y-auto">{children}</div>
+        <div className="p-4 overflow-y-auto h-[calc(100%-64px)]">{children}</div>
       </div>
     </div>
   );
