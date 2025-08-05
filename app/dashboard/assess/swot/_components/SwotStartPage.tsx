@@ -30,6 +30,7 @@ const SwotStartPage = () => {
       </div>
     </div>
   );
+  
 };
 
 export default SwotStartPage;
