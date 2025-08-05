@@ -25,7 +25,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, title = "More Info", c
 
       {/* Drawer content */}
       <div
-        className={`absolute top-0 right-0 w-[30rem] h-full bg-white shadow-lg transition-transform duration-300 ${
+        className={`absolute top-0 right-0 w-[34rem] h-full bg-white shadow-lg transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -36,7 +36,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, title = "More Info", c
         </div>
 
         {/* Body */}
-        <div className="p-4">{children}</div>
+        <div className="p-4  max-h-[calc(100vh-4rem)] overflow-y-auto">{children}</div>
       </div>
     </div>
   );
