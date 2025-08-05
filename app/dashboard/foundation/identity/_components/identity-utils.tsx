@@ -34,7 +34,7 @@ export const identitySectionsData = [
       title: "Mission",
       description: String.raw`
       <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 10px; border-radius: 8px; background-color: #f9fafb;">
-        <h1 style="font-size: 24px; font-weight: bold;">The mission statement is clear and well-articulated when it:</h1>
+        <h1 style="font-size: 16px; font-weight: bold;">The mission statement is clear and well-articulated when it:</h1>
         <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px; margin-bottom: 10px;">
           <li>Is short, precise, easy to remember, and follow;</li>
           <li>Captures the soul of the organization and is continuously pursued;</li>
@@ -43,7 +43,7 @@ export const identitySectionsData = [
         </ul>
       </div>
       <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 10px; border-radius: 8px; background-color: #f9fafb;">
-        <h2 style="font-size: 20px; font-weight: bold;">Ensure the mission statement is not:</h2>
+        <h2 style="font-size: 16px; font-weight: bold;">Ensure the mission statement is not:</h2>
         <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px; margin-bottom: 10px;">
           <li>Lengthy, complex, and incoherent to understand;</li>
           <li>Just a description of what the organization does currently;</li>
@@ -52,7 +52,7 @@ export const identitySectionsData = [
         </ul>
       </div>
       <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 10px; border-radius: 8px; background-color: #f9fafb;">
-        <h2 style="font-size: 20px; font-weight: bold;">Does your mission statement:</h2>
+        <h2 style="font-size: 16px; font-weight: bold;">Does your mission statement:</h2>
         <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px; margin-bottom: 10px;">
           <li>Express your distinctive and enduring reasons for existence?</li>
           <li>Appeal to a wide range of stakeholders, not just a select few?</li>
@@ -140,7 +140,7 @@ export function MissionDrawerContent({ data }: { data: string }) {
         }
 
         const lines = block.content.split("\n");
-        const isList = lines.every((line) => line.trim().startsWith("-"));
+        const isList = lines.every((line: any) => line.trim().startsWith("-"));
 
         if (isList) {
           return (
