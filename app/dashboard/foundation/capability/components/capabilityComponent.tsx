@@ -140,7 +140,6 @@ export default function CapabilityComponent() {
                 <CardContent className="p-4 text-sm font-medium">
                   <div className="pr-8">{item.text}</div>
                   <div className="absolute top-2 right-2 flex items-center gap-1">
-                    <span className="text-xs opacity-75 mr-2">Edit</span>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button

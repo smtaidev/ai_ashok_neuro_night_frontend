@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 export default function ZeroInFirstView({ onGetStarted }: FirstViewProps) {
   return (
-    <div className='dashboard-container bg-[#f9fafb]'>
+    <div className='dashboard-container bg-white border rounded-lg'>
       <div className='flex flex-col items-center justify-center h-screen space-y-4'>
         <Image
           src="/image/zero-in-img.png"

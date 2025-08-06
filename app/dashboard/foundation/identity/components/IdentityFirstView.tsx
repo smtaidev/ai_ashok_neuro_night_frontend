@@ -9,7 +9,7 @@ export interface FirstViewProps {
 
 export default function IdentityFirstView({ onGetStarted }: FirstViewProps) {
   return (
-    <div className='dashboard-container bg-[#f9fafb]'>
+    <div className='dashboard-container bg-white border rounded-lg'>
       <div className='flex flex-col items-center justify-center h-screen'>
         <Image
           src="/image/first-time-img.png"
