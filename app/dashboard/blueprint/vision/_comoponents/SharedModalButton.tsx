@@ -64,7 +64,7 @@ const SharedModalButton = ({ label }: { label: string }) => {
       <Drawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        title="More Information"
+        title="Vision"
       >
         {infoData ? (
           // <pre className="text-sm">{JSON.stringify(infoData, null, 2)}</pre>

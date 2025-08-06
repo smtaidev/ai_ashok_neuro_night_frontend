@@ -32,8 +32,10 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, title = "More Info", c
           <button onClick={onClose} className="text-2xl">&times;</button>
         </div>
 
-        {/* Body */}
-        <div className="p-4 overflow-y-auto h-[calc(100%-64px)]">{children}</div>
+        {/* Scrollable Body with Custom Scrollbar */}
+        <div className="p-4 overflow-y-auto h-[calc(100%-64px)] custom-scrollbar">
+          {children}
+        </div>
       </div>
     </div>
   );
