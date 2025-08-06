@@ -214,3 +214,76 @@ export const ZoomInSectionsData = [
     },
   },
 ] as const;
+
+
+export const swotSectionsData = [
+  {
+    id: "swot",
+    title: "SWOT",
+    content: "",
+    drawerContent: {
+      title: "SWOT Analysis",
+      description: String.raw`
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <p>
+          SWOT, an acronym for Strengths, Weaknesses, Opportunities, and Threats, is a strategic framework for evaluating the internal and external factors that can impact a company's performance. 
+          It is a structured planning tool to assess these factors and develop strategies that leverage strengths, mitigate weaknesses, capitalize on opportunities, and counteract threats.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="font-size: 18px; font-weight: bold;">Strengths</h2>
+        <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
+          <li>Internal attributes that give the organization a competitive advantage.</li>
+          <li>Examples: Strong brand reputation, skilled workforce, cutting-edge technology.</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="font-size: 18px; font-weight: bold;">Weaknesses</h2>
+        <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
+          <li>Internal factors that place the organization at a disadvantage.</li>
+          <li>Examples: Limited financial resources, outdated technology, inexperienced management.</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="font-size: 18px; font-weight: bold;">Opportunities</h2>
+        <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
+          <li>External factors that the organization can exploit for growth.</li>
+          <li>Examples: Emerging markets, technological advancements, changing consumer trends.</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="font-size: 18px; font-weight: bold;">Threats</h2>
+        <ul ">
+          <li>External factors that may pose challenges to the organization.</li>
+          <li>Examples: Intense competition, economic downturns, regulatory changes.</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="font-size: 18px; font-weight: bold;">Why SWOT Is Essential for Business Leaders</h2>
+        <ul style="list-style-type: decimal; padding-left: 20px; margin-top: 10px; ">
+          <li><strong>Gather Information:</strong> At this point, you should have obtained all the required information from the Trends section of Assess. This information is crucial for future brainstorming and collaboration sessions. In essence, you need to conduct thorough research and gather pertinent data on internal operations, market trends, and competitors.</li>
+          <li><strong>Collaborate:</strong> Collaborate with key stakeholders to ensure diverse perspectives are considered in the analysis.</li>
+          <li><strong>Prioritize Factors:</strong> Collaborate with key stakeholders to ensure diverse perspectives are considered in the analysis.</li>
+          <li><strong>Strategic Decision:</strong> Formulate strategic guidance leveraging strengths and opportunities, addressing weaknesses, and mitigating threats.</li>
+          <li><strong>Regular Review:</strong> A SWOT analysis is not a one-time exercise. Regularly revisit and update the analysis to adapt to changing internal and external conditions.</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="font-size: 18px; font-weight: bold;">Additional Benefits of SWOT for Business Leaders</h2>
+        <ul style="list-style-type: decimal; padding-left: 20px; margin-top: 10px; ">
+          <li><strong>Strategic direction:</strong>  SWOT analysis provides a holistic view of the organization, enabling business leaders to align strategies with internal capabilities and external opportunities.</li>
+          <li><strong>Risk mitigation:</strong> Business leaders can proactively address potential challenges, minimize risks, and enhance resilience by identifying weaknesses and threats.</li>
+          <li><strong>Resource allocation:</strong> SWOT aids in efficiently allocating resources by prioritizing areas where the organization can maximize its strengths and capitalize on opportunities.</li>
+          <li><strong>Informed Decision-Making:</strong> Business leaders armed with a comprehensive SWOT analysis can make informed decisions, steering the organization toward sustainable growth.</li>
+        </ul>
+      </div>
+      `,
+    },
+  },
+] as const;
