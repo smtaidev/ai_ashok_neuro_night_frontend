@@ -95,10 +95,10 @@ export const identitySectionsData = [
   },
 ] as const;
 
-export const ZoomInSectionsData = [
+export const ZeroInSectionsData = [
   {
     id: "01",
-    title: "Target Customers",
+    title: "Who are your Target Customers ?",
     content: "",
     drawerContent: {
       title: "Target Customers",
