@@ -37,7 +37,7 @@ export default function UserAuthForm() {
   const redirect = searchParams.get("redirect") || "/";
   const [loading, startTransition] = useTransition();
   const defaultValues = {
-    email: 'demo@gmail.com'
+    email: 'brown@clarhet.com'
   };
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),

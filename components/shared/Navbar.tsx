@@ -96,7 +96,7 @@ const MainNavbar = () => {
             </Link>
             {
               isUser ? (
-                <Link href='dashboard' className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Dashboard</Link>
+                <Link href='dashboard/overview' className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Dashboard</Link>
               ) : <Link href='login' className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Login</Link>
             }
           </div>
@@ -162,7 +162,7 @@ const MainNavbar = () => {
               </Link>
               {
                 isUser ? (
-                  <Link href='dashboard' className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Dashboard</Link>
+                  <Link href='dashboard/overview' className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Dashboard</Link>
                 ) : <Link href='login' className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Login</Link>
               }
             </div>

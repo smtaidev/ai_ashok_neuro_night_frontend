@@ -56,7 +56,6 @@ export const company = {
   plan: 'Enterprise'
 };
 
-
 export default function AppSidebar() {
   const pathname = usePathname();
   const { isOpen } = useMediaQuery();
