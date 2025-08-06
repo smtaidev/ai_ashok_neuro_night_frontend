@@ -72,7 +72,7 @@ export default function IdentityComponent() {
       <div className="space-y-4">
         {sections.map((section) => (
           <Card key={section.id}>
-            <CardContent className="flex justify-between items-start p-4">
+            <CardContent className="flex justify-between items-start md:flex-row flex-col gap-2 p-4">
               <div className="flex gap-4">
                 <div className="w-8 h-8 rounded-full bg-[#22398A] text-white flex items-center justify-center font-semibold text-sm">
                   {section.id}

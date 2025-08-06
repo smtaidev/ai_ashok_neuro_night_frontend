@@ -16,6 +16,13 @@ import Drawer from '@/app/dashboard/blueprint/vision/_comoponents/DrawarModal';
 import { MissionDrawerContent, renderDrawerMission } from '../../_components/drawer-utils';
 
 
+interface Section {
+  id: string;
+  title: string;
+  buttonTitle: string;
+  content: string;
+  drawerContent: { title: string; description: string };
+}
 
 export default function ZeroInComponent() {
   const [sections, setSections] = useState(ZeroInSectionsData);
@@ -59,9 +66,9 @@ export default function ZeroInComponent() {
       <div className="space-y-4">
         {sections.map((section: any) => (
           <Card key={section.id}>
-            <CardContent className="flex justify-between items-start p-4">
+            <CardContent className="flex justify-between items-start flex-col md:flex-row gap-4 p-4">
               <div className="flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-[#22398A] text-white flex items-center justify-center font-semibold text-sm">
+                <div className="w-8 h-8 rounded-full bg-[#22398A] text-white flex items-center justify-center font-semibold md:text-sm text-base">
                   {section.id}
                 </div>
                 <div>
@@ -79,7 +86,7 @@ export default function ZeroInComponent() {
                 onClick={() => handleEditClick(section)}
               >
                 {section.content ? <FiEdit className="h-4 w-4" /> : <FiPlus className="h-4 w-4" />}
-                <span>{section.content ? 'Edit' : `Add ${section.title}`}</span>
+                <span>{section.content ? 'Edit' : `Add ${section.buttonTitle}`}</span>
               </Button>
             </CardContent>
           </Card>

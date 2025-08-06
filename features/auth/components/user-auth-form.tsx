@@ -9,23 +9,32 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useUserLoginMutation } from '@/redux/api/authApi';
+import { storeUserInfo } from '@/services/auth.service';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
-import GithubSignInButton from './github-auth-button';
+
+interface ILoginValues {
+  email: string;
+  password: string;
+}
 
 const formSchema = z.object({
-  email: z.string().email({ message: 'Enter a valid email address' })
+  email: z.string().email({ message: 'Enter a valid email address' }),
+  password: z.string().min(6, { message: 'Password must be at least 6 characters' })
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
+  const [userLogin] = useUserLoginMutation();
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl');
+  const redirect = searchParams.get("redirect") || "/";
   const [loading, startTransition] = useTransition();
   const defaultValues = {
     email: 'demo@gmail.com'
@@ -35,18 +44,25 @@ export default function UserAuthForm() {
     defaultValues
   });
 
-  const onSubmit = async (data: UserFormValue) => {
-    startTransition(() => {
-      console.log('continue with email clicked');
-      toast.success('Signed In Successfully!');
-    });
+  const onLoginSubmit: SubmitHandler<ILoginValues> = async (data: any) => {
+    try {
+      const response = await userLogin({ ...data }).unwrap();
+      if (response?.accessToken) {
+        storeUserInfo({ accessToken: response?.accessToken });
+        router.push(redirect);
+        toast.success("Login successful");
+      }
+    } catch (error: any) {
+      toast.error("Invalid email or password", error.message);
+    }
   };
+
 
   return (
     <>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(onLoginSubmit)}
           className='w-full space-y-2'
         >
           <FormField
@@ -68,26 +84,35 @@ export default function UserAuthForm() {
             )}
           />
 
+          <FormField
+            control={form.control}
+            name='password'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type='password'
+                    placeholder='Enter your password...'
+                    disabled={loading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <Button
+            variant={"getStarted"}
             disabled={loading}
-            className='mt-2 ml-auto w-full'
+            className='mt-6 ml-auto w-full'
             type='submit'
           >
-            Continue With Email
+            Login
           </Button>
         </form>
       </Form>
-      <div className='relative'>
-        <div className='absolute inset-0 flex items-center'>
-          <span className='w-full border-t' />
-        </div>
-        <div className='relative flex justify-center text-xs uppercase'>
-          <span className='bg-background text-muted-foreground px-2'>
-            Or continue with
-          </span>
-        </div>
-      </div>
-      <GithubSignInButton />
     </>
   );
 }

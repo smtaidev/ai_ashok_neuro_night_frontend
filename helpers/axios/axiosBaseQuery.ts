@@ -29,11 +29,11 @@ export const axiosBaseQuery =
         headers: {
           "Content-Type": contentType || "application/json",
         },
-        // withCredentials: true,
+        withCredentials: true,
       });
       return result;
     } catch (axiosError) {
-      let err = axiosError as AxiosError;
+      const err: any = axiosError as AxiosError;
       return {
         error: {
           status: err.response?.status,
