@@ -8,14 +8,11 @@ import Image from "next/image";
 import { LuTwitter } from "react-icons/lu";
 import { FiLinkedin, FiMenu } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
-import { isLoggedIn } from './../../services/auth.service';
 
 const MainNavbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const pathname = usePathname();
-
-  const isUser = isLoggedIn() as any
 
   // const { role, id, email, userName, password, companyName } = getUserInfo() as any;
 
@@ -25,7 +22,6 @@ const MainNavbar = () => {
   // console.log("User Name:", userName);
   // console.log("User Password:", password);
   // console.log("User Company Name:", companyName);
-
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const closeDropdown = () => setIsDropdownOpen(false);
@@ -77,10 +73,11 @@ const MainNavbar = () => {
                   <Link
                     href={link.to}
                     onClick={closeDropdown}
-                    className={`${linkBaseClass} ${isActive(link.to)
-                      ? "text-blue-600 border-b font-semibold"
-                      : "text-black hover:text-blue-600"
-                      }`}
+                    className={`${linkBaseClass} ${
+                      isActive(link.to)
+                        ? "text-blue-600 border-b font-semibold"
+                        : "text-black hover:text-blue-600"
+                    }`}
                   >
                     {link.label}
                   </Link>
@@ -91,14 +88,17 @@ const MainNavbar = () => {
 
           {/* Support Button */}
           <div className="hidden lg:flex gap-3">
-            <Link href='get-a-demo' className="btn outline-1 rounded-full px-6 py-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors duration-200">
+            <Link
+              href="get-a-demo"
+              className="btn outline-1 rounded-full px-6 py-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors duration-200"
+            >
               Support
             </Link>
-            {
+            {/* {
               isUser ? (
                 <Link href='dashboard/overview' className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Dashboard</Link>
               ) : <Link href='login' className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Login</Link>
-            }
+            } */}
           </div>
 
           {/* Hamburger */}
@@ -108,12 +108,7 @@ const MainNavbar = () => {
               aria-label={isDropdownOpen ? "Close menu" : "Open menu"} // ✅ CHANGE
               className="cursor-pointer"
             >
-              {isDropdownOpen ? (
-                <RxCross2 size={30} />
-              ) : (
-                <FiMenu size={30} />
-
-              )}
+              {isDropdownOpen ? <RxCross2 size={30} /> : <FiMenu size={30} />}
             </button>
           </div>
         </div>
@@ -127,10 +122,11 @@ const MainNavbar = () => {
                   <Link
                     href={link.to}
                     onClick={closeDropdown}
-                    className={`text-lg font-medium py-2 block transition-colors duration-200 ${isActive(link.to)
-                      ? "text-blue-600 font-semibold"
-                      : "text-gray-800 hover:text-blue-600"
-                      }`}
+                    className={`text-lg font-medium py-2 block transition-colors duration-200 ${
+                      isActive(link.to)
+                        ? "text-blue-600 font-semibold"
+                        : "text-gray-800 hover:text-blue-600"
+                    }`}
                   >
                     {link.label}
                   </Link>
@@ -140,9 +136,15 @@ const MainNavbar = () => {
 
             <div className="flex gap-6 my-6 ml-4">
               {[
-                { icon: <FaInstagram />, link: "https://www.instagram.com/clarhethq/" },
+                {
+                  icon: <FaInstagram />,
+                  link: "https://www.instagram.com/clarhethq/",
+                },
                 { icon: <LuTwitter />, link: "https://x.com/ClarhetHQ" },
-                { icon: <FiLinkedin />, link: "https://ca.linkedin.com/company/clarhethq" },
+                {
+                  icon: <FiLinkedin />,
+                  link: "https://ca.linkedin.com/company/clarhethq",
+                },
               ].map((item, i) => (
                 <a
                   key={i}
@@ -157,14 +159,17 @@ const MainNavbar = () => {
             </div>
 
             <div className="mt-6 flex flex-col text-center gap-4 items-center px-4">
-              <Link href="get-a-demo" className="btn w-full outline-1 rounded-full py-3 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors duration-200">
+              <Link
+                href="get-a-demo"
+                className="btn w-full outline-1 rounded-full py-3 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors duration-200"
+              >
                 Support
               </Link>
-              {
+              {/* {
                 isUser ? (
                   <Link href='dashboard/overview' className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Dashboard</Link>
                 ) : <Link href='login' className="btn text-white hover:outline-1 rounded-full px-6 py-2  bg-blue-600  hover:bg-white hover:text-blue-600 transition-colors duration-200">Login</Link>
-              }
+              } */}
             </div>
           </div>
         )}

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Toaster } from '@/components/ui/sonner';
-import { store } from '@/redux/store';
+import { Toaster } from "@/components/ui/sonner";
+import { store } from "@/redux";
 
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
