@@ -73,7 +73,7 @@ const CompetitorsHomePage = () => {
       </div>
       <h2 className="text-xl font-semibold mb-4">Competitive Analysis</h2>
       <p className="text-gray-600 mb-4">
-        Competitive analysis involves studying competitors' market activities,
+        Competitive analysis involves studying competitors&#39; market activities,
         brand sentiment, financial performance, and customer engagement to
         understand the market landscape better. It helps businesses develop
         successful strategies and identify market trends, opportunities for
@@ -104,7 +104,7 @@ const CompetitorsHomePage = () => {
       >
         <div className="p-4 rounded-lg mb-4 border border-gray-200">
           <p className="text-gray-800">
-            Competitors analysis involves learning about your competitors' market
+            Competitors analysis involves learning about your competitors&#39; market
             moves, sentiments, financial performance, and customer engagement to
             better understand the market landscape. This process helps businesses
             develop effective strategies to gain a competitive edge. By
@@ -120,7 +120,7 @@ const CompetitorsHomePage = () => {
             <span className="text-gray-800 font-semibold">
               Informed Decision-Making:
             </span>{" "}
-            Understanding competitors' moves allows businesses to make strategic
+            Understanding competitors&#39; moves allows businesses to make strategic
             decisions based on market realities.
           </p>
           <p className="text-gray-800 mb-3">
@@ -129,7 +129,7 @@ const CompetitorsHomePage = () => {
           </p>
           <p className="text-gray-800 mb-3">
             <span className="text-gray-800 font-semibold">Risk Mitigation:</span>{" "}
-            Anticipate and prepare for competitors' actions that could affect
+            Anticipate and prepare for competitors&#39; actions that could affect
             your market position.
           </p>
           <p className="text-gray-800 mb-3">
@@ -139,7 +139,7 @@ const CompetitorsHomePage = () => {
           </p>
           <p className="text-gray-800 mb-3">
             <span className="text-gray-800 font-semibold">Customer Insights:</span>{" "}
-            Learn from competitors' successes and failures to better meet
+            Learn from competitors&#39; successes and failures to better meet
             customer needs.
           </p>
         </div>
@@ -176,13 +176,13 @@ const CompetitorsHomePage = () => {
             <span className="text-gray-800 font-semibold">
               Continuous Monitoring:
             </span>{" "}
-            Competitors' analysis should be an ongoing process rather than a
+            Competitors&#39; analysis should be an ongoing process rather than a
             one-time effort to stay updated with market changes.
           </p>
         </div>
         <div className="p-4 rounded-lg mb-4 border border-gray-200">
           <h3 className="text-lg font-semibold text-black mb-2">
-            Dos and Don'ts of Competitors Analysis
+            Dos and Don&#39;ts of Competitors Analysis
           </h3>
           {/* Dos */}
           <div className="p-4 rounded-lg mb-4 border border-gray-200">
@@ -234,7 +234,7 @@ const CompetitorsHomePage = () => {
             </p>
           </div>
           <p className="text-gray-800">
-            Competitors analysis involves learning about your competitors' market
+            Competitors analysis involves learning about your competitors&#39; market
             moves, sentiments, financial performance, and customer engagement to
             better understand the market landscape. This process helps businesses
             develop effective strategies to gain a competitive edge. By
