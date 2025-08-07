@@ -49,6 +49,7 @@ import * as React from 'react';
 import { Icons } from '../icons';
 import { OrgSwitcher } from '../org-switcher';
 import { cn } from './../../lib/utils';
+import { getUserInfo, isLoggedIn } from '@/services/auth.service';
 
 export const company = {
   name: 'Shoyas Soft Tech',
@@ -60,12 +61,13 @@ export default function AppSidebar() {
   const pathname = usePathname();
   const { isOpen } = useMediaQuery();
   const sidebar = useSidebar();
+  const { userName, email } = getUserInfo() as any;
   // const { user } = useUser();
   const { user } = {
     user: {
       imageUrl: 'https://example.com/image.jpg',
-      fullName: 'John Doe',
-      emailAddresses: [{ emailAddress: 'md.nasiruddin4067@gmail.com' }]
+      fullName: userName,
+      emailAddresses: [{ emailAddress: email }]
     }
   };
   const router = useRouter();

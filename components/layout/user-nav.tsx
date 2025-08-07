@@ -10,14 +10,16 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { UserAvatarProfile } from '@/components/user-avatar-profile';
+import { getUserInfo } from '@/services/auth.service';
 // import { SignOutButton, useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 export function UserNav() {
   // const { user } = useUser();
+  const { userName, email } = getUserInfo() as any;
   const user = {
     imageUrl: 'https://example.com/image.jpg',
-    fullName: 'John Doe',
-    emailAddresses: [{ emailAddress: 'md.nasiruddin4067@gmail.com' }]
+    fullName: userName,
+    emailAddresses: [{ emailAddress: email }]
   };
 
   const router = useRouter();
