@@ -1,8 +1,11 @@
 import React from 'react'
+import BeforeAlignment from './_components/BeforeBusinessGoal'
 
 const BusinessGoals = () => {
   return (
-    <div>Hello from BusinessGoals</div>
+    <div>
+      <BeforeAlignment></BeforeAlignment>
+    </div>
   )
 }
 
