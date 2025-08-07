@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from 'nextjs-toploader';
 import { ReduxProvider } from "@/redux/provider";
+import AppInitializer from "@/components/AppInitializer";
 
 
 const poppins = Poppins({
@@ -26,6 +27,7 @@ export default function RootLayout({
     <ReduxProvider>
       <html lang="en" data-theme="light">
         <body className={`${poppins.variable} antialiased relative`}>
+          <AppInitializer />
           <NextTopLoader
             showSpinner={false}
             color="#22398A"

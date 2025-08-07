@@ -35,13 +35,14 @@ type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
   // const [userLogin] = useLoginMutation();
-  // const router = useRouter();
+  const router = useRouter();
   // const searchParams = useSearchParams();
   // const redirect = searchParams.get("redirect") || "/";
   const [loading, startTransition] = useTransition();
 
   const dispatch = useDispatch();
   const [login, { isLoading, error, data }] = useLoginMutation();
+  console.log("Login data from userAuthForm:", data);
 
   const defaultValues = {
     email: "brown@clarhet.com",
@@ -61,11 +62,12 @@ export default function UserAuthForm() {
       console.log("Login response:", response);
       if (response) {
         dispatch(setAuthStatus("authenticated"));
+        toast.success("Login successful!");
       }
-      // startTransition(() => {
-      //   toast.success("Login successful!");
-      //   // router.push(redirect);
-      // });
+      startTransition(() => {
+        toast.success("Login successful!");
+        // router.push("/dashboard");
+      });
     } catch (err) {
       console.error("Login error:", err);
     }

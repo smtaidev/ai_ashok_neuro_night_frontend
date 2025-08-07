@@ -11,9 +11,9 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { identitySectionsData } from "../../_components/dummyData";
+import { identitySectionsData } from "../../components/dummyData";
 import Drawer from "@/app/dashboard/blueprint/vision/_comoponents/DrawarModal";
-import { renderDrawerBlocks, renderDrawerMission } from "../../_components/drawer-utils";
+import { renderDrawerBlocks, renderDrawerMission } from "../../components/drawer-utils";
 
 interface Section {
   id: string;

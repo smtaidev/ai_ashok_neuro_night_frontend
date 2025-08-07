@@ -8,13 +8,19 @@ interface User {
 }
 
 interface AuthResponse {
-  token: string;
+  accessToken: string;
 }
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<
-      { data: AuthResponse },
+      {
+        success: boolean;
+        message: string;
+        data: {
+          accessToken: string;
+        };
+      },
       { email: string; password: string }
     >({
       query: (body) => ({
@@ -23,14 +29,19 @@ export const userApi = api.injectEndpoints({
         body,
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          localStorage.setItem("accessToken", data?.data.token);
-          dispatch(userApi.endpoints.getMe.initiate());
-        } catch {
-          dispatch(addUser(null));
-        }
-      },
+      try {
+        const { data } = await queryFulfilled;
+        console.log("Login response from userApi:", data);
+
+        // Correct path: data.data.accessToken
+        const accessToken = data.data.accessToken;
+
+        localStorage.setItem("accessToken", accessToken);
+        dispatch(userApi.endpoints.getMe.initiate());
+      } catch {
+        dispatch(addUser(null));
+      }
+    },
       invalidatesTags: ["User"],
     }),
 
@@ -52,7 +63,7 @@ export const userApi = api.injectEndpoints({
     }),
 
     getMe: builder.query<{ data: User }, void>({
-      query: () => "/auth/profile",
+      query: () => "/auth/profile", 
       providesTags: ["User"],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
