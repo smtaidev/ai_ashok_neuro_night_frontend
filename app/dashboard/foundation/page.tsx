@@ -1,4 +1,4 @@
-import FoundationComponentPage from "./components/FoundationComponent";
+import FoundationComponentPage from "./_components/FoundationComponent";
 
 const FoundationPage = () => {
   return (

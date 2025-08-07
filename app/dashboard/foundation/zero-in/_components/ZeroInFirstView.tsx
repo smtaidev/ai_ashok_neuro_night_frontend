@@ -1,5 +1,5 @@
 import React from 'react'
-import { FirstViewProps } from '../../identity/components/IdentityFirstView'
+import { FirstViewProps } from '../../identity/_components/IdentityFirstView'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 

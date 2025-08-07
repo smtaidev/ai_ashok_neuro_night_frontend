@@ -26,6 +26,13 @@ const coreComponents = [
       "The Teams component of the Choreograph module focuses on organizing and assembling the required talent to achieve the identified objectives. The component involves assigning individuals and teams to identified objectives. Moreover, this section provides insight into the team's composition, enabling members to comprehend their interdependencies and promote cross-functional collaboration as required. The Teams section helps leaders make informed decisions regarding resource allocation, skill development, and team optimization, which enhances overall organizational effectiveness and agility.",
     link: "/dashboard/choreography/teams",
   },
+  {
+    id: "03",
+    title: "Alignment Check",
+    description:
+      "The Alignment Check component of the Choreograph module focuses on ensuring that all teams and individuals are aligned with the identified objectives. This component involves regular check-ins and assessments to gauge progress, identify roadblocks, and realign efforts as necessary. The Alignment Check section promotes transparency and accountability, enabling teams to stay on track and make informed adjustments to their plans. By fostering a culture of continuous alignment, organizations can enhance collaboration and drive successful outcomes.",
+    link: "/dashboard/choreography/alignment-check",
+  },
 ];
 
 export default function ChoreographyComponent() {

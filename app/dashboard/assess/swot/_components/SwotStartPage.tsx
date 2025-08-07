@@ -9,7 +9,7 @@ import Image from "next/image";
 import swotImage from "@/public/image/swot-img.png";
 import Drawer from "@/app/dashboard/blueprint/vision/_comoponents/DrawarModal";
 import { useState } from "react";
-import { swotSectionsData } from "@/app/dashboard/foundation/components/dummyData";
+import { swotSectionsData } from "@/app/dashboard/foundation/_components/dummyData";
 
 type SectionType = (typeof swotSectionsData)[number];
 
