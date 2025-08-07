@@ -10,10 +10,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useLoginMutation } from "@/redux/services/userApi";
+import { setAuthStatus } from "@/redux/slices/appSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -32,11 +34,15 @@ const formSchema = z.object({
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
-  const [userLogin] = useLoginMutation();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "/";
+  // const [userLogin] = useLoginMutation();
+  // const router = useRouter();
+  // const searchParams = useSearchParams();
+  // const redirect = searchParams.get("redirect") || "/";
   const [loading, startTransition] = useTransition();
+
+  const dispatch = useDispatch();
+  const [login, { isLoading, error, data }] = useLoginMutation();
+
   const defaultValues = {
     email: "brown@clarhet.com",
   };
@@ -46,16 +52,23 @@ export default function UserAuthForm() {
   });
 
   const onLoginSubmit: SubmitHandler<ILoginValues> = async (data: any) => {
-    // try {
-    //   const response = await userLogin({ ...data }).unwrap();
-    //   if (response?.accessToken) {
-    //     storeUserInfo({ accessToken: response?.accessToken });
-    //     router.push(redirect);
-    //     toast.success("Login successful");
-    //   }
-    // } catch (error: any) {
-    //   toast.error("Invalid email or password", error.message);
-    // }
+    // data.preventDefault();
+    try {
+      const response = await login({
+        email: data.email,
+        password: data.password,
+      }).unwrap();
+      console.log("Login response:", response);
+      if (response) {
+        dispatch(setAuthStatus("authenticated"));
+      }
+      // startTransition(() => {
+      //   toast.success("Login successful!");
+      //   // router.push(redirect);
+      // });
+    } catch (err) {
+      console.error("Login error:", err);
+    }
   };
 
   return (

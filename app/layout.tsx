@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Providers from "@/lib/Providers";
 import NextTopLoader from 'nextjs-toploader';
+import { ReduxProvider } from "@/redux/provider";
 
 
 const poppins = Poppins({
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Providers>
+    <ReduxProvider>
       <html lang="en" data-theme="light">
         <body className={`${poppins.variable} antialiased relative`}>
           <NextTopLoader
@@ -34,6 +34,6 @@ export default function RootLayout({
           {children}
         </body>
       </html>
-    </Providers>
+    </ReduxProvider>
   );
 }

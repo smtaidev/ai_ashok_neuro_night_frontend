@@ -1,4 +1,5 @@
-import { Product } from "@/types/product";
+
+import { Product } from "@/constants/data";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type AuthStatus = "unauthenticated" | "authenticated" | "authForm";
@@ -54,7 +55,6 @@ const appSlice = createSlice({
     logout(state) {
       state.auth = "unauthenticated";
       state.user = null;
-      state.cart = {};
       state.appStatus = "idle";
     },
 
