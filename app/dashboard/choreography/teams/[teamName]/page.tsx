@@ -1,10 +1,16 @@
+import { Metadata } from 'next';
 import React from 'react';
 
+const metadata: Metadata = {
+  title: 'Asho Kheli',
+  description: 'Asho Kheli Team Page',
+};
+
 const TeamPage = ({ params }: { params: { teamName: string } }) => {
-  console.log('Team Name:', params?.teamName);
+
   return (
     <div>
-      <h1>Asho kheli: {params?.teamName}</h1>
+      <h1>Asho kheli: {params.teamName}</h1>
     </div>
   );
 };

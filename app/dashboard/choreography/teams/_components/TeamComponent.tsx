@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import * as Radix from "@radix-ui/react-slot"
 import { useRouter } from "next/navigation"
+import { BsInboxes } from "react-icons/bs";
 
 type Team = {
   id: string;
@@ -71,6 +72,15 @@ const TeamComponentPage = () => {
     setSkillInput("");
     setMemberInput("");
     setIsModalOpen(true);
+    localStorage.setItem("teamFromData", JSON.stringify({
+      teamName: '',
+      headcount: '',
+      teamAllocation: '',
+      teamAvailability: '',
+      talentNeed: '',
+      skillNeed: [],
+      members: [],
+    }));
   };
 
   const handleEdit = (team: Team) => {
@@ -224,27 +234,20 @@ const TeamComponentPage = () => {
       {/* Team List Section */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-2xl font-semibold text-gray-900">Team List</h3>
-        <Button
-          variant="link"
-          className="text-sm text-primary font-medium flex items-center gap-1"
-          onClick={handleAddNew}
-        >
-          <Plus className="h-4 w-4" />
-          Add New
+        <Button onClick={handleAddNew}>
+          <Plus className="h-4 w-4 mr-2" />
+          Add New Team
         </Button>
       </div>
 
       {teams.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mb-4">
-            <Plus className="h-8 w-8 text-gray-400" />
+            <BsInboxes className="h-8 w-8 text-gray-400" />
           </div>
           <h3 className="text-lg font-medium text-gray-900 mb-2">No teams yet</h3>
           <p className="text-gray-500 mb-4">Get started by adding your first Team.</p>
-          <Button onClick={handleAddNew}>
-            <Plus className="h-4 w-4 mr-2" />
-            Add New Team
-          </Button>
+
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -292,8 +295,8 @@ const TeamComponentPage = () => {
                   </DropdownMenu>
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button variant="link" onClick={() => handleView(team.teamName)}>
+              <CardFooter className="flex justify-end items-center">
+                <Button variant="ghost" onClick={() => handleView(team.teamName)}>
                   View Details
                 </Button>
               </CardFooter>
@@ -326,7 +329,7 @@ const TeamComponentPage = () => {
               <Label htmlFor="headcount">Headcount</Label>
               <Input
                 id="headcount"
-                type="number"
+                type="text"
                 value={formData.headcount}
                 onChange={(e) => setFormData({ ...formData, headcount: e.target.value })}
                 placeholder="10"
@@ -337,7 +340,7 @@ const TeamComponentPage = () => {
               <Label htmlFor="teamAllocation">Allocation (%)</Label>
               <Input
                 id="teamAllocation"
-                type="number"
+                type="text"
                 value={formData.teamAllocation}
                 onChange={(e) => setFormData({ ...formData, teamAllocation: e.target.value })}
                 placeholder="100"
@@ -348,7 +351,7 @@ const TeamComponentPage = () => {
               <Label htmlFor="teamAvailability">Availability (%)</Label>
               <Input
                 id="teamAvailability"
-                type="number"
+                type="text"
                 value={formData.teamAvailability}
                 onChange={(e) => setFormData({ ...formData, teamAvailability: e.target.value })}
                 placeholder="80"
