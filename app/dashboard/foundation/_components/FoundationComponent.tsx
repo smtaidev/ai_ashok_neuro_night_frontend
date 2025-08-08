@@ -41,9 +41,6 @@ export default function FoundationComponentPage() {
       <Card>
         <CardHeader className="flex flex-col md:flex-row md:justify-between gap-4">
           <div>
-            <CardTitle className="md:text-2xl text-lg font-bold text-gray-900">
-              Welcome to Foundation
-            </CardTitle>
             <CardDescription className="text-gray-600 mt-1">
               The cornerstone of your company&apos;s strategic success! In the
               dynamic business landscape, having a solid base is paramount to
