@@ -3,16 +3,25 @@ import Image from "next/image";
 import image from "@/public/image/business-goals-img.png";
 import SharedDrawerButton from "../../_components/reuseable/SharedDrawerButton";
 import { useState } from "react";
-
 import BusinessGoalsModal from "./BusinessGoalsModal";
 import BusinessGoalBeforeData from "@/public/static-json-data/blueprint/business-goal-before";
-
 
 const BeforeAlignment = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSave = (data: any) => {
-    console.log("Business Goal Submitted:", data);
+  const handleSave = (data: { businessGoals: any; additionalInfo?: any }) => {
+    console.log("Business Goal Submitted: =====================>", data);
+    
+    // 👉 Save to localStorage
+    try {
+      const existing = JSON.parse(localStorage.getItem("businessGoalsData") || "[]");
+      const updated = [...existing, data];
+      localStorage.setItem("businessGoalsData", JSON.stringify(updated));
+      console.log("✅ Data saved to localStorage successfully.");
+    } catch (error) {
+      console.error("❌ Failed to save to localStorage:", error);
+    }
+
     setIsModalOpen(false);
   };
 
@@ -49,7 +58,6 @@ const BeforeAlignment = () => {
         </div>
       </div>
 
-      {/* Reusable Modal */}
       <BusinessGoalsModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
