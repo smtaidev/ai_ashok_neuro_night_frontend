@@ -9,14 +9,14 @@ import BusinessGoalBeforeData from "@/public/static-json-data/blueprint/business
 const BeforeAlignment = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSave = (data: { businessGoals: any; additionalInfo?: any }) => {
+  const handleSave = (data: any) => {
     console.log("Business Goal Submitted: =====================>", data);
     
     // 👉 Save to localStorage
     try {
-      const existing = JSON.parse(localStorage.getItem("businessGoalsData") || "[]");
-      const updated = [...existing, data];
-      localStorage.setItem("businessGoalsData", JSON.stringify(updated));
+     
+      
+      localStorage.setItem("businessGoalsData", JSON.stringify(data));
       console.log("✅ Data saved to localStorage successfully.");
     } catch (error) {
       console.error("❌ Failed to save to localStorage:", error);
@@ -46,6 +46,7 @@ const BeforeAlignment = () => {
               buttonLabel="More info"
               content={<BusinessGoalBeforeData />}
               buttonClassName="text-blue-900 cursor-pointer"
+              isAi={false}
             />
 
             <button

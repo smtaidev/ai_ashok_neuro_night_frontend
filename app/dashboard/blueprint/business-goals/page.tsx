@@ -5,7 +5,7 @@ import BeforeAlignment from "./_components/BeforeBusinessGoal";
 import AfterBusinessGoal from "./_components/AfterBusinessGoal"; // AfterBusinessGoal কম্পোনেন্ট ইম্পোর্ট করুন
 
 const BusinessGoals = () => {
-  const [hasGoals, setHasGoals] = useState(false);
+  const [hasGoals, setHasGoals] = useState('');
 
   // localStorage চেক করে ডেটা আছে কি না দেখা
   useEffect(() => {
@@ -13,10 +13,11 @@ const BusinessGoals = () => {
     if (savedGoals) {
       try {
         const parsedGoals = JSON.parse(savedGoals);
-        setHasGoals(Array.isArray(parsedGoals) && parsedGoals.length > 0);
+        // console.log("ksldfjlsakjf", parsedGoals);
+        setHasGoals(JSON.stringify(parsedGoals)); // যদি ডেটা থাকে তবে hasGoals কে true করুন
       } catch (error) {
         console.error("Failed to parse businessGoalsData:", error);
-        setHasGoals(false);
+        setHasGoals('');
       }
     }
   }, []);

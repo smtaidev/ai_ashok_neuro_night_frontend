@@ -1,9 +1,18 @@
 "use client";
+
 import { useState } from "react";
 import { FiGrid } from "react-icons/fi";
 import { GoRows } from "react-icons/go";
 import { MdOutlineBarChart } from 'react-icons/md';
-// প্রয়োজনীয় আইকন ইমপোর্ট করা হয়েছে
+import BusinessGoalImpactSummary from "./BusinessGoalImpactSummary";
+import BusinessGoalsModal from "./BusinessGoalsModal";
+
+// Remove useState from here. The state will be declared inside the component.
+
+const handleSave = (data: any) => {
+  console.log("Business Goal Submitted: =====================>", data);
+}
+
 
 // ব্যবসায়িক লক্ষ্যের জন্য TypeScript ইন্টারফেস সংজ্ঞায়িত করা
 interface Goal {
@@ -297,8 +306,10 @@ const StructureViewCard = ({ goal, isStrategicTheme }: { goal: Goal; isStrategic
   );
 };
 
-// ব্যবসায়িক গোল পৃষ্ঠা প্রদর্শনের জন্য প্রধান কম্পোনেন্ট
 const AfterBusinessGoal = () => {
+  // Modal open state moved here
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   // ডেমো উদ্দেশ্যে মক ডেটা।
   const mockData: Goal[] = [
     { id: 1, title: "Strategic Theme", subtitle: "Main Theme", priority: "High", status: "Overdue", category: "Finance", progressLabel: "Financial", progressValue: 82 },
@@ -310,7 +321,7 @@ const AfterBusinessGoal = () => {
   ];
 
   const [goals, setGoals] = useState<Goal[]>(mockData);
-  const [viewMode, setViewMode] = useState<'row' | 'structure' | 'gantt'>('gantt');
+  const [viewMode, setViewMode] = useState<'row' | 'structure' | 'gantt'| 'summary'>('gantt');
 
   // শর্তসাপেক্ষ রেন্ডারিং: কোনো গোল পাওয়া না গেলে একটি বার্তা দেখান।
   if (goals.length === 0) {
@@ -320,126 +331,144 @@ const AfterBusinessGoal = () => {
       </div>
     );
   }
+  // গোলের তালিকা রেন্ডার করুন।
+  // গোলের তালিকা রেন্ডার করুন।
+
 
   // গোল সহ প্রধান পৃষ্ঠার বিষয়বস্তু রেন্ডার করুন।
   return (
-    <div className="min-h-screen bg-gray-100 p-4 font-sans text-gray-800">
-      <div className="space-y-6">
-        {/* হেডার বিভাগ */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Business Goals</h1>
-          <div className="flex space-x-2">
-            <button className="flex items-center space-x-2 border border-black rounded-md bg-white px-4 py-2 text-sm font-medium shadow transition-colors duration-200 hover:bg-black/90 hover:text-white cursor-pointer">
-              
-              Business Goal Impact Summary
-            </button>
-            <button className="rounded-md bg-blue-900 px-4 py-2 text-sm font-medium text-white shadow transition-colors duration-200 hover:bg-blue-950">
-              Add New Business Goal
-            </button>
-            
-            {/* ভিউ টগল বাটনস */}
-            <button
-              onClick={() => setViewMode('row')}
-              className={`cursor-pointer ${viewMode === 'row' ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-500 transition-colors duration-200`}
-            >
-             <GoRows className="ml-2" size={25} />
-            </button>
-            <button
-              onClick={() => setViewMode('structure')}
-              className={`cursor-pointer ${viewMode === 'structure' ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-500 transition-colors duration-200`}
-            >
-             <FiGrid className="ml-2" size={25} />
-            </button>
-            <button
-              onClick={() => setViewMode('gantt')}
-              className={`cursor-pointer ${viewMode === 'gantt' ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-500 transition-colors duration-200`}
-            >
-             <MdOutlineBarChart className="ml-2" size={25} />
-            </button>
-          </div>
+    <div className="min-h-screen bg-white rounded-2xl p-4 sm:p-5 lg:p-6 font-sans text-gray-800">
+  <div className="space-y-6">
+    {/* Header Section */}
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      {/* Title */}
+      <h1 className="text-lg sm:text-xl lg:text-3xl font-bold text-center md:text-left">
+        Business Goals
+      </h1>
+
+      {/* Buttons Group */}
+      <div className="flex flex-col sm:flex-row sm:items-center flex-wrap gap-2">
+        {/* Summary + Add New */}
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+          <button
+            className="border border-black rounded-md bg-white px-4 py-2 text-sm font-medium hover:bg-black/90 hover:text-white cursor-pointer w-full sm:w-auto"
+            onClick={() => setViewMode('summary')}
+          >
+            Business Goal Impact Summary
+          </button>
+          <button 
+           onClick={() => setIsModalOpen(true)}
+          className="rounded-md bg-blue-900 px-4 py-2 text-sm font-medium text-white shadow hover:bg-blue-950 w-full sm:w-auto">
+            Add New Business Goal
+          </button>
         </div>
 
-        {/* ভিউ এবং ফিল্টার বিভাগ */}
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">
-            {viewMode === 'row' && 'Row View'}
-            {viewMode === 'structure' && 'Structure View'}
-            {viewMode === 'gantt' && 'Gantt View'}
-          </h2>
-          <div className="flex space-x-2">
-            {/* ফিল্টার ড্রপডাউনস */}
-            <select className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>Filter by Priority</option>
-              <option>Urgent</option>
-              <option>High</option>
-            </select>
-            <select className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>Filter by Status</option>
-              <option>Overdue</option>
-              <option>In Progress</option>
-              <option>Completed</option>
-            </select>
-          </div>
+        {/* View Toggle */}
+        <div className="flex justify-center sm:justify-start gap-2 w-full sm:w-auto">
+          <button
+            onClick={() => setViewMode('row')}
+            className={`cursor-pointer ${viewMode === 'row' ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-500 transition-colors duration-200`}
+          >
+            <GoRows size={25} />
+          </button>
+          <button
+            onClick={() => setViewMode('structure')}
+            className={`cursor-pointer ${viewMode === 'structure' ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-500 transition-colors duration-200`}
+          >
+            <FiGrid size={25} />
+          </button>
+          <button
+            onClick={() => setViewMode('gantt')}
+            className={`cursor-pointer ${viewMode === 'gantt' ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-500 transition-colors duration-200`}
+          >
+            <MdOutlineBarChart size={25} />
+          </button>
         </div>
-
-        {/* গোল কার্ডের তালিকা - viewMode এর উপর ভিত্তি করে শর্তসাপেক্ষ রেন্ডারিং */}
-        {viewMode === 'row' && (
-          <div className="space-y-4">
-            {goals.map((goal) => (
-              <GoalCard key={goal.id} goal={goal} />
-            ))}
-          </div>
-        )}
-
-        {viewMode === 'gantt' && (
-          <GanttView goals={goals} />
-        )}
-
-        {viewMode === 'structure' && (
-          <div className="relative p-8 overflow-x-auto">
-            {/* সংযোগকারী লাইনের জন্য SVG */}
-            <svg className="absolute top-0 left-0 w-full h-full" style={{ zIndex: -1 }}>
-              {/* Strategic Theme থেকে প্রথম সারির গোলগুলিতে লাইন */}
-              <line x1="260" y1="96" x2="350" y2="96" stroke="#9CA3AF" strokeWidth="2" />
-              {/* প্রথম সারির গোলগুলি সংযুক্তকারী উল্লম্ব লাইন */}
-              <line x1="350" y1="96" x2="350" y2="444" stroke="#9CA3AF" strokeWidth="2" />
-              {/* উল্লম্ব থেকে পৃথক গোলগুলিতে লাইন */}
-              <line x1="350" y1="96" x2="360" y2="96" stroke="#9CA3AF" strokeWidth="2" />
-              <line x1="350" y1="216" x2="360" y2="216" stroke="#9CA3AF" strokeWidth="2" />
-              <line x1="350" y1="336" x2="360" y2="336" stroke="#9CA3AF" strokeWidth="2" />
-              <line x1="350" y1="444" x2="360" y2="444" stroke="#9CA3AF" strokeWidth="2" />
-              
-              {/* Goal 2 থেকে Goal 4 এ লাইন */}
-              <line x1="628" y1="96" x2="710" y2="96" stroke="#9CA3AF" strokeWidth="2" />
-              <line x1="710" y1="96" x2="710" y2="216" stroke="#9CA3AF" strokeWidth="2" />
-              <line x1="710" y1="216" x2="720" y2="216" stroke="#9CA3AF" strokeWidth="2" />
-            </svg>
-
-            {/* স্ট্রাকচার ভিউর জন্য লেআউট */}
-            <div className="flex flex-row space-x-16">
-              {/* প্রথম কলাম: Strategic Theme */}
-              <div className="flex flex-col">
-                <StructureViewCard goal={goals[0]} isStrategicTheme={true} />
-              </div>
-
-              {/* দ্বিতীয় কলাম: চাইল্ড গোলস */}
-              <div className="flex flex-col space-y-12 mt-12">
-                <StructureViewCard goal={goals[1]} />
-                <StructureViewCard goal={goals[2]} />
-                <StructureViewCard goal={goals[4]} />
-                <StructureViewCard goal={goals[5]} />
-              </div>
-
-              {/* তৃতীয় কলাম: সাব-চাইল্ড গোলস */}
-               <div className="flex flex-col space-y-12 mt-12">
-                <StructureViewCard goal={goals[2]} />
-                <StructureViewCard goal={goals[3]} />
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
+
+    {/* View & Filter Section */}
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <h2 className="text-lg sm:text-xl font-semibold text-center sm:text-left">
+        {viewMode === 'row' && 'Row View'}
+        {viewMode === 'structure' && 'Structure View'}
+        {viewMode === 'gantt' && 'Gantt View'}
+        {viewMode === 'summary' && 'Business Goal Impact Summary'}
+      </h2>
+
+      {/* Filters */}
+      <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+        <select className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto">
+          <option>Filter by Priority</option>
+          <option>Urgent</option>
+          <option>High</option>
+        </select>
+        <select className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto">
+          <option>Filter by Status</option>
+          <option>Overdue</option>
+          <option>In Progress</option>
+          <option>Completed</option>
+        </select>
+      </div>
+    </div>
+
+    {/* Conditional Content */}
+    {viewMode === 'summary' && (
+      <BusinessGoalImpactSummary/>
+      // <div>skdj</div>
+    )}
+
+    {viewMode === 'row' && (
+      <div className="space-y-4">
+        {goals.map((goal) => (
+          <GoalCard key={goal.id} goal={goal} />
+        ))}
+      </div>
+    )}
+
+    {viewMode === 'gantt' && <GanttView goals={goals} />}
+
+    {viewMode === 'structure' && (
+      <div className="relative p-4 sm:p-8 overflow-x-auto">
+        {/* SVG connectors */}
+        <svg className="absolute top-0 left-0 w-full h-full" style={{ zIndex: -1 }}>
+          <line x1="260" y1="96" x2="350" y2="96" stroke="#9CA3AF" strokeWidth="2" />
+          <line x1="350" y1="96" x2="350" y2="444" stroke="#9CA3AF" strokeWidth="2" />
+          <line x1="350" y1="96" x2="360" y2="96" stroke="#9CA3AF" strokeWidth="2" />
+          <line x1="350" y1="216" x2="360" y2="216" stroke="#9CA3AF" strokeWidth="2" />
+          <line x1="350" y1="336" x2="360" y2="336" stroke="#9CA3AF" strokeWidth="2" />
+          <line x1="350" y1="444" x2="360" y2="444" stroke="#9CA3AF" strokeWidth="2" />
+          <line x1="628" y1="96" x2="710" y2="96" stroke="#9CA3AF" strokeWidth="2" />
+          <line x1="710" y1="96" x2="710" y2="216" stroke="#9CA3AF" strokeWidth="2" />
+          <line x1="710" y1="216" x2="720" y2="216" stroke="#9CA3AF" strokeWidth="2" />
+        </svg>
+
+        {/* Structure Layout */}
+        <div className="flex flex-row space-x-8 md:space-x-16">
+          <div className="flex flex-col">
+            <StructureViewCard goal={goals[0]} isStrategicTheme={true} />
+          </div>
+          <div className="flex flex-col space-y-8 md:space-y-12 mt-8">
+            <StructureViewCard goal={goals[1]} />
+            <StructureViewCard goal={goals[2]} />
+            <StructureViewCard goal={goals[4]} />
+            <StructureViewCard goal={goals[5]} />
+          </div>
+          <div className="flex flex-col space-y-8 md:space-y-12 mt-8">
+            <StructureViewCard goal={goals[2]} />
+            <StructureViewCard goal={goals[3]} />
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+     <BusinessGoalsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSave}
+      />
+</div>
+
   );
 };
 

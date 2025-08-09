@@ -7,6 +7,7 @@ type SharedDrawerButtonProps = {
   buttonLabel: string;
   content: React.ReactNode;
   buttonClassName?: string; // <-- Add this
+  isAi?: boolean; // Optional prop to indicate if it's an AI-related button
 };
 
 const SharedDrawerButton: React.FC<SharedDrawerButtonProps> = ({
@@ -14,6 +15,7 @@ const SharedDrawerButton: React.FC<SharedDrawerButtonProps> = ({
   buttonLabel,
   content,
   buttonClassName = "bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-950", // default style
+  isAi
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -30,6 +32,7 @@ const SharedDrawerButton: React.FC<SharedDrawerButtonProps> = ({
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
         title={title}
+        isAi={isAi}
       >
         {content}
       </ReuseableDrawer>

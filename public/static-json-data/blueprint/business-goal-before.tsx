@@ -19,7 +19,7 @@ const BusinessGoalBeforeData = () => {
           Importance of Goals
         </p>
 
-        <ol className="space-y-4 list-decimal list-inside">
+        <ul className="space-y-4 ">
           <li>
             <p className="text-gray-700 text-xs">
               <span className="font-semibold mr-2">•</span> Goals provide a
@@ -39,7 +39,7 @@ const BusinessGoalBeforeData = () => {
               benchmark for measuring progress and success.
             </p>
           </li>
-        </ol>
+        </ul>
       </div>
 
       <div className="bg-white rounded-lg border border-gray-200 mt-6 p-4 max-w-2xl w-full">
