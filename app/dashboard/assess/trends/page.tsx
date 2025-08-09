@@ -1,10 +1,14 @@
 
-import TopTrends from "./_components/TopTrends";
+
+import TrendsDashboard from "./_components/TrendDashboard";
+import TrendFirstView from "./_components/TrendFirstView";
+
 
 export default function TrendsPage() {
   return (
     <div>
-      <TopTrends />
+     { <TrendFirstView />}
+     <TrendsDashboard />
     </div>
   );
 }  

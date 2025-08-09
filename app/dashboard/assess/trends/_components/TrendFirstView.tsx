@@ -3,8 +3,10 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import Drawer from '@/app/dashboard/blueprint/vision/_comoponents/DrawarModal';
 import trendImage from "@/public/image/trends-img.png";
+import Link from 'next/link';
 
-const TopTrends = () => {
+
+const TrendFirstView = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleMoreInfoClick = () => {
@@ -16,7 +18,7 @@ const TopTrends = () => {
   };
 
   return (
-    <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+    <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="mb-6 flex justify-center">
         <Image
           src={trendImage}
@@ -91,7 +93,9 @@ const TopTrends = () => {
         <a href="#" onClick={handleMoreInfoClick} className="text-[#22398A] font-semibold hover:underline cursor-pointer">
           More info
         </a>
-        <button className="bg-[#22398A] text-white px-4 py-2 rounded-lg hover:bg-[#1D2A6D]">Get Started</button>
+        <Link href="/dashboard/create-trend">
+          <button className="bg-[#22398A] text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-[#1D2A6D]">Get Started</button>
+        </Link>
       </div>
 
       {/* Drawer Component */}
@@ -147,4 +151,4 @@ const TopTrends = () => {
   );
 };
 
-export default TopTrends;
+export default TrendFirstView;
