@@ -99,6 +99,7 @@ export const ZeroInSectionsData = [
   {
     id: "01",
     title: "Who are your Target Customers ?",
+    buttonTitle: "Target Customers",
     content: "",
     drawerContent: {
       title: "Target Customers",
@@ -132,6 +133,7 @@ export const ZeroInSectionsData = [
   {
     id: "02",
     title: "Key Customer Needs",
+    buttonTitle: "Customer Needs",
     content: "",
     drawerContent: {
       title: "Key Customer Needs",
@@ -165,6 +167,7 @@ export const ZeroInSectionsData = [
   {
     id: "03",
     title: "Value Proposition",
+    buttonTitle: "Value Proposition",
     content: "",
     drawerContent: {
       title: "Value Proposition",

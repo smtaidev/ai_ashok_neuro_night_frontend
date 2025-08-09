@@ -1,10 +1,12 @@
-import CapabilityComponent from "./components/capabilityComponent";
+import React from 'react';
+import CapabilityComponent from './_components/capabilityComponent';
 
-
-export default function CapabilityPage() {
+const CapabilityPage = () => {
   return (
-    <>
+    <div>
       <CapabilityComponent />
-    </>
+    </div>
   );
-}
+};
+
+export default CapabilityPage;

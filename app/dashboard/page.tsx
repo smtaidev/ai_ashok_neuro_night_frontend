@@ -1,11 +1,11 @@
+
 import { redirect } from 'next/navigation';
 
 export default async function Dashboard() {
-  // const { userId } = await auth();
-  const userId = true; // TODO: remove this line and uncomment the above line to use Clerk authentication
+  const isUser = true;
 
-  if (!userId) {
-    return redirect('/auth/sign-in');
+  if (!isUser) {
+    return redirect('/login');
   } else {
     redirect('/dashboard/overview');
   }

@@ -1,9 +1,12 @@
-import ZeroInContainerComponent from "./components/ZeroInContainerComponent";
+import React from 'react';
+import ZeroInContainerComponent from './_components/ZeroInContainerComponent';
 
-export default function ZeroInPage() {
+const ZeroInPage = () => {
   return (
-    <>
+    <div>
       <ZeroInContainerComponent />
-    </>
+    </div>
   );
-}
+};
+
+export default ZeroInPage;

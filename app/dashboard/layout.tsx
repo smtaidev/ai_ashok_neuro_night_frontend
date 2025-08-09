@@ -24,6 +24,7 @@ export default async function DashboardLayout({
   const activeThemeValue = cookieStore.get('active_theme')?.value;
   const isScaled = activeThemeValue?.endsWith('-scaled');
 
+
   return (
     <ThemeProvider
       attribute='class'
