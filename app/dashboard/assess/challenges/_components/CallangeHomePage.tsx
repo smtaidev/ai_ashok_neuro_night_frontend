@@ -102,7 +102,7 @@ const CallangeHomePage = () => {
           <p className="text-gray-800">
             Identifying and prioritizing business challenges is crucial for
             crafting a robust and impactful strategy. To improve effectiveness,
-            begin by listing all your business&#39;s challenges. Subsequently, delve
+            begin by listing all your business&apos;s challenges. Subsequently, delve
             deeper into understanding their root cause and how they are
             interconnected, which could create a potential domino effect.
           </p>

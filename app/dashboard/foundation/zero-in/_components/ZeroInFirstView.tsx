@@ -1,5 +1,5 @@
 import React from 'react'
-import { FirstViewProps } from '../../identity/components/IdentityFirstView'
+import { FirstViewProps } from '../../identity/_components/IdentityFirstView'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 
@@ -13,7 +13,7 @@ export default function ZeroInFirstView({ onGetStarted }: FirstViewProps) {
           alt="Zero In Icon"
           width={200}
           height={500}
-          className="h-130 w-110 mb-6"
+          className="h-[60%] w-[50%] mb-6"
         />
         <div className="text-center mb-6">
           <h1 className="text-xl font-bold">Focus Your Strategy</h1>

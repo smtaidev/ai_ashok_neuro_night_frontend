@@ -16,7 +16,7 @@ export default function IdentityFirstView({ onGetStarted }: FirstViewProps) {
           alt="Identity Icon"
           width={200}
           height={500}
-          className="h-130 w-110 mb-6"
+          className="h-[60%] w-[50%] mb-6"
         />
         <p className='text-lg text-gray-600 mb-6 text-center'>
           Please define the mission, values, and purpose. These are essential in shaping your company&apos;s identity and guiding your strategic direction.
