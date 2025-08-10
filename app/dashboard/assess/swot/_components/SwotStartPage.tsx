@@ -10,6 +10,7 @@ import swotImage from "@/public/image/swot-img.png";
 import Drawer from "@/app/dashboard/blueprint/vision/_comoponents/DrawarModal";
 import { useState } from "react";
 import { swotSectionsData } from "@/app/dashboard/foundation/_components/dummyData";
+import { useCreateSwotMutation } from "@/redux/api/swot/swotApi";
 
 type SectionType = (typeof swotSectionsData)[number];
 
@@ -20,6 +21,7 @@ const SwotStartPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+  // const { createSwot } = useCreateSwotMutation();
 
   const handleMoreInfoClick = (sectionId: string) => {
     const foundSection = sections.find((sec) => sec.id === sectionId);

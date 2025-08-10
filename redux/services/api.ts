@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
+
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
@@ -15,6 +17,6 @@ export const api = createApi({
       return headers;
     },
   }), 
-  tagTypes: ["User"],
+  tagTypes: ["User", "Swot", "Trend"],
   endpoints: () => ({}),
 });
