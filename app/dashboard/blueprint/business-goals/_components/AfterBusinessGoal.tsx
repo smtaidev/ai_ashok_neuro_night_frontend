@@ -6,6 +6,7 @@ import { GoRows } from "react-icons/go";
 import { MdOutlineBarChart } from 'react-icons/md';
 import BusinessGoalImpactSummary from "./BusinessGoalImpactSummary";
 import BusinessGoalsModal from "./BusinessGoalsModal";
+import GanttView from "./views/GanttView";
 
 // Remove useState from here. The state will be declared inside the component.
 
@@ -82,114 +83,7 @@ const GanttRow = ({ goal, monthsData, totalDays }: {
 };
 
 // গ্যান্ট চার্ট ভিউ কম্পোনেন্ট
-const GanttView = ({ goals }: { goals: Goal[] }) => {
-  // মাসের ডেটা (বর্তমান বছরের জানুয়ারি থেকে মে)
-  const monthsData: MonthData[] = [
-    { name: 'January', days: 31, startIndex: 0 },
-    { name: 'February', days: 28, startIndex: 31 },
-    { name: 'March', days: 31, startIndex: 59 },
-    { name: 'April', days: 30, startIndex: 90 },
-    { name: 'May', days: 31, startIndex: 120 }
-  ];
-  
-  const totalDays = 151; // জানুয়ারি থেকে মে পর্যন্ত মোট দিন
-  
-  // সপ্তাহের দিনের শর্ট ফর্ম
-  const dayLabels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-  
-  return (
-    <div className="bg-white rounded-lg shadow overflow-hidden">
-      {/* গ্যান্ট চার্ট টেবিল */}
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          {/* টেবিল হেডার */}
-          <thead>
-            {/* মাসের নাম রো */}
-            <tr className="bg-gray-50 border-b border-gray-200">
-              <th className="sticky left-0 bg-gray-50 px-4 py-3 text-left text-sm font-semibold text-gray-900 border-r border-gray-200">
-                #
-              </th>
-              <th className="px-0 py-0">
-                <div className="flex">
-                  {monthsData.map((month, index) => (
-                    <div
-                      key={month.name}
-                      className="flex-none px-2 py-3 text-center text-sm font-semibold text-gray-900 border-r border-gray-200"
-                      style={{ width: `${(month.days / totalDays) * 100}%` }}
-                    >
-                      {month.name}
-                    </div>
-                  ))}
-                </div>
-              </th>
-            </tr>
-            
-            {/* দিনের নাম রো */}
-            <tr className="bg-gray-50 border-b border-gray-200">
-              <th className="sticky left-0 bg-gray-50 px-4 py-2 text-left text-xs font-medium text-gray-500 border-r border-gray-200">
-                Name
-              </th>
-              <th className="px-0 py-0">
-                <div className="flex">
-                  {monthsData.map((month) => (
-                    <div
-                      key={`${month.name}-days`}
-                      className="flex justify-between px-1"
-                      style={{ width: `${(month.days / totalDays) * 100}%` }}
-                    >
-                      {dayLabels.map((day, dayIndex) => (
-                        <span
-                          key={`${month.name}-${day}-${dayIndex}`}
-                          className="text-xs text-gray-500 font-medium"
-                        >
-                          {day}
-                        </span>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </th>
-            </tr>
-          </thead>
-          
-          {/* টেবিল বডি */}
-          <tbody className="bg-white divide-y divide-gray-200">
-            {goals.slice(1).map((goal) => ( // প্রথম আইটেম (Strategic Theme) বাদ দিয়ে
-              <GanttRow
-                key={goal.id}
-                goal={goal}
-                monthsData={monthsData}
-                totalDays={totalDays}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
-      
-      {/* স্ক্রল ইন্ডিকেটর */}
-      <div className="flex justify-center p-2 bg-gray-50 border-t border-gray-200">
-        <div className="flex items-center space-x-2">
-          <button className="p-1 text-gray-400 hover:text-gray-600">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-          </button>
-          
-          {/* স্ক্রল বার */}
-          <div className="flex-1 h-2 bg-gray-300 rounded-full mx-4 max-w-md">
-            <div className="h-full bg-gray-500 rounded-full" style={{ width: '30%' }}></div>
-          </div>
-          
-          <button className="p-1 text-gray-400 hover:text-gray-600">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
+
 
 // রো বা গ্রিড ফরম্যাটে একটি গোল প্রদর্শনের জন্য কম্পোনেন্ট
 const GoalCard = ({ goal }: { goal: Goal }) => (
@@ -426,7 +320,22 @@ const AfterBusinessGoal = () => {
       </div>
     )}
 
-    {viewMode === 'gantt' && <GanttView goals={goals} />}
+    {viewMode === 'gantt' && <GanttView goals={[
+  {
+    id: 1,
+    title: "Project 1",
+    goalTimelineStart: "2025-01-03",
+    goalTimelineEnd: "2025-01-25",
+    goalProgress: "55",
+  },
+  {
+    id: 2,
+    title: "Project 2",
+    goalTimelineStart: "2025-03-01",
+    goalTimelineEnd: "2025-03-15",
+    goalProgress: "35",
+  }
+]}  />}
 
     {viewMode === 'structure' && (
       <div className="relative p-4 sm:p-8 overflow-x-auto">
