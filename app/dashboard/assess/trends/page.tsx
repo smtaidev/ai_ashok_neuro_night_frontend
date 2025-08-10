@@ -1,5 +1,6 @@
 
 
+
 import TrendsDashboard from "./_components/TrendDashboard";
 import TrendFirstView from "./_components/TrendFirstView";
 

@@ -6,6 +6,8 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Drawer from "@/app/dashboard/blueprint/vision/_comoponents/DrawarModal";
 import trendImage from "@/public/image/challenges-img.png";
+import { Router } from "next/router";
+import { useRouter } from "next/navigation";
 
 const CallangeHomePage = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -15,6 +17,7 @@ const CallangeHomePage = () => {
   const [impact, setImpact] = useState("");
   const [abilityToAddress, setAbilityToAddress] = useState("");
   const [description, setDescription] = useState("");
+  const router = useRouter();
 
   const handleMoreInfoClick = () => {
     setIsModalOpen(false); // Close the modal
@@ -53,6 +56,7 @@ const CallangeHomePage = () => {
       description,
     });
     handleCloseModal();
+    router.push("/dashboard/challenge-summarry");
   };
 
   return (

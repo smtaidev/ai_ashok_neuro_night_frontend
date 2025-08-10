@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import TrendsInsightsPage from './GetTrends';
 
 interface ChartData {
   label: string;
@@ -228,6 +229,7 @@ const TrendsDashboard: React.FC = () => {
           </div>
         </div>
       </div>
+      <TrendsInsightsPage />
     </div>
   );
 };
