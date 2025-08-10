@@ -7,6 +7,7 @@ import { MdOutlineBarChart } from 'react-icons/md';
 import BusinessGoalImpactSummary from "./BusinessGoalImpactSummary";
 import BusinessGoalsModal from "./BusinessGoalsModal";
 import GanttView from "./views/GanttView";
+import GoalCard from "./views/GoalCard";
 
 // Remove useState from here. The state will be declared inside the component.
 
@@ -16,7 +17,7 @@ const handleSave = (data: any) => {
 
 
 // ব্যবসায়িক লক্ষ্যের জন্য TypeScript ইন্টারফেস সংজ্ঞায়িত করা
-interface Goal {
+export interface Goal {
   id: number;
   title: string;
   subtitle: string;
@@ -86,61 +87,7 @@ const GanttRow = ({ goal, monthsData, totalDays }: {
 
 
 // রো বা গ্রিড ফরম্যাটে একটি গোল প্রদর্শনের জন্য কম্পোনেন্ট
-const GoalCard = ({ goal }: { goal: Goal }) => (
-  <div className="flex items-center justify-between rounded-md bg-white p-4 shadow-sm transition-shadow duration-300 hover:shadow-lg">
-    <div className="flex w-full items-center space-x-4">
-      {/* গোলের শিরোনাম এবং উপশিরোনাম */}
-      <div className="flex-grow">
-        <h3 className="text-lg font-semibold">{goal.title}</h3>
-        <p className="text-sm text-gray-500">{goal.subtitle}</p>
-      </div>
 
-      {/* লেবেল/ট্যাগ বিভাগ */}
-      <div className="flex items-center space-x-2">
-        {goal.priority && (
-          <span className={`rounded-md px-3 py-1 text-xs font-medium ${goal.priority === 'Urgent' ? ' text-red-700' : 'bg-gray-100 text-gray-700'}`}>
-            {goal.priority}
-          </span>
-        )}
-        {goal.status && (
-          <span className={`rounded-md px-3 py-1 text-xs font-medium ${goal.status === 'Overdue' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-            {goal.status}
-          </span>
-        )}
-        {goal.category && (
-          <span className="rounded-md bg-blue-900 px-3 py-1 text-xs font-medium text-white">
-            {goal.category}
-          </span>
-        )}
-      </div>
-
-      {/* প্রগ্রেস বার বিভাগ */}
-      <div className="flex w-40 flex-col items-end space-y-1">
-        <p className="text-xs text-gray-500">{goal.progressLabel}</p>
-        <div className="h-2 w-full overflow-hidden rounded-md bg-gray-200">
-          <div
-            className="h-full rounded-md bg-blue-900"
-            style={{ width: `${goal.progressValue}%` }}
-          />
-        </div>
-      </div>
-    </div>
-
-    {/* অ্যাকশন মেনু বাটন */}
-    <div className="ml-4">
-      <button className="text-gray-400 hover:text-gray-600">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M12 2C10.9 2 10 2.9 10 4C10 5.1 10.9 6 12 6C13.1 6 14 5.1 14 4C14 2.9 13.1 2 12 2ZM12 8C10.9 8 10 8.9 10 10C10 11.1 10.9 12 12 12C13.1 12 14 11.1 14 10C14 8.9 13.1 8 12 8ZM12 14C10.9 14 10 14.9 10 16C10 17.1 10.9 18 12 18C13.1 18 14 17.1 14 16C14 14.9 13.1 14 12 14Z" />
-        </svg>
-      </button>
-    </div>
-  </div>
-);
 
 // বার চার্ট-এর মতো ফরম্যাটে গোল প্রদর্শনের জন্য সরলীকৃত কম্পোনেন্ট
 const BarViewCard = ({ goal }: { goal: Goal }) => (
@@ -312,29 +259,46 @@ const AfterBusinessGoal = () => {
       // <div>skdj</div>
     )}
 
-    {viewMode === 'row' && (
+    {/* {viewMode === 'row' && (
       <div className="space-y-4">
         {goals.map((goal) => (
           <GoalCard key={goal.id} goal={goal} />
         ))}
       </div>
-    )}
+    )} */}
+
+
+
 
     {viewMode === 'gantt' && <GanttView goals={[
   {
     id: 1,
     title: "Project 1",
-    goalTimelineStart: "2025-01-03",
-    goalTimelineEnd: "2025-01-25",
+    goalTimelineStart: "2025-02-03",
+    goalTimelineEnd: "2025-02-25",
     goalProgress: "55",
   },
   {
     id: 2,
     title: "Project 2",
     goalTimelineStart: "2025-03-01",
-    goalTimelineEnd: "2025-03-15",
+    goalTimelineEnd: "2025-03-10",
     goalProgress: "35",
-  }
+  },
+  // {
+  //   id: 2,
+  //   title: "Project 2",
+  //   goalTimelineStart: "2025-04-01",
+  //   goalTimelineEnd: "2025-05-15",
+  //   goalProgress: "35",
+  // },
+  // {
+  //   id: 2,
+  //   title: "Project 2",
+  //   goalTimelineStart: "2025-01-01",
+  //   goalTimelineEnd: "2025-03-15",
+  //   goalProgress: "75",
+  // }
 ]}  />}
 
     {viewMode === 'structure' && (
