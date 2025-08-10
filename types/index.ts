@@ -1,4 +1,5 @@
 import { Icons } from '@/components/icons';
+export * from "./common";
 
 export interface NavItem {
   title: string;

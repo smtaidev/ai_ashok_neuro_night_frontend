@@ -1,9 +1,12 @@
-import IdentityContainerComponent from "./components/IdentityContainerComponent";
+import React from 'react';
+import IdentityContainerComponent from './_components/IdentityContainerComponent';
 
-export default function IdentityPage() {
+const IdentityPage = () => {
   return (
-    <>
+    <div>
       <IdentityContainerComponent />
-    </>
+    </div>
   );
-}
+};
+
+export default IdentityPage;

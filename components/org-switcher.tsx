@@ -1,12 +1,10 @@
 'use client';
 
-import { Check, ChevronsUpDown, GalleryVerticalEnd } from 'lucide-react';
+import { GalleryVerticalEnd } from 'lucide-react';
 import * as React from 'react';
 
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import {
