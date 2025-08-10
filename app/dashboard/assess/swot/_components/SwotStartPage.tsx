@@ -18,7 +18,7 @@ const SwotStartPage = () => {
   const [activeSection, setActiveSection] = useState<SectionType | null>(null);
   const [openDrawerId, setOpenDrawerId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [category, setCategory] = useState("Category 4");
+  const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
 
   const handleMoreInfoClick = (sectionId: string) => {
@@ -121,10 +121,11 @@ const SwotStartPage = () => {
                       onChange={(e) => setCategory(e.target.value)}
                       className="w-full p-2 border border-gray-300 rounded mt-1"
                     >
-                      <option>Category 1</option>
-                      <option>Category 2</option>
-                      <option>Category 3</option>
-                      <option>Category 4</option>
+                      <option>Strengths</option>
+                      <option>Weaknesses</option>
+                      <option>Threats</option>
+                      <option>Opportunities</option>
+                      
                     </select>
                   </div>
                   <div className="mb-4">

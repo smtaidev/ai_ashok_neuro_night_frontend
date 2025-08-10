@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Plus, X } from 'lucide-react';
+import React, { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface CompetitorData {
   id: number;
@@ -31,7 +31,7 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
       glassdoorUrl: "www.glassdoor.co.in/Overview/Working-at-Accenture-...",
       stockSymbol: "",
       instagramHandle: "@demo_social",
-      isExpanded: true
+      isExpanded: true,
     },
     {
       id: 2,
@@ -42,7 +42,7 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
       glassdoorUrl: "",
       stockSymbol: "",
       instagramHandle: "",
-      isExpanded: false
+      isExpanded: false,
     },
     {
       id: 3,
@@ -53,15 +53,16 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
       glassdoorUrl: "",
       stockSymbol: "",
       instagramHandle: "",
-      isExpanded: false
-    }
+      isExpanded: false,
+    },
   ],
-  onCompetitorsChange
+  onCompetitorsChange,
 }) => {
-  const [competitors, setCompetitors] = useState<CompetitorData[]>(initialCompetitors);
+  const [competitors, setCompetitors] =
+    useState<CompetitorData[]>(initialCompetitors);
 
   const toggleExpanded = (id: number) => {
-    const updatedCompetitors = competitors.map(competitor =>
+    const updatedCompetitors = competitors.map((competitor) =>
       competitor.id === id
         ? { ...competitor, isExpanded: !competitor.isExpanded }
         : competitor
@@ -70,43 +71,124 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
     onCompetitorsChange?.(updatedCompetitors);
   };
 
-  const updateCompetitor = (id: number, field: keyof CompetitorData, value: string) => {
-    const updatedCompetitors = competitors.map(competitor =>
-      competitor.id === id
-        ? { ...competitor, [field]: value }
-        : competitor
+  const updateCompetitor = (
+    id: number,
+    field: keyof CompetitorData,
+    value: string
+  ) => {
+    const updatedCompetitors = competitors.map((competitor) =>
+      competitor.id === id ? { ...competitor, [field]: value } : competitor
     );
     setCompetitors(updatedCompetitors);
     onCompetitorsChange?.(updatedCompetitors);
   };
 
-   
+  // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [competitorName, setCompetitorName] = useState("");
+  const [companyUrl, setCompanyUrl] = useState("");
+  const [stockSymbol, setStockSymbol] = useState("");
+  const [twitterHandle, setTwitterHandle] = useState("");
+  const [linkedinUrl, setLinkedinUrl] = useState("");
+  const [instagramHandle, setInstagramHandle] = useState("");
+  const [glassdoorUrl, setGlassdoorUrl] = useState("");
+
+  // const handleMoreInfoClick = () => {
+  //   setIsModalOpen(false); // Close the modal
+  //   setCompetitorName("");
+  //   setCompanyUrl("");
+  //   setStockSymbol("");
+  //   setTwitterHandle("");
+  //   setLinkedinUrl("");
+  //   setInstagramHandle("");
+  //   setGlassdoorUrl("");
+  //   setIsDrawerOpen(true); // Open the drawer
+  // };
+
+  // const handleCloseDrawer = () => {
+  //   setIsDrawerOpen(false);
+  // };
+
+  const handleGetStartedClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setCompetitorName("");
+    setCompanyUrl("");
+    setStockSymbol("");
+    setTwitterHandle("");
+    setLinkedinUrl("");
+    setInstagramHandle("");
+    setGlassdoorUrl("");
+  };
+
+  const handleSave = () => {
+    // Handle save logic here (e.g., save to state or API)
+    console.log({
+      competitorName,
+      companyUrl,
+      stockSymbol,
+      twitterHandle,
+      linkedinUrl,
+      instagramHandle,
+      glassdoorUrl,
+    });
+    handleCloseModal();
+  };
 
   return (
     <div className="p-6 bg-white rounded-lg my-8">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-8">Competitive Analysis</h1>
-      
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-2xl font-semibold text-gray-900">
+          Competitive Analysis
+        </h1>
+        <button
+          onClick={handleGetStartedClick}
+          className="px-4 py-2 bg-[#22398A] text-white rounded-lg hover:bg-[#1a2d6d] transition-colors"
+        >
+          + Add Competitor
+        </button>
+      </div>
+
       <div className="space-y-4">
         {competitors.map((competitor) => (
-          <div key={competitor.id} className="border border-gray-200 rounded-lg">
+          <div
+            key={competitor.id}
+            className="border border-gray-200 rounded-lg"
+          >
             {/* Header with competitor number and name */}
             <div className="flex items-center justify-between p-4 bg-gray-50 border-b border-gray-200">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-[#22398A] rounded-full flex items-center justify-center text-white text-sm font-medium">
-                  {competitor.id.toString().padStart(2, '0')}
+                  {competitor.id.toString().padStart(2, "0")}
                 </div>
-                <span className="text-lg font-medium text-gray-900">{competitor.name}</span>
+                <span className="text-lg font-medium text-gray-900">
+                  {competitor.name}
+                </span>
               </div>
-              <button
-                onClick={() => toggleExpanded(competitor.id)}
-                className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 border border-gray-300 rounded-full hover:bg-gray-100 transition-colors"
-              >
-                {competitor.isExpanded ? (
-                  <X className="w-4 h-4" />
-                ) : (
-                  <Plus className="w-4 h-4" />
-                )}
-              </button>
+
+              <div className="flex items-center space-x-3">
+                <button
+                  className="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-100 transition"
+                  onClick={() =>
+                    alert(`Viewing details for ${competitor.name}`)
+                  }
+                >
+                  Details
+                </button>
+                <button
+                  onClick={() => toggleExpanded(competitor.id)}
+                  className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 border border-gray-300 rounded-full hover:bg-gray-100 transition-colors"
+                >
+                  {competitor.isExpanded ? (
+                    <ChevronUp className="w-4 h-4" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Expanded content */}
@@ -123,7 +205,13 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
                       <input
                         type="text"
                         value={competitor.website}
-                        onChange={(e) => updateCompetitor(competitor.id, 'website', e.target.value)}
+                        onChange={(e) =>
+                          updateCompetitor(
+                            competitor.id,
+                            "website",
+                            e.target.value
+                          )
+                        }
                         className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="www.example.com"
                       />
@@ -137,7 +225,13 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
                       <input
                         type="text"
                         value={competitor.stockSymbol}
-                        onChange={(e) => updateCompetitor(competitor.id, 'stockSymbol', e.target.value)}
+                        onChange={(e) =>
+                          updateCompetitor(
+                            competitor.id,
+                            "stockSymbol",
+                            e.target.value
+                          )
+                        }
                         className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="AAPL"
                       />
@@ -151,18 +245,19 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Twitter Handle
                       </label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <X className="h-4 w-4 text-gray-400" />
-                        </div>
-                        <input
-                          type="text"
-                          value={competitor.twitterHandle}
-                          onChange={(e) => updateCompetitor(competitor.id, 'twitterHandle', e.target.value)}
-                          className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                          placeholder="@username"
-                        />
-                      </div>
+                      <input
+                        type="text"
+                        value={competitor.twitterHandle}
+                        onChange={(e) =>
+                          updateCompetitor(
+                            competitor.id,
+                            "twitterHandle",
+                            e.target.value
+                          )
+                        }
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="@username"
+                      />
                     </div>
 
                     {/* Instagram Handle */}
@@ -170,22 +265,23 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Instagram Handle
                       </label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <div className="w-4 h-4 border border-gray-400 rounded-sm"></div>
-                        </div>
-                        <input
-                          type="text"
-                          value={competitor.instagramHandle}
-                          onChange={(e) => updateCompetitor(competitor.id, 'instagramHandle', e.target.value)}
-                          className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                          placeholder="@username"
-                        />
-                      </div>
+                      <input
+                        type="text"
+                        value={competitor.instagramHandle}
+                        onChange={(e) =>
+                          updateCompetitor(
+                            competitor.id,
+                            "instagramHandle",
+                            e.target.value
+                          )
+                        }
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="@username"
+                      />
                     </div>
                   </div>
 
-                  {/* Row 3: LinkedIn URL - Full Width */}
+                  {/* Row 3: LinkedIn URL */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       LinkedIn Company Page
@@ -193,13 +289,19 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
                     <input
                       type="text"
                       value={competitor.linkedinUrl}
-                      onChange={(e) => updateCompetitor(competitor.id, 'linkedinUrl', e.target.value)}
+                      onChange={(e) =>
+                        updateCompetitor(
+                          competitor.id,
+                          "linkedinUrl",
+                          e.target.value
+                        )
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="www.linkedin.com/company/example"
                     />
                   </div>
 
-                  {/* Row 4: Glassdoor URL - Full Width */}
+                  {/* Row 4: Glassdoor URL */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Glassdoor Profile
@@ -207,7 +309,13 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
                     <input
                       type="text"
                       value={competitor.glassdoorUrl}
-                      onChange={(e) => updateCompetitor(competitor.id, 'glassdoorUrl', e.target.value)}
+                      onChange={(e) =>
+                        updateCompetitor(
+                          competitor.id,
+                          "glassdoorUrl",
+                          e.target.value
+                        )
+                      }
                       className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="www.glassdoor.com/Overview/Working-at-..."
                     />
@@ -215,10 +323,107 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
                 </div>
               </div>
             )}
+            
+            {/* Modal */}
+            {isModalOpen && (
+              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg w-full max-w-3xl shadow-lg">
+                  <div
+                    className="bg-[#1D2A6D] text-white p-3 rounded-t-lg flex justify-between items-center"
+                    style={{ fontFamily: "Arial, sans-serif" }}
+                  >
+                    <h2 className="text-lg font-semibold">
+                      Competitive Analysis
+                    </h2>
+                    <button
+                      onClick={handleCloseModal}
+                      className="text-white text-xl hover:text-gray-200"
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <div className="p-5 border border-[#e5e7eb] rounded-b-lg">
+                    <div className="mb-4">
+                      <input
+                        type="text"
+                        value={competitorName}
+                        onChange={(e) => setCompetitorName(e.target.value)}
+                        className="w-full p-2 border border-gray-300 rounded mt-1"
+                        placeholder="Competitor's Name"
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <input
+                        type="url"
+                        value={companyUrl}
+                        onChange={(e) => setCompanyUrl(e.target.value)}
+                        className="w-full p-2 border border-gray-300 rounded mt-1"
+                        placeholder="Company URL"
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <input
+                        type="text"
+                        value={stockSymbol}
+                        onChange={(e) => setStockSymbol(e.target.value)}
+                        className="w-full p-2 border border-gray-300 rounded mt-1"
+                        placeholder="Stock Symbol"
+                      />
+                    </div>
+                    <div className="mb-4 flex space-x-4">
+                      <div className="w-1/2">
+                        <input
+                          type="text"
+                          value={twitterHandle}
+                          onChange={(e) => setTwitterHandle(e.target.value)}
+                          className="w-full p-2 border border-gray-300 rounded mt-1"
+                          placeholder="X (formerly Twitter) Handle"
+                        />
+                      </div>
+                      <div className="w-1/2">
+                        <input
+                          type="url"
+                          value={linkedinUrl}
+                          onChange={(e) => setLinkedinUrl(e.target.value)}
+                          className="w-full p-2 border border-gray-300 rounded mt-1"
+                          placeholder="LinkedIn Company Page URL"
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-4 flex space-x-4">
+                      <div className="w-1/2">
+                        <input
+                          type="text"
+                          value={instagramHandle}
+                          onChange={(e) => setInstagramHandle(e.target.value)}
+                          className="w-full p-2 border border-gray-300 rounded mt-1"
+                          placeholder="Instagram Handle"
+                        />
+                      </div>
+                      <div className="w-1/2">
+                        <input
+                          type="url"
+                          value={glassdoorUrl}
+                          onChange={(e) => setGlassdoorUrl(e.target.value)}
+                          className="w-full p-2 border border-gray-300 rounded mt-1"
+                          placeholder="Glassdoor Company URL"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex justify-end space-x-4">
+                      <button
+                        onClick={handleSave}
+                        className="bg-[#1D2A6D] text-white px-6 py-2 rounded-lg hover:bg-[#22398A]"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         ))}
-
-       
       </div>
     </div>
   );

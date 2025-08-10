@@ -11,7 +11,7 @@ const CallangeHomePage = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [challengeTitle, setChallengeTitle] = useState("");
-  const [category, setCategory] = useState("Category 1");
+  const [category, setCategory] = useState("");
   const [impact, setImpact] = useState("");
   const [abilityToAddress, setAbilityToAddress] = useState("");
   const [description, setDescription] = useState("");
@@ -19,7 +19,7 @@ const CallangeHomePage = () => {
   const handleMoreInfoClick = () => {
     setIsModalOpen(false); // Close the modal
     setChallengeTitle("");
-    setCategory("Category 1");
+    setCategory("");
     setImpact("");
     setAbilityToAddress("");
     setDescription("");
@@ -37,7 +37,7 @@ const CallangeHomePage = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setChallengeTitle("");
-    setCategory("Category 1");
+    setCategory("");
     setImpact("");
     setAbilityToAddress("");
     setDescription("");
@@ -86,7 +86,7 @@ const CallangeHomePage = () => {
         </a>
         <button
           onClick={handleGetStartedClick}
-          className="bg-[#22398A] text-white px-4 py-2 rounded-lg hover:bg-[#1D2A6D]"
+          className="bg-[#22398A] text-white px-4 py-2 cursor-pointer rounded-lg hover:bg-[#1D2A6D]"
         >
           Get Started
         </button>
@@ -201,10 +201,13 @@ const CallangeHomePage = () => {
                   onChange={(e) => setCategory(e.target.value)}
                   className="w-full p-2 border border-gray-300 rounded mt-1"
                 >
-                  <option>Category 1</option>
-                  <option>Category 2</option>
-                  <option>Category 3</option>
-                  <option>Category 4</option>
+                   <option value="">challenge category</option>
+                  <option value="Human">Human</option>
+                  <option value="Political">Political</option>
+                  <option value="Financial">Financial</option>
+                  <option value="Strategic">Strategic</option>
+                  <option value="Compliance">Compliance</option>
+                  <option value="Operational">Operational</option>
                 </select>
               </div>
               <div className="mb-4 flex space-x-4">
@@ -214,10 +217,12 @@ const CallangeHomePage = () => {
                     onChange={(e) => setImpact(e.target.value)}
                     className="w-full p-2 border border-gray-300 rounded mt-1"
                   >
-                    <option value="">Select</option>
+                    <option value="">Impact on business</option>
+                    <option value="Very Low">Very Low</option>
                     <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
+                    <option value="Moderate">Moderate</option>
                     <option value="High">High</option>
+                    <option value="Very High">Very High</option>
                   </select>
                 </div>
                 <div className="w-1/2">
@@ -226,10 +231,12 @@ const CallangeHomePage = () => {
                     onChange={(e) => setAbilityToAddress(e.target.value)}
                     className="w-full p-2 border border-gray-300 rounded mt-1"
                   >
-                    <option value="">Select</option>
-                    <option value="Easy">Easy</option>
+                    <option value="">Ability to address</option>
+                     <option value="Very Low">Very Low</option>
+                    <option value="Low">Low</option>
                     <option value="Moderate">Moderate</option>
-                    <option value="Difficult">Difficult</option>
+                    <option value="High">High</option>
+                    <option value="Very High">Very High</option>
                   </select>
                 </div>
               </div>
