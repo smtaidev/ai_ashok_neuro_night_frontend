@@ -173,15 +173,19 @@ const CompetitiveAnalysisDetails: React.FC = () => {
             <h3 className="text-sm font-medium text-gray-700 mb-4">Recent Media Coverage</h3>
             <div className="space-y-4">
               <p className="text-sm text-gray-600 leading-relaxed">
-                Lorem Ipsum is simply dummy text of the <span className="text-blue-600">printing and typesetting</span> industry. Lorem Ipsum has been the industry's 
+                Lorem Ipsum is simply dummy text of the <span className="text-blue-600">printing and typesetting</span> industry. Lorem Ipsum has been the industry&#39;s 
                 standard dummy text ever since the 1500s, when an unknown printer took a <span className="text-blue-600">galley of type and scrambled it to</span>
               </p>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Lorem Ipsum is simply dummy text of the <span className="text-blue-600">printing and typesetting</span> industry. Lorem Ipsum has been the industry's 
+                Lorem Ipsum is simply dummy text of the <span className="text-blue-600">printing and typesetting</span> industry. Lorem Ipsum has been the industry&#39;s 
                 standard dummy text ever since the 1500s, when an unknown printer took a <span className="text-blue-600">galley of type and scrambled it to</span>
               </p>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Lorem Ipsum is simply dummy text of the <span className="text-blue-600">printing and typesetting</span> industry. Lorem Ipsum has been the industry's 
+                Lorem Ipsum is simply dummy text of the <span className="text-blue-600">printing and typesetting</span> industry. Lorem Ipsum has been the industry&#39;s 
+                standard dummy text ever since the 1500s, when an unknown printer took a <span className="text-blue-600">galley of type and scrambled it to</span>
+              </p>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Lorem Ipsum is simply dummy text of the <span className="text-blue-600">printing and typesetting</span> industry. Lorem Ipsum has been the industry&#39;s 
                 standard dummy text ever since the 1500s, when an unknown printer took a <span className="text-blue-600">galley of type and scrambled it to</span>
               </p>
             </div>
