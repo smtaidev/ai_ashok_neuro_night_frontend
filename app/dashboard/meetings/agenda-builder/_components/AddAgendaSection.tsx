@@ -4,6 +4,9 @@
 import React, { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
+import AddAgendaFromModal, { FormValues } from "./modals/AddAgendaFormModal";
+
+
 
 interface Meeting {
   id: string;
@@ -30,7 +33,14 @@ const getTypeBadgeClass = (type: Meeting["type"]) => {
 
 const AddAgendaSection: React.FC = () => {
   const [selectedMeeting, setSelectedMeeting] = useState("");
-
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [selectedMeetingId, setSelectedMeetingId] = useState<string | null>(null); // New state for selected meeting ID
+  
+  
+    // Handle form data from Drawer
+    const handleFormSubmit = (data: FormValues) => {
+      console.log("Form Data from Drawer:", data, "Meeting ID:", selectedMeetingId);
+    };
   const meetings: Meeting[] = [
     { id: "1", title: "Meeting Title .....", date: "March 23,2024", time: "7.50 P.M", type: "Annual" },
     { id: "2", title: "Meeting Title .....", date: "March 23,2024", time: "7.50 P.M", type: "Board" },
@@ -41,20 +51,21 @@ const AddAgendaSection: React.FC = () => {
   ];
 
   const handleAddClick = (meetingId: string) => {
-    console.log("Add clicked for meeting:", meetingId);
-    // Future functionality goes here
-  };
+  console.log("Add clicked for meeting:", meetingId);
+  setSelectedMeetingId(meetingId);  // যেই মিটিং আইডি তে ক্লিক করছো সেট করবে
+  setIsDrawerOpen(true);             // মডাল ওপেন করবে
+};
 
   return (
     <div className="bg-white rounded-xl border p-4 shadow-sm">
-      <h2 className="text-sm font-semibold text-gray-800 mb-3">Add Agenda</h2>
+      <h2 className="text-[22px] font-semibold text-gray-800 mb-3">Add Agenda</h2>
 
       {/* Dropdown with custom arrow */}
       <div className="mb-4 relative">
         <select
           value={selectedMeeting}
           onChange={(e) => setSelectedMeeting(e.target.value)}
-          className="w-full border rounded-lg pl-3 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white"
+          className="w-full border rounded-lg pl-3 pr-10 py-4 text-[16px]  focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white"
         >
           <option value="">Select Meeting</option>
           {meetings.map((meeting) => (
@@ -69,7 +80,7 @@ const AddAgendaSection: React.FC = () => {
       {/* Table with horizontal scroll */}
       <div className="overflow-x-auto border rounded-lg">
         <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
-          <thead className="bg-gray-100 text-gray-600 text-sm">
+          <thead className="bg-gray-100 text-gray-600 text-[16px]">
             <tr>
               <th className="px-4 py-2 text-left font-medium whitespace-nowrap">Meeting Title</th>
               <th className="px-4 py-2 text-left font-medium whitespace-nowrap">Date</th>
@@ -81,14 +92,14 @@ const AddAgendaSection: React.FC = () => {
           <tbody>
             {meetings.map((meeting) => (
               <tr key={meeting.id} className="border-t">
-                <td className="px-4 py-2 text-sm font-semibold text-gray-800 whitespace-nowrap">
+                <td className="px-4 py-2 text-[16px] font-semibold text-gray-800 whitespace-nowrap">
                   {meeting.title}
                 </td>
-                <td className="px-4 py-2 text-sm text-gray-600 whitespace-nowrap">{meeting.date}</td>
-                <td className="px-4 py-2 text-sm text-gray-600 whitespace-nowrap">{meeting.time}</td>
+                <td className="px-4 py-2 text-[15px] text-gray-600 whitespace-nowrap">{meeting.date}</td>
+                <td className="px-4 py-2 text-[15px] text-gray-600 whitespace-nowrap">{meeting.time}</td>
                 <td className="px-4 py-2 whitespace-nowrap">
                   <span
-                    className={`px-3 py-1 rounded-md text-xs font-medium ${getTypeBadgeClass(meeting.type)}`}
+                    className={`px-3 py-1 rounded-md text-[10px] font-medium ${getTypeBadgeClass(meeting.type)}`}
                   >
                     {meeting.type}
                   </span>
@@ -96,7 +107,7 @@ const AddAgendaSection: React.FC = () => {
                 <td className="px-4 py-2 whitespace-nowrap">
                   <button
                     onClick={() => handleAddClick(meeting.id)}
-                    className="px-4 py-1 text-sm font-medium border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
+                    className="px-4 py-1 text-[10px] font-medium border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
                   >
                     Add
                   </button>
@@ -106,6 +117,16 @@ const AddAgendaSection: React.FC = () => {
           </tbody>
         </table>
       </div>
+       <AddAgendaFromModal
+        isOpen={isDrawerOpen}
+        onClose={() => {
+          setIsDrawerOpen(false);
+          setSelectedMeetingId(null); // Reset selected meeting ID when closing
+        }}
+        title="Add Meeting Details"
+        onSubmit={handleFormSubmit}
+        meetingId={selectedMeetingId} // Pass the selected meeting ID to the modal
+      />
     </div>
   );
 };

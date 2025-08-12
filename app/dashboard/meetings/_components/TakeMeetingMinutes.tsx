@@ -57,34 +57,36 @@ const TakeMeetingMinutes: React.FC = () => {
     <div className="bg-white rounded-lg shadow-lg border overflow-hidden">
       {/* Header */}
       <div className="p-6 ">
-        <h2 className="text-xl font-bold text-gray-800 flex items-center justify-between">
+        <h2 className="text-[22px] font-bold text-gray-800 flex items-center justify-between">
           Take Meeting Minutes
           
         </h2>
       </div>
 
       {/* Scrollable content */}
-      <div className="p-6 space-y-4 max-h-96 overflow-y-auto">
+      <div className="p-6 space-y-4 max-h-96  overflow-y-auto scrollable">
         {meetings.map((meeting) => (
-          <div
-            key={meeting.id}
-            className="flex justify-between border p-5 rounded-2xl items-center gap-4 w-full whitespace-nowrap"
+          <div key={meeting.id} className="">
+            <div
+            
+            className="flex border p-4 rounded-2xl justify-between b items-center gap-4 min-w-2xl flex-nowrap"
           >
-            <div className="text-sm font-semibold text-gray-800 truncate flex-shrink-0">
+            <div className="text-[16px] font-semibold text-gray-800 truncate flex-shrink-0">
               {meeting.name}
             </div>
-            <div className="text-sm text-gray-500 flex-shrink-0">
+            <div className="text-[16px] text-gray-500 flex-shrink-0">
               {meeting.date}
             </div>
-            <div className="text-sm text-gray-500 flex-shrink-0">
+            <div className="text-[16px] text-gray-500 flex-shrink-0">
               {meeting.time}
             </div>
-            <span className="flex-shrink-0">
+            <span className="flex-shrink-0 text-[10px]">
               {getMeetingTypeBadge(meeting.type)}
             </span>
-            <button className="px-6 py-2 text-sm font-medium text-white bg-blue-900 rounded-lg hover:bg-blue-950 transition-colors duration-200 flex-shrink-0">
+            <button className="px-6 py-2 text-[17px] font-medium text-white bg-blue-900 rounded-lg hover:bg-blue-950 transition-colors duration-200 flex-shrink-0">
               Open
             </button>
+          </div>
           </div>
         ))}
       </div>

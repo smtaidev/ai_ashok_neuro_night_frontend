@@ -116,7 +116,7 @@ const LastMeetingActionItemsTable: React.FC = () => {
   return (
     <div className="bg-white rounded-lg border overflow-hidden">
       <div className="p-6">
-        <h2 className="text-xl font-bold text-gray-800 flex items-center justify-between">
+        <h2 className="text-[18px] font-bold text-gray-800 flex items-center justify-between">
           Action Items From Last Meeting
         </h2>
       </div>
@@ -127,31 +127,31 @@ const LastMeetingActionItemsTable: React.FC = () => {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-[16px] font-medium text-gray-500 tracking-wider"
               >
                 Meeting Title
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-[16px] font-medium text-gray-500 tracking-wider"
               >
                 Meeting Date
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-[16px] font-medium text-gray-500 tracking-wider"
               >
                 Agenda Item
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-[16px] font-medium text-gray-500 tracking-wider"
               >
                 Priority
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-[16px] font-medium text-gray-500 tracking-wider"
               >
                 Status
               </th>
@@ -161,20 +161,20 @@ const LastMeetingActionItemsTable: React.FC = () => {
             {actionItems.map((item) => (
               <tr key={item.id}>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{item.title}</div>
+                  <div className="text-[16px] font-semibold text-gray-900">{item.title}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{item.date}</div>
+                  <div className="text-[15px] text-gray-500">{item.date}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{item.agendaItem}</div>
+                  <div className="text-[15px] text-gray-500">{item.agendaItem}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className={`text-sm ${getPriorityColor(item.priority)}`}>
+                  <div className={`text-[15px] ${getPriorityColor(item.priority)}`}>
                     {item.priority}
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap ">
                   {getStatusBadge(item.status)}
                 </td>
               </tr>

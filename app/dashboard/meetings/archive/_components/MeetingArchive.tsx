@@ -1,7 +1,6 @@
-// components/MeetingsArchive.tsx
-
 "use client";
 import React, { useState } from "react";
+import ArchiveFromModal, { FormValues } from "../../agenda-builder/_components/modals/ArchiveFromModal";
 
 // Define the type for a single archived meeting item.
 interface Meeting {
@@ -29,8 +28,15 @@ const getTypeBadgeClass = (type: Meeting["type"]) => {
 };
 
 const MeetingsArchive: React.FC = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedMeetingId, setSelectedMeetingId] = useState<string | null>(null); // New state for selected meeting ID
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("");
+
+  // Handle form data from Drawer
+  const handleFormSubmit = (data: FormValues) => {
+    console.log("Form Data from Drawer:", data, "Meeting ID:", selectedMeetingId);
+  };
 
   const meetings: Meeting[] = [
     { id: "1", day: 1, month: "July 2024", name: "Meeting Name", type: "Monthly" },
@@ -40,6 +46,12 @@ const MeetingsArchive: React.FC = () => {
     { id: "5", day: 1, month: "July 2024", name: "Meeting Name", type: "Board" },
     { id: "6", day: 1, month: "July 2024", name: "Meeting Name", type: "Board" },
   ];
+
+  // Function to handle button click and set the selected meeting ID
+  const handleViewAgendaClick = (meetingId: string) => {
+    setSelectedMeetingId(meetingId);
+    setIsDrawerOpen(true);
+  };
 
   return (
     <div className="bg-white rounded-lg border overflow-hidden">
@@ -78,26 +90,35 @@ const MeetingsArchive: React.FC = () => {
       <div className="divide-y divide-gray-200 m-4 border rounded-2xl">
         {meetings.map((meeting) => (
           <div key={meeting.id} className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          
-              <div className="text-center font-bold text-gray-800">
-                <p className="text-2xl">{meeting.day}</p>
-                <p className="text-sm">{meeting.month}</p>
-              </div>
-             
-                <div className="font-medium text-gray-800">{meeting.name}</div>
-                <div className={`text-sm font-medium ${getTypeBadgeClass(meeting.type)}`}>
-                  {meeting.type}
-                </div>
-           
-         
+            <div className="text-center font-bold text-gray-800">
+              <p className="text-2xl">{meeting.day}</p>
+              <p className="text-sm">{meeting.month}</p>
+            </div>
+            <div className="font-medium text-gray-800">{meeting.name}</div>
+            <div className={`text-sm font-medium ${getTypeBadgeClass(meeting.type)}`}>
+              {meeting.type}
+            </div>
             <div>
-              <button className="w-full sm:w-auto px-6 py-2 text-sm font-medium text-white cursor-pointer bg-blue-900 rounded-lg hover:bg-blue-950 transition-colors duration-200">
+              <button
+                onClick={() => handleViewAgendaClick(meeting.id)} // Pass meeting.id to handler
+                className="w-full sm:w-auto px-6 py-2 text-sm font-medium text-white cursor-pointer bg-blue-900 rounded-lg hover:bg-blue-950 transition-colors duration-200"
+              >
                 View Agenda & Action Item
               </button>
             </div>
           </div>
         ))}
       </div>
+      <ArchiveFromModal
+        isOpen={isDrawerOpen}
+        onClose={() => {
+          setIsDrawerOpen(false);
+          setSelectedMeetingId(null); // Reset selected meeting ID when closing
+        }}
+        title="Add Meeting Details"
+        onSubmit={handleFormSubmit}
+        meetingId={selectedMeetingId} // Pass the selected meeting ID to the modal
+      />
     </div>
   );
 };

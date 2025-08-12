@@ -142,7 +142,7 @@ const ActionItemsTable: React.FC = () => {
   return (
     <div className="bg-white rounded-lg border overflow-hidden">
       <div className="p-6">
-        <h2 className="text-xl font-bold text-gray-800 flex items-center justify-between">
+        <h2 className="text-[18px] font-bold text-gray-800 flex items-center justify-between">
           Action Items Assigned to Me
         </h2>
       </div>
@@ -153,31 +153,31 @@ const ActionItemsTable: React.FC = () => {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-[16px] font-medium text-gray-500  tracking-wider"
               >
                 Meeting Title
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-[16px] font-medium text-gray-500  tracking-wider"
               >
                 Meeting Date
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-[16px] font-medium text-gray-500  tracking-wider"
               >
                 Agenda Item
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-[16px] font-medium text-gray-500  tracking-wider"
               >
                 Priority
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-[16px] font-medium text-gray-500  tracking-wider"
               >
                 Status
               </th>
@@ -190,16 +190,16 @@ const ActionItemsTable: React.FC = () => {
             {actionItems.map((item) => (
               <tr key={item.id}>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{item.title}</div>
+                  <div className="text-[16px] text-gray-900">{item.title}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{item.date}</div>
+                  <div className="text-[15px] font-semibold text-gray-500">{item.date}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{item.agendaItem}</div>
+                  <div className="text-[15px] text-gray-500">{item.agendaItem}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className={`text-sm ${getPriorityColor(item.priority)}`}>
+                  <div className={`text-[15px] ${getPriorityColor(item.priority)}`}>
                     {item.priority}
                   </div>
                 </td>
@@ -207,7 +207,7 @@ const ActionItemsTable: React.FC = () => {
                   {getStatusBadge(item.status)}
                 </td>
                 {/* The dropdown button and menu */}
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <td className="px-6 py-4 whitespace-nowrap text-right text-[15px] font-medium">
                   <div className="relative">
                     <button
                       className="text-gray-400 hover:text-gray-600 focus:outline-none"
@@ -222,7 +222,7 @@ const ActionItemsTable: React.FC = () => {
                             <button
                               key={statusOption}
                               onClick={() => handleStatusChange(item.id, statusOption)}
-                              className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              className="block w-full text-left px-4 py-2 text-[15px] text-gray-700 hover:bg-gray-100"
                             >
                               {statusOption}
                             </button>

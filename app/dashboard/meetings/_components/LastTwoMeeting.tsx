@@ -43,32 +43,32 @@ const LastTwoMeetings: React.FC = () => {
 
   return (
     <div className="bg-white rounded-lg border shadow-sm p-4">
-      <h2 className="text-sm font-semibold text-gray-800 mb-4">
+      <h2 className="text-[22px] font-semibold text-gray-800 mb-4">
         Agendas/Minutes From the Last Two Meetings
       </h2>
 
-      <div className="space-y-3">
+      <div className="space-y-3 overflow-y-auto scrollable">
         {meetings.map((meeting) => (
           <div
             key={meeting.id}
-            className="flex justify-between items-center px-4 py-3 border rounded-lg bg-white"
+            className="flex border p-4 rounded-2xl justify-between b items-center gap-4 min-w-2xl flex-nowrap"
           >
             {/* Meeting Name */}
-            <div className="text-sm font-semibold text-gray-800">
+            <div className="text-[16px]  font-semibold text-gray-800">
               {meeting.name}
             </div>
 
             {/* Date */}
-            <div className="text-sm text-gray-600">{meeting.date}</div>
+            <div className="text-[16px]  text-gray-600">{meeting.date}</div>
 
             {/* Time */}
-            <div className="text-sm text-gray-600">{meeting.time}</div>
+            <div className="text-[16px]  text-gray-600">{meeting.time}</div>
 
             {/* Badge */}
-            <div>{getMeetingTypeBadge(meeting.type)}</div>
+            <div className="text-[10px]">{getMeetingTypeBadge(meeting.type)}</div>
 
             {/* Download Button */}
-            <button className="flex items-center gap-2 px-4 py-2 text-xs font-medium text-white bg-blue-900 rounded-lg hover:bg-blue-950 transition-colors duration-200">
+            <button className="flex items-center gap-2 px-4 py-2 text-[17px] font-medium text-white bg-blue-900 rounded-lg hover:bg-blue-950 transition-colors duration-200">
               <FaDownload className="w-3 h-3" />
               Download Now
             </button>

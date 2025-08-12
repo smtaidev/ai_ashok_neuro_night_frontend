@@ -15,7 +15,7 @@ const page = () => {
     <div className="min-h-[calc(100vh-80px)] p-4">
       <div className="flex justify-end">
         <SharedDrawerButton
-          title="Business Goals"
+          title="Meetings"
           buttonLabel="More info"
           content={<MeetingsSliderData />}
           buttonClassName=" bg-blue-800 hover:bg-blue-900 cursor-pointer text-white font-bold py-2 px-4 rounded"

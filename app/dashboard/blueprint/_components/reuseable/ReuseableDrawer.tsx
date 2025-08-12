@@ -17,7 +17,7 @@ const ReuseableDrawer: React.FC<DrawerProps> = ({
   onClose,
   title = "More Info",
   children,
-  width = "w-[30rem]",
+  width = "w-[40rem]",
   isAi
 }) => {
   return (

@@ -70,7 +70,7 @@ const MyNotes: React.FC = () => {
     <div className="">
       <div className="bg-white rounded-lg flex flex-col justify-between h-full border">
         <div className="p-6">
-          <h2 className="text-xl font-bold text-gray-800">My Notes</h2>
+          <h2 className="text-[18px] font-bold text-gray-800">My Notes</h2>
         </div>
 
         {/* Conditional rendering for notes */}
@@ -121,19 +121,19 @@ const MyNotes: React.FC = () => {
                     </>
                   )}
                 </div>
-              </div>
+              </div>      
             ))
           )}
         </div>
 
         {/* Add new note section */}
         <div className="p-6 border-t  border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Add a New Note</h3>
+          <h3 className="text-[16px] text-gray-800 mb-4">Add a New Note</h3>
 
           {!isAdding ? (
             <button
               onClick={() => setIsAdding(true)}
-              className="px-6 py-2 text-sm font-medium text-white bg-blue-900 rounded-lg hover:bg-blue-950 cursor-pointer transition-colors duration-200 shadow-md"
+              className="px-6 py-2 text-[15px] font-medium text-white bg-blue-900 rounded-lg hover:bg-blue-950 cursor-pointer transition-colors duration-200 shadow-md"
             >
               Add New Note
             </button>

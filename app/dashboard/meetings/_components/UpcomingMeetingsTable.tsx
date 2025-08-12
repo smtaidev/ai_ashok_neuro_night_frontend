@@ -1,6 +1,7 @@
 // components/UpcomingMeetingsTable.tsx
 
 import React from 'react';
+import { FaDownload } from 'react-icons/fa';
 import { IoCloudDownloadOutline } from 'react-icons/io5'; // An icon for "PDF"
 
 // Define the type for a single meeting object to ensure type safety.
@@ -49,21 +50,22 @@ const UpcomingMeetingsTable: React.FC = () => {
     switch (status) {
       case 'PDF':
         return (
-          <button className="flex items-center justify-center gap-1 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors duration-200 shadow-md">
-            <IoCloudDownloadOutline className="h-4 w-4" />
+          <button className="flex items-center justify-center gap-1 px-4 py-2 text-[16px] font-medium text-white bg-blue-700 hover:bg-blue-800 cursor-pointer rounded-lg transition-colors duration-200 shadow-md">
+            {/* <IoCloudDownloadOutline className="h-4 w-4" /> */}
+            <FaDownload className="w-3 h-3" />
             PDF
           </button>
         );
       case 'Add Agenda':
         return (
-          <button className="flex items-center justify-center gap-1 px-4 py-2 text-sm font-medium text-indigo-700 bg-white hover:bg-gray-50 rounded-lg border border-indigo-700 shadow-md transition-colors duration-200">
+          <button className="flex items-center justify-center gap-1 px-4 py-2 text-[16px] font-medium text-indigo-700 bg-white hover:bg-gray-50 rounded-lg border border-indigo-700 shadow-md transition-colors duration-200">
         
             Add Agenda
           </button>
         );
       case 'Saved Agenda':
         return (
-          <button className="flex items-center justify-center gap-1 px-4 py-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 rounded-lg border border-gray-400 shadow-md transition-colors duration-200">
+          <button className="flex items-center justify-center gap-1 px-4 py-2 text-[16px] font-medium text-gray-700 bg-white hover:bg-gray-50 rounded-lg border border-gray-400 shadow-md transition-colors duration-200">
            
             Saved Agenda
           </button>
@@ -78,7 +80,7 @@ const UpcomingMeetingsTable: React.FC = () => {
     
         <div className="bg-white border rounded-lg overflow-hidden">
           <div className="p-6">
-            <h2 className="text-xl font-bold text-gray-800 flex items-center justify-between">
+            <h2 className="text-[18px] font-bold text-gray-800 flex items-center justify-between">
               Upcoming Meetings
               
             </h2>
@@ -91,31 +93,31 @@ const UpcomingMeetingsTable: React.FC = () => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-[16px] font-medium text-gray-500  tracking-wider"
                   >
                     Meeting Title
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-[16px] font-medium text-gray-500  tracking-wider"
                   >
                     Date
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-[16px] font-medium text-gray-500  tracking-wider"
                   >
                     Time
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-[16px] font-medium text-gray-500  tracking-wider"
                   >
                     Type
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-[16px] font-medium text-gray-500  tracking-wider"
                   >
                     Agenda
                   </th>
@@ -125,13 +127,13 @@ const UpcomingMeetingsTable: React.FC = () => {
                 {meetings.map((meeting) => (
                   <tr key={meeting.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{meeting.title}</div>
+                      <div className="text-[16px] font-semibold text-gray-900">{meeting.title}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{meeting.date}</div>
+                      <div className="text-[15px] text-gray-500">{meeting.date}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{meeting.time}</div>
+                      <div className="text-[16px] text-gray-500">{meeting.time}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span

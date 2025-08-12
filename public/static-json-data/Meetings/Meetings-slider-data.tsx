@@ -21,8 +21,8 @@ const MeetingsSliderData = () => {
 
   return (
     <div>
-      <h2 className="font-semibold mt-4">Meeting Modal</h2>
-      <p className="text-sm my-5">
+      <h2 className="font-semibold text-[20px] mt-4">Meeting Modal</h2>
+      <p className="text-[16px] my-5 px-2">
         The Meeting module is designed to streamline and enhance your strategy
         meetings, providing a comprehensive solution for creating, recording,
         and storing meeting details. It includes three key components: Agenda
@@ -35,8 +35,8 @@ const MeetingsSliderData = () => {
                 key={index}
                 className="bg-white p-4 rounded-lg border border-gray-100"
             >
-                <h3 className=" font-semibold">{item.title}</h3>
-                <p className="text-sm text-gray-600 mt-2">{item.description}</p>
+                <h3 className="text-[20px] font-semibold">{item.title}</h3>
+                <p className="text-[18px] text-gray-600 mt-2">{item.description}</p>
             </div>
             ))}
         </div>
