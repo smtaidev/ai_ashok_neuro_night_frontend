@@ -6,6 +6,8 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import type { Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import { cookies } from 'next/headers';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export const metadata: Metadata = {
   title: 'Clarhet Dashboard',
@@ -43,6 +45,7 @@ export default async function DashboardLayout({
               <div className={`p-6 space-y-6 bg-[#F5F7FA] ${isScaled ? 'scale-90' : ''}`}>
                 {children}
               </div>
+              <Toaster />
               {/* page main content ends */}
             </SidebarInset>
           </SidebarProvider>
