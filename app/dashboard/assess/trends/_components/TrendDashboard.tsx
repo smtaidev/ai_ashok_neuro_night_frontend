@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import TrendsInsightsPage from './GetTrends';
+import Link from 'next/link';
 
 interface ChartData {
   label: string;
@@ -15,9 +16,9 @@ const DonutChart: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const data: ChartData[] = [
-    { label: 'High Impact', value: 44, color: '#16a34a', percentage: 44 },
-    { label: 'Weaknesses', value: 55, color: '#eab308', percentage: 55 },
-    { label: 'Threats', value: 41, color: '#ef4444', percentage: 41 }
+    { label: 'High Impact', value: 4, color: '#ef4444', percentage: 44 },
+    { label: 'Medium Impact', value: 5, color: '#eab308', percentage: 55 },
+    { label: 'Low Impact', value: 3, color: '#16a34a', percentage: 41 }
   ];
 
   const total = data.reduce((sum, item) => sum + item.value, 0);
@@ -121,13 +122,18 @@ const TrendsDashboard: React.FC = () => {
     <div className="min-h-screen bg-white rounded-lg shadow-md my-8  p-6">
       <div className="">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center  mb-8">
           <h1 className="text-2xl font-semibold text-gray-900">
             Trends Impact Summary
           </h1>
-          <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
-            ClearAI Recommendation
+          <div className=''>
+            <Link href="/dashboard/create-trend">
+          <button className="bg-[#22398A] text-white px-4 py-2 mr-4 rounded-lg cursor-pointer hover:bg-[#1D2A6D]">Edit Trend</button>
+        </Link>
+          <button className="px-4 py-2 border cursor-pointer border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+           ClarhetAI Recommendations
           </button>
+          </div>
         </div>
 
         {/* Main Grid */}
@@ -169,16 +175,16 @@ const TrendsDashboard: React.FC = () => {
               {/* Legend */}
               <div className="space-y-2 w-full">
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full bg-green-600 mr-3"></div>
+                  <div className="w-3 h-3 rounded-full bg-red-500 mr-3"></div>
                   <span className="text-sm text-gray-700">High Impact : 44</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-3 h-3 rounded-full bg-yellow-500 mr-3"></div>
-                  <span className="text-sm text-gray-700">Weaknesses : 55</span>
+                  <span className="text-sm text-gray-700">Medium Impact : 55</span>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full bg-red-500 mr-3"></div>
-                  <span className="text-sm text-gray-700">Threats : 41</span>
+                  <div className="w-3 h-3 rounded-full bg-green-500 mr-3"></div>
+                  <span className="text-sm text-gray-700">Low Impact : 41</span>
                 </div>
               </div>
             </div>
@@ -187,7 +193,7 @@ const TrendsDashboard: React.FC = () => {
           {/* Top Trends Card */}
           <div className="bg-white rounded-xl border border-gray-200 p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">
-              Top Trends (High Impact)
+              Top Trends (High and Medium Impact)
             </h2>
             <div className="space-y-4">
               <div className="flex items-start">

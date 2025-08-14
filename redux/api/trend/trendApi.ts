@@ -16,22 +16,12 @@ interface Trend {
   trends: SubTrend[];
 }
 
-interface CreateTrendRequest {
-  trends: SubTrend[];
-}
-
-interface UpdateTrendRequest extends CreateTrendRequest {
-  id: string;
-}
-
 export const trendApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getTrends: builder.query<{ data: Trend[] }, void>({
-      query: () => "/trends",
-      providesTags: ["Trend"],
-    }),
-    getTrend: builder.query<{ data: Trend }, string>({
-      query: (id) => `/trends/${id}`,
+    getTrends: builder.query<{
+      length: number; data: Trend[] 
+}, void>({
+      query: () => "/assess/trend",
       providesTags: ["Trend"],
     }),
     createTrend: builder.mutation<
@@ -40,7 +30,7 @@ export const trendApi = api.injectEndpoints({
         message: string;
         data: Trend;
       },
-      CreateTrendRequest
+      SubTrend[]
     >({
       query: (body) => ({
         url: "/assess/create-trend",
@@ -55,10 +45,10 @@ export const trendApi = api.injectEndpoints({
         message: string;
         data: Trend;
       },
-      UpdateTrendRequest
+      { id: string; trends: SubTrend[] }
     >({
       query: ({ id, ...body }) => ({
-        url: `/trends/${id}`,
+        url: `/assess/create-trend/${id}`,
         method: "PUT",
         body,
       }),
@@ -82,7 +72,6 @@ export const trendApi = api.injectEndpoints({
 
 export const {
   useGetTrendsQuery,
-  useGetTrendQuery,
   useCreateTrendMutation,
   useUpdateTrendMutation,
   useDeleteTrendMutation,

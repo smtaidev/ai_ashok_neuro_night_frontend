@@ -11,11 +11,8 @@ interface Swot {
 }
 
 interface CreateSwotRequest {
-  title: string;
-  strengths: string[];
-  weaknesses: string[];
-  opportunities: string[];
-  threats: string[];
+  categoryName: string;
+  details: string;
 }
 
 interface UpdateSwotRequest extends CreateSwotRequest {
@@ -25,7 +22,7 @@ interface UpdateSwotRequest extends CreateSwotRequest {
 export const swotApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getSwots: builder.query<{ data: Swot[] }, void>({
-      query: () => "/swots",
+      query: () => "/create-swot/get-swot",
       providesTags: ["Swot"],
     }),
     getSwot: builder.query<{ data: Swot }, string>({
@@ -41,8 +38,8 @@ export const swotApi = api.injectEndpoints({
       CreateSwotRequest
     >({
       query: (body) => ({
-        url: "/swots",
-        method: "POST",
+        url: "/create-swot/create",
+        method: "PATCH",
         body,
       }),
       invalidatesTags: ["Swot"],
@@ -56,8 +53,8 @@ export const swotApi = api.injectEndpoints({
       UpdateSwotRequest
     >({
       query: ({ id, ...body }) => ({
-        url: `/swots/${id}`,
-        method: "PUT",
+        url: `/create-swot/${id}`,
+        method: "PATCH",
         body,
       }),
       invalidatesTags: ["Swot"],
@@ -70,8 +67,8 @@ export const swotApi = api.injectEndpoints({
       string
     >({
       query: (id) => ({
-        url: `/swots/${id}`,
-        method: "DELETE",
+        url: `/create-swot/${id}`,
+        method: "PATCH",
       }),
       invalidatesTags: ["Swot"],
     }),

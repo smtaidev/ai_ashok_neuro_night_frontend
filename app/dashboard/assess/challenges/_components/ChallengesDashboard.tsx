@@ -195,7 +195,7 @@ const ChallengesDashboard = () => {
           <div className="bg-white rounded-lg p-6 shadow-sm border">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">Challenge Risk Score</h3>
             <p className="text-sm text-gray-600 mb-6">
-              The risk score is a concise numerical reflection of the combined impact and mitigation abilities for identified challenges. A higher score implies a greater risk to operations, finances, and reputation. This metric helps prioritize risk management efforts and guides strategic decisions by indicating the overall risk exposure. Regular updates maintain its relevance in the dynamic business environment.
+              The risk score is a concise numerical reflection of the combined impact and mitigation abilities for identified challenges. A higher score implies a greater risk. This metric helps prioritize risk management efforts and guides strategic decisions by indicating the overall risk exposure. Regular updates maintain its relevance in the dynamic business environment.
             </p>
             <GaugeChart value={30} />
           </div>

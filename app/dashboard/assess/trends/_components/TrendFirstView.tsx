@@ -28,8 +28,8 @@ const TrendFirstView = () => {
           className="rounded-lg mb-4"
         />
       </div>
-      <h2 className="text-xl font-semibold mb-4">Top Trends</h2>
-      <p className="text-gray-600 mb-4">
+      <h2 className="text-2xl font-semibold mb-4">Top Trends</h2>
+      <p className="text-gray-600 text-lg mb-4">
         Business trends refer to changes in consumer behavior, market dynamics, and technologies that can significantly impact markets and industries. Recognizing and adapting to these trends can be a game-changer for businesses that aim to achieve longevity and resilience.
       </p>
       <div className="space-y-10">
