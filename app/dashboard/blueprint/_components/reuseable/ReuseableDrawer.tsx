@@ -9,6 +9,7 @@ type DrawerProps = {
   title?: string;
   children?: React.ReactNode;
   width?: string; // Optional: allow dynamic width
+  isAi?: boolean
 };
 
 const ReuseableDrawer: React.FC<DrawerProps> = ({
@@ -16,7 +17,8 @@ const ReuseableDrawer: React.FC<DrawerProps> = ({
   onClose,
   title = "More Info",
   children,
-  width = "w-[30rem]"
+  width = "w-[40rem]",
+  isAi
 }) => {
   return (
     <div
@@ -32,19 +34,25 @@ const ReuseableDrawer: React.FC<DrawerProps> = ({
 
       {/* Drawer content */}
       <div
-        className={`absolute top-0 right-0 ${width} h-full bg-white shadow-lg transition-transform duration-300 ${
+        className={`absolute top-0 right-0 ${width} h-full bg-white  shadow-lg transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Header */}
        <div className="relative overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <Image
+      <div className="absolute inset-0 z-0 bg-yellow-500 ">
+        {
+          isAi ? (
+            <Image
           src={ClarhetImage}
           alt="Product Interface showing challenges and data"
           layout="fill"
           objectFit="cover"
         />
+          ):(
+            ""
+          )
+        }
       </div>
       <div className="relative z-10 flex items-center justify-between p-4 text-white">
         <h2 className="text-lg font-bold">{title}</h2>
