@@ -931,7 +931,7 @@ const CreateTrendPage: React.FC = () => {
             </div>
             <div className="bg-green-50 p-4 rounded-lg border border-green-200">
               <p className="text-sm text-green-800">
-                <strong>Flexible Approach:</strong> You can fill out any sections you want (4, 7, 9, or all 12 sections). There are no mandatory fields - complete what's relevant for your business now and update the rest later.
+                <strong>Flexible Approach:</strong> You can fill out any sections you want (4, 7, 9, or all 12 sections). There are no mandatory fields - complete what&#39;s relevant for your business now and update the rest later.
               </p>
             </div>
           </div>
@@ -1096,7 +1096,7 @@ const CreateTrendPage: React.FC = () => {
                       <h2 className="text-xl font-semibold text-gray-900">
                         {trendSections[currentStep].title}
                       </h2>
-                      <span className="text-sm text-gray-500">Optional - Fill what's relevant for your business</span>
+                      <span className="text-sm text-gray-500">Optional - Fill what&#39;s relevant for your business</span>
                     </div>
                   </div>
                 </div>
