@@ -13,7 +13,12 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { identitySectionsData } from "../../_components/dummyData";
 import Drawer from "@/app/dashboard/blueprint/vision/_comoponents/DrawarModal";
-import { renderDrawerBlocks, renderDrawerMission } from "../../_components/drawer-utils";
+import {
+  renderDrawerBlocks,
+  renderDrawerMission,
+} from "../../_components/drawer-utils";
+import { useGetIdentityDataQuery, usePatchFoundationMutation } from "@/redux/api/foundation/foundationApi";
+import toast from "react-hot-toast";
 
 interface Section {
   id: string;
@@ -23,33 +28,136 @@ interface Section {
 }
 
 export default function IdentityComponent() {
-  const [sections, setSections] = useState<Section[]>(() => {
-    const savedData = localStorage.getItem('identityData');
-    return savedData ? JSON.parse(savedData) : identitySectionsData;
-  });
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<Section | null>(null);
   const [editedContent, setEditedContent] = useState("");
   const [openDrawerId, setOpenDrawerId] = useState<string | null>(null);
+  const [loadingSection, setLoadingSection] = useState<string | null>(null);
+
+  const { data: identityRes, isLoading: isFetching, refetch } = useGetIdentityDataQuery();
+  console.log("Get identity data: ", identityRes?.data);
+
+  const [sections, setSections] = useState<Section[]>([...identitySectionsData]);
+  const [patchFoundation, { isLoading }] = usePatchFoundationMutation();
 
   useEffect(() => {
-    // Save to localStorage whenever sections change
-    localStorage.setItem('identityData', JSON.stringify(sections));
-  }, [sections]);
+    console.log("Identity response:", identityRes);
 
-  const handleEditClick = (section: Section) => {
-    setActiveSection(section);
-    setEditedContent(section.content);
-    setOpen(true);
+    // Check if data exists and is an array with at least one item
+    if (identityRes?.data && Array.isArray(identityRes.data) && identityRes.data.length > 0) {
+      const identityData = identityRes.data[0].identity;
+
+      console.log("Identity data extracted:", identityData);
+
+      const updated = [...identitySectionsData].map((sec) => {
+        if (sec.title.toLowerCase() === "mission") {
+          return { ...sec, content: identityData.mission || "" };
+        }
+        if (sec.title.toLowerCase() === "value") {
+          return { ...sec, content: identityData.value || "" };
+        }
+        if (sec.title.toLowerCase() === "purpose") {
+          return { ...sec, content: identityData.purpose || "" };
+        }
+        return sec;
+      });
+
+      console.log("Updated sections:", updated);
+      setSections(updated);
+    }
+  }, [identityRes]);
+
+  const handleEditClick = async (section: Section) => {
+    setLoadingSection(section.id);
+
+    try {
+      // Refetch the latest data from API
+      const response = await refetch();
+
+      if (response.data?.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
+        const latestIdentityData = response.data.data[0].identity;
+
+        // Get the latest content for the specific section
+        let latestContent = "";
+        const sectionTitle = section.title.toLowerCase();
+
+        if (sectionTitle === "mission") {
+          latestContent = latestIdentityData.mission || "";
+        } else if (sectionTitle === "value") {
+          latestContent = latestIdentityData.value || "";
+        } else if (sectionTitle === "purpose") {
+          latestContent = latestIdentityData.purpose || "";
+        }
+
+        // Update the section with latest content
+        const updatedSection = { ...section, content: latestContent };
+        setActiveSection(updatedSection);
+        setEditedContent(latestContent);
+
+        console.log("Edited Identity: ", updatedSection);
+
+        // Also update the sections state to reflect latest data
+        setSections(prevSections =>
+          prevSections.map(sec =>
+            sec.id === section.id ? { ...sec, content: latestContent } : sec
+          )
+        );
+      } else {
+        // Fallback to current section content if API call fails
+        setActiveSection(section);
+        setEditedContent(section.content);
+      }
+
+      setOpen(true);
+    } catch (error) {
+      console.error("Error fetching latest section data:", error);
+      toast.error("Failed to fetch latest data");
+
+      // Fallback to current section content
+      setActiveSection(section);
+      setEditedContent(section.content);
+      setOpen(true);
+    } finally {
+      setLoadingSection(null);
+    }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!activeSection) return;
-    const updated = sections.map((sec) =>
-      sec.id === activeSection.id ? { ...sec, content: editedContent } : sec
-    );
-    setSections(updated);
-    setOpen(false);
+
+    // Get the field name from the section title
+    const fieldName = activeSection.title.toLowerCase();
+
+    // Create payload with only the specific field being updated
+    const payload = {
+      [fieldName]: editedContent
+    };
+
+    console.log("Payload being sent:", payload);
+
+    try {
+      const result = await patchFoundation(payload).unwrap();
+      console.log("Patch result:", result);
+
+      // Update the sections state with the new content
+      setSections(prevSections =>
+        prevSections.map(sec =>
+          sec.id === activeSection.id ? { ...sec, content: editedContent } : sec
+        )
+      );
+
+      setOpen(false);
+      toast.success(`${activeSection.title} updated successfully`);
+      localStorage.removeItem("identityData");
+
+      // Optionally refetch to ensure UI is in sync with backend
+      await refetch();
+    } catch (error) {
+      console.error("Error updating identity:", error);
+      toast.error(`Error updating ${activeSection.title}`);
+
+      // Don't close the dialog on error so user can retry
+    }
   };
 
   const handleMoreInfoClick = () => {
@@ -61,6 +169,10 @@ export default function IdentityComponent() {
   const handleCloseDrawer = () => {
     setOpenDrawerId(null);
   };
+
+  if (isFetching) {
+    return <div className="p-4">Loading...</div>;
+  }
 
   return (
     <div className="dashboard-container bg-[#f9fafb]">
@@ -80,27 +192,30 @@ export default function IdentityComponent() {
                 <div>
                   <h3 className="text-lg font-semibold">{section.title}</h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {section.content || 'No content added yet.'}
+                    {section.content || "No content added yet."}
                   </p>
                 </div>
               </div>
+
               {section.content ? (
                 <Button
                   variant="link"
                   className="flex items-center gap-1 text-[#22398A]"
                   onClick={() => handleEditClick(section)}
+                  disabled={loadingSection === section.id}
                 >
                   <FiEdit className="h-4 w-4" />
-                  <span>Edit</span>
+                  <span>{loadingSection === section.id ? "Loading..." : "Edit"}</span>
                 </Button>
               ) : (
                 <Button
                   variant="default"
                   className="bg-[#22398A] hover:bg-[#1a2c6c] flex items-center gap-1"
                   onClick={() => handleEditClick(section)}
+                  disabled={loadingSection === section.id}
                 >
                   <FiPlus className="h-4 w-4" />
-                  <span>Add {section.title}</span>
+                  <span>{loadingSection === section.id ? "Loading..." : `Add ${section.title}`}</span>
                 </Button>
               )}
             </CardContent>
@@ -139,9 +254,10 @@ export default function IdentityComponent() {
               </DialogClose>
               <Button
                 onClick={handleSave}
+                disabled={isLoading}
                 className="bg-[#22398A] hover:bg-[#22398A]/90 text-white"
               >
-                Save
+                {isLoading ? "Saving..." : "Save"}
               </Button>
             </div>
           </div>
