@@ -115,7 +115,7 @@ export function AreaGraph() {
               stroke='var(--color-desktop)'
               stackId='a'
             />
-          </AreaChart>
+          </AreaChart> 
         </ChartContainer>
       </CardContent>
       <CardFooter>
