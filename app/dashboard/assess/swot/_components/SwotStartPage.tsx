@@ -10,6 +10,9 @@ import swotImage from "@/public/image/swot-img.png";
 import Drawer from "@/app/dashboard/blueprint/vision/_comoponents/DrawarModal";
 import { useState } from "react";
 import { swotSectionsData } from "@/app/dashboard/foundation/_components/dummyData";
+import { useCreateSwotMutation } from "@/redux/api/swot/swotApi";
+import toast from "react-hot-toast";
+
 
 type SectionType = (typeof swotSectionsData)[number];
 
@@ -18,16 +21,19 @@ const SwotStartPage = () => {
   const [activeSection, setActiveSection] = useState<SectionType | null>(null);
   const [openDrawerId, setOpenDrawerId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [category, setCategory] = useState("Category 4");
+  const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+
+  // RTK Query mutation hook
+  const [createSwot, { isLoading }] = useCreateSwotMutation();
 
   const handleMoreInfoClick = (sectionId: string) => {
     const foundSection = sections.find((sec) => sec.id === sectionId);
     if (foundSection) {
-      setIsModalOpen(false); // Close the modal first
-      setDescription(""); // Reset description
+      setIsModalOpen(false);
+      setDescription("");
       setActiveSection(foundSection);
-      setOpenDrawerId(foundSection.id); // Then open the drawer
+      setOpenDrawerId(foundSection.id);
     }
   };
 
@@ -41,27 +47,41 @@ const SwotStartPage = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setDescription(""); // Reset description on close
-    setOpenDrawerId(null); // Close drawer if open when modal closes
+    setDescription("");
+    setOpenDrawerId(null);
   };
 
-  const handleSave = () => {
-    // Handle save logic here (e.g., save to state or API)
-    console.log("Saved:", { category, description });
-    handleCloseModal();
+  const handleSave = async () => {
+    if (!category || !description) {
+      toast.error("Please fill in both fields before saving.");
+      return;
+    }
+
+    try {
+      const payload = {
+        categoryName: category.toLowerCase(),
+        details: description.trim(),
+      };
+
+      const result = await createSwot(payload).unwrap();
+      toast.success("SWOT created successfully:");
+      
+      // Reset form & close modal
+      setCategory("");
+      setDescription("");
+      handleCloseModal();
+    } catch (error) {
+      toast.error("Failed to create SWOT:");
+    }
   };
 
   return (
-    <div className=" min-h-[calc(100vh-65px)] p-5">
-      <div className="space-y-10 p-5 bg-white rounded-2xl border border-gray-200">
+    <div className="min-h-[calc(100vh-65px)]">
+      <div className="space-y-10 p-6 bg-white rounded-xl">
         <div className="flex justify-center w-8/12 mx-auto items-center flex-col">
-          <Image src={swotImage} width={600} height={300} alt="swot image" />
+          <Image src={swotImage} width={900} height={300} alt="swot image" />
           <h1 className="py-10 text-sm lg:text-base">
-            SWOT analysis is crucial for strategic decision-making. It evaluates
-            internal strengths, weaknesses, external opportunities, and threats.
-            Business leaders can create robust and actionable strategies by
-            regularly reviewing and adapting the SWOT analysis. It sets the stage
-            for strategic excellence.
+            SWOT analysis is crucial for strategic decision-making...
           </h1>
 
           {/* Buttons */}
@@ -75,7 +95,7 @@ const SwotStartPage = () => {
             </a>
             <button
               onClick={handleGetStartedClick}
-              className="bg-[#22398A] text-white px-4 py-2 rounded-lg hover:bg-[#1D2A6D]"
+              className="bg-[#22398A] text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-[#1D2A6D]"
             >
               Get Started
             </button>
@@ -100,10 +120,7 @@ const SwotStartPage = () => {
           {/* Modal */}
           {isModalOpen && (
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-              <div
-                className="bg-[#1D2A6D] rounded-lg w-full max-w-3xl shadow-lg"
-                style={{ fontFamily: "Arial, sans-serif" }}
-              >
+              <div className="bg-[#1D2A6D] rounded-lg w-full max-w-4xl shadow-lg">
                 <div className="p-3 flex justify-between items-center">
                   <h2 className="text-lg font-semibold text-white">SWOT Analysis</h2>
                   <button
@@ -121,10 +138,11 @@ const SwotStartPage = () => {
                       onChange={(e) => setCategory(e.target.value)}
                       className="w-full p-2 border border-gray-300 rounded mt-1"
                     >
-                      <option>Category 1</option>
-                      <option>Category 2</option>
-                      <option>Category 3</option>
-                      <option>Category 4</option>
+                      <option value="">Select Category</option>
+                      <option value="strengths">Strengths</option>
+                      <option value="weaknesses">Weaknesses</option>
+                      <option value="threats">Threats</option>
+                      <option value="opportunities">Opportunities</option>
                     </select>
                   </div>
                   <div className="mb-4">
@@ -145,9 +163,10 @@ const SwotStartPage = () => {
                     </button>
                     <button
                       onClick={handleSave}
-                      className="bg-[#1D2A6D] text-white px-6 py-2 rounded-lg hover:bg-[#22398A]"
+                      disabled={isLoading}
+                      className="bg-[#1D2A6D] text-white px-6 py-2 rounded-lg hover:bg-[#22398A] disabled:opacity-50"
                     >
-                      Save
+                      {isLoading ? "Saving..." : "Save"}
                     </button>
                   </div>
                 </div>

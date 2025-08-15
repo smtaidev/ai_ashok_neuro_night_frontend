@@ -14,47 +14,14 @@ import MeetingsSection from "./_components/(components)/UpcomingMeetingsDashboar
 import OverviewContainerPage from "./_components/overviewPage";
 
 export const metadata = {
-  title: 'Dashboard : Overview',
-  description: 'Dashboard Overview Page'
+  title: "Dashboard : Overview",
+  description: "Dashboard Overview Page",
 };
 
 export default function OverViewPage() {
-
   return (
     <div>
-      
-    {/* <OverviewContainerPage /> */}
-    <div>
-      <h1>Insight</h1>
-      {/* <div className="space-y-8">
-        <StrategicThemeData/>
-        <TotalCapabilities/>
-        <SwotAnalysis/>
-        <DifferentiationSection/>
-        <MeetingsSection/>
-        <BusinessGoalsData/>
-     
-      </div> */}
-      <h2>Key Factors Impacting Strategy</h2>
-      <div className="flex flex-col gap-4 mb-40">       
-        {/* <BusinessChallenges/> */}
-        <RegulatoryCompliance/>
-        <RisksSection/>
-        {/* <NewCapabilities/>
-        <FinancialSnapshot/> */}
-        <Roadblocks/>
-        {/* <TalentSection/> */}
-      </div>
-      <h2>Realignment</h2>
-      <div className="mt-10">
-          realignment content will be here
-      </div>
-      </div>    
+      <OverviewContainerPage />
     </div>
-  )
+  );
 }
-
-
-//    <div className="w-[500px]">
-// sdf
-//         </div>
