@@ -517,8 +517,6 @@
 // export default SWOTAnalysis;
 
 
-
-
 "use client";
 import React, { useState } from 'react';
 import { MoreVertical, Grid3X3, Menu, ChevronDown, ChevronUp } from 'lucide-react';
@@ -729,7 +727,7 @@ const SWOTSection: React.FC<{
       <div className="p-4">
         <div className="space-y-3">
           {displayItems.map((item, index) => (
-            <div key={index} className="flex items-center justify-between px-2 py-1 rounded relative">
+            <div key={index} className="flex items-center justify-between px-3 py-2 bg-gray-50 border border-gray-200 rounded-md relative hover:bg-gray-100 transition-colors">
               <span className="text-gray-700 text-sm">{typeof item === 'string' ? item : item.details}</span>
               <div className="relative">
                 <button 

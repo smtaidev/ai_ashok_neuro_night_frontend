@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { Send, X, Info } from 'lucide-react'
+import aiImage from "@/public/assets/c_ai.png"
+import Image from 'next/image'
 
 interface Message {
   id: string
@@ -29,19 +31,19 @@ const ClarhetAIChat: React.FC<ClarhetAIChatProps> = ({
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   // Fancy tip loop: show every 1 min for 10s
-  useEffect(() => {
+  useEffect(() => { 
     if (isOpen) return // Don't show when chat is open
 
     const showTip = () => {
       setShowFloatingMessage(true)
-      setTimeout(() => setShowFloatingMessage(false), 100000) // Hide after 10s
+      setTimeout(() => setShowFloatingMessage(false), 10000) // Hide after 10s
     }
 
     // First show after 1 min
-    const firstTimer = setTimeout(showTip, 10000)
+    const firstTimer = setTimeout(showTip, 60000)
 
     // Then every 1 min after
-    const interval = setInterval(showTip, 10000)
+    const interval = setInterval(showTip, 60000)
 
     return () => {
       clearTimeout(firstTimer)
@@ -168,15 +170,16 @@ const ClarhetAIChat: React.FC<ClarhetAIChatProps> = ({
               setIsOpen(true)
               setShowFloatingMessage(false)
             }}
-            className={`relative group flex items-center gap-3 px-6 py-3 text-white font-semibold rounded-full shadow-2xl transform hover:scale-110 transition-all duration-500 ease-out backdrop-blur-sm border border-white/20 ${className}`}
+            className={`relative group flex items-center gap-3 px-4 py-1 text-white font-semibold rounded-full shadow-2xl transform hover:scale-110 transition-all duration-500 ease-out backdrop-blur-sm border border-white/20 ${className}`}
             style={{
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
               boxShadow: '0 20px 40px rgba(102, 126, 234, 0.4)'
             }}
           >
-            <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 transition-all duration-300">
+            {/* <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 transition-all duration-300">
               💬
-            </div>
+            </div> */}
+            <Image src={aiImage} alt="AI" className="w-12 h-12" />
             <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-pulse font-bold text-sm tracking-wide">
               ClarhetAI
             </span>
