@@ -1,3 +1,4 @@
+
 import Footer from "@/components/shared/Footer";
 import MainNavbar from "@/components/shared/Navbar";
 import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
@@ -17,9 +18,8 @@ export default async function WebLayout({ children }: WebLayoutProps) {
         </div>
         {children}
         <Footer />
-
         <ScrollToTopButton />
       </>
     </main>
   );
-}
+} 

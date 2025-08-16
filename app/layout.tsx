@@ -4,6 +4,7 @@ import "./globals.css";
 import NextTopLoader from 'nextjs-toploader';
 import { ReduxProvider } from "@/redux/provider";
 import AppInitializer from "@/components/AppInitializer";
+import ClarhetAIChat from "@/components/chatwithai/ClarhetAIChat";
 
 
 const poppins = Poppins({
@@ -34,6 +35,10 @@ export default function RootLayout({
             shadow="0 0 10px rgba(0, 0, 0, 0.5)"
           />
           {children}
+          {/* <ClarhetAIChat
+          apiEndpoint={process.env.REACT_APP_CHAT_API_ENDPOINT}
+          apiKey={process.env.REACT_APP_CHAT_API_KEY}
+        /> */}
         </body>
       </html>
     </ReduxProvider>
