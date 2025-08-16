@@ -66,7 +66,7 @@ export default function UserAuthForm() {
       }
       startTransition(() => {
         toast.success("Login successful!");
-        // router.push("/dashboard");
+        router.push("/dashboard");
       });
     } catch (err) {
       console.error("Login error:", err);
