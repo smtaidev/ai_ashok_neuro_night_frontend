@@ -17,7 +17,7 @@ import {
   renderDrawerBlocks,
   renderDrawerMission,
 } from "../../_components/drawer-utils";
-import { useGetIdentityDataQuery, usePatchFoundationMutation } from "@/redux/api/foundation/foundationApi";
+import { useGetIdentityDataQuery, usePatchFoundationIdentityMutation } from "@/redux/api/foundation/foundationApi";
 import toast from "react-hot-toast";
 
 interface Section {
@@ -35,20 +35,14 @@ export default function IdentityComponent() {
   const [loadingSection, setLoadingSection] = useState<string | null>(null);
 
   const { data: identityRes, isLoading: isFetching, refetch } = useGetIdentityDataQuery();
-  console.log("Get identity data: ", identityRes?.data);
 
   const [sections, setSections] = useState<Section[]>([...identitySectionsData]);
-  const [patchFoundation, { isLoading }] = usePatchFoundationMutation();
+  const [patchFoundation, { isLoading }] = usePatchFoundationIdentityMutation();
 
   useEffect(() => {
-    console.log("Identity response:", identityRes);
-
     // Check if data exists and is an array with at least one item
     if (identityRes?.data && Array.isArray(identityRes.data) && identityRes.data.length > 0) {
       const identityData = identityRes.data[0].identity;
-
-      console.log("Identity data extracted:", identityData);
-
       const updated = [...identitySectionsData].map((sec) => {
         if (sec.title.toLowerCase() === "mission") {
           return { ...sec, content: identityData.mission || "" };
@@ -61,8 +55,6 @@ export default function IdentityComponent() {
         }
         return sec;
       });
-
-      console.log("Updated sections:", updated);
       setSections(updated);
     }
   }, [identityRes]);
@@ -93,8 +85,6 @@ export default function IdentityComponent() {
         const updatedSection = { ...section, content: latestContent };
         setActiveSection(updatedSection);
         setEditedContent(latestContent);
-
-        console.log("Edited Identity: ", updatedSection);
 
         // Also update the sections state to reflect latest data
         setSections(prevSections =>
@@ -133,11 +123,8 @@ export default function IdentityComponent() {
       [fieldName]: editedContent
     };
 
-    console.log("Payload being sent:", payload);
-
     try {
-      const result = await patchFoundation(payload).unwrap();
-      console.log("Patch result:", result);
+      await patchFoundation(payload).unwrap();
 
       // Update the sections state with the new content
       setSections(prevSections =>

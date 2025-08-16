@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { MoreHorizontal, Plus } from "lucide-react"
@@ -9,22 +9,39 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
+import { ICapability, useGetCapabilitiesDataQuery, usePatchFoundationCapabilitiesMutation } from "@/redux/api/foundation/foundationApi"
 
-interface Capability {
-  id: number
+
+interface LocalCapability {
+  id: string
   text: string
   type: "core" | "differentiating"
 }
 
 export default function CapabilityComponent() {
-  const [capabilities, setCapabilities] = useState<Capability[]>([]);
-
+  const [capabilities, setCapabilities] = useState<LocalCapability[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [editingCapability, setEditingCapability] = useState<Capability | null>(null)
+  const [editingCapability, setEditingCapability] = useState<LocalCapability | null>(null)
   const [formData, setFormData] = useState({
     text: "",
     type: "" as "core" | "differentiating" | "",
   })
+
+  // API hooks
+  const { data: capabilitiesData, isLoading, error, refetch } = useGetCapabilitiesDataQuery()
+  const [patchCapabilities, { isLoading: isSaving }] = usePatchFoundationCapabilitiesMutation()
+
+  // Transform API data to local format
+  useEffect(() => {
+    if (capabilitiesData?.success && capabilitiesData.data?.capabilitys) {
+      const transformedCapabilities: LocalCapability[] = capabilitiesData.data.capabilitys.map((cap: ICapability) => ({
+        id: cap._id,
+        text: cap.capability,
+        type: cap.type as "core" | "differentiating"
+      }))
+      setCapabilities(transformedCapabilities)
+    }
+  }, [capabilitiesData])
 
   const handleAddNew = () => {
     setEditingCapability(null)
@@ -32,44 +49,60 @@ export default function CapabilityComponent() {
     setIsModalOpen(true)
   }
 
-  const handleEdit = (capability: Capability) => {
+  const handleEdit = (capability: LocalCapability) => {
     setEditingCapability(capability)
     setFormData({ text: capability.text, type: capability.type })
     setIsModalOpen(true)
   }
 
-  const handleDelete = (id: number) => {
-    setCapabilities(capabilities.filter((cap) => cap.id !== id))
+  const handleDelete = async (id: string) => {
+    try {
+      // For delete, you might need a separate delete endpoint
+      // For now, we'll just remove from local state and refetch
+      // You may need to implement a delete endpoint in your API
+      console.log("Delete capability with ID:", id)
+
+      // Remove from local state immediately for better UX
+      setCapabilities(capabilities.filter((cap) => cap.id !== id))
+
+      // You'll need to implement actual delete API call here
+      // await deleteCapability(id).unwrap()
+
+    } catch (error) {
+      console.error("Failed to delete capability:", error)
+      // Revert local state on error
+      await refetch()
+    }
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!formData.text.trim() || !formData.type) return
 
-    if (editingCapability) {
-      // Update existing capability
-      setCapabilities(
-        capabilities.map((cap: any) =>
-          cap.id === editingCapability.id ? { ...cap, text: formData.text, type: formData.type } : cap,
-        ),
-      )
-    } else {
-      // Add new capability
-      const newCapability: Capability = {
-        id: Math.max(...capabilities.map((c) => c.id), 0) + 1,
-        text: formData.text,
-        type: formData.type,
+    try {
+      // Create payload in the format: { "capability": "text", "type": "type" }
+      const payload = {
+        capability: formData.text,
+        type: formData.type
       }
-      setCapabilities([...capabilities, newCapability])
-    }
 
-    setIsModalOpen(false)
-    setFormData({ text: "", type: "" })
-    setEditingCapability(null)
+      // Send to API
+      await patchCapabilities(payload).unwrap()
+
+      // Refetch to get updated data
+      await refetch()
+
+      setIsModalOpen(false)
+      setFormData({ text: "", type: "" })
+      setEditingCapability(null)
+    } catch (error) {
+      console.error("Failed to save capability:", error)
+      // You might want to show an error toast here
+    }
   }
 
-  const handleModalDelete = () => {
+  const handleModalDelete = async () => {
     if (editingCapability) {
-      handleDelete(editingCapability.id)
+      await handleDelete(editingCapability.id)
       setIsModalOpen(false)
       setFormData({ text: "", type: "" })
       setEditingCapability(null)
@@ -90,6 +123,28 @@ export default function CapabilityComponent() {
     } else {
       return index % 2 === 0 ? "text-white" : "text-gray-800"
     }
+  }
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="bg-[#F5F7FA] min-h-screen px-6 py-8">
+        <div className="flex items-center justify-center py-16">
+          <div className="text-gray-500">Loading capabilities...</div>
+        </div>
+      </div>
+    )
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="bg-[#F5F7FA] min-h-screen px-6 py-8">
+        <div className="flex items-center justify-center py-16">
+          <div className="text-red-500">Error loading capabilities. Please try again.</div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -138,7 +193,8 @@ export default function CapabilityComponent() {
                 className={`${getCardColor(item.type, index)} ${getTextColor(item.type, index)} relative border-0`}
               >
                 <CardContent className="p-4 text-sm font-medium">
-                  <div className="pr-8">{item.text}</div>
+                  <div className="pr-4">Team Name: {item.text}</div>
+                  <div className="pr-4">Type: {item.type}</div>
                   <div className="absolute top-2 right-2 flex items-center gap-1">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -178,9 +234,8 @@ export default function CapabilityComponent() {
           <DialogHeader className="bg-[#1B2E83] text-white p-4 -m-6 mb-4 rounded-t-lg">
             <div className="flex items-center justify-between">
               <DialogTitle className="text-lg font-medium">
-                {editingCapability ? "Edit capability" : "Add New capabilitie"}
+                {editingCapability ? "Edit capability" : "Add New capability"}
               </DialogTitle>
-
             </div>
           </DialogHeader>
 
@@ -191,7 +246,7 @@ export default function CapabilityComponent() {
               </Label>
               <Input
                 id="capability-text"
-                placeholder="Enter your capabilitie"
+                placeholder="Enter your capability"
                 value={formData.text}
                 onChange={(e) => setFormData({ ...formData, text: e.target.value })}
                 className="border-gray-300"
@@ -223,6 +278,7 @@ export default function CapabilityComponent() {
                 variant="outline"
                 onClick={handleModalDelete}
                 className="text-red-600 border-red-600 hover:bg-red-50 bg-transparent"
+                disabled={isSaving}
               >
                 Delete
               </Button>
@@ -231,10 +287,10 @@ export default function CapabilityComponent() {
             )}
             <Button
               onClick={handleSave}
-              disabled={!formData.text.trim() || !formData.type}
+              disabled={!formData.text.trim() || !formData.type || isSaving}
               className="bg-[#1B2E83] hover:bg-[#1B2E83]/90"
             >
-              Save
+              {isSaving ? "Saving..." : "Save"}
             </Button>
           </div>
         </DialogContent>

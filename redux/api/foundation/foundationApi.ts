@@ -32,7 +32,7 @@ export interface IFoundation {
 
 // Interface for individual field updates
 export interface IUpdateSingleFieldRequest {
-  [key: string]: string; // This allows dynamic field names like { mission: "..." } or { value: "..." } or { purpose: "..." }
+  [key: string]: string; 
 }
 
 // Updated response interface to match actual API response
@@ -52,9 +52,36 @@ export interface IGetIdentityResponse {
   }>;
 }
 
+export interface IGetZeroInResponse{
+  success: boolean;
+  message: string;
+  data: Array<{
+    zeroIn: IZeroIn;
+    companyName: string;
+  }>;
+}
+
+export interface IGetCapabilitiesResponse {
+  success: boolean;
+  message: string;
+  data: {
+    identity: IIdentity;
+    zeroIn: IZeroIn;
+    _id: string;
+    companyName: string;
+    capabilitys: ICapability[];
+    differentiatingCapabilities: string[];
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  };
+}
+
+const url = "/foundation"
+
 export const foundationApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    patchFoundation: builder.mutation<
+    patchFoundationIdentity: builder.mutation<
       IFoundationResponse,
       IUpdateSingleFieldRequest
     >({
@@ -64,7 +91,7 @@ export const foundationApi = api.injectEndpoints({
           : null;
 
         return {
-          url: "/foundation/create-identity",
+          url: `${url}/create-identity`,
           method: "PATCH",
           body,
           headers: {
@@ -83,7 +110,7 @@ export const foundationApi = api.injectEndpoints({
           : null;
 
         return {
-          url: "/foundation/get-identity",
+          url: `${url}/get-identity`,
           method: "GET",
           headers: {
             Authorization: token ? `Bearer ${token}` : "",
@@ -91,8 +118,90 @@ export const foundationApi = api.injectEndpoints({
         };
       },
       providesTags: ["Foundation"],
-    })
+    }),
+    patchFoundationZeroIn: builder.mutation<
+      IFoundationResponse,
+      IUpdateSingleFieldRequest
+    >({
+      query: (body) => {
+        const token = typeof window !== "undefined"
+          ? localStorage.getItem("accessToken")
+          : null;
+
+        return {
+          url: `${url}/create-zero`,
+          method: "PATCH",
+          body,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+            "Content-Type": "application/json",
+          },
+        };
+      },
+      invalidatesTags: ["Foundation"],
+    }),
+    
+    getZeroInData: builder.query<IGetZeroInResponse, void>({
+      query: () => {
+        const token = typeof window !== "undefined"
+          ? localStorage.getItem("accessToken")
+          : null;
+
+        return {
+          url: `${url}/get-zero`,
+          method: "GET",
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
+      providesTags: ["Foundation"],
+    }),
+
+    patchFoundationCapabilities: builder.mutation<
+      IFoundationResponse,
+      IUpdateSingleFieldRequest
+    >({
+      query: (body) => {
+        const token = typeof window !== "undefined"
+          ? localStorage.getItem("accessToken")
+          : null;
+
+        return {
+          url: `${url}/create-capability`,
+          method: "PATCH",
+          body,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+            "Content-Type": "application/json",
+          },
+        };
+      },
+      invalidatesTags: ["Foundation"],
+    }),
+
+    getCapabilitiesData: builder.query<IGetCapabilitiesResponse, void>({
+      query: () => {
+        const token = typeof window !== "undefined"
+          ? localStorage.getItem("accessToken")
+          : null;
+
+        return {
+          url: `${url}/get-capability`,
+          method: "GET",
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        };
+      },
+      providesTags: ["Foundation"],
+    }),
+
   }),
 });
 
-export const { usePatchFoundationMutation, useGetIdentityDataQuery } = foundationApi;
+export const { 
+  usePatchFoundationIdentityMutation, useGetIdentityDataQuery, usePatchFoundationZeroInMutation, useGetZeroInDataQuery,
+  useGetCapabilitiesDataQuery,
+  usePatchFoundationCapabilitiesMutation
+} = foundationApi;
