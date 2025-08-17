@@ -64,7 +64,7 @@ const AfterPage: React.FC<AfterPageProps> = ({ visionData }) => {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-5 min-h-[calc(100vh-110px)]">
       {/* Vision Section */}
       <div className="bg-white border border-gray-200 p-5 rounded-lg relative">
         <div className="flex justify-between items-center mb-5">
