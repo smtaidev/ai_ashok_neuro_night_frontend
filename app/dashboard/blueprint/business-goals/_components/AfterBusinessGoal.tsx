@@ -8,6 +8,7 @@ import BusinessGoalImpactSummary from "./BusinessGoalImpactSummary";
 import BusinessGoalsModal from "./BusinessGoalsModal";
 import GanttView from "./views/GanttView";
 import GoalCard from "./views/GoalCard";
+import TreeComponent from "./views/TreeComponent";
 
 // Remove useState from here. The state will be declared inside the component.
 
@@ -302,37 +303,7 @@ const AfterBusinessGoal = () => {
 ]}  />}
 
     {viewMode === 'structure' && (
-      <div className="relative p-4 sm:p-8 overflow-x-auto">
-        {/* SVG connectors */}
-        <svg className="absolute top-0 left-0 w-full h-full" style={{ zIndex: -1 }}>
-          <line x1="260" y1="96" x2="350" y2="96" stroke="#9CA3AF" strokeWidth="2" />
-          <line x1="350" y1="96" x2="350" y2="444" stroke="#9CA3AF" strokeWidth="2" />
-          <line x1="350" y1="96" x2="360" y2="96" stroke="#9CA3AF" strokeWidth="2" />
-          <line x1="350" y1="216" x2="360" y2="216" stroke="#9CA3AF" strokeWidth="2" />
-          <line x1="350" y1="336" x2="360" y2="336" stroke="#9CA3AF" strokeWidth="2" />
-          <line x1="350" y1="444" x2="360" y2="444" stroke="#9CA3AF" strokeWidth="2" />
-          <line x1="628" y1="96" x2="710" y2="96" stroke="#9CA3AF" strokeWidth="2" />
-          <line x1="710" y1="96" x2="710" y2="216" stroke="#9CA3AF" strokeWidth="2" />
-          <line x1="710" y1="216" x2="720" y2="216" stroke="#9CA3AF" strokeWidth="2" />
-        </svg>
-
-        {/* Structure Layout */}
-        <div className="flex flex-row space-x-8 md:space-x-16">
-          <div className="flex flex-col">
-            <StructureViewCard goal={goals[0]} isStrategicTheme={true} />
-          </div>
-          <div className="flex flex-col space-y-8 md:space-y-12 mt-8">
-            <StructureViewCard goal={goals[1]} />
-            <StructureViewCard goal={goals[2]} />
-            <StructureViewCard goal={goals[4]} />
-            <StructureViewCard goal={goals[5]} />
-          </div>
-          <div className="flex flex-col space-y-8 md:space-y-12 mt-8">
-            <StructureViewCard goal={goals[2]} />
-            <StructureViewCard goal={goals[3]} />
-          </div>
-        </div>
-      </div>
+      <TreeComponent/>
     )}
   </div>
      <BusinessGoalsModal

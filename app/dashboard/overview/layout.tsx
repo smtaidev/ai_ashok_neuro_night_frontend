@@ -1,4 +1,5 @@
 import BusinessChallenges from "./_components/(components)/BusinessChallengesDashboard";
+import BusinessGoals from "./_components/(components)/BusinessGoals";
 import BusinessGoalsData from "./_components/(components)/BusinessGoalsData";
 import ChangeManagement from "./_components/(components)/ChangeManagement";
 import CompetitorAnalysis from "./_components/(components)/CompetitorAnalysis";
@@ -28,6 +29,9 @@ export default function OverViewPage() {
   return (
     <div>
       <OverviewContainerPage />
+      <div>
+        <BusinessGoals/>
+      </div>
     </div>
   );
 }
