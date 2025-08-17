@@ -170,7 +170,7 @@ const ClarhetAIChat: React.FC<ClarhetAIChatProps> = ({
               setIsOpen(true)
               setShowFloatingMessage(false)
             }}
-            className={`relative group flex items-center gap-3 px-4 py-1 text-white font-semibold rounded-full shadow-2xl transform hover:scale-110 transition-all duration-500 ease-out backdrop-blur-sm border border-white/20 ${className}`}
+            className={`relative group flex items-center gap-3 px-2 py-1 text-white font-semibold rounded-full shadow-2xl transform hover:scale-110 transition-all duration-500 ease-out backdrop-blur-sm border border-white/20 ${className}`}
             style={{
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
               boxShadow: '0 20px 40px rgba(102, 126, 234, 0.4)'
@@ -179,7 +179,7 @@ const ClarhetAIChat: React.FC<ClarhetAIChatProps> = ({
             {/* <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 transition-all duration-300">
               💬
             </div> */}
-            <Image src={aiImage} alt="AI" className="w-12 h-12" />
+            <Image src={aiImage} alt="AI" className="w-8 h-8" />
             <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-pulse font-bold text-sm tracking-wide">
               ClarhetAI
             </span>

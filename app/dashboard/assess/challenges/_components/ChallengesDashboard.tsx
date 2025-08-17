@@ -4,6 +4,9 @@ import React from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { Grid, LayoutGrid } from 'lucide-react';
 import Link from 'next/link';
+import { BsFillGridFill } from 'react-icons/bs';
+import { PiSquareSplitHorizontalFill } from 'react-icons/pi';
+import ChallengesSummary from './ChallengesSummarry';
 
 // Types for our data structures
 interface RiskCategory {
@@ -174,7 +177,19 @@ const ChallengesDashboard = () => {
   return (
     <div className="min-h-screen bg-white my-8 p-6">
       <div className="">
+
         {/* Header */}
+        <div className="flex justify-end items-end gap-3">
+
+            <div className='mr-4'>
+              <button className="p-2 border mr-4 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" >
+              <BsFillGridFill className="w-5 h-5 cursor-pointer text-gray-600" />
+            </button>
+            <button className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" >
+              <PiSquareSplitHorizontalFill className="w-5 h-5 cursor-pointer text-gray-600" />
+            </button>
+            </div>
+          </div>
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-semibold text-gray-800 mb-2">Challenges</h1>
@@ -182,11 +197,7 @@ const ChallengesDashboard = () => {
               What are the main challenges the company is facing? In other words, what are the major obstacles that the strategy needs to address? The intent is to establish a list of the most pressing business challenges in order of priority. It is crucial to engage all relevant stakeholders in developing the prioritized list to foster alignment and ensure that everyone is on board with the business challenges the strategy aims to tackle.
             </p>
           </div>
-          <div className="flex items-center gap-3">
-            <Link href="/dashboard/challenge-summarry" className="bg-[#22398A] text-white px-4 py-2 cursor-pointer rounded-lg font-medium flex items-center gap-2 transition-colors">
-              Back to Challenges
-            </Link>
-          </div>
+          
         </div>
 
         {/* Main Content Grid */}
@@ -339,6 +350,7 @@ const ChallengesDashboard = () => {
           </div>
         </div>
       </div>
+        
     </div>
   );
 };
