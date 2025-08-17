@@ -24,7 +24,7 @@ export const visionApi = api.injectEndpoints({
     }),
 
     getVisions: builder.query<{ data: Vision[] }, void>({
-      query: () => "/blueprint/get-visons", // if you have this endpoint
+      query: () => "/blueprint/get-vision", // if you have this endpoint
       providesTags: ["Vision"],
     }),
   }),

@@ -1,30 +1,54 @@
 "use client";
 import React, { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
-
 import ReuseableDrawer from "../../_components/reuseable/ReuseableDrawer";
 import Image from "next/image";
 import LinkImage from "@/public/image/link-icon.svg";
 import Link from "next/link";
 import VisionAfter from "@/public/static-json-data/blueprint/vision-after-form-db";
+import { useCreateVisionMutation } from "@/redux/api/blueprint/vison/visonApi";
+import toast from "react-hot-toast"; // ✅ import toast
 
-const AfterPage: React.FC = () => {
+type AfterPageProps = {
+  visionData: { id: string; vision: string };
+};
+
+const AfterPage: React.FC<AfterPageProps> = ({ visionData }) => {
   const [vision, setVision] = useState(
-    "A Vision provides direction, motivation, and reinforcement for decision-making..."
+    visionData?.vision || "No vision available"
   );
 
   // For editing Vision (modal)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editedVision, setEditedVision] = useState(vision);
+  const [editedVision, setEditedVision] = useState(
+    visionData?.vision || "No vision available"
+  );
 
   // For Drawer
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [infoData, setInfoData] = useState<React.ReactNode>(null);
 
-  /** Save vision changes */
-  const handleSave = () => {
-    setVision(editedVision);
-    setIsModalOpen(false);
+  // ✅ Mutation hook
+  const [updateVision, { isLoading: isUpdating }] = useCreateVisionMutation();
+
+  if (!visionData) {
+    return <p className="text-center text-gray-500">No vision data available</p>;
+  }
+
+  /** Save vision changes (API call) */
+  const handleSave = async () => {
+    try {
+      const payload = { id: visionData.id, vision: editedVision };
+      const res = await updateVision(payload).unwrap();
+
+      setVision(res.data.vision); // update local state
+      setIsModalOpen(false);
+
+      toast.success("Vision updated successfully ");
+    } catch (error) {
+      console.error("Failed to update vision:", error);
+      toast.error("Failed to update vision ");
+    }
   };
 
   /** Cancel vision editing */
@@ -35,7 +59,7 @@ const AfterPage: React.FC = () => {
 
   /** Open Drawer with AI insights */
   const handleMoreInfo = () => {
-    setInfoData(<VisionAfter/>);
+    setInfoData(<VisionAfter />);
     setIsDrawerOpen(true);
   };
 
@@ -75,6 +99,7 @@ const AfterPage: React.FC = () => {
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
         title="ClarhetAI Insights"
+        isAi={true}
       >
         {infoData || (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/10">
@@ -83,7 +108,7 @@ const AfterPage: React.FC = () => {
         )}
       </ReuseableDrawer>
 
-      {/* TODO: Replace with a reusable center modal if needed */}
+      {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
           <div className="bg-white rounded-2xl shadow-lg w-11/12 max-w-2xl relative">
@@ -119,9 +144,10 @@ const AfterPage: React.FC = () => {
               </button>
               <button
                 onClick={handleSave}
-                className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-950"
+                disabled={isUpdating}
+                className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-950 disabled:opacity-50"
               >
-                Save
+                {isUpdating ? "Saving..." : "Save"}
               </button>
             </div>
           </div>
