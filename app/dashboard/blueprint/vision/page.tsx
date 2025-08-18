@@ -86,13 +86,16 @@ const Vision = () => {
     return <p className="text-center text-red-500">Failed to load vision data</p>;
   }
 
+  if (!vision || null ) {
+    return <BeforePage />;
+  }
   // ✅ if vision exists → AfterPage
-  if (vision ) {
+  if (vision) {
     return <AfterPage visionData={vision} />;
   }
 
   // ❌ if no vision yet → BeforePage
-  return <BeforePage />;
+  // return <BeforePage />;
 };
 
 export default Vision;

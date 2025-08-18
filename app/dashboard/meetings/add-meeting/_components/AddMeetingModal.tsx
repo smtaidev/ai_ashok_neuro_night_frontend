@@ -341,10 +341,10 @@ const AddMeetingModal: React.FC<AddMeetingModalProps> = ({
   const displayEndTime = format(parseISO(`2000-01-01T${endTime}:00`), "h:mm a");
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl overflow-hidden">
+    <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-md shadow-xl w-full max-w-2xl overflow-hidden">
         {/* Modal Header */}
-        <div className="flex justify-between items-center p-5 border-b border-gray-200 bg-blue-800 text-white">
+        <div className="flex justify-between items-center p-5 border-b border-gray-200 bg-blue-900 text-white">
           <h3 className="text-xl font-semibold">Add Meeting</h3>
           <button
             onClick={onClose}
@@ -503,7 +503,7 @@ const AddMeetingModal: React.FC<AddMeetingModalProps> = ({
           <div className="flex justify-end pt-4 border-t border-gray-200 mt-4">
             <button
               type="submit"
-              className="px-6 py-2 bg-blue-700 text-white rounded-md text-sm font-medium hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+              className="px-6 py-2 bg-blue-900 text-white rounded-md text-sm font-medium hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer focus:ring-opacity-50"
             >
               Save
             </button>

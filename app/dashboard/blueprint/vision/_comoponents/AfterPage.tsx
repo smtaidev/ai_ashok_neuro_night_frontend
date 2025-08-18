@@ -121,7 +121,7 @@ const AfterPage: React.FC<AfterPageProps> = ({ visionData }) => {
             </button>
 
             {/* Header */}
-            <div className="bg-blue-800 text-white rounded-t-2xl p-4 mb-4">
+            <div className="bg-blue-900 text-white rounded-t-2xl p-4 mb-4">
               <h2 className="text-xl font-bold">Edit Vision</h2>
             </div>
 

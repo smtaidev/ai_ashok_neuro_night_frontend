@@ -199,6 +199,7 @@
 // pages/UpcomingMeetings.tsx (or wherever your component is located)
 import React, { useState } from "react";
 import AddMeetingModal from "./AddMeetingModal";
+import { toast } from "react-hot-toast";
 
 const initialMeetings = [
   {
@@ -272,6 +273,7 @@ const UpcomingMeetings = () => {
     description: string;
   }) => {
     console.log("New Meeting Data:", newMeetingData);
+    toast.success("Meeting added successfully!");
     const time = `${newMeetingData.startTime} - ${newMeetingData.endTime}`;
     setMeetings((prevMeetings) => [
       ...prevMeetings,
@@ -296,7 +298,7 @@ const UpcomingMeetings = () => {
           </h2>
           <button
             onClick={handleOpenModal}
-            className="px-5 py-2 bg-blue-700 text-white rounded-md text-sm font-medium hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            className="px-5 py-2 bg-blue-800 cursor-pointer text-white rounded-md text-sm font-medium hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
             Add New Meeting
           </button>
