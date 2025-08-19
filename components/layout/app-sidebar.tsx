@@ -32,7 +32,6 @@ import {
 import { UserAvatarProfile } from "@/components/user-avatar-profile";
 import { navItems } from "@/constants/data";
 import { useMediaQuery } from "@/hooks/use-media-query";
-// import { useUser } from '@clerk/nextjs';
 import {
   IconBell,
   IconChevronRight,
@@ -42,12 +41,10 @@ import {
   IconPhotoUp,
   IconUserCircle,
 } from "@tabler/icons-react";
-// import { SignOutButton } from '@clerk/nextjs';
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import * as React from "react";
 import { Icons } from "../icons";
-import { OrgSwitcher } from "../org-switcher";
 import { cn } from "./../../lib/utils";
 
 export const company = {
@@ -60,40 +57,38 @@ export default function AppSidebar() {
   const pathname = usePathname();
   const { isOpen } = useMediaQuery();
   const sidebar = useSidebar();
-  // const { user } = useUser();
   const { user } = {
     user: {
       imageUrl: "https://example.com/image.jpg",
-      // fullName: userName,
-      // emailAddresses: [{ emailAddress: email }],
     },
   };
   const router = useRouter();
 
-  React.useEffect(() => {
-    // Side effects based on sidebar state changes
-  }, [isOpen]);
-
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader className="pb-4.5 border-b-2 border-[#22398A]">
-        <div className="flex items-center space-x-2">
-          <span className="text-base font-bold whitespace-nowrap transition-all duration-300">
-            {sidebar.open
-              ? company.name
-              : company.name
-                  .split(" ")
-                  .map((word) => word[0])
-                  .join("")
-                  .toUpperCase()}
-          </span>
-        </div>
+    <Sidebar
+      collapsible="icon"
+      className="w-72 min-h-screen bg-white shadow-md" // wider sidebar
+    >
+      {/* Sidebar Header */}
+      <SidebarHeader className="pb-6 border-b-2 border-[#22398A] h-20 flex items-center px-4">
+        <span className="text-2xl font-extrabold whitespace-nowrap transition-all duration-300">
+          {sidebar.open
+            ? company.name
+            : company.name
+              .split(" ")
+              .map((word) => word[0])
+              .join("")
+              .toUpperCase()}
+        </span>
       </SidebarHeader>
 
-      <SidebarContent className="overflow-x-hidden">
+      {/* Sidebar Content */}
+      <SidebarContent className="overflow-x-hidden text-lg">
         <SidebarGroup>
-          <SidebarGroupLabel>Overview</SidebarGroupLabel>
-          <SidebarMenu className="data-[active=true]:bg-blue-500! data-[active=true]:text-sidebar-accent-foreground!">
+          <SidebarGroupLabel className="lg:text-2xl md:text-xl text-lg font-bold mb-2">
+            Overview
+          </SidebarGroupLabel>
+          <SidebarMenu className="space-y-1">
             {navItems.map((item) => {
               const Icon = item.icon ? Icons[item.icon] : Icons.logo;
               return item?.items && item?.items?.length > 0 ? (
@@ -108,9 +103,9 @@ export default function AppSidebar() {
                       <SidebarMenuButton
                         tooltip={item.title}
                         isActive={pathname === item.url}
-                        className=""
+                        className="px-5 py-6 text-lg font-semibold rounded-md"
                       >
-                        {item.icon && <Icon />}
+                        {item.icon && <Icon className="mr-2 w-6 h-6" />}
                         <Link href={item.url}>
                           <span>{item.title}</span>
                         </Link>
@@ -118,12 +113,13 @@ export default function AppSidebar() {
                       </SidebarMenuButton>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
-                      <SidebarMenuSub>
+                      <SidebarMenuSub className="ml-4">
                         {item.items?.map((subItem) => (
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton
                               asChild
                               isActive={pathname === subItem.url}
+                              className="px-5 py-2 text-base rounded-md"
                             >
                               <Link href={subItem.url}>
                                 <span>{subItem.title}</span>
@@ -141,9 +137,10 @@ export default function AppSidebar() {
                     asChild
                     tooltip={item.title}
                     isActive={pathname === item.url}
+                    className="px-5 py-6 text-lg font-semibold rounded-md"
                   >
                     <Link href={item.url}>
-                      <Icon />
+                      <Icon className="mr-2 w-6 h-6" />
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
@@ -153,70 +150,59 @@ export default function AppSidebar() {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+
+      {/* Footer */}
+      <SidebarFooter className="p-4 border-t mt-4">
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton
                   size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                  className="w-full flex justify-between items-center px-5 py-6 rounded-md"
                 >
-                  {/* {user && (
-                    <UserAvatarProfile
-                      className="h-8 w-8 rounded-lg"
-                      showInfo
-                      user={user}
-                    />
-                  )} */}
-                  <IconChevronsDown className="ml-auto size-4" />
+                  <span className="text-lg font-semibold">Account</span>
+                  <IconChevronsDown className="ml-auto size-5" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+                className="w-64 rounded-lg"
                 side="bottom"
                 align="end"
                 sideOffset={4}
               >
                 <DropdownMenuLabel className="p-0 font-normal">
-                  <div className="px-1 py-1.5">
-                    {/* {user && (
-                      <UserAvatarProfile
-                        className="h-8 w-8 rounded-lg"
-                        showInfo
-                        user={user}
-                      />
-                    )} */}
+                  <div className="px-3 py-2">
+                    {/* <UserAvatarProfile className="h-8 w-8 rounded-lg" showInfo user={user} /> */}
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
 
                 <DropdownMenuGroup>
-                  <DropdownMenuItem
-                    onClick={() => router.push("/dashboard/profile")}
-                  >
-                    <IconUserCircle className="mr-2 h-4 w-4" />
+                  <DropdownMenuItem onClick={() => router.push("/dashboard/profile")}>
+                    <IconUserCircle className="mr-2 h-5 w-5" />
                     Profile
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <IconCreditCard className="mr-2 h-4 w-4" />
+                    <IconCreditCard className="mr-2 h-5 w-5" />
                     Billing
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <IconBell className="mr-2 h-4 w-4" />
+                    <IconBell className="mr-2 h-5 w-5" />
                     Notifications
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <IconLogout className="mr-2 h-4 w-4" />
-                  {/* <SignOutButton redirectUrl='/auth/sign-in' /> */}
+                  <IconLogout className="mr-2 h-5 w-5" />
+                  Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
+
       <SidebarRail />
     </Sidebar>
   );

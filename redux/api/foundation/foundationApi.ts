@@ -197,11 +197,32 @@ export const foundationApi = api.injectEndpoints({
       providesTags: ["Foundation"],
     }),
 
+    // patchSingleFoundationCapability: builder.mutation<
+    //   IFoundationResponse,
+    //   IUpdateSingleFieldRequest
+    // >({
+    //   query: (body: any, id : string) => {
+    //     const token = typeof window !== "undefined"
+    //       ? localStorage.getItem("accessToken")
+    //       : null;
+
+    //     return {
+    //       url: `${url}/${id}/update-capability`,
+    //       method: "PATCH",
+    //       body,
+    //       headers: {
+    //         Authorization: token ? `Bearer ${token}` : "",
+    //         "Content-Type": "application/json",
+    //       },
+    //     };
+    //   },
+    //   invalidatesTags: ["Foundation"],
+    // })
+
   }),
 });
 
 export const { 
   usePatchFoundationIdentityMutation, useGetIdentityDataQuery, usePatchFoundationZeroInMutation, useGetZeroInDataQuery,
-  useGetCapabilitiesDataQuery,
-  usePatchFoundationCapabilitiesMutation
+  useGetCapabilitiesDataQuery, usePatchFoundationCapabilitiesMutation
 } = foundationApi;

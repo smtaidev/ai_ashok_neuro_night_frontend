@@ -8,7 +8,7 @@ import { TbBellRinging2 } from "react-icons/tb";
 
 export default function Header() {
   return (
-    <header className='flex h-16 shrink-0 items-center bg-[#22398A] justify-between gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12'>
+    <header className='flex h-20 shrink-0 items-center bg-[#22398A] justify-between gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12'>
       <div className='flex items-center gap-2 px-4'>
         <SidebarTrigger className='-ml-1 text-white' />
         <Separator orientation='vertical' className='mr-2 h-4' />
