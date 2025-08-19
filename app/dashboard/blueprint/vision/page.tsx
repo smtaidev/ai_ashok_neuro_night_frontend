@@ -64,6 +64,8 @@ import React, { useState, useEffect } from "react";
 import BeforePage from "./_comoponents/BeforePage";
 import AfterPage from "./_comoponents/AfterPage";
 import { useGetVisionsQuery } from "@/redux/api/blueprint/vison/visonApi";
+import Loading from "../../loading";
+
 
 const Vision = () => {
   const [vision, setVision] = useState<any>(null);
@@ -79,7 +81,7 @@ const Vision = () => {
   console.log(vision, "Vision Data");
 
   if (isLoading) {
-    return <p className="text-center text-gray-500">Loading...</p>;
+    return <Loading/>;
   }
 
   if (isError) {
