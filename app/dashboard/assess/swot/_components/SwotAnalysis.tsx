@@ -1,6 +1,4 @@
 
-
-
 "use client";
 import React, { useState } from 'react';
 import { MoreVertical, Grid3X3, Menu, ChevronDown, ChevronUp } from 'lucide-react';
@@ -10,6 +8,8 @@ import { BsFillGridFill } from 'react-icons/bs';
 import { PiSquareSplitHorizontalFill } from "react-icons/pi";
 import { useCreateSwotMutation, useGetSwotsQuery, useUpdateSwotMutation, useDeleteSwotMutation } from '@/redux/api/swot/swotApi';
 import toast from 'react-hot-toast';
+import { useGetAiSwotQuery } from '@/redux/api/clarhetai-recomandation/clarhetaiApi';
+import AIRecommendationsDrawer from '@/components/swotAIRecomandation/page';
 
 
 interface ChartData {
@@ -18,6 +18,20 @@ interface ChartData {
   color: string;
   lightColor: string;
 }
+
+type SwotKey = "strengths" | "weaknesses" | "opportunities" | "threats";
+type Recommendations = {
+  [key in SwotKey]?: string[];
+};
+
+type Swot = {
+  strengths?: any[];
+  weaknesses?: any[];
+  opportunities?: any[];
+  threats?: any[];
+  recommendations?: Recommendations;
+  [key: string]: any;
+};
 
 const DonutChart: React.FC<{ data: ChartData[] }> = ({ data }) => {
   const [hoveredSegment, setHoveredSegment] = useState<string | null>(null);
@@ -182,8 +196,8 @@ const SWOTSection: React.FC<{
   bgColor: string; 
   textColor: string; 
   items: any[];
-  onEdit: (item: any, index: number) => void;
-  onDelete: (item: any, index: number) => void;
+  onEdit: (item: any, index: number, category: string) => void;
+  onDelete: (item: any, index: number, category: string) => void;
 }> = ({ 
   title, 
   bgColor, 
@@ -195,6 +209,7 @@ const SWOTSection: React.FC<{
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
 
+  
   const displayItems = showAll ? items : items.slice(0, 7);
   const hasMore = items.length > 7;
 
@@ -225,7 +240,7 @@ const SWOTSection: React.FC<{
                     <button 
                       className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
                       onClick={() => {
-                        onEdit(item, showAll ? index : index);
+                        onEdit(item, showAll ? index : index, title);
                         setActiveDropdown(null);
                       }}
                     >
@@ -234,7 +249,7 @@ const SWOTSection: React.FC<{
                     <button 
                       className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-gray-50"
                       onClick={() => {
-                        onDelete(item, showAll ? index : index);
+                        onDelete(item, showAll ? index : index, title);
                         setActiveDropdown(null);
                       }}
                     >
@@ -277,21 +292,38 @@ const SWOTAnalysis: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'split'>('grid');
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  
+
+  // for drawer modal
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    
+      const handleMoreInfoClickAI = () => {
+        setIsDrawerOpen(true);
+      };
+    
+      const handleCloseDrawerAI = () => {
+        setIsDrawerOpen(false);
+      };
 
   const [createSwot, {isLoading}] = useCreateSwotMutation();
   const [updateSwot, {isLoading: isUpdating}] = useUpdateSwotMutation();
   const [deleteSwot, {isLoading: isDeleting}] = useDeleteSwotMutation();
 
   const {data: swotData} = useGetSwotsQuery();
+  const { data: aiSwotData } = useGetAiSwotQuery();
 
   console.log( "swot data",swotData? swotData.data : "No data available");
 
   const swot = swotData?.data?.[0];
+   const recommendations: Recommendations = aiSwotData?.data.recommendations || {};
+   const companyName = aiSwotData?.data?.companyName || "N/A";
+  
 
-  const strengthsItems = swot?.strengths?.map((s: any) => s.details || s) || [];
-  const weaknessesItems = swot?.weaknesses?.map((w: any) => w.details || w) || [];
-  const opportunitiesItems = swot?.opportunities?.map((o: any) => o.details || o) || [];
-  const threatsItems = swot?.threats?.map((t: any) => t.details || t) || [];
+  const strengthsItems = swot?.strengths || [];
+  const weaknessesItems = swot?.weaknesses || [];
+  const opportunitiesItems = swot?.opportunities || [];
+  const threatsItems = swot?.threats || [];
 
   const donutChartData: ChartData[] = [
     { label: 'Strengths', value: strengthsItems.length, color: '#16a34a', lightColor: '#dcfce7' },
@@ -344,30 +376,21 @@ const SWOTAnalysis: React.FC = () => {
     setIsDeleteModalOpen(false);
     setSelectedItem(null);
     setSelectedIndex(0);
+    setCategory("");
   };
 
-  const handleEdit = (item: any, index: number) => {
+  const handleEdit = (item: any, index: number, cat: string) => {
     setSelectedItem(item);
     setSelectedIndex(index);
     setDescription(typeof item === 'string' ? item : item.details);
-    
-    // Determine category based on which array the item belongs to
-    if (strengthsItems.includes(typeof item === 'string' ? item : item.details)) {
-      setCategory('Strengths');
-    } else if (weaknessesItems.includes(typeof item === 'string' ? item : item.details)) {
-      setCategory('Weaknesses');
-    } else if (opportunitiesItems.includes(typeof item === 'string' ? item : item.details)) {
-      setCategory('Opportunities');
-    } else if (threatsItems.includes(typeof item === 'string' ? item : item.details)) {
-      setCategory('Threats');
-    }
-    
+    setCategory(cat);
     setIsUpdateModalOpen(true);
   };
 
-  const handleDelete = (item: any, index: number) => {
+  const handleDelete = (item: any, index: number, cat: string) => {
     setSelectedItem(item);
     setSelectedIndex(index);
+    setCategory(cat);
     setIsDeleteModalOpen(true);
   };
 
@@ -404,7 +427,9 @@ const SWOTAnalysis: React.FC = () => {
     try {
       // Find the item ID - assuming the item has an id property
       const itemId = selectedItem.id || selectedItem._id;
-      
+
+      console.log( "Updating SWOT item:", itemId)
+
       const payload = {
         categoryName: category.toLowerCase(),
         details: description.trim(),
@@ -420,20 +445,34 @@ const SWOTAnalysis: React.FC = () => {
   };
 
   const handleDeleteConfirm = async () => {
-    if (!selectedItem) {
-      toast.error("No item selected for deletion.");
+    if (!selectedItem || !category) {
+      toast.error("No item or category selected for deletion.");
       return;
     }
 
     try {
-      // Find the item ID - assuming the item has an id property
+      // Find the item ID from the selected item
       const itemId = selectedItem.id || selectedItem._id;
       
-      await deleteSwot(itemId).unwrap();
+      if (!itemId) {
+        toast.error("Item ID not found.");
+        return;
+      }
+
+      console.log("Deleting SWOT item:", itemId, "from category:", category);
+      
+      // Pass the payload with itemId and categoryName
+      const payload = {
+        itemId: itemId,
+        categoryName: category.toLowerCase()
+      };
+      
+      await deleteSwot(payload).unwrap();
       toast.success("SWOT deleted successfully");
       
       handleCloseDeleteModal();
     } catch (error) {
+      console.error("Delete error:", error);
       toast.error("Failed to delete SWOT");
     }
   };
@@ -451,7 +490,7 @@ const SWOTAnalysis: React.FC = () => {
           </div>
           <div className="md:flex md:flex-col  items-start space-y-3">
             <div>
-              <button className="px-4 py-2 border cursor-pointer  border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+              <button onClick={handleMoreInfoClickAI} className="px-4 py-2 border cursor-pointer  border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
               ClearhetAI Recommendations
             </button>
             </div>
@@ -658,16 +697,12 @@ const SWOTAnalysis: React.FC = () => {
               <div className="p-5 bg-white rounded-b-lg">
                 <div className="mb-4">
                   <label className="block text-sm text-gray-700">Category</label>
-                  <select
+                  <input
+                    type="text"
                     value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded mt-1"
-                  >
-                    <option>Strengths</option>
-                    <option>Weaknesses</option>
-                    <option>Threats</option>
-                    <option>Opportunities</option>
-                  </select>
+                    readOnly
+                    className="w-full p-2 border border-gray-300 rounded mt-1 bg-gray-100 cursor-not-allowed"
+                  />
                 </div>
                 <div className="mb-4">
                   <label className="block text-sm text-gray-700">Describe</label>
@@ -730,6 +765,31 @@ const SWOTAnalysis: React.FC = () => {
           </div>
         )}
       </div>
+      <Drawer
+        isOpen={isDrawerOpen}
+        onClose={handleCloseDrawerAI}
+        title="ClearhetAI Swot Recommendations"
+      >
+       <div className="grid grid-cols-1  gap-6 mt-4">
+        <div>
+          <h3 className='text-2xl font-bold'>Company Name:   {companyName}</h3>
+           <p className='text-lg mt-2 font-semibold'>AI SWOT Analysis </p>
+        </div>
+       
+            {["strengths", "weaknesses", "opportunities", "threats"].map(
+              (key) => (
+                <div key={key} className="border p-4 rounded-lg shadow">
+                  <h2 className="text-lg font-bold mb-2">{key.charAt(0).toUpperCase() + key.slice(1)}</h2>
+                  <ul className="list-disc list-inside space-y-1">
+                    {recommendations[key as SwotKey]?.map((item: string, i: number) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            )}
+          </div>
+      </Drawer>
     </div>
   );
 };
