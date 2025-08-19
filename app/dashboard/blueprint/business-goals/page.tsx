@@ -8,19 +8,19 @@ const BusinessGoals = () => {
   const [hasGoals, setHasGoals] = useState("");
 
   // // localStorage চেক করে ডেটা আছে কি না দেখা
-  useEffect(() => {
-    const savedGoals = localStorage.getItem("businessGoalsData");
-    if (savedGoals) {
-      try {
-        const parsedGoals = JSON.parse(savedGoals);
-        // console.log("ksldfjlsakjf", parsedGoals);
-        setHasGoals(JSON.stringify(parsedGoals)); // যদি ডেটা থাকে তবে hasGoals কে true করুন
-      } catch (error) {
-        console.error("Failed to parse businessGoalsData:", error);
-        setHasGoals("");
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   const savedGoals = localStorage.getItem("businessGoalsData");
+  //   if (savedGoals) {
+  //     try {
+  //       const parsedGoals = JSON.parse(savedGoals);
+  //       // console.log("ksldfjlsakjf", parsedGoals);
+  //       setHasGoals(JSON.stringify(parsedGoals)); // যদি ডেটা থাকে তবে hasGoals কে true করুন
+  //     } catch (error) {
+  //       console.error("Failed to parse businessGoalsData:", error);
+  //       setHasGoals("");
+  //     }
+  //   }
+  // }, []);
 
   return <div>{hasGoals ? <AfterBusinessGoal /> : <BeforeAlignment />}</div>;
 };

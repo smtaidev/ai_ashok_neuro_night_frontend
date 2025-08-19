@@ -5,18 +5,21 @@ import SharedDrawerButton from "../../_components/reuseable/SharedDrawerButton";
 import { useState } from "react";
 import BusinessGoalsModal from "./BusinessGoalsModal";
 import BusinessGoalBeforeData from "@/public/static-json-data/blueprint/business-goal-before";
+import { useCreateBusinessGoalMutation } from "@/redux/api/blueprint/businessGoal/businessGoalApi";
+import { create } from "domain";
 
 const BeforeAlignment = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const createGoal = useCreateBusinessGoalMutation(); 
 
   const handleSave = (data: any) => {
-    console.log("Business Goal Submitted: =====================>", data);
+    console.log("Business Goal request: =====================>", data);
     
     // 👉 Save to localStorage
     try {
      
-      
-      localStorage.setItem("businessGoalsData", JSON.stringify(data));
+      createGoal(data); // Call the mutation to create a business goal
+      // localStorage.setItem("businessGoalsData", JSON.stringify(data));
       console.log("✅ Data saved to localStorage successfully.");
     } catch (error) {
       console.error("❌ Failed to save to localStorage:", error);
