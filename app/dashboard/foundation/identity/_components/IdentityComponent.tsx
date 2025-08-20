@@ -112,23 +112,82 @@ export default function IdentityComponent() {
     }
   };
 
+  // const handleSave = async () => {
+  //   if (!activeSection) return;
+
+  //   // Get the field name from the section title
+  //   const fieldName = activeSection.title.toLowerCase();
+
+  //   // Create payload with only the specific field being updated
+  //   const payload = {
+  //     [fieldName]: editedContent
+  //   };
+
+  //   try {
+  //     await patchFoundation(payload).unwrap();
+
+  //     // Update the sections state with the new content
+  //     setSections(prevSections =>
+  //       prevSections.map(sec =>
+  //         sec.id === activeSection.id ? { ...sec, content: editedContent } : sec
+  //       )
+  //     );
+
+  //     setOpen(false);
+  //     toast.success(`${activeSection.title} updated successfully`);
+  //     localStorage.removeItem("identityData");
+
+  //     // Optionally refetch to ensure UI is in sync with backend
+  //     await refetch();
+  //   } catch (error) {
+  //     console.error("Error updating identity:", error);
+  //     toast.error(`Error updating ${activeSection.title}`);
+
+  //     // Don't close the dialog on error so user can retry
+  //   }
+  // };
+
   const handleSave = async () => {
     if (!activeSection) return;
 
-    // Get the field name from the section title
     const fieldName = activeSection.title.toLowerCase();
+
+    // Count words (split by whitespace and filter empty)
+    const wordCount = editedContent.trim().split(/\s+/).filter(Boolean).length;
+
+    // Validation rules
+    if (fieldName === "mission" && wordCount > 200) {
+      toast.error(
+        "Oops! It looks like your mission statement is over the 200-word limit. No worries this is a great opportunity to refine your message!"
+      );
+      return;
+    }
+
+    if (fieldName === "value" && wordCount > 300) {
+      toast.error(
+        "The Value statement exceeds the maximum allowed length of 300 words. Please revise your statement to ensure it is concise and impactful.\n\n• The ideal length for a value statement is typically - A single statement or sentence\n  • Between 50-200 words\n• A few paragraphs at most"
+      );
+      return;
+    }
+
+    if (fieldName === "purpose" && wordCount > 700) {
+      toast.error(
+        "The Purpose statement exceeds the maximum allowes length of 700 words. Please revise your statement to ensure it is concise and impactful."
+      );
+      return;
+    }
 
     // Create payload with only the specific field being updated
     const payload = {
-      [fieldName]: editedContent
+      [fieldName]: editedContent,
     };
 
     try {
       await patchFoundation(payload).unwrap();
 
       // Update the sections state with the new content
-      setSections(prevSections =>
-        prevSections.map(sec =>
+      setSections((prevSections) =>
+        prevSections.map((sec) =>
           sec.id === activeSection.id ? { ...sec, content: editedContent } : sec
         )
       );
@@ -142,8 +201,6 @@ export default function IdentityComponent() {
     } catch (error) {
       console.error("Error updating identity:", error);
       toast.error(`Error updating ${activeSection.title}`);
-
-      // Don't close the dialog on error so user can retry
     }
   };
 
@@ -171,9 +228,9 @@ export default function IdentityComponent() {
       <div className="space-y-4">
         {sections.map((section) => (
           <Card key={section.id}>
-            <CardContent className="flex justify-between items-start md:flex-row flex-col gap-2 p-4">
-              <div className="flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-[#22398A] text-white flex items-center justify-center font-semibold text-sm">
+            <CardContent className="flex justify-between items-start md:flex-row flex-col gap-4 p-4">
+              <div className="flex gap-6">
+                <div className="size-8 rounded-full bg-[#22398A] text-white flex items-center justify-center font-semibold text-sm p-4">
                   {section.id}
                 </div>
                 <div>
@@ -215,7 +272,7 @@ export default function IdentityComponent() {
           <div className="bg-white rounded-xl shadow-lg relative">
             <div className="bg-blue-800 text-white p-4 -mt-1 rounded-t-xl">
               <DialogTitle className="text-xl font-bold">
-                Edit {activeSection?.title}
+                {activeSection?.title}
               </DialogTitle>
             </div>
 

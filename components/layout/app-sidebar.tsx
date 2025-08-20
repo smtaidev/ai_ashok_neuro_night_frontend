@@ -258,6 +258,8 @@ import * as React from "react";
 import { Icons } from "../icons";
 import { cn } from "./../../lib/utils";
 import { Dot } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { logout } from "@/redux/slices/appSlice";
 
 export const company = {
   name: "Bindu Soft",
@@ -270,9 +272,16 @@ export default function AppSidebar() {
   const { isOpen } = useMediaQuery();
   const sidebar = useSidebar();
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("accessToken");
+    router.push('/')
+  };
 
   return (
-    <Sidebar collapsible="icon" className="w-72 min-h-screen bg-white! ">
+    <Sidebar collapsible="icon" className="w-80 min-h-screen bg-white! ">
       {/* Sidebar Header */}
       <SidebarHeader className="pb-6 border-b-2 border-[#22398A] h-20 flex items-center px-4 pt-6">
         <span className="text-2xl font-extrabold whitespace-nowrap transition-all duration-300">
@@ -316,7 +325,7 @@ export default function AppSidebar() {
                           tooltip={item.title}
                           isActive={isParentActive}
                           className={cn(
-                            "px-5 py-6 text-lg font-semibold rounded-md w-full flex justify-between items-center",
+                            "px-5 py-6 text-lg font-semibold rounded-md w-full flex justify-between items-center text-[#0B1C33]/70",
                             isParentActive
                               ? "text-white bg-[#22398A]!"
                               : ""
@@ -340,7 +349,7 @@ export default function AppSidebar() {
                                   asChild
                                   isActive={isSubActive}
                                   className={cn(
-                                    "px-5 py-2 text-base rounded-md",
+                                    "px-5 py-2 text-base rounded-md ",
                                     isSubActive
                                       ? "bg-[#22398A] text-white "
                                       : ""
@@ -350,10 +359,14 @@ export default function AppSidebar() {
                                     <span className={cn("font-semibold pl-2 w-full flex justify-start items-center",
                                       isSubActive
                                         ? 'text-white'
-                                        : "text-black"
+                                        : "text-[#0B1C33]/70"
                                     )}>
                                       <Dot className="size-10" />
-                                      <span>{subItem.title}</span>
+                                      <span>
+                                        {subItem.title.length > 16
+                                          ? subItem.title.slice(0, 15) + "..."
+                                          : subItem.title}
+                                      </span>
                                     </span>
                                   </Link>
                                 </SidebarMenuSubButton>
@@ -372,7 +385,7 @@ export default function AppSidebar() {
                     tooltip={item.title}
                     isActive={pathname === item.url}
                     className={cn(
-                      "px-5 py-6 text-lg font-semibold rounded-md",
+                      "px-5 py-6 text-lg font-semibold rounded-md text-[#0B1C33]/70",
                       pathname === item.url
                         ? "bg-[#22398A] text-white"
                         : ""
@@ -396,18 +409,15 @@ export default function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               size="lg"
-              className="w-full flex justify-start items-center px-5 py-6 rounded-md"
+              className="w-full flex justify-start items-center px-5 py-6 rounded-md text-red-500"
+              onClick={() => handleLogout()}
             >
               <IconLogout className="size-5" />
               <span className="text-lg font-semibold">Logout</span>
             </SidebarMenuButton>
-            {/* <IconLogout className="mr-2 h-5 w-5" />
-                  Logout */}
-
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
-
       <SidebarRail />
     </Sidebar>
   );

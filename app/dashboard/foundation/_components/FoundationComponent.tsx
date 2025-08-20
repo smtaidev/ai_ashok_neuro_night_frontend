@@ -41,7 +41,7 @@ export default function FoundationComponentPage() {
       <Card>
         <CardHeader className="flex flex-col md:flex-row md:justify-between gap-4">
           <div>
-            <CardDescription className="text-gray-600 mt-1 text-base">
+            <CardDescription className="text-[#6A6A6A] mt-1 text-base">
               The cornerstone of your company&apos;s strategic success! In the
               dynamic business landscape, having a solid base is paramount to
               navigating challenges and seizing opportunities with confidence.
@@ -68,7 +68,7 @@ export default function FoundationComponentPage() {
       </Card>
 
       <div className="p-6 bg-white rounded-lg shadow-md ">
-        <h1 className="md:text-2xl text-lg font-bold text-gray-900">
+        <h1 className="md:text-2xl text-lg font-bold text-[#000000]">
           Core Component of Foundation
         </h1>
         <div className="flex flex-col md:flex-row gap-6 mt-4 space-y-4 md:space-y-0">
@@ -81,15 +81,15 @@ export default function FoundationComponentPage() {
                 <div className="flex items-center gap-3">
                   <Badge
                     variant="default"
-                    className="bg-[#22398A] hover:bg-[#22398A] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold"
+                    className="bg-[#1E3A8A] hover:bg-[#22398A] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold"
                   >
                     {component.id}
                   </Badge>
-                  <h3 className="md:text-xl text-base font-bold text-gray-900">
+                  <h3 className="md:text-xl text-base font-bold text-[#0B1C33]">
                     {component.title}
                   </h3>
                 </div>
-                <p className="text-gray-700 leading-relaxed text-base">
+                <p className="text-[#231F20] leading-relaxed text-base">
                   {component.description}
                 </p>
                 <div className="flex items-center justify-end">

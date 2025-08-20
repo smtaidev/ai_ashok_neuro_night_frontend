@@ -42,9 +42,8 @@ export default async function DashboardLayout({
               <Header />
               {/* page main content */}
               <div
-                className={`p-6 space-y-6 bg-[#F5F7FA] ${
-                  isScaled ? "scale-90" : ""
-                }`}
+                className={`py-6 pr-6 pl-16 space-y-6 bg-[#F5F7FA] ${isScaled ? "scale-90" : ""
+                  }`}
               >
                 {children}
               </div>

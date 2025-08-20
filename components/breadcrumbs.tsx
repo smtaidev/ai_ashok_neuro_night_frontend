@@ -31,7 +31,7 @@ export function Breadcrumbs() {
               </BreadcrumbSeparator>
             )} */}
             {index === items.length - 1 && (
-              <BreadcrumbPage><span className='text-white text-2xl font-semibold'>{item.title}</span></BreadcrumbPage>
+              <BreadcrumbPage><span className='text-white text-2xl font-semibold ml-5'>{item.title}</span></BreadcrumbPage>
             )}
           </Fragment>
         ))}
