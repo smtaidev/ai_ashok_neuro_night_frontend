@@ -41,7 +41,7 @@ export default function FoundationComponentPage() {
       <Card>
         <CardHeader className="flex flex-col md:flex-row md:justify-between gap-4">
           <div>
-            <CardDescription className="text-gray-600 mt-1">
+            <CardDescription className="text-gray-600 mt-1 text-base">
               The cornerstone of your company&apos;s strategic success! In the
               dynamic business landscape, having a solid base is paramount to
               navigating challenges and seizing opportunities with confidence.
@@ -89,7 +89,7 @@ export default function FoundationComponentPage() {
                     {component.title}
                   </h3>
                 </div>
-                <p className="text-gray-700 leading-relaxed text-sm">
+                <p className="text-gray-700 leading-relaxed text-base">
                   {component.description}
                 </p>
                 <div className="flex items-center justify-end">
