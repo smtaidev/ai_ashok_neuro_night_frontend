@@ -10,14 +10,16 @@ import { useCreateVisionMutation } from "@/redux/api/blueprint/vison/visonApi";
 import toast from "react-hot-toast"; // ✅ import toast
 
 const SharedModalButton = ({ label }: { label: string }) => {
+  const pathname = usePathname();
+  console.log(pathname, "pathname");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [visionText, setVisionText] = useState("");
   const [infoData, setInfoData] = useState<any>(null);
 
-  const pathname = usePathname();
   const [createVision, { isLoading }] = useCreateVisionMutation();
 
+  console.log(visionText, "visionText");
   const handleSend = async () => {
     try {
       if (pathname === "/dashboard/blueprint/vision") {
@@ -27,7 +29,7 @@ const SharedModalButton = ({ label }: { label: string }) => {
 
       // future: add more conditions for other routes
       setIsModalOpen(false);
-      setVisionText("");
+      // setVisionText("");
     } catch (error) {
       console.error("Error creating vision:", error);
       toast.error("Failed to create vision "); // ✅ error toast

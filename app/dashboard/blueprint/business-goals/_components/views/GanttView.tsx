@@ -119,10 +119,10 @@ const GanttView = ({ goals }: { goals: Goal[] }) => {
   });
 
   return (
-    <div className="bg-white rounded-lg shadow overflow-auto max-h-[500px]">
+    <div className="bg-white rounded-lg shadow overflow-y-auto max-h-[700px] border">
       <table
         className="border-collapse"
-        style={{ minWidth: "900px", tableLayout: "fixed" }}
+        style={{ minWidth: "900px", tableLayout: "fixed", width: "100%" }}
       >
         <thead>
           {/* 1st row: মাস */}

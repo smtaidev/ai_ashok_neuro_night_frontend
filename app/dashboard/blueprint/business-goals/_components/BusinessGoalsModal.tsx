@@ -1044,7 +1044,7 @@ import { useState, useEffect } from "react";
 
 import { useGetStrategicThemesQuery } from "@/redux/api/blueprint/strategicTheme/strategicThemeApi";
 
-type BusinessGoalsForm = {
+export type BusinessGoalsForm = {
   title: string;
   description: string;
   related_strategic_theme: string;
@@ -1090,6 +1090,9 @@ type BusinessGoalsForm = {
   newCapabilityName?: string;
   capabilityOwners?: string[];
 };
+
+
+
 
 type BusinessGoalsModalProps = {
   isOpen: boolean;

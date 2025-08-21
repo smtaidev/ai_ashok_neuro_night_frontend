@@ -10,18 +10,18 @@ import { useCreateVisionMutation } from "@/redux/api/blueprint/vison/visonApi";
 import toast from "react-hot-toast"; // ✅ import toast
 
 type AfterPageProps = {
-  visionData: { id: string; vision: string };
+  visionData: { _id: string; vision: string };
 };
 
 const AfterPage: React.FC<AfterPageProps> = ({ visionData }) => {
   const [vision, setVision] = useState(
-    visionData?.vision || "No vision available"
+    visionData?.vision 
   );
 
   // For editing Vision (modal)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedVision, setEditedVision] = useState(
-    visionData?.vision || "No vision available"
+    visionData?.vision 
   );
 
   // For Drawer
@@ -31,14 +31,12 @@ const AfterPage: React.FC<AfterPageProps> = ({ visionData }) => {
   // ✅ Mutation hook
   const [updateVision, { isLoading: isUpdating }] = useCreateVisionMutation();
 
-  if (!visionData) {
-    return <p className="text-center text-gray-500">No vision data available</p>;
-  }
+ 
 
   /** Save vision changes (API call) */
   const handleSave = async () => {
     try {
-      const payload = { id: visionData.id, vision: editedVision };
+      const payload = { id: visionData._id, vision: editedVision };
       const res = await updateVision(payload).unwrap();
 
       setVision(res.data.vision); // update local state

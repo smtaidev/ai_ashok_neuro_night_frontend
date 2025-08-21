@@ -56,7 +56,7 @@ export const businessGoalApi = api.injectEndpoints({
 
     // ✅ Get All Business Goals
     getBusinessGoals: builder.query<{ data: BusinessGoal[] }, void>({
-      query: () => "/blueprint/business-goals",
+      query: () => "/blueprint/get-business-goals",
       providesTags: ["BusinessGoal"],
     }),
 
@@ -79,7 +79,7 @@ export const businessGoalApi = api.injectEndpoints({
       string
     >({
       query: (_id) => ({
-        url: `/blueprint/business-goals/${_id}`,
+        url: `/blueprint/${_id}/get-business-goals`,
         method: "DELETE",
       }),
       invalidatesTags: ["BusinessGoal"],
