@@ -1,3 +1,4 @@
+// businessGoalApi.ts 
 import { api } from "@/redux/services/api";
 
 // =======================
@@ -66,7 +67,7 @@ export const businessGoalApi = api.injectEndpoints({
       UpdateBusinessGoalRequest
     >({
       query: ({ _id, ...body }) => ({
-        url: `/blueprint/business-goals/${_id}`,
+        url: `/blueprint/${_id}/get-business-goals`,
         method: "PATCH",
         body,
       }),
