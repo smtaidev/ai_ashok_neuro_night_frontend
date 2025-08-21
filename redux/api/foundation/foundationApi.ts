@@ -65,6 +65,7 @@ export interface IGetCapabilitiesResponse {
   success: boolean;
   message: string;
   data: {
+    [x: string]: any;
     identity: IIdentity;
     zeroIn: IZeroIn;
     _id: string;
@@ -197,32 +198,45 @@ export const foundationApi = api.injectEndpoints({
       providesTags: ["Foundation"],
     }),
 
-    // patchSingleFoundationCapability: builder.mutation<
-    //   IFoundationResponse,
-    //   IUpdateSingleFieldRequest
-    // >({
-    //   query: (body: any, id : string) => {
-    //     const token = typeof window !== "undefined"
-    //       ? localStorage.getItem("accessToken")
-    //       : null;
+    patchSingleFoundationCapability: builder.mutation<
+      IFoundationResponse,
+      { id: string; body: IUpdateSingleFieldRequest }
+    >({
+      query: ({ id, body }) => {
+        const token = typeof window !== "undefined"
+          ? localStorage.getItem("accessToken")
+          : null;
 
-    //     return {
-    //       url: `${url}/${id}/update-capability`,
-    //       method: "PATCH",
-    //       body,
-    //       headers: {
-    //         Authorization: token ? `Bearer ${token}` : "",
-    //         "Content-Type": "application/json",
-    //       },
-    //     };
-    //   },
-    //   invalidatesTags: ["Foundation"],
-    // })
+        return {
+          url: `${url}/${id}/update-capability`,
+          method: "PATCH",
+          body,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+            "Content-Type": "application/json",
+          },
+        };
+      },
+      invalidatesTags: ["Foundation"],
+    }),
+
+    deleteSingleFoundationCapability: builder.mutation<
+      { success: boolean; message: string },
+      string
+    >({
+       query: (id) => ({
+        url: `${url}/${id}/delete-capability`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Foundation"],
+    }),
 
   }),
 });
 
 export const { 
   usePatchFoundationIdentityMutation, useGetIdentityDataQuery, usePatchFoundationZeroInMutation, useGetZeroInDataQuery,
-  useGetCapabilitiesDataQuery, usePatchFoundationCapabilitiesMutation
+  useGetCapabilitiesDataQuery, usePatchFoundationCapabilitiesMutation,
+  usePatchSingleFoundationCapabilityMutation,
+  useDeleteSingleFoundationCapabilityMutation
 } = foundationApi;

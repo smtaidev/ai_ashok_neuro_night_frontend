@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
@@ -6,20 +6,34 @@ import { Button } from "@/components/ui/button"
 import { MoreHorizontal, Plus } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
-import { ICapability, useGetCapabilitiesDataQuery, usePatchFoundationCapabilitiesMutation } from "@/redux/api/foundation/foundationApi"
+import { ICapability, useDeleteSingleFoundationCapabilityMutation, useGetCapabilitiesDataQuery, usePatchFoundationCapabilitiesMutation, usePatchSingleFoundationCapabilityMutation } from "@/redux/api/foundation/foundationApi"
+import toast from 'react-hot-toast';
+import { Textarea } from "@/components/ui/textarea"
+import Drawer from "@/app/dashboard/blueprint/vision/_comoponents/DrawarModal";
+import { MissionDrawerContent, renderDrawerMission } from "../../_components/drawer-utils";
+import { CapabilitiesData } from "../../_components/dummyData";
 
 
 interface LocalCapability {
-  id: string
+  _id: string
   text: string
   type: "core" | "differentiating"
 }
 
+interface Section {
+  id: string;
+  title: string;
+  buttonTitle: string;
+  content: string;
+  drawerContent: { title: string; description: string };
+}
+
 export default function CapabilityComponent() {
   const [capabilities, setCapabilities] = useState<LocalCapability[]>([])
+  const [activeSection, setActiveSection] = useState<Section | null>(null);
+  const [openDrawerId, setOpenDrawerId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingCapability, setEditingCapability] = useState<LocalCapability | null>(null)
   const [formData, setFormData] = useState({
@@ -30,18 +44,25 @@ export default function CapabilityComponent() {
   // API hooks
   const { data: capabilitiesData, isLoading, error, refetch } = useGetCapabilitiesDataQuery()
   const [patchCapabilities, { isLoading: isSaving }] = usePatchFoundationCapabilitiesMutation()
+  const [deleteSingleFoundationCapability] = useDeleteSingleFoundationCapabilityMutation();
+  const [patchSingleCapability] = usePatchSingleFoundationCapabilityMutation();
+
+  // console.log("Capability result: ", capabilitiesData?.data);
 
   // Transform API data to local format
   useEffect(() => {
-    if (capabilitiesData?.success && capabilitiesData.data?.capabilitys) {
-      const transformedCapabilities: LocalCapability[] = capabilitiesData.data.capabilitys.map((cap: ICapability) => ({
-        id: cap._id,
+
+    if (capabilitiesData?.success && capabilitiesData?.data) {
+      const transformedCapabilities: LocalCapability[] = capabilitiesData?.data.map((cap: ICapability) => ({
+        _id: cap._id,
         text: cap.capability,
-        type: cap.type as "core" | "differentiating"
+        type: cap.type as "Core" | "differentiating"
       }))
       setCapabilities(transformedCapabilities)
     }
   }, [capabilitiesData])
+  // console.log("transformedCapabilities: ", transformedCapabilities)
+
 
   const handleAddNew = () => {
     setEditingCapability(null)
@@ -57,13 +78,11 @@ export default function CapabilityComponent() {
 
   const handleDelete = async (id: string) => {
     try {
-      // For delete, you might need a separate delete endpoint
-      // For now, we'll just remove from local state and refetch
-      // You may need to implement a delete endpoint in your API
-      console.log("Delete capability with ID:", id)
+      const result = await deleteSingleFoundationCapability(id);
+      console.log("Delete capability with ID:", result)
 
       // Remove from local state immediately for better UX
-      setCapabilities(capabilities.filter((cap) => cap.id !== id))
+      setCapabilities(capabilities.filter((cap) => cap._id !== id))
 
       // You'll need to implement actual delete API call here
       // await deleteCapability(id).unwrap()
@@ -76,33 +95,44 @@ export default function CapabilityComponent() {
   }
 
   const handleSave = async () => {
-    if (!formData.text.trim() || !formData.type) return
+    if (!formData.text.trim() || !formData.type) return;
+
+    const wordCount = formData.text.trim().split(/\s+/).filter(Boolean).length;
+    if (wordCount > 10) {
+      toast.error("Oops! It looks like the name is over the 10 words limit...");
+      return;
+    }
 
     try {
-      // Create payload in the format: { "capability": "text", "type": "type" }
       const payload = {
         capability: formData.text,
-        type: formData.type
+        type: formData.type,
+      };
+
+      if (editingCapability) {
+        // Update existing
+        await patchSingleCapability({ id: editingCapability._id, body: payload }).unwrap();
+      } else {
+        // Create new
+        await patchCapabilities(payload).unwrap();
       }
 
-      // Send to API
-      await patchCapabilities(payload).unwrap()
+      await refetch();
 
-      // Refetch to get updated data
-      await refetch()
+      setIsModalOpen(false);
+      setFormData({ text: "", type: "" });
+      setEditingCapability(null);
 
-      setIsModalOpen(false)
-      setFormData({ text: "", type: "" })
-      setEditingCapability(null)
     } catch (error) {
-      console.error("Failed to save capability:", error)
-      // You might want to show an error toast here
+      console.error("Failed to save capability:", error);
+      toast.error("Failed to save capability. Please try again.");
     }
-  }
+  };
+
 
   const handleModalDelete = async () => {
     if (editingCapability) {
-      await handleDelete(editingCapability.id)
+      await handleDelete(editingCapability._id)
       setIsModalOpen(false)
       setFormData({ text: "", type: "" })
       setEditingCapability(null)
@@ -124,6 +154,15 @@ export default function CapabilityComponent() {
       return index % 2 === 0 ? "text-white" : "text-gray-800"
     }
   }
+  const handleMoreInfoClick = () => {
+    // always show the first section from CapabilitiesData (you can expand later)
+    const section = CapabilitiesData[0];
+    setActiveSection(section as Section);
+    setOpenDrawerId(section.id);
+  };
+  const handleCloseDrawer = () => {
+    setOpenDrawerId(null);
+  };
 
   // Loading state
   if (isLoading) {
@@ -159,9 +198,10 @@ export default function CapabilityComponent() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-semibold text-gray-900">Capability</h2>
+
+        {/* variant="link" */}
+        {/* className="text-sm text-primary font-medium flex items-center gap-1" */}
         <Button
-          variant="link"
-          className="text-sm text-primary font-medium flex items-center gap-1"
           onClick={handleAddNew}
         >
           <Plus className="h-4 w-4" />
@@ -189,7 +229,7 @@ export default function CapabilityComponent() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {capabilities.map((item, index) => (
               <Card
-                key={item.id}
+                key={item._id}
                 className={`${getCardColor(item.type, index)} ${getTextColor(item.type, index)} relative border-0`}
               >
                 <CardContent className="p-4 text-sm font-medium">
@@ -208,7 +248,7 @@ export default function CapabilityComponent() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="bg-white text-black">
                         <DropdownMenuItem onClick={() => handleEdit(item)}>Edit</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleDelete(item.id)} className="text-red-600">
+                        <DropdownMenuItem onClick={() => handleDelete(item._id)} className="text-red-600">
                           Delete
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -221,7 +261,7 @@ export default function CapabilityComponent() {
 
           {/* Footer */}
           <div className="flex justify-end mt-6">
-            <Button variant="link" className="text-sm text-primary font-medium">
+            <Button variant="link" className="text-sm text-primary font-medium" onClick={() => handleMoreInfoClick()}>
               More Info
             </Button>
           </div>
@@ -244,7 +284,7 @@ export default function CapabilityComponent() {
               <Label htmlFor="capability-text" className="sr-only">
                 Capability Text
               </Label>
-              <Input
+              <Textarea
                 id="capability-text"
                 placeholder="Enter your capability"
                 value={formData.text}
@@ -295,6 +335,24 @@ export default function CapabilityComponent() {
           </div>
         </DialogContent>
       </Dialog>
+      {activeSection && (
+        <Drawer
+          isOpen={openDrawerId === activeSection.id}
+          onClose={handleCloseDrawer}
+          title={activeSection.title}
+        >
+          <div className="p-4 bg-white">
+            <div className="text-gray-700 space-y-6">
+              {renderDrawerMission(activeSection.drawerContent.description).map(
+                (item: any, index: any) => (
+                  <MissionDrawerContent key={index} data={item} />
+                )
+              )}
+            </div>
+          </div>
+        </Drawer>
+      )}
+
     </div>
   )
 }

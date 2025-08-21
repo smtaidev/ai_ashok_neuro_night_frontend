@@ -124,29 +124,53 @@ export default function ZeroInComponent() {
     const fieldName = getFieldNameFromSection(activeSection);
 
     if (!fieldName) {
-      toast.error('Invalid section field');
+      toast.error("Invalid section field");
+      return;
+    }
+
+    // Word count validation
+    const wordCount = editedContent.trim().split(/\s+/).filter(Boolean).length;
+
+    if (fieldName === "targetCustomer" && wordCount > 1000) {
+      toast.error(
+        "Target Customers statement exceeds the maximum allowed length of 1000 words. Please revise your statement."
+      );
+      return;
+    }
+
+    if (fieldName === "keyCustomerNeed" && wordCount > 1000) {
+      toast.error(
+        "The Key Customers Needs statement exceeds the maximum allowed length of 1000 words. Please revise your statement."
+      );
+      return;
+    }
+
+    if (fieldName === "valueProposition" && wordCount > 1000) {
+      toast.error(
+        "Tha Value Proposition statement exceeds the maximum allowed length of 1000 words. Please revise your statement."
+      );
       return;
     }
 
     const payload = {
-      [fieldName]: editedContent
+      [fieldName]: editedContent,
     };
 
     try {
       await patchZeroIn(payload).unwrap();
 
-      setSections(prevSections =>
-        prevSections.map(sec =>
+      setSections((prevSections) =>
+        prevSections.map((sec) =>
           sec.id === activeSection.id ? { ...sec, content: editedContent } : sec
         )
       );
 
       setOpen(false);
       toast.success(`${activeSection.title} updated successfully`);
-      localStorage.removeItem('zeroInData');
+      localStorage.removeItem("zeroInData");
       await refetch();
     } catch (error) {
-      console.error('Error updating zero in:', error);
+      console.error("Error updating zero in:", error);
       toast.error(`Error updating ${activeSection.title}`);
     }
   };
@@ -177,7 +201,7 @@ export default function ZeroInComponent() {
           <Card key={section.id}>
             <CardContent className="flex justify-between items-start flex-col md:flex-row gap-4 p-4">
               <div className="flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-[#22398A] text-white flex items-center justify-center font-semibold md:text-sm text-base">
+                <div className="w-8 h-8 rounded-full bg-[#22398A] text-white flex items-center justify-center font-semibold md:text-sm text-base p-4">
                   {section.id}
                 </div>
                 <div>

@@ -290,3 +290,62 @@ export const swotSectionsData = [
     },
   },
 ] as const;
+
+export const CapabilitiesData = [
+  {
+    id: "capabilities",
+    title: "Business Capabilities",
+    content: "",
+    drawerContent: {
+      title: "Business Capabilities",
+      description: String.raw`
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="font-size: 18px; font-weight: bold;">Business Capabilities - The Engine of Success</h2>
+        <p>
+          A capability tells you what a business does, not how it does it. It defines the organization's ability to perform a business activity successfully. 
+          Business capabilities are the building blocks of the business, representing stable and independent functions that are abstracted from the organizational model and capture business interest.
+        </p>
+        <p style="margin-top: 10px;">
+          For example, an insurance company has capabilities such as Customer Service, Distribution, Claims Processing, Underwriting, and Billing. 
+          Or a leading technology company's capabilities might include:
+        </p>
+        <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
+          <li>Research and development</li>
+          <li>Agility</li>
+          <li>Strong intellectual property</li>
+          <li>Customer Service</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="font-size: 18px; font-weight: bold;">Importance in the context of a business strategy</h2>
+
+        <h3 style="font-size: 16px; font-weight: bold; margin-top: 10px;">Alignment</h3>
+        <p>
+          Business capabilities align the organization's resources and activities with its strategic objectives, ensuring effective development and execution of strategy.
+        </p>
+
+        <h3 style="font-size: 16px; font-weight: bold; margin-top: 10px;">Adaptability</h3>
+        <p>
+          Capabilities enable the organization to adapt to changing market conditions and technological advancements, staying competitive.
+        </p>
+
+        <h3 style="font-size: 16px; font-weight: bold; margin-top: 10px;">Innovation</h3>
+        <p>
+          By leveraging capabilities, a company can drive innovation and create new products, services, and business models.
+        </p>
+
+        <h3 style="font-size: 16px; font-weight: bold; margin-top: 10px;">Differentiation</h3>
+        <p>
+          Distinctive capabilities differentiate the company from competitors, allowing it to command premium prices and capture market share.
+        </p>
+
+        <p style="margin-top: 15px;">
+          In conclusion, business capabilities are critical for organizations to differentiate, drive innovation, and create value. 
+          By identifying, developing, and leveraging capabilities, companies can position themselves for long-term success in today's competitive business landscape.
+        </p>
+      </div>
+      `,
+    },
+  },
+] as const;
