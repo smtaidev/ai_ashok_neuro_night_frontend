@@ -27,7 +27,18 @@ export const visionApi = api.injectEndpoints({
       query: () => "/blueprint/get-vision", // if you have this endpoint
       providesTags: ["Vision"],
     }),
+    createAIVision: builder.mutation<
+  { success: boolean; data: { vision: string } },
+  { vision: string }
+>({
+  query: (body) => ({
+    url: "/ai-recommendations/create-vision",
+    method: "POST",
+    body,
+  }),
+  invalidatesTags: ["Vision"],
+}),
   }),
 });
 
-export const { useCreateVisionMutation, useGetVisionsQuery } = visionApi;
+export const { useCreateVisionMutation, useGetVisionsQuery, useCreateAIVisionMutation } = visionApi;

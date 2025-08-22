@@ -1128,7 +1128,7 @@ const BusinessGoalsModal = ({
 
   const { data:strategicThemes, isLoading: strategicThemesLoading, isError } =
     useGetStrategicThemesQuery() 
-    // console.log("kjlskjfkljslkjflkj", strategicThemes?.data);
+    // console.log("kjlskjfkljslkjflkj", strategicThemes);
 
 
   const [capabilityOwners, setCapabilityOwners] = useState<string[]>([]);
