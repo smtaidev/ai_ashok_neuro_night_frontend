@@ -232,7 +232,7 @@ export default function CapabilityComponent() {
                 key={item._id}
                 className={`${getCardColor(item.type, index)} ${getTextColor(item.type, index)} relative border-0`}
               >
-                <CardContent className="p-4 text-sm font-medium">
+                <CardContent className="p-4 text-lg font-medium">
                   <div className="pr-4">Team Name: {item.text}</div>
                   <div className="pr-4">Type: {item.type}</div>
                   <div className="absolute top-2 right-2 flex items-center gap-1">

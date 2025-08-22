@@ -206,7 +206,7 @@ export default function ZeroInComponent() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">{section.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-base text-[#231F20] mt-1">
                     {section.content || 'No content added yet.'}
                   </p>
                 </div>

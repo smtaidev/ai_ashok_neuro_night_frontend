@@ -235,7 +235,7 @@ export default function IdentityComponent() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">{section.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-base text-[#231F20] mt-1">
                     {section.content || "No content added yet."}
                   </p>
                 </div>
@@ -282,7 +282,7 @@ export default function IdentityComponent() {
                 value={editedContent}
                 onChange={(e) => setEditedContent(e.target.value)}
                 placeholder={`Enter ${activeSection?.title} description...`}
-                className="w-full h-full resize-none"
+                className="w-full h-full resize-none text-[#231F20] text-lg!"
               />
             </div>
 
