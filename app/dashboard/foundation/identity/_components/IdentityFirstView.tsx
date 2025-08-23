@@ -18,7 +18,7 @@ export default function IdentityFirstView({ onGetStarted }: FirstViewProps) {
           height={500}
           className="h-[60%] w-[50%] mb-6"
         />
-        <p className='text-base text-[#231F20] mb-6 text-center w-[50%]'>
+        <p className='text-base text-[#231F20] mb-6 text-center  lg:w-[50%] md:w-[75%] w-full'>
           Please define the mission, values, and purpose. These are essential in shaping your company&apos;s identity and guiding your strategic direction.
         </p>
         <Button variant="getStarted" onClick={onGetStarted}>

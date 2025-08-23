@@ -349,3 +349,57 @@ export const CapabilitiesData = [
     },
   },
 ] as const;
+
+export const ObjectivesData = [
+  {
+    id: "objectives",
+    title: "Objectives",
+    content: "",
+    drawerContent: {
+      title: "Objectives",
+      description: String.raw`
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="font-size: 18px; font-weight: bold;">Importance of Objectives</h2>
+        <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
+          <li>Objectives translate overarching business goals into actionable tasks and initiatives for specific functions, groups, or teams.</li>
+          <li>They provide clarity and direction for individual teams, guiding their day-to-day activities.</li>
+          <li>Objectives motivate individuals and teams as they enable them to understand and relate how their work contributes to achieving the business's strategic direction.</li>
+          <li>Objectives ensure alignment between departmental efforts and the business strategy.</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 20px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="font-size: 18px; font-weight: bold;">Characteristics of Effective Objectives</h2>
+        <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
+          <li><strong>Derived from Business Goals:</strong> Objectives should be directly linked to the business goals.</li>
+          <li><strong>Specific and Achievable:</strong> Objectives should be clear, concise, and feasible within the set timeframe.</li>
+          <li><strong>Ownership:</strong> Each objective should have a designated owner responsible for its achievement.</li>
+          <li><strong>Visibility:</strong> While objectives are specific to business functions, they should be visible to relevant team members to foster collaboration and accountability.</li>
+          <li><strong>Measurable Results:</strong> Objectives should have key performance indicators (KPIs) or metrics to track progress and success.</li>
+        </ul>
+      </div>
+
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #f9fafb;">
+          <h2 style="font-size: 18px; font-weight: bold;">Do's</h2>
+          <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
+            <li>Ensure alignment between objectives and business goals to maximize impact.</li>
+            <li>Encourage collaboration and communication among teams when setting objectives that overlap or depend on each other.</li>
+          </ul>
+        </div>
+
+        <div style="flex: 1; min-width: 300px; border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; background-color: #f9fafb;">
+          <h2 style="font-size: 18px; font-weight: bold;">Don'ts</h2>
+          <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
+            <li>Create objectives in isolation without considering how they contribute to the business strategy.</li>
+            <li>Overlook the importance of regular progress monitoring and adjustment of objectives as needed.</li>
+          </ul>
+        </div>
+      </div>
+      `,
+    },
+  },
+] as const;
+
+
+
