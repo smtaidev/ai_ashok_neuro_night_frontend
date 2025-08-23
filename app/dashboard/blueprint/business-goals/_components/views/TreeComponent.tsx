@@ -7,7 +7,7 @@ const TreeComponent: React.FC = () => {
   const [treeData, setTreeData] = useState<any>(null);
 
   useEffect(() => {
-    const data = { 
+    const data = {
       name: 'Strategic Theme Name',
       attributes: { progress: '82%' },
       children: [
