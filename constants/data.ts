@@ -24,7 +24,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Foundation',
     url: '/dashboard/foundation', 
-    icon: 'billing',
+    icon: 'foundationIcon',
     isActive: false,
     shortcut: ['d', 'f'],
     items: [
@@ -133,16 +133,16 @@ export const navItems: NavItem[] = [
     isActive: false,
     items: [
       {
-        title: 'Objectives',
-        url: '/dashboard/choreography/objectives',
-        icon: 'userPen',
-        shortcut: ['c', 'o']
-      },
-      {
         title: 'Teams',
         url: '/dashboard/choreography/teams',
         icon: 'userPen',
         shortcut: ['c', 't']
+      },
+      {
+        title: 'Objectives',
+        url: '/dashboard/choreography/objectives',
+        icon: 'userPen',
+        shortcut: ['c', 'o']
       },
       {
         title: 'Alignment Check',

@@ -5,7 +5,7 @@ console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || "https://clarhet-server.vercel.app/api/v1",
+    baseUrl: process.env.NEXT_PUBLIC_API_URL || "https://clarhet-server-sable.vercel.app/api/v1",
     prepareHeaders: (headers) => {
       const token =
         typeof window !== "undefined"
@@ -17,6 +17,6 @@ export const api = createApi({
       return headers;
     },
   }), 
-  tagTypes: ["User", "Swot", "Trend"],
+  tagTypes: ["User", "Swot", "Trend", "Foundation"],
   endpoints: () => ({}),
 });

@@ -1,4 +1,3 @@
-// _components/identity-utils.tsx
 export function renderDrawerMission(description: string): string[] {
   return description
     .split("\\n")
