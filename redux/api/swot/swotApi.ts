@@ -14,19 +14,26 @@ interface CreateSwotRequest {
   categoryName: string;
   details: string;
 }
+interface DeleteSwotRequest {
+  itemId: string;
+  categoryName: string;
+  
+ 
+}
 
 interface UpdateSwotRequest extends CreateSwotRequest {
   id: string;
 }
+const url = "/create-swot";
 
 export const swotApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getSwots: builder.query<{ data: Swot[] }, void>({
-      query: () => "/create-swot/get-swot",
+      query: () => `${url}/get-swot`,
       providesTags: ["Swot"],
     }),
     getSwot: builder.query<{ data: Swot }, string>({
-      query: (id) => `/swots/${id}`,
+      query: (id) => `${url}/swots/${id}`,
       providesTags: ["Swot"],
     }),
     createSwot: builder.mutation<
@@ -38,7 +45,7 @@ export const swotApi = api.injectEndpoints({
       CreateSwotRequest
     >({
       query: (body) => ({
-        url: "/create-swot/create",
+        url: `${url}/create`,
         method: "PATCH",
         body,
       }),
@@ -53,7 +60,7 @@ export const swotApi = api.injectEndpoints({
       UpdateSwotRequest
     >({
       query: ({ id, ...body }) => ({
-        url: `/create-swot/${id}`,
+        url: `${url}/${id}`,
         method: "PATCH",
         body,
       }),
@@ -64,11 +71,12 @@ export const swotApi = api.injectEndpoints({
         success: boolean;
         message: string;
       },
-      string
+      DeleteSwotRequest
     >({
-      query: (id) => ({
-        url: `/create-swot/${id}`,
-        method: "PATCH",
+      query: ({ itemId, categoryName }) => ({
+        url: `${url}/${itemId}`,
+        method: "DELETE",
+         body: { categoryName },
       }),
       invalidatesTags: ["Swot"],
     }),
@@ -82,3 +90,4 @@ export const {
   useUpdateSwotMutation,
   useDeleteSwotMutation,
 } = swotApi;
+

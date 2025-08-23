@@ -8,13 +8,17 @@ import TrendFirstView from "./_components/TrendFirstView";
 
 export default function TrendsPage() {
   const { data, isLoading } = useGetTrendsQuery();
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
+  // Ensure trends is extracted correctly
+  const trends = data?.data || [];
+
   return (
     <div>
-      {(!data || data.length === 0) ? <TrendFirstView /> : <TrendsDashboard />}
+      {trends.length === 0 ? <TrendFirstView /> : <TrendsDashboard />}
     </div>
   );
 }
