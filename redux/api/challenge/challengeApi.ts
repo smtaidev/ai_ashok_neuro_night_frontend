@@ -79,15 +79,15 @@ export const challengeApi = api.injectEndpoints({
       { id: string } & CreateChallengeRequest
     >({
       query: ({ id, ...body }) => ({
-        url: `/assess/create-challenge/${id}`,
-        method: "PUT",
+        url: `/challenge/${id}/update-ai-challenge`,
+        method: "PATCH",
         body,
       }),
       invalidatesTags: ["Challenge"],
     }),
     deleteChallenge: builder.mutation<ApiDeleteResponse, string>({
       query: (id) => ({
-        url: `/challenges/${id}`,
+        url: `/challenge/delete-challenge/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Challenge"],

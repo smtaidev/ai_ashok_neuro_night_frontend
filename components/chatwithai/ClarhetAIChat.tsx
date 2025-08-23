@@ -1,3 +1,5 @@
+
+
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
@@ -56,7 +58,7 @@ const ClarhetAIChat: React.FC<ClarhetAIChatProps> = ({
     if (isOpen && messages.length === 0) {
       setMessages([{
         id: '1',
-        content: 'Hello! 👋 I’m Clarhet AI — your strategy assistant.',
+        content: 'Hello! 👋 I’m Clarhet Zenith — your strategy assistant.',
         sender: 'ai',
         timestamp: new Date()
       }])
@@ -148,41 +150,22 @@ const ClarhetAIChat: React.FC<ClarhetAIChatProps> = ({
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50">
           {/* Floating Tip */}
-          {showFloatingMessage && (
-            <div className="absolute -top-16 right-0 flex flex-col items-end">
-              <div className="relative animate-bounce">
-                {/* Glow ring */}
-                <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-500 blur-lg opacity-70 animate-pulse"></div>
-                {/* Tooltip */}
-                <div className="relative px-4 py-2 bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-500 text-white font-bold text-sm rounded-full    shadow-lg  animate-fadeInOut">
-                  ✨Hey there! Need help? 
-                </div>
-              </div>
-            </div>
-          )}
+          
 
           {/* Ping animations behind button */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-orange-400 animate-ping opacity-20"></div>
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-orange-400 animate-pulse opacity-30"></div>
-          
+
+
           <button
             onClick={() => {
               setIsOpen(true)
               setShowFloatingMessage(false)
             }}
-            className={`relative group flex items-center gap-3 px-2 py-1 text-white font-semibold rounded-full shadow-2xl transform hover:scale-110 transition-all duration-500 ease-out backdrop-blur-sm border border-white/20 ${className}`}
-            style={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
-              boxShadow: '0 20px 40px rgba(102, 126, 234, 0.4)'
-            }}
+            className={`relative group flex items-center p-0 font-semibold rounded-full  transform hover:scale-110 transition-all overflow-hidden duration-500 ease-out backdrop-blur-sm  ${className}`}
+
           >
-            {/* <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 transition-all duration-300">
-              💬
-            </div> */}
-            <Image src={aiImage} alt="AI" className="w-8 h-8" />
-            <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-pulse font-bold text-sm tracking-wide">
-              ClarhetAI
-            </span>
+            <Image src={aiImage} alt="AI" className="w-18 h-18 p-0" />
+            
           </button>
         </div>
       )}
@@ -192,7 +175,7 @@ const ClarhetAIChat: React.FC<ClarhetAIChatProps> = ({
         <div className="fixed top-0 right-0 w-[500px] h-screen bg-white shadow-2xl border-l border-gray-200 flex flex-col z-50">
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-orange-500 text-white px-4 py-3 flex items-center justify-between">
-            <h3 className="font-medium text-sm">ClarhetAI</h3>
+            <h3 className="font-medium text-sm">Clarhet Zenith</h3>
             <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-white/20 rounded">
               <X className="w-4 h-4" />
             </button>
@@ -203,9 +186,9 @@ const ClarhetAIChat: React.FC<ClarhetAIChatProps> = ({
             <div className="bg-blue-50 border-b border-blue-100 px-4 py-3 flex items-start gap-3">
               <Info className="w-5 h-5 text-blue-500 mt-1" />
               <div className="text-sm text-gray-700">
-                <p className="font-semibold">Welcome to Clarhet AI</p>
+                <p className="font-semibold">Welcome to Clarhet Zenith</p>
                 <ul className="list-disc list-inside mt-1">
-                  <li>Understanding Clarhet and our platform</li>
+                  <li>Understanding Clarhet Zenith and our platform</li>
                   <li>Exploring features & benefits</li>
                   <li>Learning about our strategy execution results</li>
                 </ul>
@@ -218,7 +201,7 @@ const ClarhetAIChat: React.FC<ClarhetAIChatProps> = ({
             {messages.map((message) => (
               <div key={message.id} className={`flex gap-3 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {message.sender === 'ai' && (
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-xs font-medium">C</div>
+                  <Image src={aiImage} alt="Clarhet Zenith" className="w-8 h-8 rounded-full object-cover" />
                 )}
                 <div className={`max-w-[340px] ${message.sender === 'user' ? 'order-1' : ''}`}>
                   <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${
@@ -233,7 +216,7 @@ const ClarhetAIChat: React.FC<ClarhetAIChatProps> = ({
             ))}
             {isTyping && (
               <div className="flex gap-3 justify-start">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-xs font-medium">C</div>
+                <Image src={aiImage} alt="Clarhet Zenith" className="w-8 h-8 rounded-full object-cover" />
                 <div className="bg-white border border-gray-200 px-4 py-3 rounded-2xl">
                   <div className="flex gap-1">
                     <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />

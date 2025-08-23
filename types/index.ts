@@ -82,3 +82,62 @@ export interface VerificationResult {
   message: string;
   data?: PaymentVerificationResponse;
 }
+
+
+// challange  type 
+
+
+
+// Types
+export type ChallengeCategoryType = 
+  | "Human"
+  | "Political" 
+  | "Financial"
+  | "Strategic"
+  | "Compliance"
+  | "Operations";
+
+export type ImpactOnBusinessType = 
+  | "Very Low"
+  | "Low"
+  | "Moderate"
+  | "High"
+  | "Very High";
+
+export type AbilityToAddressType = 
+  | "Very Low"
+  | "Low"
+  | "Moderate"
+  | "High"
+  | "Very High";
+
+ export interface Challenge {
+  id: string;
+  name: string;
+  category: string;
+  riskScore: number;
+  status: "active" | "inactive" | "completed";
+  timeline: "monthly" | "quarterly" | "yearly";
+  createdDate: string;
+  priority: "low" | "medium" | "high" | "critical";
+  description?: string;
+  impactOnBusiness?: string;
+  abilityToAddress?: string;
+}
+
+export interface RiskCategory {
+  name: string;
+  score: number;
+  color: string;
+}
+
+export interface ImpactData {
+  category: string;
+  value: number;
+  color: string;
+}
+
+export interface OverviewData {
+  category: string;
+  value: number;
+}
