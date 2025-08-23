@@ -9,6 +9,7 @@ interface User {
   id: string;
   name: string;
   email: string;
+  token: string
   // Add other user fields as needed
 }
 
@@ -17,12 +18,14 @@ interface AppState {
   appStatus: AppStatus;
   auth: AuthStatus;
   user: User | null;
+  token: User | null
 }
 
 const initialState: AppState = {
   appStatus: "idle",
   auth: "unauthenticated",
   user: null,
+  token: null
 };
 
 const appSlice = createSlice({
@@ -47,6 +50,7 @@ const appSlice = createSlice({
     logout(state) {
       state.auth = "unauthenticated";
       state.user = null;
+      state.token = null;
       state.appStatus = "idle";
     }, 
 

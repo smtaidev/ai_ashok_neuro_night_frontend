@@ -1,12 +1,12 @@
-import SWOTAnalysis from "./_components/SwotAnalysis";
+import MainLogic from "./_components/MainLogic";
 
-import SwotStartPage from "./_components/SwotStartPage";
 
 export default function SwotPage() {
+
+  
   return (
     <div>
-      <SwotStartPage />
-      <SWOTAnalysis />
+     <MainLogic />
     </div>
   );
 }  

@@ -1,10 +1,10 @@
 import React from 'react';
+import ObjectContainerComponent from './_components/ObjectContainerComponent';
 
 const ObjectivesPage = () => {
   return (
-    <div>
-      <h1>Objectives Page</h1>
-      <p>This is the Objectives page under Choreography.</p>
+    <div className='px-6'>
+      <ObjectContainerComponent />
     </div>
   );
 };

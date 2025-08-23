@@ -41,7 +41,7 @@ export default function ChoreographyComponent() {
       <Card>
         <CardHeader className="flex flex-col md:flex-row md:justify-between gap-4">
           <div>
-            <CardDescription className="text-gray-600 mt-1">
+            <CardDescription className="text-[#231F20] text-base mt-1">
               The Choreograph module is the hub for orchestrating the execution of business goals. It operates as the conductor, ensuring that identified strategic themes and business goals are translated into actionable plans and supported by well-aligned teams. Divided into two pivotal components—Objectives and Teams—the Choreograph module offers a structured approach to translating business goals into manageable tasks and assembling teams capable of executing them effectively.
               <br />
               <br />
@@ -82,7 +82,7 @@ export default function ChoreographyComponent() {
                     {component.title}
                   </h3>
                 </div>
-                <p className="text-gray-700 leading-relaxed text-sm">
+                <p className="text-[#231F20] text-base leading-relaxed text-sm">
                   {component.description}
                 </p>
                 <div className="flex items-center justify-end">

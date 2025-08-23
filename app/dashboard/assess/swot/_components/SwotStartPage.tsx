@@ -79,7 +79,7 @@ const SwotStartPage = () => {
     <div className="min-h-[calc(100vh-65px)]">
       <div className="space-y-10 p-6 bg-white rounded-xl">
         <div className="flex justify-center w-8/12 mx-auto items-center flex-col">
-          <Image src={swotImage} width={900} height={300} alt="swot image" />
+          <Image src={swotImage} width={700} height={300} alt="swot image" />
           <h1 className="py-10 text-sm lg:text-base">
             SWOT analysis is crucial for strategic decision-making...
           </h1>

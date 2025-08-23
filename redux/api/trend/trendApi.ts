@@ -3,7 +3,7 @@ import { api } from "@/redux/services/api";
 interface TrendDetail {
   question: string;
   answer: string;
-  impactLevel: 'High' | 'Medium' | 'Low';
+  impactLevel: string;
 }
 
 interface SubTrend {
@@ -12,6 +12,10 @@ interface SubTrend {
 }
 
 interface Trend {
+  _id: string | undefined;
+  data: any;
+  trendDetails: any;
+  trendName: string;
   id: string;
   trends: SubTrend[];
 }
@@ -45,11 +49,11 @@ export const trendApi = api.injectEndpoints({
         message: string;
         data: Trend;
       },
-      { id: string; trends: SubTrend[] }
+       SubTrend[] 
     >({
-      query: ({ id, ...body }) => ({
-        url: `/assess/create-trend/${id}`,
-        method: "PUT",
+      query: (body) => ({
+        url: "/assess/create-trend",
+        method: "PATCH",
         body,
       }),
       invalidatesTags: ["Trend"],

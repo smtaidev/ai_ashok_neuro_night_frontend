@@ -1,14 +1,22 @@
-import ChallengesSummarry from "./_components/ChallengesSummarry";
+"use client";
+
+
 
 import CallangeHomePage from "./_components/CallangeHomePage";
-import ChallengesDashboard from "./_components/ChallengesDashboard";
+import CombinedChallengesComponent from "./_components/CombinedChallengesComponent";
+import { useGetChallengesQuery } from "@/redux/api/challenge/challengeApi";
 
 export default function ChallengePage() {
+const { data, isLoading, error } = useGetChallengesQuery();
+
   return (
     <div>
-      <CallangeHomePage />
-      <ChallengesSummarry />
-      <ChallengesDashboard />
+      {Array.isArray(data?.data) && data.data.length === 0 ? (
+        <CallangeHomePage />
+      ) : (
+        <CombinedChallengesComponent />
+      )}
+      
     </div>
   );
 }  

@@ -22,6 +22,19 @@ export default function OverViewPage() {
   return (
     <div>
       <OverviewContainerPage />
+      <BusinessChallenges />
+      <BusinessGoalsData />
+      <DifferentiationSection />
+      <FinancialSnapshot />
+      <NewCapabilities />
+      <RegulatoryCompliance />
+      <RisksSection />
+      <Roadblocks />
+      <StrategicThemeData />
+      <SwotAnalysis />
+      <TalentSection />
+      <TotalCapabilities />
+      <MeetingsSection />
     </div>
   );
 }

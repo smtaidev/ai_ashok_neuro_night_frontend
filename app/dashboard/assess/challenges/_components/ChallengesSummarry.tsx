@@ -1,5 +1,11 @@
+
+
+
+
+
+
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   LayoutGrid,
@@ -11,26 +17,94 @@ import {
   Calendar,
 } from "lucide-react";
 import Drawer from "@/app/dashboard/blueprint/vision/_comoponents/DrawarModal";
+import { useGetChallengesQuery, useCreateChallengeMutation } from '@/redux/api/challenge/challengeApi';
+import type { ChallengeItem, ChallengeResponse, CreateChallengeRequest } from '@/redux/api/challenge/challengeApi';
+import toast from "react-hot-toast";
 
+// Enums
+export enum ChallengeCategory {
+  HUMAN = "Human",
+  POLITICAL = "Political", 
+  FINANCIAL = "Financial",
+  STRATEGIC = "Strategic",
+  COMPLIANCE = "Compliance",
+  OPERATIONAL = "Operational"
+}
+
+export enum ImpactOnBusiness {
+  VERY_LOW = "Very Low",
+  LOW = "Low",
+  MODERATE = "Moderate", 
+  HIGH = "High",
+  VERY_HIGH = "Very High"
+}
+
+export enum AbilityToAddress {
+  VERY_LOW = "Very Low",
+  LOW = "Low",
+  MODERATE = "Moderate",
+  HIGH = "High", 
+  VERY_HIGH = "Very High"
+}
+
+// Alternative string union types
+export type ChallengeCategoryType = 
+  | "Human"
+  | "Political" 
+  | "Financial"
+  | "Strategic"
+  | "Compliance"
+  | "Operational";
+
+export type ImpactOnBusinessType = 
+  | "Very Low"
+  | "Low"
+  | "Moderate"
+  | "High"
+  | "Very High";
+
+export type AbilityToAddressType = 
+  | "Very Low"
+  | "Low"
+  | "Moderate"
+  | "High"
+  | "Very High";
+
+// Interfaces
 interface Challenge {
-  id: number;
+  id: string;
   name: string;
-  category: "Strategic" | "Operational" | "Financial" | "Technical";
+  category: string;
   riskScore: number;
   status: "active" | "inactive" | "completed";
   timeline: "monthly" | "quarterly" | "yearly";
   createdDate: string;
   priority: "low" | "medium" | "high" | "critical";
+  description?: string;
+  impactOnBusiness?: string;
+  abilityToAddress?: string;
 }
 
-const ChallengesSummarry = () => {
+interface ChallengeForm {
+  challengeTitle: string;
+  category: ChallengeCategoryType;
+  impact: ImpactOnBusinessType;
+  abilityToAddress: AbilityToAddressType;
+  description: string;
+}
+
+const ChallengesSummary = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [challengeTitle, setChallengeTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [impact, setImpact] = useState("");
-  const [abilityToAddress, setAbilityToAddress] = useState("");
-  const [description, setDescription] = useState("");
+  const [challengeTitle, setChallengeTitle] = useState<string>("");
+  const [category, setCategory] = useState<ChallengeCategoryType | "">("");
+  const [impact, setImpact] = useState<ImpactOnBusinessType | "">("");
+  const [abilityToAddress, setAbilityToAddress] = useState<AbilityToAddressType | "">("");
+  const [description, setDescription] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { data, isLoading, error } = useGetChallengesQuery();
+  const [createChallenge] = useCreateChallengeMutation();
 
   const handleMoreInfoClick = () => {
     setIsModalOpen(false); // Close the modal
@@ -59,85 +133,125 @@ const ChallengesSummarry = () => {
     setDescription("");
   };
 
-  const handleSave = () => {
-    // Handle save logic here (e.g., save to state or API)
-    console.log({
-      challengeTitle,
-      category,
-      impact,
-      abilityToAddress,
-      description,
-    });
-    handleCloseModal();
-  };
-  // Sample data with timeline - replace with your backend data
-  const [challenges, setChallenges] = useState<Challenge[]>([
-    {
-      id: 1,
-      name: "Lack of Funding",
-      category: "Strategic",
-      riskScore: 48,
-      status: "active",
-      timeline: "quarterly",
-      createdDate: "2024-01-15",
-      priority: "high",
-    },
-    {
-      id: 2,
-      name: "Market Competition",
-      category: "Strategic",
-      riskScore: 65,
-      status: "active",
-      timeline: "monthly",
-      createdDate: "2024-02-10",
-      priority: "critical",
-    },
-    {
-      id: 3,
-      name: "Technology Infrastructure",
-      category: "Operational",
-      riskScore: 42,
-      status: "active",
-      timeline: "yearly",
-      createdDate: "2024-01-20",
-      priority: "medium",
-    },
-    {
-      id: 4,
-      name: "Talent Acquisition",
-      category: "Strategic",
-      riskScore: 55,
-      status: "active",
-      timeline: "quarterly",
-      createdDate: "2024-03-05",
-      priority: "high",
-    },
-    {
-      id: 5,
-      name: "Regulatory Compliance",
-      category: "Operational",
-      riskScore: 38,
-      status: "active",
-      timeline: "yearly",
-      createdDate: "2024-01-08",
-      priority: "medium",
-    },
-  ]);
+  const handleSave = async () => {
+    // Validate required fields
+    if (!challengeTitle || !category || !impact || !abilityToAddress) {
+      alert("Please fill in all required fields");
+      return;
+    }
 
-  const [viewMode, setViewMode] = useState("list");
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [sortOpen, setSortOpen] = useState(false);
-  const [currentSort, setCurrentSort] = useState("all");
-  const [selectedFilters, setSelectedFilters] = useState<
-    Array<"strategic" | "operational" | "financial" | "technical">
-  >([]);
-  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+    setIsSubmitting(true);
+
+    try {
+      // Prepare the request body to match your API format
+      const challengeData: CreateChallengeRequest = {
+        title: challengeTitle,
+        category: category as ChallengeCategoryType,
+        impact_on_business: impact.toLowerCase() as string,
+        ability_to_address: abilityToAddress.toLowerCase() as string,
+        description: description
+      };
+
+      console.log("Creating challenge:", challengeData);
+
+      const response = await createChallenge(challengeData).unwrap();
+      
+      console.log("Challenge created successfully:", response);
+      
+      // Show success message
+      toast.success("Challenge created successfully!");
+      
+      // Close modal and reset form
+      handleCloseModal();
+      
+    } catch (error: any) {
+      console.error("Error creating challenge:", error);
+      
+      if (error?.data?.message) {
+        alert(`Error: ${error.data.message}`);
+      } else if (error?.message) {
+        alert(`Error: ${error.message}`);
+      } else {
+        alert("Failed to create challenge. Please try again.");
+      }
+    }
+  };
+
+  // Sample data with timeline - replace with your backend data
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (data?.success && data?.data?.challenge) {
+      console.log('API data received:', data);
+      
+      const challengesData = data.data.challenge;
+      console.log('Challenges array:', challengesData);
+
+      const riskScoreMap: { [key: string]: number } = {
+        'very low': 20,
+        'low': 40,
+        'moderate': 60,
+        'high': 80,
+        'very high': 100,
+      };
+      
+      try {
+        const mapped: Challenge[] = challengesData.map((item: ChallengeItem) => {
+          // Use the risk_score from API or calculate from impact_on_business
+          const riskScore = item.risk_score || riskScoreMap[item.impact_on_business?.toLowerCase()] || 50;
+          
+          // Determine priority with proper typing
+          const priority: Challenge['priority'] = riskScore > 70 ? "high" : riskScore > 40 ? "medium" : "low";
+          
+          return {
+            id: item._id,
+            name: item.title,
+            category: item.category,
+            riskScore,
+            status: "active" as const,
+            timeline: "quarterly" as const,
+            createdDate: "2024-01-01", // Since there's no createdAt in the API response
+            priority,
+            description: item.description,
+            impactOnBusiness: item.impact_on_business,
+            abilityToAddress: item.ability_to_address,
+          };
+        });
+        
+        console.log('Mapped challenges:', mapped);
+        setChallenges(mapped);
+      } catch (error) {
+        console.error('Error mapping challenges data:', error);
+        setChallenges([]);
+      }
+    } else if (error) {
+      console.error('API Error:', error);
+      setChallenges([]);
+    } else if (!isLoading && data && !data.success) {
+      console.warn('API returned success: false');
+      setChallenges([]);
+    }
+  }, [data, isLoading, error]);
+
+  const [viewMode, setViewMode] = useState<string>("list");
+  const [filterOpen, setFilterOpen] = useState<boolean>(false);
+  const [sortOpen, setSortOpen] = useState<boolean>(false);
+  const [currentSort, setCurrentSort] = useState<string>("all");
+  const [selectedFilters, setSelectedFilters] = useState<Array<string>>([]);
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
 
   const filterOptions = [
+    { value: "human", label: "Human" },
+    { value: "political", label: "Political" },
     { value: "strategic", label: "Strategic" },
     { value: "operational", label: "Operational" },
     { value: "financial", label: "Financial" },
-    { value: "technical", label: "Technical" },
+    { value: "compliance", label: "Compliance" },
   ];
 
   // Filter and sort challenges
@@ -152,15 +266,13 @@ const ChallengesSummarry = () => {
     return matchesSort && matchesFilter;
   });
 
-  const getRiskScoreColor = (score: number) => {
+  const getRiskScoreColor = (score: number): string => {
     if (score < 30) return "bg-green-100 text-green-800";
-    if (score < 60) return "bg-red-100 text-red-600";
-    return "bg-red-200 text-red-800";
+    if (score < 60) return "bg-yellow-100 text-yellow-600";
+    return "bg-red-100 text-red-600";
   };
 
-  const handleFilterChange = (
-    filterValue: "strategic" | "operational" | "financial" | "technical"
-  ): void => {
+  const handleFilterChange = (filterValue: string): void => {
     setSelectedFilters((prev) =>
       prev.includes(filterValue)
         ? prev.filter((f) => f !== filterValue)
@@ -168,12 +280,12 @@ const ChallengesSummarry = () => {
     );
   };
 
-  const handleEdit = (challengeId: number): void => {
+  const handleEdit = (challengeId: string): void => {
     console.log("Edit challenge:", challengeId);
-    // TODO: Implement edit functionality - open modal/form
+    // TODO: Implement edit functionality - open modal/form with existing data
   };
 
-  const handleDelete = (challengeId: number): void => {
+  const handleDelete = (challengeId: string): void => {
     if (window.confirm("Are you sure you want to delete this challenge?")) {
       setChallenges((prev) =>
         prev.filter((challenge) => challenge.id !== challengeId)
@@ -182,14 +294,28 @@ const ChallengesSummarry = () => {
   };
 
   const handleAddNew = () => {
-    console.log("Add new challenge");
-    // TODO: Implement add new challenge functionality - open modal/form
+    setIsModalOpen(true);
   };
 
   const clearAllFilters = () => {
     setCurrentSort("all");
     setSelectedFilters([]);
   };
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return <div className="min-h-screen bg-white p-6 rounded-lg mt-8">Loading...</div>;
+  }
+
+  // Show loading state
+  if (isLoading) {
+    return <div className="min-h-screen bg-white p-6 rounded-lg mt-8">Loading challenges...</div>;
+  }
+
+  // Show error state
+  if (error) {
+    return <div className="min-h-screen bg-white p-6 rounded-lg mt-8">Error loading challenges. Please try again.</div>;
+  }
 
   return (
     <div className="min-h-screen bg-white p-6 rounded-lg mt-8">
@@ -205,12 +331,11 @@ const ChallengesSummarry = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={handleGetStartedClick}
-              className="bg-[#22398A] text-white px-4 py-2 cursor-pointer rounded-lg font-medium flex items-center gap-2 transition-colors"
+              className="bg-[#22398A] text-white px-4 py-2 cursor-pointer rounded-lg font-medium flex items-center gap-2 hover:bg-[#1D2A6D] transition-colors"
             >
               <Plus className="w-4 h-4" />
               Add New Challenge
             </button>
-            
           </div>
         </div>
 
@@ -272,22 +397,8 @@ const ChallengesSummarry = () => {
                         <input
                           type="checkbox"
                           className="mr-3 rounded"
-                          checked={selectedFilters.includes(
-                            option.value as
-                              | "strategic"
-                              | "operational"
-                              | "financial"
-                              | "technical"
-                          )}
-                          onChange={() =>
-                            handleFilterChange(
-                              option.value as
-                                | "strategic"
-                                | "operational"
-                                | "financial"
-                                | "technical"
-                            )
-                          }
+                          checked={selectedFilters.includes(option.value)}
+                          onChange={() => handleFilterChange(option.value)}
                         />
                         {option.label}
                       </label>
@@ -314,7 +425,7 @@ const ChallengesSummarry = () => {
           {filteredChallenges.map((challenge) => (
             <div
               key={challenge.id}
-              className="bg-white  rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow"
+              className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex items-center justify-between">
                 {/* Challenge Name & Timeline */}
@@ -345,19 +456,21 @@ const ChallengesSummarry = () => {
                 </div>
 
                 {/* Actions */}
-                <div className="flex  justify-between gap-2">
+                <div className="flex justify-between gap-2">
                   <button className="text-blue-600 hover:text-blue-800 font-medium px-3 py-1 mr-44 rounded hover:bg-blue-50 transition-colors">
                     View
                   </button>
                   <div className="relative">
                     <button
-                      onClick={() => setOpenMenuId(openMenuId === challenge.id ? null : challenge.id)}
+                      onClick={() =>
+                        setOpenMenuId(openMenuId === challenge.id ? null : challenge.id)
+                      }
                       className="p-1 hover:bg-gray-100 rounded transition-colors"
                     >
                       <MoreHorizontal className="w-4 h-4 text-gray-500" />
                     </button>
                     {openMenuId === challenge.id && (
-                      <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg py-1 z-10">
+                      <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg py-1 z-10 border">
                         <button
                           onClick={() => {
                             handleEdit(challenge.id);
@@ -373,7 +486,7 @@ const ChallengesSummarry = () => {
                             handleDelete(challenge.id);
                             setOpenMenuId(null);
                           }}
-                          className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                         >
                           <Trash2 className="w-4 h-4 mr-2" />
                           Delete
@@ -422,7 +535,7 @@ const ChallengesSummarry = () => {
             </p>
             <button
               onClick={handleAddNew}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center gap-2 transition-colors"
+              className="bg-[#22398A] hover:bg-[#1D2A6D] text-white px-6 py-2 rounded-lg font-medium inline-flex items-center gap-2 transition-colors"
             >
               <Plus className="w-4 h-4" />
               Add New Challenge
@@ -518,89 +631,109 @@ const ChallengesSummarry = () => {
                 className="bg-[#1D2A6D] text-white p-3 rounded-t-lg flex justify-between items-center"
                 style={{ fontFamily: "Arial, sans-serif" }}
               >
-                <h2 className="text-lg font-semibold">Challenges</h2>
+                <h2 className="text-lg font-semibold">Add Challenge</h2>
                 <button
                   onClick={handleCloseModal}
-                  className="text-white text-xl hover:text-gray-200"
+                  className="text-white text-xl hover:text-gray-200 transition-colors"
                 >
                   ×
                 </button>
               </div>
               <div className="p-5 border border-[#e5e7eb] rounded-b-lg">
                 <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Challenge Title *
+                  </label>
                   <input
                     type="text"
                     value={challengeTitle}
                     onChange={(e) => setChallengeTitle(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded mt-1"
-                    placeholder="Challenges Title"
+                    className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#22398A] focus:border-transparent"
+                    placeholder="Enter challenge title"
                   />
                 </div>
+                
                 <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Challenge Category *
+                  </label>
                   <select
                     value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                    onChange={(e) => setCategory(e.target.value as ChallengeCategoryType)}
+                    className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#22398A] focus:border-transparent"
                   >
-                    <option value="">challenge category</option>
-                    <option value="Human">Human</option>
-                    <option value="Political">Political</option>
-                    <option value="Financial">Financial</option>
-                    <option value="Strategic">Strategic</option>
-                    <option value="Compliance">Compliance</option>
-                    <option value="Operational">Operational</option>
+                    <option value="">Select challenge category</option>
+                    <option value={ChallengeCategory.HUMAN}>Human</option>
+                    <option value={ChallengeCategory.POLITICAL}>Political</option>
+                    <option value={ChallengeCategory.FINANCIAL}>Financial</option>
+                    <option value={ChallengeCategory.STRATEGIC}>Strategic</option>
+                    <option value={ChallengeCategory.COMPLIANCE}>Compliance</option>
+                    <option value={ChallengeCategory.OPERATIONAL}>Operational</option>
                   </select>
                 </div>
+                
                 <div className="mb-4 flex space-x-4">
                   <div className="w-1/2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Impact on Business *
+                    </label>
                     <select
                       value={impact}
-                      onChange={(e) => setImpact(e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded mt-1"
+                      onChange={(e) => setImpact(e.target.value as ImpactOnBusinessType)}
+                      className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#22398A] focus:border-transparent"
                     >
-                      <option value="">Impact on business</option>
-                      <option value="Very Low">Very Low</option>
-                      <option value="Low">Low</option>
-                      <option value="Moderate">Moderate</option>
-                      <option value="High">High</option>
-                      <option value="Very High">Very High</option>
+                      <option value="">Select impact level</option>
+                      <option value={ImpactOnBusiness.VERY_LOW}>Very Low</option>
+                      <option value={ImpactOnBusiness.LOW}>Low</option>
+                      <option value={ImpactOnBusiness.MODERATE}>Moderate</option>
+                      <option value={ImpactOnBusiness.HIGH}>High</option>
+                      <option value={ImpactOnBusiness.VERY_HIGH}>Very High</option>
                     </select>
                   </div>
                   <div className="w-1/2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Ability to Address *
+                    </label>
                     <select
                       value={abilityToAddress}
-                      onChange={(e) => setAbilityToAddress(e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded mt-1"
+                      onChange={(e) => setAbilityToAddress(e.target.value as AbilityToAddressType)}
+                      className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-[#22398A] focus:border-transparent"
                     >
-                      <option value="">Ability to address</option>
-                      <option value="Very Low">Very Low</option>
-                      <option value="Low">Low</option>
-                      <option value="Moderate">Moderate</option>
-                      <option value="High">High</option>
-                      <option value="Very High">Very High</option>
+                      <option value="">Select ability level</option>
+                      <option value={AbilityToAddress.VERY_LOW}>Very Low</option>
+                      <option value={AbilityToAddress.LOW}>Low</option>
+                      <option value={AbilityToAddress.MODERATE}>Moderate</option>
+                      <option value={AbilityToAddress.HIGH}>High</option>
+                      <option value={AbilityToAddress.VERY_HIGH}>Very High</option>
                     </select>
                   </div>
                 </div>
+                
                 <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Description
+                  </label>
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded mt-1 h-24"
-                    placeholder="Describe"
+                    className="w-full p-2 border border-gray-300 rounded h-24 focus:ring-2 focus:ring-[#22398A] focus:border-transparent"
+                    placeholder="Describe the challenge..."
                   />
                 </div>
+                
                 <div className="flex justify-end space-x-4">
                   <button
                     onClick={handleMoreInfoClick}
-                    className="text-[#22398A] font-semibold hover:underline"
+                    className="text-[#22398A] font-semibold hover:underline transition-colors"
                   >
                     More info
                   </button>
                   <button
                     onClick={handleSave}
-                    className="bg-[#1D2A6D] text-white px-6 py-2 rounded-lg hover:bg-[#22398A]"
+                    className="bg-[#1D2A6D] text-white px-6 py-2 rounded-lg hover:bg-[#22398A] transition-colors"
+                    disabled={isSubmitting}
                   >
-                    Save
+                   {isSubmitting ? "Creating..." : "Create Challenge"}
                   </button>
                 </div>
               </div>
@@ -608,8 +741,9 @@ const ChallengesSummarry = () => {
           </div>
         )}
       </div>
+      
     </div>
   );
 };
 
-export default ChallengesSummarry;
+export default ChallengesSummary;
