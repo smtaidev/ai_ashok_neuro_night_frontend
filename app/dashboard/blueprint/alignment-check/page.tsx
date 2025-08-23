@@ -1,9 +1,18 @@
-import React from 'react'
+"use client";
+import React from "react";
+import AlignmentHeader from "./_component/AlignmentHeader";
+import AlignmentCheck from "./_component/CheckAlign";
 
-const AllignmentCheck = () => {
+const AlignmentSection = () => {
   return (
-    <div>hello from AllignmentCheck</div>
-  )
-}
+    <div className="space-y-8">
+      {/* Heading */}
+      <AlignmentHeader/>
 
-export default AllignmentCheck
+      {/* Cards Section */}
+      <AlignmentCheck/>
+    </div>
+  );
+};
+
+export default AlignmentSection;
