@@ -33,11 +33,14 @@
 
 // export default Page;
 import React from 'react';
+import AddMeetingBanner from './_components/AddMeetingBanner';
+import UpcomingMeetings from './_components/UpcomingMeetings';
 
 const page = () => {
     return (
-        <div>
-            ksjdk
+        <div className='space-y-6 min-h-[calc(100vh-100px)]'>
+            <AddMeetingBanner />
+            <UpcomingMeetings/>
         </div>
     );
 };
