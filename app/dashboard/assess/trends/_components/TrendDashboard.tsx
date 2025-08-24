@@ -715,7 +715,7 @@ const TrendsDashboard: React.FC = () => {
           </div>
 
           {/* Top Trends Card */}
-          <div className="bg-white rounded-xl space-y-2 border border-gray-200 p-6">
+          <div className="bg-white rounded-xl space-y-3 border border-gray-200 p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">
               Top Trends (High and Medium Impact)
             </h2>
@@ -730,7 +730,7 @@ const TrendsDashboard: React.FC = () => {
           </div>
 
           {/* On The Radar Trends Card */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
+          <div className="bg-white space-y-3 rounded-xl border border-gray-200 p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-6">
               On The Radar Trends
             </h2>

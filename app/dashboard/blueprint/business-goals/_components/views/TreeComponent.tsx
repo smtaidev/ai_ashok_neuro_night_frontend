@@ -146,7 +146,7 @@ const TreeComponent: React.FC = () => {
     }
   }, [data]);
 
-  if (isLoading) return <Loading/>;
+  if (isLoading) return <Loading />;
   if (error) return <p className="text-center mt-10 text-red-500">Error loading data</p>;
 
   return (
