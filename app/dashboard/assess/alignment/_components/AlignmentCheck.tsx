@@ -1,9 +1,5 @@
 
 
-
-
-
-
 "use client";
 
 import Image from 'next/image';
@@ -26,34 +22,28 @@ interface ModalData {
 }
 
 // Define valid color keys as a type
-type ColorKey = 'red-500' | 'blue-500' | 'green-600';
+type ColorKey = 'blue-500' | 'green-600';
 
 // Color mapping utility with index signature
 const colorMap: Record<ColorKey, { bg: string; text: string; border: string; borderTop: string }> = {
-  'red-500': { 
-    bg: 'bg-red-500', 
-    text: 'text-red-500', 
-    border: 'border-red-500',
-    borderTop: ' border-t-20 border-t-red-500'
-  },
   'blue-500': { 
     bg: 'bg-blue-500', 
     text: 'text-blue-500', 
     border: 'border-blue-500',
-    borderTop: 'border-t-20 border-t-blue-500'
+    borderTop: 'border-t-4 border-t-blue-500'
   },
   'green-600': { 
     bg: 'bg-green-600', 
     text: 'text-green-600', 
     border: 'border-green-600',
-    borderTop: ' border-t-20 border-t-green-600'
+    borderTop: 'border-t-4 border-t-green-600'
   }
 };
 
 // Helper function to safely get color properties
 const getColorProperties = (color: string) => {
   const validColor = color as ColorKey;
-  return colorMap[validColor] || colorMap['red-500']; // Fallback to red-500 if invalid
+  return colorMap[validColor] || colorMap['blue-500']; // Fallback to blue if invalid
 };
 
 // Define types for our persisted data
@@ -69,10 +59,10 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({
   const [formData, setFormData] = useState<{[key: string]: boolean}>({});
   const [suggestions, setSuggestions] = useState<string>('');
   const [sectionColors, setSectionColors] = useState<{[key: string]: string}>({
-    trends: 'red-500',
-    swot: 'red-500',
-    challenges: 'red-500',
-    competitor: 'red-500'
+    trends: 'blue-500',
+    swot: 'blue-500',
+    challenges: 'blue-500',
+    competitor: 'blue-500'
   });
   const [completedSections, setCompletedSections] = useState<{[key: string]: boolean}>({
     trends: false,
@@ -187,19 +177,8 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({
       suggestions,
     };
 
-    // Calculate total checked question boxes (first 6)
-    const totalChecked = answers.reduce((sum, a) => sum + a.selectedOptions.length, 0);
-
-    let colorClass: ColorKey;
-    if (totalChecked === 6) {
-      colorClass = 'green-600';
-    } else if (totalChecked >= 4) {
-      colorClass = 'blue-500';
-    } else {
-      colorClass = 'red-500';
-    }
-
-    setSectionColors(prev => ({ ...prev, [currentModal]: colorClass }));
+    // Set color to green when saved (regardless of number of checks)
+    setSectionColors(prev => ({ ...prev, [currentModal]: 'green-600' }));
     setCompletedSections(prev => ({ ...prev, [currentModal]: true }));
 
     createAlignment(body).unwrap().then(() => {
@@ -257,7 +236,7 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Identity Card */}
-            <div className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 min-h-[16rem] border-t-4 ${getColorProperties(sectionColors.trends).borderTop}`}>
+            <div className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 min-h-[16rem] ${getColorProperties(sectionColors.trends).borderTop}`}>
               <div className="flex items-center gap-3 mb-6">
                 <div className={`w-6 h-6 ${getColorProperties(sectionColors.trends).bg} rounded-full flex items-center justify-center`}>
                   <span className="text-white text-xs font-bold">01</span>
@@ -278,7 +257,7 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({
             </div>
 
             {/* Swot Card */}
-            <div className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 min-h-[16rem] border-t-4 ${getColorProperties(sectionColors.swot).borderTop}`}>
+            <div className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 min-h-[16rem] ${getColorProperties(sectionColors.swot).borderTop}`}>
               <div className="flex items-center gap-3 mb-6">
                 <div className={`w-6 h-6 ${getColorProperties(sectionColors.swot).bg} rounded-full flex items-center justify-center`}>
                   <span className="text-white text-xs font-bold">02</span>
@@ -299,7 +278,7 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({
             </div>
 
             {/* Challenges Card */}
-            <div className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 min-h-[16rem] border-t-4 ${getColorProperties(sectionColors.challenges).borderTop}`}>
+            <div className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 min-h-[16rem] ${getColorProperties(sectionColors.challenges).borderTop}`}>
               <div className="flex items-center gap-3 mb-6">
                 <div className={`w-6 h-6 ${getColorProperties(sectionColors.challenges).bg} rounded-full flex items-center justify-center`}>
                   <span className="text-white text-xs font-bold">03</span>
@@ -320,7 +299,7 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({
             </div>
 
             {/* Competitor's Analysis Card */}
-            <div className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 min-h-[16rem] border-t-4 ${getColorProperties(sectionColors.competitor).borderTop}`}>
+            <div className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 min-h-[16rem] ${getColorProperties(sectionColors.competitor).borderTop}`}>
               <div className="flex items-center gap-3 mb-6">
                 <div className={`w-6 h-6 ${getColorProperties(sectionColors.competitor).bg} rounded-full flex items-center justify-center`}>
                   <span className="text-white text-xs font-bold">04</span>
@@ -346,16 +325,12 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Alignment Status Legend</h3>
             <div className="flex flex-wrap gap-6">
               <div className="flex items-center">
-                <div className="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
-                <span className="text-sm text-gray-700">Needs Attention (0-3 checks)</span>
-              </div>
-              <div className="flex items-center">
                 <div className="w-4 h-4 bg-blue-500 rounded-full mr-2"></div>
-                <span className="text-sm text-gray-700">Moderate Alignment (4-5 checks)</span>
+                <span className="text-sm text-gray-700">Not Started</span>
               </div>
               <div className="flex items-center">
                 <div className="w-4 h-4 bg-green-600 rounded-full mr-2"></div>
-                <span className="text-sm text-gray-700">Full Alignment (6 checks)</span>
+                <span className="text-sm text-gray-700">Completed</span>
               </div>
             </div>
           </div>

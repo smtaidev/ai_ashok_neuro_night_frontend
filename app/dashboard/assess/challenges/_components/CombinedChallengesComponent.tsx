@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
@@ -232,7 +230,8 @@ const CombinedChallengesComponent = () => {
 
   const impactData = useMemo<ImpactData[]>(() => {
     const counts = challenges.reduce((acc, c) => {
-      acc[c.impactOnBusiness as string] = (acc[c.impactOnBusiness as string] || 0) + 1;
+      acc[c.impactOnBusiness as string] =
+        (acc[c.impactOnBusiness as string] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
@@ -279,12 +278,14 @@ const CombinedChallengesComponent = () => {
         return { category: cat.substring(0, 3), impact: 0, ability: 0 };
       const avgImpact =
         catChallenges.reduce(
-          (sum, c) => sum + levelToScore[c.impactOnBusiness as ImpactOnBusinessType],
+          (sum, c) =>
+            sum + levelToScore[c.impactOnBusiness as ImpactOnBusinessType],
           0
         ) / catChallenges.length;
       const avgAbility =
         catChallenges.reduce(
-          (sum, c) => sum + levelToScore[c.abilityToAddress as AbilityToAddressType],
+          (sum, c) =>
+            sum + levelToScore[c.abilityToAddress as AbilityToAddressType],
           0
         ) / catChallenges.length;
       return {
@@ -1160,7 +1161,7 @@ const CombinedChallengesComponent = () => {
       {/* Add Challenge Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg w-full max-w-3xl shadow-lg">
+          <div className="bg-white rounded-lg w-full max-w-4xl shadow-lg">
             <div
               className="bg-[#1D2A6D] text-white p-3 rounded-t-lg flex justify-between items-center"
               style={{ fontFamily: "Arial, sans-serif" }}
@@ -1292,7 +1293,7 @@ const CombinedChallengesComponent = () => {
       )}
 
       {/* View Modal */}
-      {isViewModalOpen && selectedChallenge && (
+      {/* {isViewModalOpen && selectedChallenge && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg w-full max-w-2xl shadow-lg">
             <div
@@ -1376,12 +1377,225 @@ const CombinedChallengesComponent = () => {
             </div>
           </div>
         </div>
+      )} */}
+      {/* View Modal */}
+      {isViewModalOpen && selectedChallenge && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl w-full max-w-4xl shadow-2xl overflow-hidden transform transition-all duration-300 scale-95 animate-in fade-in-90 zoom-in-90">
+            {/* Header with gradient background */}
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-800 text-white p-5 flex justify-between items-center">
+              <div>
+                <h2 className="text-xl font-bold">Challenge Details</h2>
+                <p className="text-blue-100 text-sm mt-1">
+                  Complete information about this challenge
+                </p>
+              </div>
+              <button
+                onClick={handleCloseViewModal}
+                className="text-white bg-black/20 hover:bg-black/30 p-1 rounded-full transition-all duration-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div className="p-6 bg-gray-50">
+              <div className="space-y-5">
+                {/* Title with decorative icon */}
+                <div className="flex items-start gap-3">
+                  <div className="bg-indigo-100 p-2 rounded-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 text-indigo-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      {selectedChallenge.name}
+                    </h3>
+                    <div className="mt-1 flex items-center gap-2">
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRiskScoreColor(
+                          selectedChallenge.riskScore
+                        )}`}
+                      >
+                        Risk Score: {selectedChallenge.riskScore}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Details grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center gap-2 text-gray-500 mb-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                        />
+                      </svg>
+                      <span className="text-xs font-medium uppercase tracking-wide">
+                        Category
+                      </span>
+                    </div>
+                    <p className="text-gray-800 font-medium">
+                      {selectedChallenge.category}
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center gap-2 text-gray-500 mb-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                        />
+                      </svg>
+                      <span className="text-xs font-medium uppercase tracking-wide">
+                        Impact on Business
+                      </span>
+                    </div>
+                    <p className="text-gray-800 font-medium capitalize">
+                      {selectedChallenge.impactOnBusiness}
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center gap-2 text-gray-500 mb-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                        />
+                      </svg>
+                      <span className="text-xs font-medium uppercase tracking-wide">
+                        Ability to Address
+                      </span>
+                    </div>
+                    <p className="text-gray-800 font-medium capitalize">
+                      {selectedChallenge.abilityToAddress}
+                    </p>
+                  </div>
+
+                  <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center gap-2 text-gray-500 mb-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      <span className="text-xs font-medium uppercase tracking-wide">
+                        Created Date
+                      </span>
+                    </div>
+                    <p className="text-gray-800 font-medium">
+                      {selectedChallenge.createdDate}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Description */}
+                {selectedChallenge.description && (
+                  <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center gap-2 text-gray-500 mb-3">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 6h16M4 12h16m-7 6h7"
+                        />
+                      </svg>
+                      <span className="text-xs font-medium uppercase tracking-wide">
+                        Description
+                      </span>
+                    </div>
+                    <p className="text-gray-700 leading-relaxed border-l-2 border-indigo-100 pl-4">
+                      {selectedChallenge.description}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex justify-end mt-8 pt-5 border-t border-gray-200">
+                <button
+                  onClick={handleCloseViewModal}
+                  className="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 py-2.5 rounded-lg font-medium hover:from-gray-700 hover:to-gray-800 transition-all duration-200 shadow-md"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Update Modal */}
       {isUpdateModalOpen && selectedChallenge && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg w-full max-w-3xl shadow-lg">
+          <div className="bg-white rounded-lg w-full max-w-4xl shadow-lg">
             <div
               className="bg-[#1D2A6D] text-white p-3 rounded-t-lg flex justify-between items-center"
               style={{ fontFamily: "Arial, sans-serif" }}
