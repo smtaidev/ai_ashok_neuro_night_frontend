@@ -560,25 +560,22 @@ const AfterBusinessGoal: React.FC<AfterBusinessGoalProps> = ({
             <div className="flex justify-center sm:justify-start gap-2 w-full sm:w-auto">
               <button
                 onClick={() => setViewMode("row")}
-                className={`cursor-pointer ${
-                  viewMode === "row" ? "text-blue-500" : "text-gray-400"
-                } hover:text-blue-500 transition-colors duration-200`}
+                className={`cursor-pointer ${viewMode === "row" ? "text-blue-500" : "text-gray-400"
+                  } hover:text-blue-500 transition-colors duration-200`}
               >
                 <GoRows size={25} />
               </button>
               <button
                 onClick={() => setViewMode("structure")}
-                className={`cursor-pointer ${
-                  viewMode === "structure" ? "text-blue-500" : "text-gray-400"
-                } hover:text-blue-500 transition-colors duration-200`}
+                className={`cursor-pointer ${viewMode === "structure" ? "text-blue-500" : "text-gray-400"
+                  } hover:text-blue-500 transition-colors duration-200`}
               >
                 <FiGrid size={25} />
               </button>
               <button
                 onClick={() => setViewMode("gantt")}
-                className={`cursor-pointer ${
-                  viewMode === "gantt" ? "text-blue-500" : "text-gray-400"
-                } hover:text-blue-500 transition-colors duration-200`}
+                className={`cursor-pointer ${viewMode === "gantt" ? "text-blue-500" : "text-gray-400"
+                  } hover:text-blue-500 transition-colors duration-200`}
               >
                 <MdOutlineBarChart size={25} />
               </button>
