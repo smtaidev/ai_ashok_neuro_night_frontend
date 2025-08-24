@@ -1038,6 +1038,7 @@
 //   "existing_capabilities_to_enhance": "No"
 // }
 // create business goal modal 
+
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState, useEffect } from "react";
@@ -1048,6 +1049,7 @@ export type BusinessGoalsForm = {
   title: string;
   description: string;
   related_strategic_theme: string;
+  strategicID:string;
   goalOwner: string[];
   funding: number;
   assigned_functions: string[];
@@ -1271,33 +1273,41 @@ const BusinessGoalsModal = ({
                 )}
               </div>
 
-              {/* Strategic Themes */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  What Strategic Theme is this business goal tied to?
-                  <span className="text-red-500">*</span>
-                </label>
-                <div className="space-y-2">
-                  {strategicThemes?.data.map((theme, index) => (
-                    <label className="flex items-center space-x-2" key={index}>
-                      <input
-                        type="radio"
-                        {...register("related_strategic_theme", {
-                          required: "Strategic Theme is required",
-                        })}
-                        value={theme?.name}
-                        className="text-blue-600 focus:ring-blue-500"
-                      />
-                      <span className="text-sm">{theme?.name}</span>
-                    </label>
-                  ))}
-                </div>
-                {errors.related_strategic_theme && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.related_strategic_theme.message}
-                  </p>
-                )}
-              </div>
+            {/* Strategic Themes */}
+<div>
+  <label className="block text-sm font-medium text-gray-700 mb-2">
+    What Strategic Theme is this business goal tied to?
+    <span className="text-red-500">*</span>
+  </label>
+
+  <div className="space-y-2">
+    {strategicThemes?.data.map((theme) => (
+      <label className="flex items-center space-x-2" key={theme._id}>
+        <input
+          type="radio"
+          value={theme.name} // main value stored in related_strategic_theme
+          {...register("related_strategic_theme", {
+            required: "Strategic Theme is required",
+          })}
+          onChange={(e) => {
+            // ✅ store both name & id
+            setValue("related_strategic_theme", theme.name);
+            setValue("strategicID", theme._id);
+          }}
+          className="text-blue-600 focus:ring-blue-500"
+        />
+        <span className="text-sm">{theme.name}</span>
+      </label>
+    ))}
+  </div>
+
+  {errors.related_strategic_theme && (
+    <p className="text-red-500 text-sm mt-1">
+      {errors.related_strategic_theme.message}
+    </p>
+  )}
+</div>
+
 
               {/* Goal Owner */}
               <div>
