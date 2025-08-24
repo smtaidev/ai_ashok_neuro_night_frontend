@@ -1,20 +1,14 @@
 // components/AddAgendaSection.tsx
-
 "use client";
+
 import React, { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { MdEdit } from "react-icons/md";
 import AddAgendaFromModal, { FormValues } from "./modals/AddAgendaFormModal";
-
-
-
-interface Meeting {
-  id: string;
-  title: string;
-  date: string;
-  time: string;
-  type: "Annual" | "Board" | "Monthly" | "Quarterly";
-}
+import {
+  useGetMeetingsQuery,
+  Meeting,
+} from "@/redux/api/meeting/meetingApi";
+import { format } from "date-fns"; // ✅ using date-fns
 
 const getTypeBadgeClass = (type: Meeting["type"]) => {
   switch (type) {
@@ -33,28 +27,50 @@ const getTypeBadgeClass = (type: Meeting["type"]) => {
 
 const AddAgendaSection: React.FC = () => {
   const [selectedMeeting, setSelectedMeeting] = useState("");
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [selectedMeetingId, setSelectedMeetingId] = useState<string | null>(null); // New state for selected meeting ID
-  
-  
-    // Handle form data from Drawer
-    const handleFormSubmit = (data: FormValues) => {
-      console.log("Form Data from Drawer:", data, "Meeting ID:", selectedMeetingId);
-    };
-  const meetings: Meeting[] = [
-    { id: "1", title: "Meeting Title .....", date: "March 23,2024", time: "7.50 P.M", type: "Annual" },
-    { id: "2", title: "Meeting Title .....", date: "March 23,2024", time: "7.50 P.M", type: "Board" },
-    { id: "3", title: "Meeting Title .....", date: "March 23,2024", time: "7.50 P.M", type: "Monthly" },
-    { id: "4", title: "Meeting Title .....", date: "March 23,2024", time: "7.50 P.M", type: "Quarterly" },
-    { id: "5", title: "Meeting Title .....", date: "March 23,2024", time: "7.50 P.M", type: "Quarterly" },
-    { id: "6", title: "Meeting Title .....", date: "March 23,2024", time: "7.50 P.M", type: "Quarterly" },
-  ];
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedMeetingId, setSelectedMeetingId] = useState<string>(
+    ""
+  );
+
+  // ✅ Fetch meetings from API
+  const { data, isLoading, isError } = useGetMeetingsQuery();
+
+  const handleFormSubmit = (formData: FormValues) => {
+    console.log("Agenda Submitted:", formData, "Meeting ID:", selectedMeetingId);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="bg-white rounded-xl border p-4 shadow-sm">
+        <h2 className="text-[22px] font-semibold text-gray-800 mb-3">Add Agenda</h2>
+        <p className="text-gray-600">Loading meetings...</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="bg-white rounded-xl border p-4 shadow-sm">
+        <h2 className="text-[22px] font-semibold text-gray-800 mb-3">Add Agenda</h2>
+        <p className="text-red-500">Failed to load meetings.</p>
+      </div>
+    );
+  }
+
+  const meetings: Meeting[] = data?.data || [];
 
   const handleAddClick = (meetingId: string) => {
-  console.log("Add clicked for meeting:", meetingId);
-  setSelectedMeetingId(meetingId);  // যেই মিটিং আইডি তে ক্লিক করছো সেট করবে
-  setIsDrawerOpen(true);             // মডাল ওপেন করবে
-};
+    setSelectedMeetingId(meetingId);
+    setIsDrawerOpen(true);
+    // console.log(meetingId);
+  };
+
+  // ✅ Helper to format ISO string safely
+  const formatDate = (isoString: string) =>
+    isoString ? format(new Date(isoString), "MMMM dd, yyyy") : "";
+
+  const formatTime = (isoString: string) =>
+    isoString ? format(new Date(isoString), "hh:mm a") : "";
 
   return (
     <div className="bg-white rounded-xl border p-4 shadow-sm">
@@ -65,48 +81,64 @@ const AddAgendaSection: React.FC = () => {
         <select
           value={selectedMeeting}
           onChange={(e) => setSelectedMeeting(e.target.value)}
-          className="w-full border rounded-lg pl-3 pr-10 py-4 text-[16px]  focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white"
+          className="w-full border rounded-lg pl-3 pr-10 py-4 text-[16px] focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white"
         >
           <option value="">Select Meeting</option>
           {meetings.map((meeting) => (
-            <option key={meeting.id} value={meeting.id}>
-              {meeting.title}
+            <option key={meeting._id} value={meeting._id}>
+              {meeting?.name}
             </option>
           ))}
         </select>
         <IoIosArrowDown className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500" />
       </div>
 
-      {/* Table with horizontal scroll */}
+      {/* Table with meetings */}
       <div className="overflow-x-auto border rounded-lg">
         <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
           <thead className="bg-gray-100 text-gray-600 text-[16px]">
             <tr>
-              <th className="px-4 py-2 text-left font-medium whitespace-nowrap">Meeting Title</th>
-              <th className="px-4 py-2 text-left font-medium whitespace-nowrap">Date</th>
-              <th className="px-4 py-2 text-left font-medium whitespace-nowrap">Time</th>
-              <th className="px-4 py-2 text-left font-medium whitespace-nowrap">Type</th>
-              <th className="px-4 py-2 text-left font-medium whitespace-nowrap">Agenda</th>
+              <th className="px-4 py-2 text-left font-medium whitespace-nowrap">
+                Meeting Title
+              </th>
+              <th className="px-4 pl-8 py-2 text-left font-medium whitespace-nowrap">
+                Date
+              </th>
+              <th className="px-4 pl-5 py-2 text-left font-medium whitespace-nowrap">
+                Time
+              </th>
+              <th className="px-4 py-2 pl-6 text-left font-medium whitespace-nowrap">
+                Type
+              </th>
+              <th className="px-4 py-2 text-left font-medium whitespace-nowrap">
+                Agenda
+              </th>
             </tr>
           </thead>
           <tbody>
             {meetings.map((meeting) => (
-              <tr key={meeting.id} className="border-t">
+              <tr key={meeting._id} className="border-t">
                 <td className="px-4 py-2 text-[16px] font-semibold text-gray-800 whitespace-nowrap">
-                  {meeting.title}
+                  {meeting?.name}
                 </td>
-                <td className="px-4 py-2 text-[15px] text-gray-600 whitespace-nowrap">{meeting.date}</td>
-                <td className="px-4 py-2 text-[15px] text-gray-600 whitespace-nowrap">{meeting.time}</td>
+                <td className="px-4 py-2 text-[15px] text-gray-600 whitespace-nowrap">
+                  {formatDate(meeting.meetingDate)}
+                </td>
+                <td className="px-4 py-2 text-[15px] text-gray-600 whitespace-nowrap">
+                  {formatTime(meeting.startDate)} 
+                </td>
                 <td className="px-4 py-2 whitespace-nowrap">
                   <span
-                    className={`px-3 py-1 rounded-md text-[10px] font-medium ${getTypeBadgeClass(meeting.type)}`}
+                    className={`px-3 py-1 rounded-md text-[10px] font-medium ${getTypeBadgeClass(
+                      meeting.type
+                    )}`}
                   >
                     {meeting.type}
                   </span>
                 </td>
                 <td className="px-4 py-2 whitespace-nowrap">
                   <button
-                    onClick={() => handleAddClick(meeting.id)}
+                    onClick={() => handleAddClick(meeting._id)}
                     className="px-4 py-1 text-[10px] font-medium border border-blue-900 text-blue-900 rounded-md hover:bg-blue-900 hover:text-white transition"
                   >
                     Add
@@ -117,15 +149,17 @@ const AddAgendaSection: React.FC = () => {
           </tbody>
         </table>
       </div>
-       <AddAgendaFromModal
+
+      {/* Drawer Modal */}
+      <AddAgendaFromModal
         isOpen={isDrawerOpen}
         onClose={() => {
           setIsDrawerOpen(false);
-          setSelectedMeetingId(null); // Reset selected meeting ID when closing
+          setSelectedMeetingId("");
         }}
         title="Add Meeting Details"
         onSubmit={handleFormSubmit}
-        meetingId={selectedMeetingId} // Pass the selected meeting ID to the modal
+        meetingId={selectedMeetingId}
       />
     </div>
   );
