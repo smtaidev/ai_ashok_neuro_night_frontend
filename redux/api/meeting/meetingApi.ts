@@ -151,6 +151,7 @@ startDate: string
 __v: number
 endDate: string
 updatedAt: string
+agendaId?:any
 }
 
 // Create Meeting Request
