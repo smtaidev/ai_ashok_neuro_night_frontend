@@ -1,4 +1,5 @@
-// import React from 'react';
+// import React from "react";
+// import TeamMemberPage from "./_component/TeamMember";
 
 // interface TeamPageProps {
 //   params: {
@@ -7,11 +8,9 @@
 // }
 
 // const TeamPage = ({ params }: TeamPageProps) => {
-
 //   return (
 //     <div>
-//       <h1>{params.teamName}</h1>
-//       <p>Team Name: {params?.teamName}</p>
+//       <TeamMemberPage teamName={params.teamName} />
 //     </div>
 //   );
 // };
