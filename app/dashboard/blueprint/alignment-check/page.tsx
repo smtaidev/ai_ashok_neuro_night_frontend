@@ -5,7 +5,7 @@ import AlignmentCheck from "./_component/CheckAlign";
 
 const AlignmentSection = () => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pl-6">
       {/* Heading */}
       <AlignmentHeader/>
 

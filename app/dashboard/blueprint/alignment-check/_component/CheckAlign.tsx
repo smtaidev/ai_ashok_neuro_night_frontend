@@ -142,7 +142,7 @@ const CheckAlign = () => {
   return (
     <div>
       {/* Cards Section */}
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid  md:grid-cols-3 gap-6">
         {Object.keys(statuses).map((title, idx) => (
           <Dialog key={title}>
             <div
