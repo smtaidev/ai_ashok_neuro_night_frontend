@@ -120,18 +120,37 @@ import { api } from "@/redux/services/api";
 // =======================
 
 // Meeting type
+// export interface Meeting {
+//   _id: string;
+//   name: string;
+//   location: string;
+//   type: string;
+//   meetingDate: string;
+//   startDate: string;
+//   endDate: string;
+//   meetingLength: string;
+//   owner: string;
+//   description: string;
+//   status: string;
+// }
+
 export interface Meeting {
-  _id: string;
-  name: string;
-  location: string;
-  type: string;
-  meetingDate: string;
-  startDate: string;
-  endDate: string;
-  meetingLength: string;
-  owner: string;
-  description: string;
-  status: string;
+  _id: string
+companyName: string
+location: string
+description: string
+agendaItems?: any
+type: "Annual" | "Board" | "Monthly" | "Quarterly"
+status: string
+name: string
+owner: string
+meetingLength: string
+meetingDate: string
+createdAt: string
+startDate: string
+__v: number
+endDate: string
+updatedAt: string
 }
 
 // Create Meeting Request
@@ -197,6 +216,11 @@ export const meetingApi = api.injectEndpoints({
       query: () => "/meetings/upcoming-meetings",
       providesTags: ["Meeting"],
     }),
+    // ✅ Get Past Meetings
+    getPastMeetings: builder.query<{ data: Meeting[] }, void>({
+      query: () => "/meetings/past-meetings",
+      providesTags: ["Meeting"],
+    }),
 
     // ✅ Get Single Meeting
     getMeetingById: builder.query<{ success: boolean; data: Meeting }, string>({
@@ -248,6 +272,7 @@ export const {
   useCreateMeetingMutation,
   useGetMeetingsQuery,
   useGetUpcomingMeetingsQuery,
+  useGetPastMeetingsQuery,
   useGetMeetingByIdQuery,
   useUpdateMeetingMutation,
   useDeleteMeetingMutation,

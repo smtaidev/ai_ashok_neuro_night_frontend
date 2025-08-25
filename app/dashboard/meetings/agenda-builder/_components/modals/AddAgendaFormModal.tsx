@@ -51,6 +51,10 @@ export type FormattedOutput = {
 
 const AddAgendaFromModal: React.FC<DrawerProps> = ({ isOpen, onClose, title, meetingId }) => {
   const { data, isLoading, error } = useGetMeetingByIdQuery(meetingId, { skip: !meetingId });
+
+
+  console.log(data, "data meeting with agenda =========================>" , meetingId , "meeting id");
+
   const [createAgenda, { isLoading: isCreating }] = useCreateAgendaMutation();
 
   const { register, handleSubmit, setValue, watch, control, reset } = useForm<FormValues>({
@@ -168,10 +172,12 @@ const AddAgendaFromModal: React.FC<DrawerProps> = ({ isOpen, onClose, title, mee
         </div>
 
         <div className="overflow-y-auto h-full p-6">
+          
           {/* Meeting Metadata */}
           {data?.data && (
             <div className="pb-6 mb-4 border-b space-y-6">
               <div>
+                
                 <h3 className="text-lg font-semibold text-gray-900">Meeting Name</h3>
                 <p className="mt-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-700 font-medium">
                   {data.data.name}

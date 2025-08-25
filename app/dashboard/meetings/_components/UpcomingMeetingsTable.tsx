@@ -111,7 +111,7 @@
 
 "use client";
 
-import { useGetMeetingsQuery, useGetUpcomingMeetingsQuery } from "@/redux/api/meeting/meetingApi";
+import { useGetUpcomingMeetingsQuery } from "@/redux/api/meeting/meetingApi";
 import React from "react";
 
 // interface Meeting {
