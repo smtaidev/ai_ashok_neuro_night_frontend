@@ -45,11 +45,12 @@ export const teamMemberApi = api.injectEndpoints({
     >({
       query: ({ choreographId, body }) => ({
         url: `${url}/${choreographId}/members`,
-        method: "POST",
+        method: "PATCH",
         body,
       }),
       invalidatesTags: ["TeamMember"],
     }),
+
     
     getAllMembers: builder.query<
       { success: boolean; message: string; data: ITeamMember[] },
