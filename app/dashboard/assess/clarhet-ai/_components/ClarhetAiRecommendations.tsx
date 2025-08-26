@@ -403,7 +403,7 @@ const ClarhetAiRecommendations: React.FC<RecommendationsProps> = ({
       {/* Header Section */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">{title}</h1>
-        <p className="text-sm text-gray-700 leading-relaxed">
+        <p className="text-base text-[#231f20] leading-relaxed">
           {description}
         </p>
       </div>

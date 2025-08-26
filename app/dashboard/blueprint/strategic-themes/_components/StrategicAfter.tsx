@@ -1,10 +1,17 @@
+//? working code without see more button 
+
+
 // "use client";
 // import { useState } from "react";
 // import Image from "next/image";
-// import link from "@/public/image/link-icon.svg";
-// import { StrategicTheme } from "../page"; // ✅ type import
-// import { useCreateStrategicThemeMutation } from "@/redux/api/blueprint/strategicTheme/strategicThemeApi";
 // import toast from "react-hot-toast";
+// import link from "@/public/image/link-icon.svg";
+// import { StrategicTheme } from "../page";
+// import {
+//   useCreateStrategicThemeMutation,
+//   useUpdateStrategicThemeMutation,
+//   useDeleteStrategicThemeMutation,
+// } from "@/redux/api/blueprint/strategicTheme/strategicThemeApi";
 
 // interface StrategicAfterProps {
 //   themes: StrategicTheme[];
@@ -17,38 +24,36 @@
 //   const [editingTheme, setEditingTheme] = useState<StrategicTheme | null>(null);
 //   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
-//   // ✅ RTK Query Mutation hook
-//   const [createTheme, { isLoading }] = useCreateStrategicThemeMutation();
+//   // API hooks
+//   const [createStrategicTheme] = useCreateStrategicThemeMutation();
+//   const [updateStrategicTheme] = useUpdateStrategicThemeMutation();
+//   const [deleteStrategicTheme] = useDeleteStrategicThemeMutation();
 
 //   // Save or Edit Theme
 //   const handleSave = async () => {
-//     if (!themeTitle.trim()) {
-//       toast.error("Theme title is required");
-//       return;
-//     }
-
 //     try {
 //       if (editingTheme) {
-//         // 🔹 Future: Call updateTheme API when available
-//         toast.success("Theme updated locally (API not connected yet)");
+//         // ✅ Update theme
+//         await updateStrategicTheme({
+//           _id: editingTheme._id,
+//           name: themeTitle,
+//           description: themeDetails,
+//         }).unwrap();
+//         toast.success("Strategic theme updated successfully!");
 //       } else {
-//         const payload = { name: themeTitle, description: themeDetails };
-//         const response = await createTheme(payload).unwrap();
-
-//         if (response.success) {
-//           toast.success("Strategic Theme created successfully!");
-//         } else {
-//           toast.error(response.message || "Failed to create theme");
-//         }
+//         // ✅ Create new theme
+//         await createStrategicTheme({
+//           name: themeTitle,
+//           description: themeDetails,
+//         }).unwrap();
+//         toast.success("Strategic theme created successfully!");
 //       }
-
-//       // Reset state
 //       setThemeTitle("");
 //       setThemeDetails("");
 //       setEditingTheme(null);
 //       setIsModalOpen(false);
 //     } catch (err: any) {
-//       toast.error(err?.data?.message || "Error creating theme");
+//       toast.error(err?.data?.message || "Something went wrong!");
 //     }
 //   };
 
@@ -61,9 +66,14 @@
 //     setActiveMenu(null);
 //   };
 
-//   // Delete Theme (frontend only, since no API delete is shown)
-//   const handleDelete = (id: string) => {
-//     toast.success(`Deleted theme with id: ${id}`);
+//   // Delete Theme
+//   const handleDelete = async (_id: string) => {
+//     try {
+//       await deleteStrategicTheme(_id).unwrap();
+//       toast.success("Strategic theme deleted successfully!");
+//     } catch (err: any) {
+//       toast.error(err?.data?.message || "Failed to delete theme!");
+//     }
 //     setActiveMenu(null);
 //   };
 
@@ -92,7 +102,7 @@
 //         {/* Themes Grid */}
 //         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 //           {themes.map((theme, index) => (
-//             <div key={theme?._id} className="bg-sky-200 rounded-lg p-4 relative">
+//             <div key={theme._id} className="bg-sky-200 rounded-lg p-4 relative">
 //               <div className="flex justify-between items-start">
 //                 <div>
 //                   <span className="bg-blue-900 text-white rounded-full w-6 h-6 p-4 flex items-center justify-center">
@@ -107,7 +117,7 @@
 //                     onClick={() =>
 //                       setActiveMenu(activeMenu === theme._id ? null : theme._id)
 //                     }
-//                     className="text-gray-500 hover:text-gray-700"
+//                     className="text-gray-500 cursor-pointer hover:text-gray-700"
 //                   >
 //                     ⋮
 //                   </button>
@@ -176,10 +186,9 @@
 //               </button>
 //               <button
 //                 onClick={handleSave}
-//                 disabled={isLoading}
-//                 className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-950 disabled:opacity-50"
+//                 className="bg-blue-900 text-white px-4 py-2 rounded-md hover:bg-blue-950"
 //               >
-//                 {isLoading ? "Saving..." : "Save"}
+//                 {editingTheme ? "Update" : "Save"}
 //               </button>
 //             </div>
 //           </div>
@@ -190,6 +199,7 @@
 // };
 
 // export default StrategicAfter;
+
 
 
 "use client";
@@ -215,6 +225,9 @@ const StrategicAfter: React.FC<StrategicAfterProps> = ({ themes }) => {
   const [editingTheme, setEditingTheme] = useState<StrategicTheme | null>(null);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
+  // ✅ Track expanded themes
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+
   // API hooks
   const [createStrategicTheme] = useCreateStrategicThemeMutation();
   const [updateStrategicTheme] = useUpdateStrategicThemeMutation();
@@ -224,7 +237,6 @@ const StrategicAfter: React.FC<StrategicAfterProps> = ({ themes }) => {
   const handleSave = async () => {
     try {
       if (editingTheme) {
-        // ✅ Update theme
         await updateStrategicTheme({
           _id: editingTheme._id,
           name: themeTitle,
@@ -232,7 +244,6 @@ const StrategicAfter: React.FC<StrategicAfterProps> = ({ themes }) => {
         }).unwrap();
         toast.success("Strategic theme updated successfully!");
       } else {
-        // ✅ Create new theme
         await createStrategicTheme({
           name: themeTitle,
           description: themeDetails,
@@ -266,6 +277,13 @@ const StrategicAfter: React.FC<StrategicAfterProps> = ({ themes }) => {
       toast.error(err?.data?.message || "Failed to delete theme!");
     }
     setActiveMenu(null);
+  };
+
+  // Helper function to shorten text
+  const getShortText = (text: string, wordLimit: number = 12) => {
+    const words = text.split(" ");
+    if (words.length <= wordLimit) return text;
+    return words.slice(0, wordLimit).join(" ") + "...";
   };
 
   return (
@@ -330,8 +348,27 @@ const StrategicAfter: React.FC<StrategicAfterProps> = ({ themes }) => {
                   )}
                 </div>
               </div>
+
+              {/* ✅ Description with See More */}
               {theme.description && (
-                <p className="text-sm mt-2">{theme.description}</p>
+                <p className="text-sm mt-2">
+                  {expanded[theme._id]
+                    ? theme.description
+                    : getShortText(theme.description, 7)}{" "}
+                  {theme.description.split(" ").length > 7 && (
+                    <button
+                      onClick={() =>
+                        setExpanded((prev) => ({
+                          ...prev,
+                          [theme._id]: !prev[theme._id],
+                        }))
+                      }
+                      className="text-blue-900 font-medium hover:underline"
+                    >
+                      {expanded[theme._id] ? "See less" : "See more"}
+                    </button>
+                  )}
+                </p>
               )}
             </div>
           ))}

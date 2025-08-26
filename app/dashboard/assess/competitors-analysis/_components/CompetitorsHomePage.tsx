@@ -72,7 +72,7 @@ const CompetitorsHomePage = () => {
         />
       </div>
       <h2 className="text-xl font-semibold mb-4">Competitive Analysis</h2>
-      <p className="text-gray-600 mb-4">
+      <p className="text-base text-[#231f20] mb-4">
         Competitive analysis involves studying competitors&#39; market activities,
         brand sentiment, financial performance, and customer engagement to
         understand the market landscape better. It helps businesses develop

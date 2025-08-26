@@ -157,24 +157,24 @@ const TreeComponent: React.FC = () => {
             data={tree}
             orientation="horizontal"
             translate={{ x: 150, y: 200 }}
-            nodeSize={{ x: 250, y: 150 }}
+            nodeSize={{ x: 350, y: 120 }}
             separation={{ siblings: 1.5, nonSiblings: 1.5 }}
             renderCustomNodeElement={(rd3tProps) => {
               const nodeWidth = Math.max(
                 150,
-                rd3tProps.nodeDatum.name.length * 10 + 20
+                rd3tProps.nodeDatum.name.length * 10
               );
 
               return (
                 <g>
                   <rect
                     width={nodeWidth}
-                    height="60"
+                    height="80"
                     x={-nodeWidth / 2}
-                    y="-30"
-                    rx="10"
-                    ry="10"
-                    fill={rd3tProps.nodeDatum.children ? "#34d399" : "#facc15"}
+                    y="-40"
+                    rx="20"
+                    ry="20"
+                    fill={rd3tProps.nodeDatum.children ? "#F7F7E1" : "#F7F7E1"}
                     stroke="#4b5563"
                     strokeWidth="1"
                   />
