@@ -240,7 +240,7 @@ export default function ZeroInComponent() {
 
       {/* Dialog for editing */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="p-0 border-0 sm:max-w-2xl w-11/12 max-w-2xl">
+        <DialogContent className="p-0 border-0 w-11/12 max-w-4xl">
           <div className="bg-white rounded-xl shadow-lg relative">
             <div className="bg-blue-800 text-white p-4 -mt-1 rounded-t-xl">
               <DialogTitle className="text-xl font-bold">
