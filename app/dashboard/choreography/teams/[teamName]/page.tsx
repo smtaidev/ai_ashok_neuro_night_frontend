@@ -1,29 +1,23 @@
-// import React from 'react';
+'use client';
 
-// interface TeamPageProps {
-//   params: {
-//     teamName: string;
-//   };
-// }
+import React from "react";
+import { useParams } from "next/navigation";
+import TeamMemberPage from "./_component/TeamMember";
 
-// const TeamPage = ({ params }: TeamPageProps) => {
-
-//   return (
-//     <div>
-//       <h1>{params.teamName}</h1>
-//       <p>Team Name: {params?.teamName}</p>
-//     </div>
-//   );
-// };
-
-// export default TeamPage;
-
-import React from 'react';
+interface Params {
+  [key: string]: string | undefined;
+}
 
 const TeamPage = () => {
+  const { teamName } = useParams<Params>();
+
   return (
     <div>
-      <h1>This is Team Page</h1>
+      {teamName ? (
+        <TeamMemberPage teamName={teamName} />
+      ) : (
+        <p>Team not found</p>
+      )}
     </div>
   );
 };

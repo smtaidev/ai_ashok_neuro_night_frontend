@@ -147,6 +147,7 @@ const TeamComponentPage = () => {
     index % 2 === 0 ? "text-[#231F20]" : "text-white!"
 
   const handleView = (teamName: string) => {
+    console.log("teamName: ", teamName)
     router.push(`/dashboard/choreography/teams/${teamName}`)
   }
 

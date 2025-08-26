@@ -18,8 +18,24 @@ const UpcomingMeetings = () => {
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
+  //  _id: string;
+  //   name: string;
+  //   location: string;
+  //   type: string;
+  //   meetingDate: string;
+  //   startDate: string;
+  //   endDate: string;
+  //   meetingLength: string;
+  //   owner: string;
+  //   description: string;
+  //   status: string;
   const handleAddMeeting = async (newMeetingData: Meeting) => {
-    const { _id, name, meetingDate, startDate, endDate, type, owner, location, description, status } = newMeetingData;
+    const {  name, meetingDate,meetingLength, startDate, endDate, type, owner, location, description, status } = newMeetingData;
+
+
+    console.log(newMeetingData ,"newMeetingData");
+
+
     const meetingDataToProvide = {
       name,
       meetingDate,
@@ -30,7 +46,7 @@ const UpcomingMeetings = () => {
       location,
       description,
       status,
-      meetingLength: newMeetingData.meetingLength,
+      meetingLength,
     };
 
     console.log("New Meeting Data:", meetingDataToProvide);
