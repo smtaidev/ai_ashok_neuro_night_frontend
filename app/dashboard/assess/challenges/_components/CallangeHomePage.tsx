@@ -163,7 +163,7 @@ const CallangeHomePage = () => {
         />
       </div>
       <h2 className="text-xl font-semibold mb-4">Challenges</h2>
-      <p className="text-gray-600 mb-4">
+      <p className="text-base text-[#231f20] mb-4">
         What are the main challenges the company is facing? In other words, what
         are the major obstacles that the strategy needs to address? The intent is
         to establish a list of the most pressing business challenges in order of

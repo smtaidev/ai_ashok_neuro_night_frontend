@@ -77,20 +77,20 @@ export interface IWork {
   updatedAt: string;
 }
 
-export interface ITeamMember {
-  id: string;
-  name: string;
-  teamPersonImg?: string;
-  designation: string;
-  linkedin?: string;
-  github?: string;
-  email?: string;
-  portfolio?: string;
-  author: IAdmin;
-  authorId?: string;
-  createdAt: string;
-  updatedAt: string;
-}
+// export interface ITeamMember {
+//   id: string;
+//   name: string;
+//   teamPersonImg?: string;
+//   designation: string;
+//   linkedin?: string;
+//   github?: string;
+//   email?: string;
+//   portfolio?: string;
+//   author: IAdmin;
+//   authorId?: string;
+//   createdAt: string;
+//   updatedAt: string;
+// }
 
 export interface IFounder {
   id: string;

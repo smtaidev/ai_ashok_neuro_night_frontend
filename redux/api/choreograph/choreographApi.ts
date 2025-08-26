@@ -130,9 +130,24 @@ export const choreographApi = api.injectEndpoints({
         const token = typeof window !== "undefined"
           ? localStorage.getItem("accessToken")
           : null
-
         return {
           url: `${url}/${id}`,
+          method: "GET",
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        }
+      },
+      providesTags: ["Choreograph"],
+    }),
+
+    getSingleTeamByTeamName: builder.query<IGetSingleTeamResponse, string>({
+      query: (teamName) => {
+        const token = typeof window !== "undefined"
+          ? localStorage.getItem("accessToken")
+          : null
+        return {
+          url: `${url}/${teamName}/get-single-team`,
           method: "GET",
           headers: {
             Authorization: token ? `Bearer ${token}` : "",
@@ -158,7 +173,6 @@ export const choreographApi = api.injectEndpoints({
       },
       invalidatesTags: ["Choreograph"],
     }),
-
   
   }),
 })
@@ -168,5 +182,6 @@ export const {
   useUpdateChoreographTeamMutation,
   useGetAllChoreographTeamsQuery,
   useGetSingleChoreographTeamQuery,
+  useGetSingleTeamByTeamNameQuery,
   useDeleteChoreographTeamMutation,
 } = choreographApi

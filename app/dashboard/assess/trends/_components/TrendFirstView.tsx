@@ -29,7 +29,7 @@ const TrendFirstView = () => {
         />
       </div>
       <h2 className="text-2xl font-semibold mb-4">Top Trends</h2>
-      <p className="text-gray-600 text-lg mb-4">
+      <p className="text-base text-[#231f20] mb-4">
         Business trends refer to changes in consumer behavior, market dynamics, and technologies that can significantly impact markets and industries. Recognizing and adapting to these trends can be a game-changer for businesses that aim to achieve longevity and resilience.
       </p>
       <div className="space-y-10">
@@ -39,7 +39,7 @@ const TrendFirstView = () => {
               <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#22398A] text-gray-200 text-sm font-semibold">01</div>
               <h3 className="text-md font-semibold text-gray-900">Circular Economy Practices</h3>
             </div>
-            <p className="text-gray-600">
+            <p className="text-base text-[#231f20">
               Embracing circular economy principles, including recycling and responsible waste management, aligns with sustainability trends. Monsters, Inc. may explore ways to minimize environmental impact and enhance resource efficiency in its operations.
             </p>
           </div>
@@ -50,7 +50,7 @@ const TrendFirstView = () => {
               <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#22398A] text-gray-200 text-sm font-semibold">02</div>
               <h3 className="text-md font-semibold text-gray-900">Carbon Offsetting Initiatives</h3>
             </div>
-            <p className="text-gray-600">
+            <p className="text-base text-[#231f20]">
               As companies strive for carbon neutrality, there may be increased interest in offsetting emissions. Monsters, Inc. could explore initiatives or partnerships that contribute to carbon offset programs, reinforcing its commitment to environmental responsibility.
             </p>
           </div>
@@ -61,7 +61,7 @@ const TrendFirstView = () => {
               <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#22398A] text-gray-200 text-sm font-semibold">03</div>
               <h3 className="text-md font-semibold text-gray-900">Smart Grid Technology</h3>
             </div>
-            <p className="text-gray-600">
+            <p className="text-base text-[#231f20]">
               The integration of smart grid technologies allows for more efficient energy distribution and consumption. Monsters, Inc. might consider investing in smart grid solutions to enhance overall operational efficiency and sustainability.
             </p>
           </div>
@@ -72,7 +72,7 @@ const TrendFirstView = () => {
               <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#22398A] text-gray-200 text-sm font-semibold">04</div>
               <h3 className="text-md font-semibold text-gray-900">Green Certification and Labeling</h3>
             </div>
-            <p className="text-gray-600">
+            <p className="text-base text-[#231f20]">
               Consumers are increasingly seeking products and services with green certifications. Monsters, Inc. could explore obtaining relevant certifications to showcase its commitment to sustainability and appeal to environmentally conscious customers.
             </p>
           </div>
@@ -83,7 +83,7 @@ const TrendFirstView = () => {
               <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#22398A] text-gray-200 text-sm font-semibold">05</div>
               <h3 className="text-md font-semibold text-gray-900">Renewable Energy Integration</h3>
             </div>
-            <p className="text-gray-600">
+            <p className="text-base text-[#231f20]">
               Increasing emphasis on integrating renewable energy sources such as solar and wind into the energy mix may impact Monsters, Inc.s reliance on scream-based energy. Exploring complementary technologies or hybrid approaches could align the company with emerging trends.
             </p>
           </div>

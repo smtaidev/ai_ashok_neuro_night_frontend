@@ -111,7 +111,7 @@
 
 "use client";
 
-import { useGetMeetingsQuery } from "@/redux/api/meeting/meetingApi";
+import { useGetUpcomingMeetingsQuery } from "@/redux/api/meeting/meetingApi";
 import React from "react";
 
 // interface Meeting {
@@ -148,7 +148,7 @@ const getMeetingTypeColor = (type: Meeting["type"]): string => {
 };
 
 const UpcomingMeetingsTable: React.FC = () => {
-  const { data, error, isLoading } = useGetMeetingsQuery();
+  const { data, error, isLoading } = useGetUpcomingMeetingsQuery();
 
   return (
     <div className="bg-white border rounded-lg overflow-hidden">
@@ -205,9 +205,6 @@ const UpcomingMeetingsTable: React.FC = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-[16px] text-gray-500">
                       {`${new Date(meeting.startDate).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })} - ${new Date(meeting.endDate).toLocaleTimeString([], {
                         hour: "2-digit",
                         minute: "2-digit",
                       })}`}
