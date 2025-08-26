@@ -484,7 +484,7 @@ const SWOTAnalysis: React.FC = () => {
         <div className="md:flex justify-between space-y-3 items-start mb-6">
           <div>
             <h1 className="text-2xl font-semibold text-gray-900 mb-2">SWOT Analysis</h1>
-            <p className="text-gray-600 text-sm leading-relaxed max-w-4xl">
+            <p className="text-base text-[#231f20] leading-relaxed max-w-4xl">
               Identify the most significant <span className="text-blue-600">risks and uncertainties</span> in the market to formulate a robust risk mitigation strategy. Evaluate our preparedness to adapt to different scenarios and potential disruptions, ensuring <span className="text-blue-600">resilience and agility</span> in the face of uncertainties.
             </p>
           </div>

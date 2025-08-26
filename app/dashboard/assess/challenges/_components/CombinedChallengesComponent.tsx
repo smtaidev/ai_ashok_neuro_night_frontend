@@ -563,7 +563,7 @@ const CombinedChallengesComponent = () => {
           <h1 className="text-2xl font-semibold text-gray-800 mb-2">
             Challenges
           </h1>
-          <p className="text-sm text-gray-600 max-w-6xl">
+          <p className="text-base text-[#231f20] max-w-6xl">
             What are the main challenges the company is facing? In other words,
             what are the major obstacles that the strategy needs to address? The
             intent is to establish a list of the most pressing business
@@ -621,7 +621,7 @@ const CombinedChallengesComponent = () => {
               <h3 className="text-lg font-semibold text-gray-800 mb-2">
                 Challenge Risk Score
               </h3>
-              <p className="text-sm text-gray-600 mb-6">
+              <p className="text-base text-[#231f20] mb-6">
                 The risk score is a concise numerical reflection of the combined
                 impact and mitigation abilities for identified challenges. A
                 higher score implies a greater risk. This metric helps
@@ -638,7 +638,7 @@ const CombinedChallengesComponent = () => {
               <h3 className="text-lg font-semibold text-gray-800 mb-2">
                 Risk Score by Category
               </h3>
-              <p className="text-sm text-gray-600 mb-6">
+              <p className="text-base text-[#231f20] mb-6">
                 Risk score by category offers a granular evaluation of key
                 business aspects.
               </p>
@@ -761,7 +761,7 @@ const CombinedChallengesComponent = () => {
               <h3 className="text-lg font-semibold text-gray-800 mb-2">
                 Overview
               </h3>
-              <p className="text-sm text-gray-600 mb-6">
+              <p className="text-base text-[#231f20] mb-6">
                 Systematically analyze each challenge to identify high-impact
                 areas requiring immediate attention and leverage our strengths
                 to mitigate risks effectively.
