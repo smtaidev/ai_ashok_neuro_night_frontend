@@ -311,11 +311,12 @@ import { useGetPastMeetingsQuery } from "@/redux/api/meeting/meetingApi";
 
 
 interface Meeting {
-  _id: string;
+  _id: string ;
   companyName: string;
   location: string;
   description: string;
-  agendaItems?:any;
+  agendaItems?: {
+    data: []} | any;
   type: "Annual" | "Board" | "Monthly" | "Quarterly";
   status: string;
   name: string;
@@ -465,7 +466,7 @@ const MeetingsArchive: React.FC = () => {
           setSelectedMeeting(null);
         }}
         title="Meeting Details"
-        meeting={selectedMeeting}
+        meetingId={selectedMeeting?._id}
       />
     </div>
   );
