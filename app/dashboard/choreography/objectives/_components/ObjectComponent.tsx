@@ -644,291 +644,291 @@ const mockData = {
 
 const objectives = mockData.strategicThemes.flatMap((theme) => theme.businessGoals.flatMap((goal) => goal.objectives))
 
-const StructureView = () => {
-  return (
-    <div className="space-y-8 p-6">
-      <h2 className="text-lg font-medium text-gray-900">Structure View</h2>
-
-      <div className="relative flex items-start justify-center" style={{ minHeight: "500px", width: "100%" }}>
-
-        <div className="flex flex-col items-center" style={{ marginTop: "120px", position: "absolute", left: "100px" }}>
-          <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
-            <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs px-2 py-1 rounded">10/10</div>
-            <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Strategic Theme Name</div>
-            <div className="text-sm text-gray-600 font-medium">82%</div>
-          </Card>
-        </div>
-
-
-        <div className="flex flex-col items-center space-y-2" style={{ position: "absolute", left: "400px", top: "40px" }}>
-          <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
-            <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs px-2 py-1 rounded">10/10</div>
-            <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Business Goal Name</div>
-            <div className="text-sm text-gray-600 font-medium">82%</div>
-          </Card>
-
-          <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
-            <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs px-2 py-1 rounded">10/10</div>
-            <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Business Goal Name</div>
-            <div className="text-sm text-gray-600 font-medium">82%</div>
-          </Card>
-
-          <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
-            <div className="absolute top-3 left-3 bg-yellow-500 text-white text-xs px-2 py-1 rounded">10/10</div>
-            <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Business Goal Name</div>
-            <div className="text-sm text-gray-600 font-medium">82%</div>
-          </Card>
-
-          <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
-            <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs px-2 py-1 rounded">10/10</div>
-            <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Business Goal Name</div>
-            <div className="text-sm text-gray-600 font-medium">82%</div>
-          </Card>
-        </div>
-
-
-        <div className="flex flex-col items-center space-y-2" style={{ position: "absolute", left: "700px", top: "40px" }}>
-          <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
-            <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs px-2 py-1 rounded">10/10</div>
-            <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Objectives</div>
-            <div className="text-sm text-gray-600 font-medium">82%</div>
-          </Card>
-
-          <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
-            <div className="absolute top-3 left-3 bg-pink-500 text-white text-xs px-2 py-1 rounded">10/10</div>
-            <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Objectives</div>
-            <div className="text-sm text-gray-600 font-medium">82%</div>
-          </Card>
-        </div>
-
-
-        <svg
-          // className="absolute inset-0 pointer-events-none"
-          className="absolute inset-0 "
-          //! SVG for Connection Lines 
-          style={{ width: "100%", height: "100%", top: 0, left: -240 }}
-          // viewBox="0 0 1000 500"
-          viewBox="0 0 1000 500"
-          preserveAspectRatio="xMidYMid meet"
-        >
-
-          <path
-            // Curved lines from Strategic Theme to Business Goals 
-            // ! Line to first Business  1 
-            // ! d="M 356 180 Q 370 180 400 100" 
-            d="M 356 180 Q 370 180 430 100"
-            stroke="#d1d5db"
-            strokeWidth="2"
-            fill="none"
-          />
-
-
-          <path
-            // ! Line to second Business Goal 2
-            // ! d="M 356 180 Q 370 180 400 200" 
-            d="M 356 180 Q 370 200 430 250"
-            stroke="#d1d5db"
-            strokeWidth="2"
-            fill="none"
-          />
-
-
-          <path
-            //! Line to third Business Goal 3 
-            // ! d="M 356 180 Q 370 180 400 240" 
-            d="M 356 180 Q 380 250 430 390"
-            stroke="#d1d5db"
-            strokeWidth="2"
-            fill="none"
-          />
-
-
-          <path
-            // Line to fourth Business Goal 4 
-            //  ! d="M 356 180 Q 370 180 400 510" 
-            //  ! d="M 356 180 Q 370 180 400 100" 
-            d="M 356 180 Q 390 900 6799 17900"
-            stroke="#d1d5db"
-            strokeWidth="2"
-            fill="none"
-          />
-
-
-          <path
-            //! d="M 656 100 Q 670 100 700 100" 
-            d="M 656 100 Q 670 100 730 100"
-            stroke="#d1d5db"
-            strokeWidth="2"
-            fill="none"
-          />
-
-
-          <path
-            // ! d="M 656 170 Q 670 170 700 170"
-            d="M 700 100 Q 700 170 730 250"
-            stroke="#d1d5db"
-            strokeWidth="2"
-            fill="none"
-          />
-        </svg>
-      </div>
-    </div>
-  )
-}
-
 // const StructureView = () => {
-//   const [treeData, setTreeData] = useState<any>(null);
-
-//   useEffect(() => {
-//     const mockData = {
-//       strategicThemes: [
-//         {
-//           id: 1,
-//           name: "Strategic Theme Name",
-//           progress: { completed: 10, total: 10, percentage: 82 },
-//           businessGoals: [
-//             {
-//               id: 1,
-//               name: "Business Goal Name",
-//               progress: { completed: 10, total: 10, percentage: 82 },
-//               objectives: [
-//                 {
-//                   id: 1,
-//                   title: "Lack of Funding",
-//                   subtitle: "Test Goal",
-//                   priority: "Urgent",
-//                   status: "Overdue",
-//                   category: "Finance",
-//                   progress: 20,
-//                   startDate: "2024-01-15",
-//                   endDate: "2024-02-28",
-//                 },
-//                 {
-//                   id: 2,
-//                   title: "Market Research",
-//                   subtitle: "Test Goal",
-//                   priority: "High",
-//                   status: "Overdue",
-//                   category: "Finance",
-//                   progress: 35,
-//                   startDate: "2024-03-01",
-//                   endDate: "2024-04-15",
-//                 },
-//               ],
-//             },
-//             {
-//               id: 2,
-//               name: "Business Goal Name",
-//               progress: { completed: 10, total: 10, percentage: 82 },
-//               objectives: [
-//                 {
-//                   id: 3,
-//                   title: "Product Development",
-//                   subtitle: "Test Goal",
-//                   priority: "Medium",
-//                   status: "Overdue",
-//                   category: "Finance",
-//                   progress: 36,
-//                   startDate: "2024-02-15",
-//                   endDate: "2024-03-30",
-//                 },
-//               ],
-//             },
-//             {
-//               id: 3,
-//               name: "Business Goal Name",
-//               progress: { completed: 10, total: 10, percentage: 82 },
-//               objectives: [
-//                 {
-//                   id: 4,
-//                   title: "Team Expansion",
-//                   subtitle: "Test Goal",
-//                   priority: "Low",
-//                   status: "Overdue",
-//                   category: "Finance",
-//                   progress: 38,
-//                   startDate: "2024-03-15",
-//                   endDate: "2024-04-30",
-//                 },
-//               ],
-//             },
-//             {
-//               id: 4,
-//               name: "Business Goal Name",
-//               progress: { completed: 10, total: 10, percentage: 82 },
-//               objectives: [
-//                 {
-//                   id: 5,
-//                   title: "Customer Acquisition",
-//                   subtitle: "Test Goal",
-//                   priority: "Urgent",
-//                   status: "Overdue",
-//                   category: "Finance",
-//                   progress: 35,
-//                   startDate: "2024-01-01",
-//                   endDate: "2024-01-31",
-//                 },
-//               ],
-//             },
-//           ],
-//         },
-//       ],
-//     }
-//     setTreeData(mockData);
-//   }, []);
 //   return (
-//     <div className="flex items-center justify-center h-screen bg-gray-100">
-//       {treeData && (
-//         <Tree
-//           data={treeData}
-//           orientation="horizontal"
-//           translate={{ x: 50, y: 300 }}
-//           nodeSize={{ x: 200, y: 200 }}
-//           separation={{ siblings: 1, nonSiblings: 1 }}
-//           renderCustomNodeElement={(rd3tProps) => {
-//             const nodeWidth = Math.max(150, rd3tProps.nodeDatum.name.length * 10 + 20);
-//             return (
-//               <g>
-//                 <rect
-//                   width={nodeWidth}
-//                   height="50"
-//                   x={-nodeWidth / 2}
-//                   y="-25"
-//                   rx="10"
-//                   ry="10"
-//                   fill={rd3tProps.nodeDatum.children ? '#34d399' : '#facc15'}
-//                   stroke="#4b5563"
-//                   strokeWidth="1"
-//                 />
-//                 <text
-//                   fill="#1f2937"
-//                   strokeWidth="0"
-//                   x="0"
-//                   y="0"
-//                   textAnchor="middle"
-//                   dominantBaseline="middle"
-//                 >
-//                   {rd3tProps.nodeDatum.name}
-//                 </text>
-//                 <text
-//                   fill="#1f2937"
-//                   strokeWidth="0"
-//                   x="0"
-//                   y="15"
-//                   textAnchor="middle"
-//                   dominantBaseline="middle"
-//                   fontSize="10"
-//                 >
-//                   {rd3tProps.nodeDatum.attributes?.progress}
-//                 </text>
-//               </g>
-//             );
-//           }}
-//         />
-//       )}
+//     <div className="space-y-8 p-6">
+//       <h2 className="text-lg font-medium text-gray-900">Structure View</h2>
+
+//       <div className="relative flex items-start justify-center" style={{ minHeight: "500px", width: "100%" }}>
+
+//         <div className="flex flex-col items-center" style={{ marginTop: "120px", position: "absolute", left: "100px" }}>
+//           <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
+//             <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs px-2 py-1 rounded">10/10</div>
+//             <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Strategic Theme Name</div>
+//             <div className="text-sm text-gray-600 font-medium">82%</div>
+//           </Card>
+//         </div>
+
+
+//         <div className="flex flex-col items-center space-y-2" style={{ position: "absolute", left: "400px", top: "40px" }}>
+//           <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
+//             <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs px-2 py-1 rounded">10/10</div>
+//             <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Business Goal Name</div>
+//             <div className="text-sm text-gray-600 font-medium">82%</div>
+//           </Card>
+
+//           <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
+//             <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs px-2 py-1 rounded">10/10</div>
+//             <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Business Goal Name</div>
+//             <div className="text-sm text-gray-600 font-medium">82%</div>
+//           </Card>
+
+//           <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
+//             <div className="absolute top-3 left-3 bg-yellow-500 text-white text-xs px-2 py-1 rounded">10/10</div>
+//             <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Business Goal Name</div>
+//             <div className="text-sm text-gray-600 font-medium">82%</div>
+//           </Card>
+
+//           <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
+//             <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs px-2 py-1 rounded">10/10</div>
+//             <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Business Goal Name</div>
+//             <div className="text-sm text-gray-600 font-medium">82%</div>
+//           </Card>
+//         </div>
+
+
+//         <div className="flex flex-col items-center space-y-2" style={{ position: "absolute", left: "700px", top: "40px" }}>
+//           <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
+//             <div className="absolute top-3 left-3 bg-teal-500 text-white text-xs px-2 py-1 rounded">10/10</div>
+//             <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Objectives</div>
+//             <div className="text-sm text-gray-600 font-medium">82%</div>
+//           </Card>
+
+//           <Card className="p-4 w-56 bg-white border border-gray-200 shadow-sm relative">
+//             <div className="absolute top-3 left-3 bg-pink-500 text-white text-xs px-2 py-1 rounded">10/10</div>
+//             <div className="font-medium text-gray-900 mb-2 mt-8 text-sm">Objectives</div>
+//             <div className="text-sm text-gray-600 font-medium">82%</div>
+//           </Card>
+//         </div>
+
+
+//         <svg
+//           // className="absolute inset-0 pointer-events-none"
+//           className="absolute inset-0 "
+//           //! SVG for Connection Lines 
+//           style={{ width: "100%", height: "100%", top: 0, left: -240 }}
+//           // viewBox="0 0 1000 500"
+//           viewBox="0 0 1000 500"
+//           preserveAspectRatio="xMidYMid meet"
+//         >
+
+//           <path
+//             // Curved lines from Strategic Theme to Business Goals 
+//             // ! Line to first Business  1 
+//             // ! d="M 356 180 Q 370 180 400 100" 
+//             d="M 356 180 Q 370 180 430 100"
+//             stroke="#d1d5db"
+//             strokeWidth="2"
+//             fill="none"
+//           />
+
+
+//           <path
+//             // ! Line to second Business Goal 2
+//             // ! d="M 356 180 Q 370 180 400 200" 
+//             d="M 356 180 Q 370 200 430 250"
+//             stroke="#d1d5db"
+//             strokeWidth="2"
+//             fill="none"
+//           />
+
+
+//           <path
+//             //! Line to third Business Goal 3 
+//             // ! d="M 356 180 Q 370 180 400 240" 
+//             d="M 356 180 Q 380 250 430 390"
+//             stroke="#d1d5db"
+//             strokeWidth="2"
+//             fill="none"
+//           />
+
+
+//           <path
+//             // Line to fourth Business Goal 4 
+//             //  ! d="M 356 180 Q 370 180 400 510" 
+//             //  ! d="M 356 180 Q 370 180 400 100" 
+//             d="M 356 180 Q 390 900 6799 17900"
+//             stroke="#d1d5db"
+//             strokeWidth="2"
+//             fill="none"
+//           />
+
+
+//           <path
+//             //! d="M 656 100 Q 670 100 700 100" 
+//             d="M 656 100 Q 670 100 730 100"
+//             stroke="#d1d5db"
+//             strokeWidth="2"
+//             fill="none"
+//           />
+
+
+//           <path
+//             // ! d="M 656 170 Q 670 170 700 170"
+//             d="M 700 100 Q 700 170 730 250"
+//             stroke="#d1d5db"
+//             strokeWidth="2"
+//             fill="none"
+//           />
+//         </svg>
+//       </div>
 //     </div>
 //   )
 // }
+
+const StructureView = () => {
+  const [treeData, setTreeData] = useState<any>(null);
+
+  useEffect(() => {
+    const mockData = {
+      strategicThemes: [
+        {
+          id: 1,
+          name: "Strategic Theme Name",
+          progress: { completed: 10, total: 10, percentage: 82 },
+          businessGoals: [
+            {
+              id: 1,
+              name: "Business Goal Name",
+              progress: { completed: 10, total: 10, percentage: 82 },
+              objectives: [
+                {
+                  id: 1,
+                  title: "Lack of Funding",
+                  subtitle: "Test Goal",
+                  priority: "Urgent",
+                  status: "Overdue",
+                  category: "Finance",
+                  progress: 20,
+                  startDate: "2024-01-15",
+                  endDate: "2024-02-28",
+                },
+                {
+                  id: 2,
+                  title: "Market Research",
+                  subtitle: "Test Goal",
+                  priority: "High",
+                  status: "Overdue",
+                  category: "Finance",
+                  progress: 35,
+                  startDate: "2024-03-01",
+                  endDate: "2024-04-15",
+                },
+              ],
+            },
+            {
+              id: 2,
+              name: "Business Goal Name",
+              progress: { completed: 10, total: 10, percentage: 82 },
+              objectives: [
+                {
+                  id: 3,
+                  title: "Product Development",
+                  subtitle: "Test Goal",
+                  priority: "Medium",
+                  status: "Overdue",
+                  category: "Finance",
+                  progress: 36,
+                  startDate: "2024-02-15",
+                  endDate: "2024-03-30",
+                },
+              ],
+            },
+            {
+              id: 3,
+              name: "Business Goal Name",
+              progress: { completed: 10, total: 10, percentage: 82 },
+              objectives: [
+                {
+                  id: 4,
+                  title: "Team Expansion",
+                  subtitle: "Test Goal",
+                  priority: "Low",
+                  status: "Overdue",
+                  category: "Finance",
+                  progress: 38,
+                  startDate: "2024-03-15",
+                  endDate: "2024-04-30",
+                },
+              ],
+            },
+            {
+              id: 4,
+              name: "Business Goal Name",
+              progress: { completed: 10, total: 10, percentage: 82 },
+              objectives: [
+                {
+                  id: 5,
+                  title: "Customer Acquisition",
+                  subtitle: "Test Goal",
+                  priority: "Urgent",
+                  status: "Overdue",
+                  category: "Finance",
+                  progress: 35,
+                  startDate: "2024-01-01",
+                  endDate: "2024-01-31",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }
+    setTreeData(mockData);
+  }, []);
+  return (
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      {treeData && (
+        <Tree
+          data={treeData}
+          orientation="horizontal"
+          translate={{ x: 50, y: 300 }}
+          nodeSize={{ x: 200, y: 200 }}
+          separation={{ siblings: 1, nonSiblings: 1 }}
+          renderCustomNodeElement={(rd3tProps) => {
+            const nodeWidth = Math.max(150, rd3tProps.nodeDatum.name.length * 10 + 20);
+            return (
+              <g>
+                <rect
+                  width={nodeWidth}
+                  height="50"
+                  x={-nodeWidth / 2}
+                  y="-25"
+                  rx="10"
+                  ry="10"
+                  fill={rd3tProps.nodeDatum.children ? '#34d399' : '#facc15'}
+                  stroke="#4b5563"
+                  strokeWidth="1"
+                />
+                <text
+                  fill="#1f2937"
+                  strokeWidth="0"
+                  x="0"
+                  y="0"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                >
+                  {rd3tProps.nodeDatum.name}
+                </text>
+                <text
+                  fill="#1f2937"
+                  strokeWidth="0"
+                  x="0"
+                  y="15"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fontSize="10"
+                >
+                  {rd3tProps.nodeDatum.attributes?.progress}
+                </text>
+              </g>
+            );
+          }}
+        />
+      )}
+    </div>
+  )
+}
 
 
 
