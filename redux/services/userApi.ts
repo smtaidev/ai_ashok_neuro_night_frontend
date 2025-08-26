@@ -46,6 +46,41 @@ export const userApi = api.injectEndpoints({
       invalidatesTags: ["User"],
     }),
 
+
+    // admin login here
+
+    adminLogin: builder.mutation<
+      {
+        success: boolean;
+        message: string;
+        data: {
+          accessToken: string;
+        };
+      },
+      { email: string; password: string }
+    >({
+      query: (body) => ({
+        url: "/auth/login",
+        method: "POST",
+        body,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      try {
+        const { data } = await queryFulfilled;
+        console.log("Login response from userApi:", data);
+
+        // Correct path: data.data.accessToken
+        const accessToken = data.data.accessToken;
+
+        localStorage.setItem("accessToken", accessToken);
+        dispatch(userApi.endpoints.getMe.initiate());
+      } catch {
+        dispatch(addUser(null));
+      }
+    },
+      invalidatesTags: ["User"],
+    }),
+
     signup: builder.mutation<
       AuthResponse,
       { fullName: string; email: string; password: string }
