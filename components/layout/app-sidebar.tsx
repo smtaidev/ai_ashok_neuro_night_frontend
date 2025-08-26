@@ -43,13 +43,14 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import * as React from "react";
 import { Icons } from "../icons";
 import { cn } from "./../../lib/utils";
 import { Dot } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { logout } from "@/redux/slices/appSlice";
 import { decodedToken } from "@/utils/jwt";
+import React, { useEffect } from "react";
+
 
 export const company = {
   name: "Bindu Soft",
@@ -64,11 +65,13 @@ export default function AppSidebar() {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const token = localStorage.getItem("accessToken");
-  if (token) {
-    const userInfo = decodedToken(token);
-    console.log("User Info: ", userInfo);
-  }
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      const userInfo = decodedToken(token);
+      console.log("User Info: ", userInfo);
+    }
+  }, [])
 
   const handleLogout = () => {
     dispatch(logout());

@@ -270,7 +270,7 @@ export default function CapabilityComponent() {
 
       {/* Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="max-w-4xl">
           <DialogHeader className="bg-[#1B2E83] text-white p-4 -m-6 mb-4 rounded-t-lg">
             <div className="flex items-center justify-between">
               <DialogTitle className="text-lg font-medium">
