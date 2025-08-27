@@ -55,6 +55,7 @@ export interface BusinessGoal {
   title: string;
   description: string;
   related_strategic_theme: string;
+  strategicID?: string;
   priority: string;
   resource_readiness: string;
   assigned_functions: string[];
