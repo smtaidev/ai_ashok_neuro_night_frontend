@@ -206,6 +206,7 @@ export interface Meeting {
   endDate: string;
   updatedAt: string;
   agendaId?: any;
+  welcomeAndOpeningRemark?:any
 }
 
 // Create Meeting Request
@@ -284,6 +285,11 @@ export const meetingApi = api.injectEndpoints({
       query: () => "/meetings/past-meetings",
       providesTags: ["Meeting"],
     }),
+    // ✅ Get Past 2 Meetings
+    getPastTwoMeetings: builder.query<{ data: Meeting[] }, void>({
+      query: () => "/meetings/past-two-meetings",
+      providesTags: ["Meeting"],
+    }),
 
     // ✅ Get Single Meeting
     getMeetingById: builder.query<{ success: boolean; data: Meeting }, string>({
@@ -354,6 +360,7 @@ export const {
   useGetMeetingsQuery,
   useGetUpcomingMeetingsQuery,
   useGetPastMeetingsQuery,
+  useGetPastTwoMeetingsQuery,
   useGetMeetingByIdQuery,
   useUpdateMeetingMutation,
   useDeleteMeetingMutation,
