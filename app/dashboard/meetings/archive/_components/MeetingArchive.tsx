@@ -466,7 +466,7 @@ const MeetingsArchive: React.FC = () => {
           setSelectedMeeting(null);
         }}
         title="Meeting Details"
-        meetingId={selectedMeeting?._id}
+        meetingId={selectedMeeting?._id ?? ''}
       />
     </div>
   );

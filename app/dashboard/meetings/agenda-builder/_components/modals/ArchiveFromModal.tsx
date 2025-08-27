@@ -149,7 +149,6 @@
 // };
 
 // export default ArchiveFromModal;
-
 "use client";
 import {
   useGetAllAgendaQuery,
@@ -157,6 +156,7 @@ import {
 } from "@/redux/api/meeting/meetingApi";
 import Image from "next/image";
 import React, { useEffect } from "react";
+import callendarImage from "@/public/image/calendar_archive.png";
 
 type DrawerProps = {
   isOpen: boolean;
@@ -177,7 +177,8 @@ const ArchiveFromModal: React.FC<DrawerProps> = ({
   console.log("all agenda ======================>", allAgenda);
 
   const meeting = meetingData?.data;
-  const agendaData =  allAgenda?.data[0] ; // your API response has data[0]
+  const agendaData = allAgenda?.data; // এখন data object
+  console.log("Agenda Data:", agendaData);
 
   // Format date and time
   const formatDate = (dateString: string) => {
@@ -251,121 +252,118 @@ const ArchiveFromModal: React.FC<DrawerProps> = ({
           <div className="border rounded-lg p-4 shadow-sm">
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <p className="text-sm font-medium text-gray-600">
+                <p className="text-[18px] pl-3 font-semibold  text-gray-600">
                   Start Date & Time
                 </p>
-                <div>
-                  <Image src=''/>
-                <p className="text-lg font-semibold">
-                  {formatDate(meeting?.startDate)} <br />
-                  {formatTime(meeting?.startDate)}
-                </p>
+                <div className="border p-4 rounded-2xl">
+                  <Image src={callendarImage} alt="calendar" width={40} height={40} />
+                  
+                  <div className="text-lg font-semibold pt-2">
+                    <p className="text-xl font-thin text-gray-600 mb-4">
+
+  {formatDate(meeting?.startDate ?? "")}
+  <br /> 
+                    </p>
+                    <p className="text-3xl font-bold text-gray-800 ">
+
+  {formatTime(meeting?.startDate ?? "")}
+                    </p>
+</div>
                 </div>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">
-                  End Date & Time
+                <p className="text-[18px] pl-3 font-semibold  text-gray-600">
+                  Start Date & Time
                 </p>
-                <div>
-                  <Image src=''/>
-                <p className="text-lg font-semibold">
-                  {formatDate(meeting?.endDate)} <br />
-                  {formatTime(meeting?.endDate)}
-                </p>
+                <div className="border p-4 rounded-2xl">
+                  <Image src={callendarImage} alt="calendar" width={40} height={40} />
+                  
+                  <div className="text-lg font-semibold pt-2">
+                    <p className="text-xl font-thin text-gray-600 mb-4">
+
+  {formatDate(meeting?.endDate ?? "")}
+  <br /> 
+                    </p>
+                    <p className="text-3xl font-bold text-gray-800 ">
+
+  {formatTime(meeting?.endDate ?? "")}
+                    </p>
+</div>
                 </div>
               </div>
+              
             </div>
 
             <div className="grid grid-cols-2 gap-4 mt-4 text-sm">
-              <p>
-                <span className="font-semibold">Meeting Type :</span>{" "}
+              <p className="pl-4 text-base text-gray-600 ">
+                <span className="text-[18px] mt-2 font-semibold text-gray-800">Meeting Type :</span>{" "}<br/>
                 {meeting?.type}
               </p>
-              <p>
-                <span className="font-semibold">Owner :</span>{" "}
+              <p className="pl-4 text-base text-gray-600">
+                <span className="text-[18px] mt-2  font-semibold text-gray-800">Owner :</span>{" "}<br/>
                 {meeting?.owner || "N/A"}
               </p>
-              <p>
-                <span className="font-semibold">Title :</span> {meeting?.name}
+              <p className="pl-4 text-base text-gray-600">
+                <span className="text-[18px] mt-2  font-semibold text-gray-800">Title :</span><br/> {meeting?.name}
               </p>
-              <p>
-                <span className="font-semibold">Location :</span>{" "}
+              <p className="pl-4 text-base text-gray-600">
+                <span className="text-[18px] mt-2  font-semibold text-gray-800">Location :</span>{" "}<br/>
                 {meeting?.location}
               </p>
             </div>
 
             <div className="mt-3">
-              <p className="font-semibold text-sm">Description :</p>
-              <p className="text-sm text-gray-700 mt-1">
+              <p className="text-[18px] mt-2 pl-4 font-semibold">Description :</p>
+              <p className="text-[15px]  mt-2 pl-4 font-semibold text-gray-500 ">
                 {meeting?.description || "No description available"}
               </p>
             </div>
           </div>
-
-          {/* Welcome & Opening Remark */}
-          {agendaData?.welcomeAndOpeningRemark && (
-            <div className="border rounded-lg p-4 shadow-sm">
-              <h3 className="text-base font-semibold text-gray-800 mb-3">
-                Welcome & Opening Remark
-              </h3>
-              <p className="text-sm mb-2">
-                <span className="font-semibold">Presenter:</span>{" "}
-                {agendaData.welcomeAndOpeningRemark.presenter
-                  ?.map((p: any) => p.userName)
-                  .join(", ")}
-              </p>
-              <p className="text-sm">
-                <span className="font-semibold">Time Allocated:</span>{" "}
-                {agendaData.welcomeAndOpeningRemark.timeAllocated?.hours} Hr{" "}
-                {agendaData.welcomeAndOpeningRemark.timeAllocated?.minutes} Min
-              </p>
-            </div>
-          )}
-
+<h3 className="text-base font-semibold pl-3 text-gray-800 mb-3">
+    Agenda Items
+  </h3>
           {/* Agenda Items */}
           {agendaData?.agendaItems?.map((agenda: any, idx: number) => (
             <div
-              key={agenda._id || idx}
-              className="border rounded-lg p-4 shadow-sm"
-            >
-              <h3 className="text-base font-semibold text-gray-800 mb-3">
-                Agenda Item
-              </h3>
+  key={agenda._id || idx}
+  className="border rounded-lg p-4 shadow-sm"
+>
+  
 
-              {/* Time Allocated */}
-              <div className="flex items-center gap-4 mb-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">⏱</span>
-                  <div>
-                    <p className="text-xs text-gray-500">Time Allocated</p>
-                    <p className="text-lg font-bold text-gray-800">
-                      {agenda?.timeAllocated?.hours || 0} Hr{" "}
-                      {agenda?.timeAllocated?.minutes || 0} Min
-                    </p>
-                  </div>
-                </div>
-              </div>
+  {/* Time Allocated */}
+  <p className="text-sm font-semibold mb-2">Time Allocated</p>
+  <div className="flex gap-4 mb-3">
+    <div className="flex items-center gap-2 border rounded p-3 flex-1">
+      <span className="text-xl">⏱</span>
+      <p className="text-2xl font-bold text-gray-800">
+        {agenda?.timeAllocated?.hours || 0} <span className="text-base font-normal">Hr</span>
+      </p>
+    </div>
+    <div className="flex items-center gap-2 border rounded p-3 flex-1">
+      <span className="text-xl">⏱</span>
+      <p className="text-2xl font-bold text-gray-800">
+        {agenda?.timeAllocated?.minutes || 0} <span className="text-base font-normal">Min</span>
+      </p>
+    </div>
+  </div>
 
-              <p className="text-sm mb-1">
-                <span className="font-semibold">Title :</span>{" "}
-                {agenda?.title || "N/A"}
-              </p>
+  <p className="text-sm mb-1">
+    <span className="font-semibold">Title :</span> {agenda?.title || "N/A"}
+  </p>
 
-              {/* Show presenters only if they exist */}
-              {agenda?.presenter?.length > 0 && (
-                <p className="text-sm mb-1">
-                  <span className="font-semibold">Presenter :</span>{" "}
-                  {agenda.presenter.map((p: any) => p.userName).join(", ")}
-                </p>
-              )}
+  {agenda?.presenter?.length > 0 && (
+    <p className="text-sm mb-1">
+      <span className="font-semibold">Presenter :</span>{" "}
+      {agenda.presenter.map((p: any) => p.userName).join(", ")}
+    </p>
+  )}
 
-              <p className="font-semibold text-sm mt-2">
-                Agenda Description :
-              </p>
-              <p className="text-sm text-gray-700">
-                {agenda?.details || "No details available"}
-              </p>
-            </div>
+  <p className="font-semibold text-sm mt-2 mb-1">Agenda Description :</p>
+  <p className="text-sm text-gray-500">
+    {agenda?.details || "No details available"}
+  </p>
+</div>
+
           ))}
         </div>
       </div>
