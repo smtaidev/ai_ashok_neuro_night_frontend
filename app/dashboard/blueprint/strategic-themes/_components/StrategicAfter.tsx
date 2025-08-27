@@ -317,7 +317,9 @@ const StrategicAfter: React.FC<StrategicAfterProps> = ({ themes }) => {
                   <span className="bg-blue-900 text-white rounded-full w-6 h-6 p-4 flex items-center justify-center">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="text-lg font-semibold mt-2">{theme.name}</h3>
+                  <h3 className="text-lg font-bold text-[#0b1c33]
+
+ mt-2"> {theme.name}</h3>
                 </div>
 
                 {/* Three dot menu */}
@@ -351,7 +353,7 @@ const StrategicAfter: React.FC<StrategicAfterProps> = ({ themes }) => {
 
               {/* ✅ Description with See More */}
               {theme.description && (
-                <p className="text-sm mt-2">
+                <p className="text-base text-[#231f20] mt-2">
                   {expanded[theme._id]
                     ? theme.description
                     : getShortText(theme.description, 7)}{" "}
