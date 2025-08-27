@@ -25,7 +25,7 @@ const ClarhetAiRecommendations: React.FC<RecommendationsProps> = ({
   // Fetch Trend data
   const { data: trendData, isLoading: isTrendLoading, error: trendError } = useGetAiTrendQuery();
 
-  console.log(trendData);
+  console.log("ai data ", trendData);
 
   // Render Trend content
   const renderTrendContent = () => {

@@ -313,6 +313,8 @@ const SWOTAnalysis: React.FC = () => {
   const {data: swotData} = useGetSwotsQuery();
   const { data: aiSwotData } = useGetAiSwotQuery();
 
+  console.log("ai swot data", aiSwotData ? aiSwotData?.data: "No AI data available");
+
   console.log( "swot data",swotData? swotData.data : "No data available");
 
   const swot = swotData?.data?.[0];
