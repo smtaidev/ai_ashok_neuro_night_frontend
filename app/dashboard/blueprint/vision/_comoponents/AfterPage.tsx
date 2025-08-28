@@ -842,7 +842,8 @@ const AfterPage: React.FC<AfterPageProps> = ({ visionData }) => {
       {/* Vision Section */}
       <div className="bg-white border border-gray-200 p-5 rounded-lg relative">
         <div className="flex justify-between items-center mb-5">
-          <h2 className="text-2xl font-semibold mb-2">Vision</h2>
+          <h2 className="text-xl font-bold text-[#0b1c33]
+ mb-2">Vision</h2>
           <div className="flex items-center gap-4">
             <Link href="#">
               <Image src={LinkImage} alt="Link Image" height={25} width={25} />
@@ -855,7 +856,7 @@ const AfterPage: React.FC<AfterPageProps> = ({ visionData }) => {
             </button>
           </div>
         </div>
-        <p className="mb-2">{vision}</p>
+        <p className="mb-2 text-base text-[#231f20]">{vision}</p>
       </div>
 
       {/* Trigger AI Insights Modal */}

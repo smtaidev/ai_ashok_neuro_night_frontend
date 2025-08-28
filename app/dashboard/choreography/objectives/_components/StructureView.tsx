@@ -1,118 +1,115 @@
-'use client'
+'use client';
 
-import React, { useEffect, useState } from 'react';
-import Tree from 'react-d3-tree';
+import { useGetAllObjectivesOverviewQuery } from '@/redux/api/choreograph/objectivesApi';
+import React, { useEffect, useRef, useState } from 'react';
+import Tree, { RawNodeDatum } from 'react-d3-tree';
 
 const StructureView = () => {
-  const [treeData, setTreeData] = useState<any>(null);
+  const { data, isLoading, isError } = useGetAllObjectivesOverviewQuery();
+  const [treeData, setTreeData] = useState<RawNodeDatum[]>([]);
   const [mounted, setMounted] = useState(false);
+  const treeContainer = useRef<HTMLDivElement>(null);
+  const [translate, setTranslate] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
+  // ✅ Convert API Data → D3 Tree format
+  const convertData = (themes: any[]): RawNodeDatum[] => {
+    return themes.map((theme) => ({
+      name: theme.name,
+      attributes: { description: theme.description },
+      children: (theme.businessGoals || []).map((goal: any) => ({
+        name: goal.title,
+        attributes: {
+          priority: goal.priority,
+          progress: `${goal.goalProgress}%`,
+        },
+        children: (goal.objectives || []).map((obj: any) => ({
+          name: obj.title,
+          attributes: {
+            priority: obj.priority,
+            progress: obj.progress,
+          },
+        })),
+      })),
+    }));
+  };
+
+  // ✅ Handle Data
   useEffect(() => {
     setMounted(true);
+    if (data?.data) {
+      setTreeData(convertData(data.data));
+    }
+  }, [data]);
 
-    const mockData = {
-      strategicThemes: [
-        {
-          id: 1,
-          name: "Strategic Theme Name",
-          progress: { completed: 10, total: 10, percentage: 82 },
-          businessGoals: [
-            {
-              id: 1,
-              name: "Business Goal Name",
-              progress: { completed: 10, total: 10, percentage: 82 },
-              objectives: [
-                {
-                  id: 1,
-                  title: "Lack of Funding",
-                  subtitle: "Test Goal",
-                  priority: "Urgent",
-                  status: "Overdue",
-                  category: "Finance",
-                  progress: 20,
-                  startDate: "2024-01-15",
-                  endDate: "2024-02-28",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    };
+  // ✅ Auto-center tree based on container
+  useEffect(() => {
+    if (treeContainer.current) {
+      const { width, height } = treeContainer.current.getBoundingClientRect();
+      setTranslate({ x: width / 4, y: height / 2 });
+    }
+  }, [mounted]);
 
-    // 🔥 Converter function
-    const convertData = (data: any) => {
-      return data.strategicThemes.map((theme: any) => ({
-        name: theme.name,
-        attributes: { progress: `${theme.progress.percentage}%` },
-        children: theme.businessGoals.map((goal: any) => ({
-          name: goal.name,
-          attributes: { progress: `${goal.progress.percentage}%` },
-          children: goal.objectives.map((obj: any) => ({
-            name: obj.title,
-            attributes: { progress: `${obj.progress}%` },
-          })),
-        })),
-      }));
-    };
+  if (isError) return <p className="text-center py-4 text-red-500">❌ Failed to load objectives data.</p>;
+  if (isLoading || !mounted || !treeData.length) return <p className="text-center py-4">Loading tree...</p>;
 
-    setTreeData(convertData(mockData));
-  }, []);
-
-  if (!mounted || !treeData) {
-    return <p className="text-center py-4">Loading tree...</p>;
-  }
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <Tree
-        data={treeData}
-        orientation="horizontal"
-        translate={{ x: 50, y: 300 }}
-        nodeSize={{ x: 200, y: 200 }}
-        separation={{ siblings: 1, nonSiblings: 1 }}
-        renderCustomNodeElement={(rd3tProps) => {
-          const nodeName = rd3tProps.nodeDatum?.name || "Untitled";
-          const nodeWidth = Math.max(150, nodeName.length * 10 + 20);
-          const progress = rd3tProps.nodeDatum?.attributes?.progress ?? "";
+    <div ref={treeContainer} className="w-full bg-gray-100 grid grid-cols-1 gap-10 p-4 overflow-auto">
+      {treeData.map((rootNode, idx) => (
+        <div key={idx} className="border rounded-xl shadow bg-white p-4 h-[600px]">
+          <Tree
+            data={rootNode} // ✅ Pass a single root at a time
+            orientation="horizontal"
+            translate={translate}
+            nodeSize={{ x: 250, y: 200 }}
+            separation={{ siblings: 1, nonSiblings: 1.2 }}
+            renderCustomNodeElement={({ nodeDatum }) => {
+              const rawName = nodeDatum.name || "Untitled";
+              const nodeName = rawName.length > 10 ? rawName.slice(0, 10) + "..." : rawName;
+              const nodeWidth = Math.max(160, nodeName.length * 8 + 30);
+              const attrs = nodeDatum.attributes ?? {};
 
-          return (
-            <g>
-              <rect
-                width={nodeWidth}
-                height="50"
-                x={-nodeWidth / 2}
-                y="-25"
-                rx="10"
-                ry="10"
-                fill={rd3tProps.nodeDatum.children ? "#34d399" : "#facc15"}
-                stroke="#4b5563"
-                strokeWidth="1"
-              />
-              <text
-                fill="#1f2937"
-                x="0"
-                y="0"
-                textAnchor="middle"
-                dominantBaseline="middle"
-              >
-                {nodeName}
-              </text>
-              <text
-                fill="#1f2937"
-                x="0"
-                y="15"
-                textAnchor="middle"
-                dominantBaseline="middle"
-                fontSize="10"
-              >
-                {progress}
-              </text>
-            </g>
-          );
-        }}
-      />
+              return (
+                <g>
+                  {/* Card Shape */}
+                  <rect
+                    width={nodeWidth}
+                    height="70"
+                    x={-nodeWidth / 2}
+                    y="-35"
+                    rx="12"
+                    ry="12"
+                    fill={nodeDatum.children ? '#fefce8' : '#e0f2fe'}
+                    stroke="#4b5563"
+                    // 1.2
+                    strokeWidth="1.2"
+                    className="shadow-md"
+                  />
+                  {/* Title */}
+                  <text fill="#111827" x="0" y="-10" textAnchor="middle" fontWeight="100">
+                    {nodeName}
+                  </text>
+                  {/* Priority */}
+                  {attrs.priority && (
+                    <text fill="#374151" x="0" y="10" textAnchor="middle" fontWeight="100" fontSize="11">
+                      Priority: {attrs.priority}
+                    </text>
+                  )}
+                  {/* Progress */}
+                  {attrs.progress && (
+                    <text fill="#374151" x="0" y="24" textAnchor="middle" fontWeight="100" fontSize="11">
+                      {attrs.progress}
+                    </text>
+                  )}
+                </g>
+              );
+            }}
+          />
+        </div>
+      ))}
     </div>
-  )
+  );
 };
 
 export default StructureView;
+
+
