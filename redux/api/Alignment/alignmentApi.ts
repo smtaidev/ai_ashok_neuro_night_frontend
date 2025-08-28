@@ -49,7 +49,7 @@ export const clarhetAiApi = api.injectEndpoints({
     createAlignment: builder.mutation<CreateAlignmentResponse, Partial<AlignmentData>>({
       query: (body) => ({
         url: "/alignments",
-        method: "PATCH",
+        method: "POST",
         body,
       }),
       invalidatesTags: ["Alignment"],

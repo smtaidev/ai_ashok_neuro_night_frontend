@@ -115,7 +115,8 @@ const BeforeAlignment = () => {
       <Toaster position="top-right" reverseOrder={false} />
 
       <div className="space-y-10 p-5 bg-white rounded-2xl border border-gray-200">
-        <h1 className="text-xl font-bold">Business Goal</h1>
+        <h1 className="text-xl font-bold text-[#0b1c33]
+">Business Goal</h1>
 
         <div className="flex justify-center w-8/12 mx-auto items-center flex-col relative">
           <Image src={image} className="w-full" alt="strategic theme image" />

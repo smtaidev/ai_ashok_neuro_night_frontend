@@ -10,7 +10,14 @@ import MyNotes from "./_components/MyNotes";
 import TakeMeetingMinutes from "./_components/TakeMeetingMinutes";
 import LastTwoMeetings from "./_components/LastTwoMeeting";
 
+
 const page = () => {
+
+
+   
+
+
+
   return (
     <div className="min-h-[calc(100vh-80px)] p-4">
       <div className="flex justify-end">
