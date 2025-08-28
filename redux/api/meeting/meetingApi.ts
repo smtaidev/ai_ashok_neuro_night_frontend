@@ -290,6 +290,11 @@ export const meetingApi = api.injectEndpoints({
       query: () => "/meetings/past-two-meetings",
       providesTags: ["Meeting"],
     }),
+    // ✅ Get next 2 Meetings
+    getNextTwoMeetings: builder.query<{ data: Meeting[] }, void>({
+      query: () => "/meetings/upcoming-two-meetings",
+      providesTags: ["Meeting"],
+    }),
 
     // ✅ Get Single Meeting
     getMeetingById: builder.query<{ success: boolean; data: Meeting }, string>({
@@ -361,6 +366,7 @@ export const {
   useGetUpcomingMeetingsQuery,
   useGetPastMeetingsQuery,
   useGetPastTwoMeetingsQuery,
+  useGetNextTwoMeetingsQuery,
   useGetMeetingByIdQuery,
   useUpdateMeetingMutation,
   useDeleteMeetingMutation,
