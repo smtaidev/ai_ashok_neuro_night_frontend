@@ -4,6 +4,7 @@
 
 import React, { useState } from 'react';
 import { MoreHorizontal, Edit, Trash2, Plus, X, ChevronDown } from 'lucide-react';
+import { useGetClarhetAllUserQuery } from '@/redux/api/super-admin/superAdminApi';
 
 interface Admin {
   id: number;
@@ -18,6 +19,9 @@ const AdminManagementTable: React.FC = () => {
   const [editForm, setEditForm] = useState({ name: '', email: '', role: '' });
   const [showAddModal, setShowAddModal] = useState(false);
   const [addForm, setAddForm] = useState({ name: '', email: '', role: 'Editor' });
+
+  const {data} = useGetClarhetAllUserQuery()
+  console.log("clarhet user ", data)
 
   // Dummy data - replace with API data later
   const admins: Admin[] = [

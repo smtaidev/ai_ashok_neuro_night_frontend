@@ -113,7 +113,7 @@ export const choreographApi = api.injectEndpoints({
         const token = typeof window !== "undefined"
           ? localStorage.getItem("accessToken")
           : null
-
+ 
         return {
           url,
           method: "GET",

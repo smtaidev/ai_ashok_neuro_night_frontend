@@ -1,3 +1,5 @@
+
+
 "use client";
 
 import Image from "next/image";
@@ -5,20 +7,11 @@ import React, { useState, useEffect } from "react";
 import alignmentPng from "@/public/image/Alignment-Check-img.svg";
 import { useCreateAlignmentMutation,  useGetMyAlignmentQuery } from "@/redux/api/Alignment/alignmentApi";
 import toast from "react-hot-toast";
-import { decodedToken } from "@/utils/jwt";
+
 
 
 interface ClarhetAiRecommendationsProps {
   headerColor?: string;
-}
-
-interface ModalData {
-  title: string;
-  questions: Array<{
-    question: string;
-    options: string[];
-  }>;
-  additionalOptions: string[];
 }
 
 // Define valid color keys as a type
@@ -49,11 +42,7 @@ const getColorProperties = (color: string) => {
   return colorMap[validColor] || colorMap["blue-500"]; // Fallback to blue if invalid
 };
 
-// Define types for our persisted data
-interface PersistedAlignmentData {
-  sectionColors: { [key: string]: string };
-  completedSections: { [key: string]: boolean };
-}
+
 
 const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,46 +66,48 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({}) => {
     competitor: false,
   });
 
-
-   
-
- 
-
-  // Load data from localStorage on component mount
-  useEffect(() => {
-    const savedAlignmentData = localStorage.getItem("alignmentData");
-    if (savedAlignmentData) {
-      try {
-        const parsedData: PersistedAlignmentData =
-          JSON.parse(savedAlignmentData);
-        setSectionColors(parsedData.sectionColors);
-        if (parsedData.completedSections) {
-          setCompletedSections(parsedData.completedSections);
-        }
-      } catch (error) {
-        console.error(
-          "Failed to parse alignment data from localStorage",
-          error
-        );
-      }
-    }
-  }, []);
+    // GET alignment
+  const { data: alignmentData } = useGetMyAlignmentQuery();
+  console.log("Fetched Alignments:", alignmentData);
 
   // Save data to localStorage whenever sectionColors or completedSections changes
-  useEffect(() => {
-    const dataToSave: PersistedAlignmentData = {
-      sectionColors,
-      completedSections,
-    };
-    localStorage.setItem("alignmentData", JSON.stringify(dataToSave));
-  }, [sectionColors, completedSections]);
+ useEffect(() => {
+     if (alignmentData?.success) {
+       const completed: { [key: string]: boolean } = {};
+       const colors: { [key: string]: string } = {};
+ 
+       alignmentData.data.forEach((alignment) => {
+         const lowerTitle = alignment.title.toLowerCase();
+         if (lowerTitle.includes("trend")) {
+           completed["trends"] = true;
+           colors["trends"] = "green-600";
+         }
+         if (lowerTitle.includes("swot")) {
+           completed["swot"] = true;
+           colors["swot"] = "green-600";
+         }
+         if (lowerTitle.includes("challenges")) {
+           completed["challenges"] = true;
+           colors["challenges"] = "green-600";
+         }
+         if (lowerTitle.includes("competitor")) {
+           completed["competitor"] = true;
+           colors["competitor"] = "green-600";
+         }
+       });
+ 
+       setCompletedSections((prev) => ({ ...prev, ...completed }));
+       setSectionColors((prev) => ({ ...prev, ...colors }));
+     }
+   }, [alignmentData]);
 
-  const getModalTitle = (type: string) => {
+
+   const getModalTitle = (type: string) => {
     const titles: { [key: string]: string } = {
-      trends: "Assess Alignment Check",
-      swot: "Assess Alignment Check",
-      challenges: "Assess Alignment Check",
-      competitor: "Assess Alignment Check",
+      trends: "Trend Alignment Check",
+      swot: "Swot Alignment Check",
+      challenges: "Challenges Alignment Check",
+      competitor: "Competitor's Analysis Alignment Check",
     };
     return titles[type] || "Alignment Check";
   };
@@ -124,9 +115,7 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({}) => {
   // alignment mutation
   const [createAlignment] = useCreateAlignmentMutation();
 
-  // GET alignment
-  const { data: alignmentData } = useGetMyAlignmentQuery();
-  console.log("Fetched Alignments:", alignmentData);
+
 
   const modalData = {
     questions: [
@@ -173,48 +162,7 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({}) => {
     }));
   };
 
-  // const handleSave = () => {
-  //   const currentModalData = modalData;
-
-  //   const answers = currentModalData.questions.map((q, qIndex) => {
-  //     const selectedOptions = q.options.filter((opt, oIndex) => formData[`q${qIndex}_o${oIndex}`]);
-  //     return {
-  //       questionNumber: qIndex + 1,
-  //       selectedOptions,
-  //     };
-  //   });
-
-  //   const selectedComponents = currentModalData.additionalOptions.map((opt, index) => ({
-  //     name: opt,
-  //     checked: !!formData[`additional_${index}`]
-  //   }));
-
-  //   const body = {
-  //     title: getModalTitle(currentModal),
-  //     answers,
-  //     selectedComponents,
-  //     suggestions,
-  //   };
-
-  //   // Set color to green when saved (regardless of number of checks)
-  //   setSectionColors(prev => ({ ...prev, [currentModal]: 'green-600' }));
-  //   setCompletedSections(prev => ({ ...prev, [currentModal]: true }));
-
-  //   createAlignment(body).unwrap().then(() => {
-  //     toast.success('Alignment created successfully');
-  //   }).catch((error) => {
-  //     console.error('Error creating alignment:', error);
-  //     toast.error('Failed to save alignment');
-  //   });
-
-  //   console.log('Form Data:', body);
-  //   closeModal();
-  // };
-
   const handleSave = () => {
-    
-
-    const currentModalData = modalData;
 
     const answers = currentModalData.questions.map((q, qIndex) => {
       const selectedOptions = q.options.filter(
@@ -239,10 +187,6 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({}) => {
       selectedComponents,
       suggestions,
     };
-
-    // Set color to green when saved (regardless of number of checks)
-    setSectionColors((prev) => ({ ...prev, [currentModal]: "green-600" }));
-    setCompletedSections((prev) => ({ ...prev, [currentModal]: true }));
 
     createAlignment(body)
       .unwrap()

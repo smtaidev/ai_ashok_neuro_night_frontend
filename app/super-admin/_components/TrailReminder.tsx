@@ -28,14 +28,14 @@ const TrialReminders: React.FC = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen p-6">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-lg shadow-sm">
           <div className="p-6 pb-4">
             <h1 className="text-lg font-semibold text-gray-900 mb-6">Expiring this week</h1>
             
             <div className="space-y-3 max-h-80 overflow-y-auto">
               {expiringTrials.map((trial) => (
-                <div key={trial.id} className="flex items-start space-x-3 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                <div key={trial.id} className="flex items-start space-x-3 p-3 rounded-lg ">
                   <div className="p-1 bg-yellow-100 rounded mt-0.5">
                     <AlertTriangle className="w-4 h-4 text-yellow-600" />
                   </div>
@@ -48,10 +48,10 @@ const TrialReminders: React.FC = () => {
             </div>
           </div>
           
-          <div className="p-6 pt-4 border-t border-gray-200">
+          <div className="p-6 pt-4 flex justify-end  ">
             <button
               onClick={handleSendReminders}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
+              className=" bg-blue-600  text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
             >
               Send Trial Reminders
             </button>
