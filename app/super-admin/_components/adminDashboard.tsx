@@ -16,6 +16,7 @@ import {
   X,
   ChevronDown
 } from 'lucide-react';
+import Link from 'next/link';
 
 const AdminDashboard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +24,6 @@ const AdminDashboard: React.FC = () => {
     name: '',
     adminEmail: '',
     companyName: '',
-    plan: ''
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -44,7 +44,6 @@ const AdminDashboard: React.FC = () => {
       name: '',
       adminEmail: '',
       companyName: '',
-      plan: ''
     });
   };
   return (
@@ -61,12 +60,16 @@ const AdminDashboard: React.FC = () => {
               <Plus className="w-4 h-4 mr-2" />
               Add New Company
             </button>
+            <Link href={`/super-admin/trail-reminder`}>
             <button className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
               Send Trial Reminders
             </button>
+            </Link>
+            <Link href={`/super-admin/failed-payment`}>
             <button className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
               Review Failed Payments
             </button>
+            </Link>
           </div>
         </div>
 
@@ -179,69 +182,9 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Bottom Grid - Recent Activity (unified section) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1  gap-8">
           {/* Left Column - Logs */}
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900 mb-6">Logs</h2>
-            
-            <div className="space-y-4">
-              {/* TechCorp Solutions */}
-              <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-yellow-100 rounded-lg">
-                    <ArrowUpRight className="w-4 h-4 text-yellow-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-900">TechCorp Solutions</h3>
-                    <p className="text-sm text-gray-600">Upgraded to Pro Plan</p>
-                  </div>
-                </div>
-                <span className="text-xs text-gray-500">2 hours ago</span>
-              </div>
-
-              {/* DataFlow Inc */}
-              <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <CreditCard className="w-4 h-4 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-900">DataFlow Inc</h3>
-                    <p className="text-sm text-gray-600">Payment received - $510</p>
-                  </div>
-                </div>
-                <span className="text-xs text-gray-500">4 hours ago</span>
-              </div>
-
-              {/* InnovateCorp */}
-              <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-red-100 rounded-lg">
-                    <UserX className="w-4 h-4 text-red-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-900">InnovateCorp</h3>
-                    <p className="text-sm text-gray-600">Payment Failed - $210</p>
-                  </div>
-                </div>
-                <span className="text-xs text-gray-500">1 day ago</span>
-              </div>
-
-              {/* StartupXYZ */}
-              <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <Building2 className="w-4 h-4 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-900">StartupXYZ</h3>
-                    <p className="text-sm text-gray-600">New company registered</p>
-                  </div>
-                </div>
-                <span className="text-xs text-gray-500">2 day ago</span>
-              </div>
-            </div>
-          </div>
+          
 
           {/* Right Column - Recent Activity */}
           <div className="bg-white rounded-lg p-6 border border-gray-200">
@@ -309,8 +252,8 @@ const AdminDashboard: React.FC = () => {
 
         {/* Modal */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4 relative">
+          <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-12 w-full max-w-2xl mx-4 relative">
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
@@ -318,7 +261,7 @@ const AdminDashboard: React.FC = () => {
                 <X className="w-5 h-5" />
               </button>
               
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 text-center">Create User</h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-6 text-center">Add Company</h2>
               
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -360,24 +303,7 @@ const AdminDashboard: React.FC = () => {
                   />
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Plan</label>
-                  <div className="relative">
-                    <select
-                      name="plan"
-                      value={formData.plan}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
-                      required
-                    >
-                      <option value="">Select Plan</option>
-                      <option value="basic">Basic Plan</option>
-                      <option value="pro">Pro Plan</option>
-                      <option value="enterprise">Enterprise Plan</option>
-                    </select>
-                    <ChevronDown className="absolute right-3 top-2.5 h-5 w-5 text-gray-400 pointer-events-none" />
-                  </div>
-                </div>
+                
                 
                 <div className="pt-4">
                   <button

@@ -76,10 +76,10 @@ const SwotStartPage = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-65px)]">
-      <div className="space-y-10 p-6 bg-white rounded-xl">
+    <div className="min-h-[calc(100vh-65px)] pl-6">
+      <div className="space-y-10 px-6 bg-white rounded-xl">
         <div className="flex justify-center w-8/12 mx-auto items-center flex-col">
-          <Image src={swotImage} width={700} height={300} alt="swot image" />
+          <Image src={swotImage} width={600} height={300} alt="swot image" />
           <h1 className="py-10 text-sm text-center lg:text-base text-[#231f20]">
             SWOT analysis is crucial for strategic decision-making. It evaluates internal strengths, weaknesses, external opportunities, and threats. Business leaders can create robust and actionable strategies by regularly reviewing and adapting the SWOT analysis. It sets the stage for strategic excellence.
           </h1>
