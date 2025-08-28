@@ -16,7 +16,7 @@ export const navItems: NavItem[] = [
     title: 'Dashboard',
     url: '/dashboard/overview',
     icon: 'dashboard',
-    isActive: false,
+    isActive: false, 
     shortcut: ['d', 'd'],
     items: [] 
   },
