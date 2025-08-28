@@ -21,7 +21,7 @@ import toast from "react-hot-toast";
 //   teamName: string;
 // }
 
-const TeamMemberPage = ({ teamName }: {teamName: string}) => {
+const TeamMemberPage = ({ teamName }: { teamName: string }) => {
   const { data, error, isLoading, refetch } = useGetSingleTeamByTeamNameQuery(teamName);
 
   const [createTeamMember] = useCreateTeamMemberMutation();
@@ -224,7 +224,7 @@ const TeamMemberPage = ({ teamName }: {teamName: string}) => {
       )}
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="p-0 border-0 sm:max-w-2xl w-11/12 max-w-2xl">
+        <DialogContent className="p-0 border-0 w-11/12 max-w-4xl">
           <div className="bg-white rounded-xl shadow-lg relative">
             <div className="bg-[#22398A] text-white p-4 -mt-1 rounded-t-xl">
               <DialogTitle className="text-xl font-bold">

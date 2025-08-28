@@ -92,7 +92,7 @@ export const clarhetAiApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAiSwot: builder.query<SwotApiResponse, void>({
       query: () => "/ai-recommendations/get-swot",
-      providesTags: ["Challenge"],
+      providesTags: ["Swot"],
     }),
     getAiChallenge: builder.query<ChallengeApiResponse, void>({
       query: () => "/ai-recommendations/get-challenge",

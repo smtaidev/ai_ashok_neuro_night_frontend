@@ -1,8 +1,8 @@
 // components/ActionItemsTable.tsx
 "use client";
-import React, { useState } from "react";
-import { IoIosArrowForward } from "react-icons/io";
+import React, { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { decodedToken } from "@/utils/jwt";
 
 // Define the type for a single action item object.
 interface ActionItem {
@@ -63,6 +63,15 @@ const getStatusBadge = (status: ActionItem["status"]) => {
 };
 
 const ActionItemsTable: React.FC = () => {
+
+   useEffect(() => {
+      const token = localStorage.getItem("accessToken");
+      if (token) {
+        const userInfo = decodedToken(token);
+        console.log("User Info: in action item assign to me =======================> ", userInfo);
+      }
+    }, [])
+
   // We'll manage the action items in local state now, so we can update them.
   const [actionItems, setActionItems] = useState<ActionItem[]>([
     {
