@@ -307,6 +307,11 @@ export const meetingApi = api.injectEndpoints({
       query: (_id) => `/agendas/get-all-agenda/${_id}`,
       providesTags: (result, error, _id) => [{ type: "Meeting", id: _id }],
     }),
+    // ✅ Get My All Agenda
+    getMyAllAgenda: builder.query<{ success: boolean; data: Meeting }, string>({
+      query: (_id) => `/agendas/get-my-all-agenda/${_id}`,
+      providesTags: (result, error, _id) => [{ type: "Meeting", id: _id }],
+    }),
 
     // ✅ Update Meeting
     updateMeeting: builder.mutation<
@@ -372,5 +377,6 @@ export const {
   useDeleteMeetingMutation,
   useCreateAgendaMutation,
   useGetAllAgendaQuery,
+  useGetMyAllAgendaQuery,
   useDeleteAgendaMutation, // ✅ Hook for delete agenda
 } = meetingApi;

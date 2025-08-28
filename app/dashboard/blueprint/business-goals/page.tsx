@@ -99,6 +99,12 @@ export interface BusinessGoalResponse {
 const BusinessGoals = () => {
   const { data, isLoading } = useGetBusinessGoalsQuery<BusinessGoalResponse | any>();
 
+  console.log(
+    " ================================================>",
+    data,
+    "Business Goals Data"
+  );
+
   if (isLoading) return <Loading />;
 
   if (data?.data?.length > 0) {

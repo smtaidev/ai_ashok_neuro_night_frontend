@@ -984,6 +984,7 @@
 
 
 
+//? working code but failed to show the goal owner and capability owner 
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState, useEffect, useMemo, useCallback } from "react";
@@ -1062,6 +1063,7 @@ const EditBusinessGoalsModal = ({
     },
   });
 
+  console.log(goalData, "goalData");
   // API queries with proper typing
   const { 
     data: strategicThemes, 
@@ -1095,9 +1097,38 @@ const EditBusinessGoalsModal = ({
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
   const [selectedCapabilities, setSelectedCapabilities] = useState<string[]>([]);
 
-  // Memoized computations
+  // Memoized computations with better error handling
   const activeUsers = useMemo((): UserObj[] => {
-    return (allUsers as UserObj[]) || [];
+    if (!allUsers) return [];
+    
+    // Handle different possible response formats
+    if (Array.isArray(allUsers)) {
+      // If allUsers is already an array, check if it contains UserObj or direct User objects
+      return allUsers.map((user: any) => {
+        if (user.userId) {
+          // It's already in UserObj format
+          return user as UserObj;
+        } else if (user._id && user.userName) {
+          // It's a direct User object, wrap it in UserObj format
+          return { userId: user as User } as UserObj;
+        }
+        return null;
+      }).filter(Boolean) as UserObj[];
+    }
+    
+    // If allUsers has a data property
+    if ((allUsers as any)?.data && Array.isArray((allUsers as any).data)) {
+      return (allUsers as any).data.map((user: any) => {
+        if (user.userId) {
+          return user as UserObj;
+        } else if (user._id && user.userName) {
+          return { userId: user as User } as UserObj;
+        }
+        return null;
+      }).filter(Boolean) as UserObj[];
+    }
+    
+    return [];
   }, [allUsers]);
 
   const availableTeams = useMemo((): Team[] => {
@@ -1106,11 +1137,17 @@ const EditBusinessGoalsModal = ({
 
   const getUserNameById = useMemo(() => {
     const userMap = new Map<string, string>();
+    
     activeUsers.forEach((userObj: UserObj) => {
-      userMap.set(userObj.userId._id, userObj.userId.userName);
+      if (userObj?.userId?._id && userObj?.userId?.userName) {
+        userMap.set(userObj.userId._id, userObj.userId.userName);
+      }
     });
     
-    return (userId: string): string => userMap.get(userId) || userId;
+    return (userId: string): string => {
+      if (!userId || typeof userId !== 'string') return 'Unknown User';
+      return userMap.get(userId) || 'Unknown User';
+    };
   }, [activeUsers]);
 
   // Capability management
@@ -1160,38 +1197,84 @@ const EditBusinessGoalsModal = ({
   useEffect(() => {
     if (goalData && isOpen) {
       // Set basic form values
-      setValue("title", goalData.title);
-      setValue("description", goalData.description);
-      setValue("related_strategic_theme", goalData.related_strategic_theme);
+      setValue("title", goalData.title || "");
+      setValue("description", goalData.description || "");
+      setValue("related_strategic_theme", goalData.related_strategic_theme || "");
       setValue("strategicID", goalData?.strategicID || "");
-      setValue("funding", goalData.funding);
+      setValue("funding", goalData.funding || 0);
       setValue("assigned_functions", goalData.assigned_functions || []);
-      setValue("duration", goalData.duration);
-      setValue("goalTimelineStart", goalData.goalTimelineStart.split("T")[0]);
-      setValue("goalTimelineEnd", goalData.goalTimelineEnd.split("T")[0]);
-      setValue("priority", goalData.priority);
-      setValue("goalProgress", goalData.goalProgress);
-      setValue("isSpecificStrategic", goalData.isSpecificStrategic);
-      setValue("hasTalent", goalData.hasTalent);
+      setValue("duration", goalData.duration || "");
+      
+      // Handle dates properly
+      if (goalData.goalTimelineStart) {
+        const startDate = goalData.goalTimelineStart.includes("T") 
+          ? goalData.goalTimelineStart.split("T")[0] 
+          : goalData.goalTimelineStart;
+        setValue("goalTimelineStart", startDate);
+      }
+      
+      if (goalData.goalTimelineEnd) {
+        const endDate = goalData.goalTimelineEnd.includes("T") 
+          ? goalData.goalTimelineEnd.split("T")[0] 
+          : goalData.goalTimelineEnd;
+        setValue("goalTimelineEnd", endDate);
+      }
+      
+      setValue("priority", goalData.priority || "");
+      setValue("goalProgress", goalData.goalProgress || 0);
+      setValue("isSpecificStrategic", goalData.isSpecificStrategic || "");
+      setValue("hasTalent", goalData.hasTalent || "");
       setValue("talentDetails", goalData.talentDetails || "");
-      setValue("resource_readiness", goalData.resource_readiness);
+      setValue("resource_readiness", goalData.resource_readiness || "");
       setValue("resourcesDetails", goalData.resourcesDetails || "");
-      setValue("esg_issues", goalData.esg_issues);
+      setValue("esg_issues", goalData.esg_issues || "");
       setValue("environmentalIssuesDetails", goalData.environmentalIssuesDetails || "");
-      setValue("goal_impact", goalData.goal_impact);
+      setValue("goal_impact", goalData.goal_impact || "");
 
-      // Set owners
-      const owners = Array.isArray(goalData.goalOwner) ? goalData.goalOwner : [];
+      // Set owners - Handle the case where goalOwner contains full user objects
+      let owners: string[] = [];
+      if (Array.isArray(goalData.goalOwner)) {
+        owners = goalData.goalOwner.map((owner: any) => {
+          // If owner is already a full object with _id, extract the _id
+          if (typeof owner === 'object' && owner._id) {
+            return owner._id;
+          }
+          // If owner is just a string ID, use it directly
+          return owner;
+        }).filter((id: any) => typeof id === 'string' && id.length > 0);
+      } else if (goalData.goalOwner && typeof goalData.goalOwner === 'string') {
+        owners = [goalData.goalOwner];
+      }
+      
+      console.log('Setting goal owners:', owners);
       setGoalOwners(owners);
       setValue("goalOwner", owners);
 
-      // Set capability owners
-      const capOwners = Array.isArray(goalData.capabilityOwners) ? goalData.capabilityOwners : [];
+      // Set capability owners - Handle the case where capabilityOwners contains full user objects
+      let capOwners: string[] = [];
+      if (Array.isArray(goalData.capabilityOwners)) {
+        capOwners = goalData.capabilityOwners.map((owner: any) => {
+          // If owner is already a full object with _id, extract the _id
+          if (typeof owner === 'object' && owner._id) {
+            return owner._id;
+          }
+          // If owner is just a string ID, use it directly
+          return owner;
+        }).filter((id: any) => typeof id === 'string' && id.length > 0);
+      } else if (goalData.capabilityOwners && typeof goalData.capabilityOwners === 'string') {
+        capOwners = [goalData.capabilityOwners];
+      }
+      
+      console.log('Setting capability owners:', capOwners);
       setCapabilityOwners(capOwners);
       setValue("capabilityOwners", capOwners);
 
-      // Set capability influenced
-      const capInfluenced = Array.isArray(goalData.capabilityInfluenced) ? goalData.capabilityInfluenced : [];
+      // Set capability influenced - Handle both array and string cases with better validation
+      const capInfluenced = Array.isArray(goalData.capabilityInfluenced) 
+        ? goalData.capabilityInfluenced.filter(cap => typeof cap === 'string' && cap.length > 0)
+        : goalData.capabilityInfluenced && typeof goalData.capabilityInfluenced === 'string'
+        ? [goalData.capabilityInfluenced] 
+        : [];
       setSelectedCapabilities(capInfluenced);
       setValue("capabilityInfluenced", capInfluenced);
 
@@ -1379,7 +1462,7 @@ const EditBusinessGoalsModal = ({
                 )}
               </div>
 
-              {/* Goal Owner Section - Updated with Dynamic Users */}
+              {/* Goal Owner Section */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Goal Owner<span className="text-red-500">*</span>
@@ -1469,7 +1552,7 @@ const EditBusinessGoalsModal = ({
                 )}
               </div>
 
-              {/* Dynamic Business Function - Updated Section */}
+              {/* Dynamic Business Function */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Assign this goal to a Business Function(s)
@@ -1656,25 +1739,37 @@ const EditBusinessGoalsModal = ({
                     {errors.isSpecificStrategic.message}
                   </p>
                 )}
+                
+                <div className="mt-2">
+                  <label className="block text-xs text-gray-600 mb-1">
+                    If no, please explain
+                  </label>
+                  <textarea
+                    {...register("talentDetails")}
+                    placeholder="Add Details....."
+                    rows={3}
+                    className="w-full p-3 border border-gray-300 rounded-md bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical"
+                  />
+                </div>
               </div>
 
-              {/* Has Talent */}
+              {/* Has Resources */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Do we possess the necessary talent to accomplish this goal?
+                  Do we possess the necessary resources (material) to accomplish this Goal?
                   <span className="text-red-500">*</span>
                 </label>
                 <select
-                  {...register("hasTalent", { required: "This field is required" })}
+                  {...register("resource_readiness", { required: "This field is required" })}
                   className="w-full p-3 border border-gray-300 rounded-md bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="">Select</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
                 </select>
-                {errors.hasTalent && (
+                {errors.resource_readiness && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.hasTalent.message}
+                    {errors.resource_readiness.message}
                   </p>
                 )}
                 
@@ -1934,7 +2029,7 @@ const EditBusinessGoalsModal = ({
                   </div>
                 </div>
 
-                {/* Updated Capability Owners Section */}
+                {/* Capability Owners Section */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Capability Owner(s)
@@ -2128,5 +2223,3 @@ const EditBusinessGoalsModal = ({
 };
 
 export default EditBusinessGoalsModal;
-
-
