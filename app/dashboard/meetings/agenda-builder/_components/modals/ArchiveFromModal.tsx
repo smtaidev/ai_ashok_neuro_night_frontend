@@ -319,7 +319,7 @@ const ArchiveFromModal: React.FC<DrawerProps> = ({
               </p>
             </div>
           </div>
-<h3 className="text-base font-semibold pl-3 text-gray-800 mb-3">
+<h3 className="text-[20px] font-semibold pl-3 text-gray-800 mb-3">
     Agenda Items
   </h3>
           {/* Agenda Items */}
@@ -331,35 +331,38 @@ const ArchiveFromModal: React.FC<DrawerProps> = ({
   
 
   {/* Time Allocated */}
-  <p className="text-sm font-semibold mb-2">Time Allocated</p>
+  <p className="text-[18px] font-semibold mb-2 pl-2">Time Allocated</p>
   <div className="flex gap-4 mb-3">
-    <div className="flex items-center gap-2 border rounded p-3 flex-1">
-      <span className="text-xl">⏱</span>
-      <p className="text-2xl font-bold text-gray-800">
+    <div className="flex flex-col gap-2 border rounded p-3 flex-1">
+      <p className="text-xl">⏱</p>
+      
+      <p className="text-4xl text-center font-bold text-gray-800">
         {agenda?.timeAllocated?.hours || 0} <span className="text-base font-normal">Hr</span>
       </p>
     </div>
-    <div className="flex items-center gap-2 border rounded p-3 flex-1">
-      <span className="text-xl">⏱</span>
-      <p className="text-2xl font-bold text-gray-800">
+    <div className="flex flex-col gap-2 border rounded p-3 flex-1">
+      <p className="text-xl">⏱</p>
+      
+      <p className="text-4xl text-center font-bold text-gray-800">
         {agenda?.timeAllocated?.minutes || 0} <span className="text-base font-normal">Min</span>
       </p>
     </div>
+    
   </div>
 
-  <p className="text-sm mb-1">
+  <p className="text-base text-gray-700 my-4 pl-2 ">
     <span className="font-semibold">Title :</span> {agenda?.title || "N/A"}
   </p>
 
   {agenda?.presenter?.length > 0 && (
-    <p className="text-sm mb-1">
+    <p className="text-base text-gray-700 my-4 pl-2">
       <span className="font-semibold">Presenter :</span>{" "}
       {agenda.presenter.map((p: any) => p.userName).join(", ")}
     </p>
   )}
 
-  <p className="font-semibold text-sm mt-2 mb-1">Agenda Description :</p>
-  <p className="text-sm text-gray-500">
+  <p className="text-base text-gray-700 my-4 pl-2 font-semibold">Agenda Description :</p>
+  <p className="text-base text-gray-700 my-4 pl-2">
     {agenda?.details || "No details available"}
   </p>
 </div>

@@ -32,7 +32,8 @@ const data:Data[] = [
 
   return (
     <div className='space-y-10 p-10 bg-white rounded-2xl border border-gray-200 mt-5'>
-      <h1 className="p-2 text-2xl font-bold">Core Components of Blueprint</h1>
+      <h1 className="text-xl font-bold text-[#0b1c33]
+">Core Components of Blueprint</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {data.map((item, index) => (
           
@@ -43,13 +44,15 @@ const data:Data[] = [
             {index + 1}
           </div>
           <div className="flex flex-col">
-            <h2 className="text-xl font-bold">{item?.title}</h2>
-            <p className="font-thin text-xs text-gray-500">{item?.subtitle}</p>
+            <h2 className="text-xl font-bold text-[#0b1c33]
+">  {item?.title}</h2>
+            <p className=" text-[14px] font-semibold text-gray-700
+">{item?.subtitle}</p>
           </div>
         </div>
 
         {/* Card Body */}
-        <div className=" md:text-xs lg:text-sm leading-relaxed mb-6">
+        <div className=" text-base text-[#231f20]">
           <p>
             {item?.description}
           </p>

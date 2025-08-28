@@ -100,11 +100,11 @@ const BusinessGoalImpactSummary: React.FC = () => {
   return (
     <div className="p-6 bg-white rounded-2xl ">
       {/* Page header */}
-      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+      <div className="bg-white p-6 rounded-lg border border-gray-200 mb-6">
         <h2 className="text-xl font-bold text-gray-800">
           Business Goal Impact Summary
         </h2>
-        <p className="text-gray-600 mt-2 text-sm">
+        <p className="text-gray-600 mt-2 text-base">
           Business Goal Impact summary gives decision-makers an in-depth
           overview of the various factors influencing the organization &#39;s
           strategic goals. It helps you understand the dynamics at play and make
