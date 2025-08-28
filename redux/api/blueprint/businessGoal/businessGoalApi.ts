@@ -120,6 +120,7 @@ export interface BusinessGoal {
   capabilityType?: string;
   capabilityDescription?: string;
   otherDetails?: string;
+  assigned_functions?: string[]
 }
 
 // Create request
