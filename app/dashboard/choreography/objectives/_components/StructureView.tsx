@@ -80,22 +80,23 @@ const StructureView = () => {
                     ry="12"
                     fill={nodeDatum.children ? '#fefce8' : '#e0f2fe'}
                     stroke="#4b5563"
+                    // 1.2
                     strokeWidth="1.2"
                     className="shadow-md"
                   />
                   {/* Title */}
-                  <text fill="#111827" x="0" y="-10" textAnchor="middle" fontWeight="300">
+                  <text fill="#111827" x="0" y="-10" textAnchor="middle" fontWeight="100">
                     {nodeName}
                   </text>
                   {/* Priority */}
                   {attrs.priority && (
-                    <text fill="#374151" x="0" y="10" textAnchor="middle" fontSize="11">
+                    <text fill="#374151" x="0" y="10" textAnchor="middle" fontWeight="100" fontSize="11">
                       Priority: {attrs.priority}
                     </text>
                   )}
                   {/* Progress */}
                   {attrs.progress && (
-                    <text fill="#374151" x="0" y="24" textAnchor="middle" fontSize="11">
+                    <text fill="#374151" x="0" y="24" textAnchor="middle" fontWeight="100" fontSize="11">
                       {attrs.progress}
                     </text>
                   )}
