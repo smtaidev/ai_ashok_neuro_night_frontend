@@ -27,7 +27,6 @@ const StrategicThemeContainerPage = () => {
           <MeetingsSection />
         </div>
       </div>
-
     </div>
   );
 };

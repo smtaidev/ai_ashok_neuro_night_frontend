@@ -30,9 +30,10 @@ import {
   IconUserX,
   IconX,
   IconLayoutKanban,
-  IconBrandGithub
+  IconBrandGithub,
+
 } from '@tabler/icons-react';
-import { BrickWallFire } from 'lucide-react';
+import { BadgeDollarSign, BrickWallFire, Building2, Logs, Podcast } from 'lucide-react';
 
 export type Icon = React.ComponentType<IconProps>;
 
@@ -68,5 +69,13 @@ export const Icons = {
   github: IconBrandGithub,
   twitter: IconBrandTwitter,
   check: IconCheck,
-  foundationIcon: BrickWallFire
+  foundationIcon: BrickWallFire,
+
+
+  //! Super Admin
+  company: Building2,
+  subscription: Podcast,
+  payment: BadgeDollarSign,
+  admin: IconUserCircle,
+  logs: Logs
 };
