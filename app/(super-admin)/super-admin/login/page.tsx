@@ -1,9 +1,10 @@
 import React from 'react';
+import SuperAdminLoginViewPage from './components/SuperAdminLoginViewPage';
 
 const SuperAdminPage = () => {
   return (
     <div>
-      <h1>This is Super Admin Login Page</h1>
+      <SuperAdminLoginViewPage />
     </div>
   );
 };
