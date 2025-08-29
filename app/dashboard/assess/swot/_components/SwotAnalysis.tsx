@@ -318,7 +318,7 @@ const SWOTAnalysis: React.FC = () => {
   // console.log( "swot data",swotData? swotData.data : "No data available");
 
   const swot = swotData?.data?.[0];
-   const recommendations: Recommendations = aiSwotData?.data.recommendations || {};
+   const recommendations: Recommendations = aiSwotData?.data?.recommendations || {};
    const companyName = aiSwotData?.data?.companyName || "N/A";
   
 
