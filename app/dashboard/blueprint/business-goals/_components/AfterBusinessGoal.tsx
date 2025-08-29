@@ -315,7 +315,7 @@ const AfterBusinessGoal: React.FC<AfterBusinessGoalProps> = ({
 
   const handleSave = async (data: any) => {
     try {
-      console.log("<===================================Business Goal request for testing : =====================>", data.businessGoals);
+      console.log("<===================================Business Goal request  for testing : =====================>", data.businessGoals);
       await createGoal(data?.businessGoals).unwrap();
       toast.success("Business Goal created successfully!");
       setIsModalOpen(false);
