@@ -1,5 +1,6 @@
 import { addUser } from "../slices/appSlice";
 import { api } from "./api";
+import { RootState } from "@reduxjs/toolkit/query";
 
 interface User {
   id: string;
@@ -33,8 +34,6 @@ export const userApi = api.injectEndpoints({
       try {
         const { data } = await queryFulfilled;
         console.log("Login response from userApi:", data);
-
-        // Correct path: data.data.accessToken
         const accessToken = data.data.accessToken;
 
         localStorage.setItem("accessToken", accessToken);

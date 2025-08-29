@@ -1,30 +1,37 @@
+'use client';
+
 import ClarhetAIChat from "@/components/chatwithai/ClarhetAIChat";
-import KBar from "@/components/kbar";
 import AppSidebar from "@/components/layout/app-sidebar";
 import Header from "@/components/layout/header";
 import Providers from "@/components/layout/providers";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import type { Metadata } from "next";
+import { decodedToken } from "@/utils/jwt";
 import { ThemeProvider } from "next-themes";
-import { cookies } from "next/headers";
-import toast, { Toaster } from "react-hot-toast";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 
-export const metadata: Metadata = {
-  title: "Clarhet Dashboard",
-  description: "Basic dashboard with Next.js and Shadcn",
-};
-
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // Persisting the sidebar state in the cookie.
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
+  const isScaled = 'light'?.endsWith("-scaled");
+  const [userInfo, setUserInfo] = useState({});
 
-  const activeThemeValue = cookieStore.get("active_theme")?.value;
-  const isScaled = activeThemeValue?.endsWith("-scaled");
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      const decodedData = decodedToken(token);
+      setUserInfo(decodedData);
+    }
+  }, []);
+
+  const { role, companyRole }: any = userInfo;
+
+  if (companyRole === 'company Admin' && (role === 'companyAdmin' || role === 'companyEmployee')) {
+    return redirect('/unauthorized');
+  }
 
   return (
     <ThemeProvider
@@ -34,27 +41,25 @@ export default async function DashboardLayout({
       disableTransitionOnChange
       enableColorScheme
     >
-      <Providers activeThemeValue={activeThemeValue as string}>
-        <KBar>
-          <SidebarProvider defaultOpen={defaultOpen}>
-            <AppSidebar />
-            <SidebarInset>
-              <Header />
-              {/* page main content */}
-              <div
-                className={`py-6 pr-6 pl-16 space-y-6 bg-[#F5F7FA] ${isScaled ? "scale-90" : ""
-                  }`}
-              >
-                {children}
-              </div>
-              <ClarhetAIChat
-                apiEndpoint="https://clarhet-server-sable.vercel.app/api/v1/chat-bot/create-chat"
-              />
-              <Toaster />
-              {/* page main content ends */}
-            </SidebarInset>
-          </SidebarProvider>
-        </KBar>
+      <Providers activeThemeValue={'light' as string}>
+        <SidebarProvider defaultOpen={true}>
+          <AppSidebar />
+          <SidebarInset>
+            <Header />
+            {/* page main content */}
+            <div
+              className={`py-6 pr-6 pl-16 space-y-6 bg-[#F5F7FA] ${isScaled ? "scale-90" : ""
+                }`}
+            >
+              {children}
+            </div>
+            <ClarhetAIChat
+              apiEndpoint="https://clarhet-server-sable.vercel.app/api/v1/chat-bot/create-chat"
+            />
+            <Toaster />
+            {/* page main content ends */}
+          </SidebarInset>
+        </SidebarProvider>
       </Providers>
     </ThemeProvider>
   );

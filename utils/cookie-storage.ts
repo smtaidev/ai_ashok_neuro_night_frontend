@@ -11,3 +11,4 @@ export const setCookie = (
   const cookie = `${name}=${value}; Max-Age=${options.maxAge}; Path=/`;
   res.setHeader("Set-Cookie", cookie);
 };
+ 

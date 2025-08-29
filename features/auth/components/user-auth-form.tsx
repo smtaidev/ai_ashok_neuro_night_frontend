@@ -35,14 +35,11 @@ const formSchema = z.object({
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
-  // const [userLogin] = useLoginMutation();
   const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const redirect = searchParams.get("redirect") || "/";
   const [loading, startTransition] = useTransition();
 
   const dispatch = useDispatch();
-  const [login, { isLoading, error, data }] = useLoginMutation();
+  const [login, { data }] = useLoginMutation();
   console.log("Login data from userAuthForm:", data);
 
   const defaultValues = {
@@ -52,28 +49,6 @@ export default function UserAuthForm() {
     resolver: zodResolver(formSchema),
     defaultValues,
   });
-
-  // const onLoginSubmit: SubmitHandler<ILoginValues> = async (data: any) => {
-  //   // data.preventDefault();
-  //   try {
-  //     const response = await login({
-  //       email: data.email,
-  //       password: data.password,
-  //     }).unwrap();
-  //     console.log("Login response:", response);
-  //     if (response) {
-  //       dispatch(setAuthStatus("authenticated"));
-  //       toast.success("Login successful!");
-  //     }
-  //     startTransition(() => {
-  //       toast.success("Login successful!");
-  //       router.push("/dashboard");
-  //     });
-  //   } catch (err) {
-  //     console.error("Login error:", err);
-  //     toast.error("Login failed!");
-  //   }
-  // };
 
   const onLoginSubmit: SubmitHandler<ILoginValues> = async (data) => {
     try {
