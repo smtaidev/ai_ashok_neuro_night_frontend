@@ -31,6 +31,26 @@ export default function OverViewPage() {
       <OverviewContainerPage />
       <div>
         <BusinessGoals />
+        <MeetingsSection />
+        <BusinessChallenges />
+        <StrategicThemeData />
+        <TotalCapabilities />
+        <SwotAnalysis />
+        <BusinessGoalsData />
+        <RecommendationsSection />
+        <Roadblocks />
+        <TrendsCard />
+        <CultureRealignment />
+        <LearningAndDevelopment />
+        <NewCapabilities />
+        <CompetitorAnalysis />
+        <RegulatoryCompliance />
+        <RisksSection />
+        <ChangeManagement />
+        <TalentSection />
+        <FinancialSnapshot />
+
+
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import IdentityComponent from './IdentityComponent';
 import IdentityFirstView from './IdentityFirstView';
 import { useGetIdentityDataQuery } from '@/redux/api/foundation/foundationApi';
+import IdentityFirstTimePage from './IdentityFirstTime';
 
 export default function IdentityContainerComponent() {
   const [isStarted, setIsStarted] = useState<boolean>(false);
@@ -39,7 +39,7 @@ export default function IdentityContainerComponent() {
   return (
     <div>
       {isStarted ? (
-        <IdentityComponent />
+        <IdentityFirstTimePage />
       ) : (
         <IdentityFirstView onGetStarted={handleGetStarted} />
       )}
