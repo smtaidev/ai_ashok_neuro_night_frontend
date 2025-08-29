@@ -438,7 +438,7 @@ const MeetingsArchive: React.FC = () => {
                 key={meeting._id}
                 className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
               >
-                <div className="text-center font-bold text-gray-800">
+                <div className="text-center font-bold bg-sky-50/50 rounded-2xl h-25 w-40 p-4 text-gray-800">
                   <p className="text-2xl">{day}</p>
                   <p className="text-sm">{month}</p>
                 </div>

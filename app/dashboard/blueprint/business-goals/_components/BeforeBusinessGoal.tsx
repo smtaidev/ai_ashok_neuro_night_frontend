@@ -121,13 +121,13 @@ const BeforeAlignment = () => {
         <div className="flex justify-center w-8/12 mx-auto items-center flex-col relative">
           <Image src={image} className="w-full" alt="strategic theme image" />
 
-          <h1 className="pt-10 text-sm lg:text-base">
+          <h1 className="pt-10 text-sm lg:text-base text-[#231f20]">
             Business Goals represent an organization&#39;s overarching targets
             and strategic priorities. They provide a clear direction and
             purpose, guiding efforts across divisions/functions and teams toward
             shared pursuits.
           </h1>
-          <h1 className="py-10 mb-10 text-sm lg:text-base">
+          <h1 className="py-10 mb-10 text-sm lg:text-base text-[#231f20]">
             Business Goals are derived from the organization&#39;s strategic
             direction and themes and serve as benchmarks for measuring progress
             and success.
