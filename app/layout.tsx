@@ -5,7 +5,7 @@ import NextTopLoader from 'nextjs-toploader';
 import { ReduxProvider } from "@/redux/provider";
 import AppInitializer from "@/components/AppInitializer";
 import ClarhetAIChat from "@/components/chatwithai/ClarhetAIChat";
-
+import  { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -29,6 +29,7 @@ export default function RootLayout({
       <html lang="en" data-theme="light">
         <body className={`${poppins.variable} antialiased relative`}>
           <AppInitializer />
+          <Toaster />
           <NextTopLoader
             showSpinner={false}
             color="#22398A"
