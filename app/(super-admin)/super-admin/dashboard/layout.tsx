@@ -51,7 +51,7 @@ export default async function DashboardLayout({
               {/* <ClarhetAIChat
                 apiEndpoint="https://clarhet-server-sable.vercel.app/api/v1/chat-bot/create-chat"
               /> */}
-              <Toaster />
+              {/* <Toaster /> */}
               {/* page main content ends */}
             </SidebarInset>
           </SidebarProvider>
