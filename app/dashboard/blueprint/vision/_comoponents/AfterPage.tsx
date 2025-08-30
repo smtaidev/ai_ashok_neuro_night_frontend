@@ -965,77 +965,76 @@ const AfterPage: React.FC<AfterPageProps> = ({ visionData }) => {
 
           {/* Scrollable Body with Custom Scrollbar */}
           <div className="p-4 overflow-y-auto h-[calc(100%-64px)] custom-scrollbar">
-            {isGenerating ? (
-              <div className="flex flex-col items-center justify-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-800 mb-4"></div>
-                <p className="text-gray-600">Generating AI insights...</p>
-              </div>
-            ) : aiVisionData ? (
-              <div className="space-y-5">
-                {/* Vision Score Section */}
-                <div className="border p-4 rounded-lg">
-                  <h2 className="font-semibold mb-5">Vision Score Analysis</h2>
-                  <div className="flex items-center">
-                    
-                    <SpeedMeterPage score={aiVisionData.vision_score} />
-                   
-                  </div>
-                  <p className="text-xs font-thin mb-4 text-gray-600">
-                    <span className="text-xs mr-2 text-black font-semibold">
-                      Overall Assessment:
-                    </span>
-                    {aiVisionData.vision_summary}
-                  </p>
-                </div>
-
-                {/* Alternative Vision Suggestions */}
-                <div className="border bg-sky-50 p-4 rounded-lg">
-                  <h2 className="font-semibold mb-5">Alternative Vision Suggestions</h2>
-                  {aiVisionData.vision_alt?.map((alt: string, index: number) => (
-                    
-                      <div key={index} className="bg-white mt-4  px-2 py-2 rounded-lg flex items-center gap-2">
-        <div className="p-6 rounded-2xl mr-2 bg-blue-50">
-
-      {/* Icon */}
-      <FaLightbulb className=" text-base " size={20} />
-        </div>
-
-      {/* Text */}
-      <p className="text-gray-700 text-[12px] leading-relaxed">
-        <span className="font-semibold">Option {index + 1}</span> {alt}
-      </p>
+  {isGenerating ? (
+    <div className="flex flex-col items-center justify-center py-12">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-800 mb-4"></div>
+      <p className="description">Generating AI insights...</p>
     </div>
-                  
-                  ))}
-                </div>
-
-                {/* Recommendations Section */}
-                <div className="border p-4 rounded-lg">
-                  <h2 className="font-semibold mb-5">Improvement Recommendations</h2>
-                  {aiVisionData.vision_recommendations?.map((rec: string, index: number) => (
-                     <div key={index} className="bg-white mt-4  px-2 py-2 rounded-lg flex items-center gap-2">
-        <div className="p-6 rounded-2xl mr-2 bg-blue-50">
-
-      {/* Icon */}
-      <FaLightbulb className=" text-base " size={20} />
+  ) : aiVisionData ? (
+    <div className="space-y-5">
+      {/* Vision Score Section */}
+      <div className="border p-4 rounded-lg">
+        <h2 className="title mb-5">Vision Score Analysis</h2>
+        <div className="flex items-center">
+          <SpeedMeterPage score={aiVisionData.vision_score} />
         </div>
+        <p className="description mb-4">
+          <span className="subtitle mr-2">Overall Assessment:</span>
+          {aiVisionData.vision_summary}
+        </p>
+      </div>
 
-      {/* Text */}
-      <p className="text-gray-700 text-[12px] leading-relaxed">
-        <span className="font-semibold">Option {index + 1}</span> {rec}
-      </p>
-    </div>
-                  ))}
-                </div>
+      {/* Alternative Vision Suggestions */}
+      <div className="border bg-sky-50 p-4 rounded-lg">
+        <h2 className="title mb-5">Alternative Vision Suggestions</h2>
+        {aiVisionData.vision_alt?.map((alt: string, index: number) => (
+          <div
+            key={index}
+            className="bg-white mt-4 px-2 py-2 rounded-lg flex items-center gap-2"
+          >
+            <div className="p-6 rounded-2xl mr-2 bg-blue-50">
+              {/* Icon */}
+              <FaLightbulb className="text-base" size={20} />
+            </div>
 
-               
-              </div>
-            ) : (
-              <div className="text-center py-8">
-                <p className="text-gray-600">No AI insights available</p>
-              </div>
-            )}
+            {/* Text */}
+            <p className="description leading-relaxed">
+              <span className="font-bold text-[#0b1c33]">Option {index + 1}</span> {alt}
+            </p>
           </div>
+        ))}
+      </div>
+
+      {/* Recommendations Section */}
+      <div className="border p-4 rounded-lg">
+        <h2 className="title mb-5">Improvement Recommendations</h2>
+        {aiVisionData.vision_recommendations?.map(
+          (rec: string, index: number) => (
+            <div
+              key={index}
+              className="bg-white mt-4 px-2 py-2 rounded-lg flex items-center gap-2"
+            >
+              <div className="p-6 rounded-2xl mr-2 bg-blue-50">
+                {/* Icon */}
+                <FaLightbulb className="text-base" size={20} />
+              </div>
+
+              {/* Text */}
+              <p className="description leading-relaxed">
+                <span className="font-bold text-[#0b1c33]">Option {index + 1}</span> {rec}
+              </p>
+            </div>
+          )
+        )}
+      </div>
+    </div>
+  ) : (
+    <div className="text-center py-8">
+      <p className="description">No AI insights available</p>
+    </div>
+  )}
+</div>
+
         </div>
       </div>
          {/* Ai insight drawer end  */}
