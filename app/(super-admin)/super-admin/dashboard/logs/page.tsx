@@ -1,9 +1,10 @@
-import React from 'react';
+import LogsTable from "./_components/LogsTable";
+
 
 const LogsPage = () => {
   return (
     <div className='p-6'>
-      <h1>This is logs page</h1>
+      <LogsTable />
     </div>
   );
 };

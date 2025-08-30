@@ -1,9 +1,10 @@
-import React from 'react';
+import PaymentTable from "./_component/PaymentTable";
+
 
 const PaymentPage = () => {
   return (
     <div className='p-6'>
-      <h1>This is payment page</h1>
+      <PaymentTable />
     </div>
   );
 };

@@ -210,19 +210,19 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Admin',
-    url: '#', 
-    icon: 'billing',
+    url: '/dashboard/admin', 
+    icon: 'admin',
     isActive: false,
     items: [
       {
         title: 'Organization Info',
-        url: '/dashboard/admin/organization-info',
+        url: '/dashboard/admin/organization',
         icon: 'userPen',
         shortcut: ['f', 'i']
       },
       {
         title: 'Business Functions',
-        url: '/dashboard/admin/business-functions',
+        url: '/dashboard/admin/business-function',
         icon: 'userPen',
         shortcut: ['f', 'b']
       },

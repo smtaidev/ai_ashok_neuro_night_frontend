@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 export default function assessPage() {
   return (
-    <div className="  ">
+    <div className=" ml-6">
       <div className="w-full md:h-[500px] space-y-6 bg-gray-50 p-6 md:flex rounded-lg shadow-md gap-4">
         {/* text left side  */}
         <div className="flex-1 space-y-4  md:text-left">

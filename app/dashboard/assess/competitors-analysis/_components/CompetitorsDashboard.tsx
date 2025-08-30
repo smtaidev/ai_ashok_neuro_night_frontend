@@ -104,7 +104,7 @@ const MergedDashboard: React.FC<DashboardProps> = ({
   const strokeDashoffset = circumference - (sentimentScore / 100) * circumference;
 
   return (
-    <div className="min-h-screen bg-white p-6 rounded-lg mt-8">
+    <div className="min-h-screen bg-white p-6 ml-6 rounded-lg mt-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         {/* Left Column - Competitive Analysis */}
