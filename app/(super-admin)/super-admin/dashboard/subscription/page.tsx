@@ -1,4 +1,5 @@
-import SubscriptionsTable from "./_components/SubscriptionsTable";
+import SubscriptionsTable from "./components/SubscriptionsTable";
+
 
 
 const SubscriptionPage = () => {
