@@ -152,7 +152,7 @@ const CallangeHomePage = () => {
   };
 
   return (
-    <div className="bg-gray-50 pl-6 my-8 rounded-lg shadow-md">
+    <div className="bg-gray-50 pl-6 my-8 rounded-lg p-6 ml-6 shadow-md">
       <div className="mb-6 flex justify-center">
         <Image
           src={trendImage}

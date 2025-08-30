@@ -2260,15 +2260,6 @@ const CreateTrendPage: React.FC = () => {
                 <strong>Flexible Approach:</strong> You can fill out any remaining sections (complete 1 section or all remaining sections). Completed sections are protected and show who completed them.
               </p>
             </div>
-
-            {/* Debug info */}
-            <div className="bg-gray-100 p-3 rounded text-xs mt-4">
-              <strong>Debug Info:</strong>
-              <div>API Data Loaded: {data ? 'Yes' : 'No'}</div>
-              <div>Total API Trends: {(data?.data || []).length}</div>
-              <div>Completed Trends: {Array.from(completedTrends).join(', ') || 'None'}</div>
-              <div>Loading: {isLoading ? 'Yes' : 'No'}</div>
-            </div>
           </div>
         </div>
       );
@@ -2408,7 +2399,7 @@ const CreateTrendPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen ml-6 bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b px-6 py-4">
         <div className="flex items-center justify-between">
@@ -2539,8 +2530,8 @@ const CreateTrendPage: React.FC = () => {
                 {renderStepContent()}
 
                 {/* Navigation Buttons */}
-                <div className="fixed bottom-0 right-0 left-[600px] bg-white border-t p-6">
-                  <div className="ml-10 max-w-4xl flex items-center justify-between">
+                <div className="fixed bottom-0 right-0 left-[660px] bg-white border-t p-6">
+                  <div className="ml- max-w-4xl flex items-center justify-end gap-8 ">
                     <button
                       onClick={handlePrevious}
                       disabled={currentStep === 0}

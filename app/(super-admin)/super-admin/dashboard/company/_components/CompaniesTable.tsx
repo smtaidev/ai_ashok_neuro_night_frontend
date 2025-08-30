@@ -1,9 +1,7 @@
-
 "use client";
 
 import React, { useState } from 'react';
 import { Search, MoreHorizontal } from 'lucide-react';
-import { useGetCompanyAllUserQuery } from '@/redux/api/super-admin/superAdminApi';
 
 interface Company {
   id: number;
@@ -17,10 +15,6 @@ interface Company {
 const CompaniesTable: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-
-
-  const {data} = useGetCompanyAllUserQuery()
-  console.log("company user ", data)
 
   // Dummy data - replace with API data later
   const companies: Company[] = [
