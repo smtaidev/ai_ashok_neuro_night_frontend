@@ -145,68 +145,8 @@ const AdminDashboard: React.FC = () => {
               </div>
             </div>
 
-            {/* Logs Section */}
-            <div className="bg-white rounded-lg p-6 border border-gray-200 mt-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-6">Logs</h2>
-              
-              <div className="space-y-4">
-                {/* TechCorp Solutions */}
-                <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-yellow-100 rounded-lg">
-                      <ArrowUpRight className="w-4 h-4 text-yellow-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-medium text-gray-900">TechCorp Solutions</h3>
-                      <p className="text-sm text-gray-600">Upgraded to Pro Plan</p>
-                    </div>
-                  </div>
-                  <span className="text-xs text-gray-500">2 hours ago</span>
-                </div>
-
-                {/* DataFlow Inc */}
-                <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-green-100 rounded-lg">
-                      <CreditCard className="w-4 h-4 text-green-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-medium text-gray-900">DataFlow Inc</h3>
-                      <p className="text-sm text-gray-600">Payment received - $510</p>
-                    </div>
-                  </div>
-                  <span className="text-xs text-gray-500">4 hours ago</span>
-                </div>
-
-                {/* InnovateCorp */}
-                <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-red-100 rounded-lg">
-                      <UserX className="w-4 h-4 text-red-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-medium text-gray-900">InnovateCorp</h3>
-                      <p className="text-sm text-gray-600">Payment Failed - $210</p>
-                    </div>
-                  </div>
-                  <span className="text-xs text-gray-500">1 day ago</span>
-                </div>
-
-                {/* StartupXYZ */}
-                <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-blue-100 rounded-lg">
-                      <Building2 className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-medium text-gray-900">StartupXYZ</h3>
-                      <p className="text-sm text-gray-600">New company registered</p>
-                    </div>
-                  </div>
-                  <span className="text-xs text-gray-500">2 day ago</span>
-                </div>
-              </div>
-            </div>
+           
+            
           </div>
 
           {/* Right Column - Recent Activity */}
