@@ -50,6 +50,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "@/redux/slices/appSlice";
 import { decodedToken } from "@/utils/jwt";
 import React, { useEffect } from "react";
+import { deleteCookie } from "@/utils/cookie-storage";
 
 
 export const company = {
@@ -75,7 +76,8 @@ export default function AppSidebar() {
 
   const handleLogout = () => {
     dispatch(logout());
-    localStorage.removeItem("accessToken");
+    // localStorage.removeItem("accessToken");
+    deleteCookie('accessToken');
     router.push('/')
   };
 

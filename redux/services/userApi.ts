@@ -1,6 +1,8 @@
 import { addUser } from "../slices/appSlice";
 import { api } from "./api";
 import { RootState } from "@reduxjs/toolkit/query";
+import { setCookie } from '../../utils/cookie-storage';
+import { set } from "zod";
 
 interface User {
   id: string;
@@ -15,65 +17,95 @@ interface AuthResponse {
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
+
+    //! Previous code
+    // login: builder.mutation<
+    //   {
+    //     success: boolean;
+    //     message: string;
+    //     data: {
+    //       accessToken: string;
+    //     };
+    //   },
+    //   { email: string; password: string }
+    // >({
+    //   query: (body) => ({
+    //     url: "/auth/login",
+    //     method: "POST",
+    //     body,
+    //   }),
+    //   async onQueryStarted(_, { dispatch, queryFulfilled }) {
+    //   try {
+    //     const { data } = await queryFulfilled;
+    //     console.log("Login response from userApi:", data);
+    //     const accessToken = data.data.accessToken;
+
+    //     // localStorage.setItem("accessToken", accessToken);
+    //     setCookie('accessToken', accessToken);
+    //     dispatch(userApi.endpoints.getMe.initiate());
+    //   } catch {
+    //     dispatch(addUser(null));
+    //   }
+    // },
+    //   invalidatesTags: ["User"],
+    // }),
+
+
+    //! clarhet login here
+
+    //! Update code for protected route
     login: builder.mutation<
-      {
-        success: boolean;
-        message: string;
-        data: {
-          accessToken: string;
-        };
-      },
+      { success: boolean; message: string; data: { accessToken: string } }, // ✅ ঠিক করা
       { email: string; password: string }
     >({
       query: (body) => ({
         url: "/auth/login",
         method: "POST",
         body,
+        credentials: "include",
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-      try {
-        const { data } = await queryFulfilled;
-        console.log("Login response from userApi:", data);
-        const accessToken = data.data.accessToken;
+        try {
+          const { data } = await queryFulfilled;
+          console.log("Login response from userApi:", data);
 
-        localStorage.setItem("accessToken", accessToken);
-        dispatch(userApi.endpoints.getMe.initiate());
-      } catch {
-        dispatch(addUser(null));
-      }
-    },
+          // ✅ cookie set
+          setCookie('accessToken', data.data.accessToken);
+        } catch {
+          dispatch(addUser(null));
+        }
+      },
       invalidatesTags: ["User"],
     }),
-
-
-    //! clarhet login here
-
+    
     clarhetAdminLogin: builder.mutation<{
-  success: boolean;
-  message: string;
-  data: { accessToken: string };
-}, { email: string; password: string }>({
-  query: (body) => ({
-    url: "/auth/clarhet-login",
-    method: "POST",
-    body,
-  }),
-  async onQueryStarted(_, { dispatch, queryFulfilled }) {
-    try {
-      const { data } = await queryFulfilled;
-      console.log("Login response from userApi:", data);
+      success: boolean;
+      message: string;
+      data: { accessToken: string };
+    }, { email: string; password: string }>({
+      query: (body) => ({
+        url: "/auth/clarhet-login",
+        method: "POST",
+        body,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log("Login response from userApi:", data);
 
-      // ✅ You are **always accessing** data.data.accessToken
-      const accessToken = data.data.accessToken;
+          // ✅ You are **always accessing** data.data.accessToken
+          const accessToken = data.data.accessToken;
 
-      localStorage.setItem("accessToken", accessToken);
-      dispatch(userApi.endpoints.getMe.initiate());
-    } catch {
-      dispatch(addUser(null));
-    }
-  },
-  invalidatesTags: ["User"],
-}),
+          // localStorage.setItem("accessToken", accessToken);
+          // dispatch(userApi.endpoints.getMe.initiate());
+          setCookie('accessToken', accessToken, );
+
+        } catch {
+          dispatch(addUser(null));
+        }
+      },
+      invalidatesTags: ["User"],
+    }),
 
 
     signup: builder.mutation<
@@ -93,18 +125,47 @@ export const userApi = api.injectEndpoints({
       invalidatesTags: ["User"],
     }),
 
-    getMe: builder.query<{ data: User }, void>({
-      query: () => "/auth/profile", 
+    //! Previous Code
+    // getMe: builder.query<{ data: User }, void>({
+    //   query: () => "/auth/profile", 
+    //   providesTags: ["User"],
+    //   async onQueryStarted(_, { dispatch, queryFulfilled }) {
+    //     try {
+    //       const { data } = await queryFulfilled;
+    //       dispatch(addUser(data.data));
+    //     } catch {}
+    //   },
+    // }),
+
+    //! Update code for protect route
+    getMe: builder.query<{ data: any }, void>({
+      query: () => "/auth/profile", // 👉 এটা আপনার backend-এর protected API
       providesTags: ["User"],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(addUser(data.data));
-        } catch {}
+        } catch {
+          dispatch(addUser(null));
+        }
       },
     }),
 
+    //! Updated code for protect route
+    logout: builder.mutation<{ success: boolean; message: string }, void>({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(addUser(null));
+        } catch {}
+      },
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
-export const { useLoginMutation, useClarhetAdminLoginMutation, useSignupMutation, useGetMeQuery } = userApi;
+export const { useLoginMutation, useClarhetAdminLoginMutation, useSignupMutation, useGetMeQuery, useLogoutMutation } = userApi;

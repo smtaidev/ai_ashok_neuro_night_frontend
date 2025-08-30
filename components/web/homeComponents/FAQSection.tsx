@@ -1,4 +1,5 @@
 "use client";
+import { getCookie } from "@/utils/cookie-storage";
 import { useState, ReactNode } from "react";
 
 // ✅ Define the type for each FAQ item
@@ -65,6 +66,9 @@ const FAQSection = () => {
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+  const token = getCookie("accessToken");
+  console.log("Token from cookie:", token);
 
   return (
     <section className="py-16 mx-auto text-base-content rounded-xl overflow-hidden">

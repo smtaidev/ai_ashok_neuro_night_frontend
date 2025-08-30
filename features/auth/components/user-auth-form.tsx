@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useLoginMutation } from "@/redux/services/userApi";
 import { setAuthStatus } from "@/redux/slices/appSlice";
+import { getCookie } from "@/utils/cookie-storage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
@@ -40,15 +41,38 @@ export default function UserAuthForm() {
 
   const dispatch = useDispatch();
   const [login, { data }] = useLoginMutation();
-  console.log("Login data from userAuthForm:", data);
+  // console.log("Login data from userAuthForm:", data);
 
   const defaultValues = {
-    email: "brown@clarhet.com",
+    email: "tawhid@vai.com",
   };
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
+
+  // const onLoginSubmit: SubmitHandler<ILoginValues> = async (data) => {
+  //   try {
+  //     const response = await login({
+  //       email: data.email,
+  //       password: data.password,
+  //     }).unwrap();
+
+  //     if (!response.success) {
+  //       toast.error(response.message || "Login failed!");
+  //       return;
+  //     }
+  //     dispatch(setAuthStatus("authenticated"));
+  //     toast.success("Login successful!");
+  //     startTransition(() => {
+  //       router.push("/dashboard");
+  //     });
+
+  //   } catch (err: any) {
+  //     console.error("Login error:", err);
+  //     toast.error("Login failed!", err.data.message);
+  //   }
+  // };
 
   const onLoginSubmit: SubmitHandler<ILoginValues> = async (data) => {
     try {
@@ -57,21 +81,23 @@ export default function UserAuthForm() {
         password: data.password,
       }).unwrap();
 
-      if (!response.success) {
+      if (response.success) {
+        toast.success("Login successful!");
+        router.push("/dashboard"); // redirect
+      } else {
         toast.error(response.message || "Login failed!");
-        return;
       }
-      dispatch(setAuthStatus("authenticated"));
-      toast.success("Login successful!");
-      startTransition(() => {
-        router.push("/dashboard");
-      });
 
     } catch (err: any) {
       console.error("Login error:", err);
-      toast.error("Login failed!", err.data.message);
+      toast.error("Login failed!", err?.data?.message || "Something went wrong!");
     }
   };
+
+
+  const token = getCookie("accessToken");
+  console.log("Token from cookie:", token);
+
 
   return (
     <>
