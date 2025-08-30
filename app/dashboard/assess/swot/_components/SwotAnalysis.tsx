@@ -128,7 +128,7 @@ const BarChart: React.FC<{ data: ChartData[] }> = ({ data }) => {
   return (
     <div className="w- md:w-full  h-80 relative bg-gray-50 rounded-lg">
       {/* Y-axis labels */}
-      <div className="absolute left-2 top-0 h-full flex flex-col justify-between text-xs text-gray-500 py-8">
+      <div className="absolute left-2 top-0 h-full flex flex-col justify-between text-xs text-gray-500 py-10">
         <div>{maxValue}</div>
         <div>{Math.floor(maxValue * 5/6)}</div>
         <div>{Math.floor(maxValue * 4/6)}</div>
@@ -318,7 +318,7 @@ const SWOTAnalysis: React.FC = () => {
   // console.log( "swot data",swotData? swotData.data : "No data available");
 
   const swot = swotData?.data?.[0];
-   const recommendations: Recommendations = aiSwotData?.data.recommendations || {};
+   const recommendations: Recommendations = aiSwotData?.data?.recommendations || {};
    const companyName = aiSwotData?.data?.companyName || "N/A";
   
 
@@ -520,7 +520,7 @@ const SWOTAnalysis: React.FC = () => {
               <div className="flex justify-center mb-4">
                 <DonutChart data={donutChartData} />
               </div>
-              <div className="md:flex justify-center space-x-6">
+              <div className="md:flex justify-center  lg:space-x-3 2xl:space-x-10">
                 
                   <div className="flex items-center space-x-2">
                   <div className="w-3 h-3 rounded-full bg-green-600"></div>

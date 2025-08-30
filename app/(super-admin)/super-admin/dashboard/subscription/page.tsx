@@ -1,9 +1,10 @@
-import React from 'react';
+import SubscriptionsTable from "./_components/SubscriptionsTable";
+
 
 const SubscriptionPage = () => {
   return (
     <div className='p-6'>
-      <h1>This is subscription page</h1>
+      <SubscriptionsTable />
     </div>
   );
 };

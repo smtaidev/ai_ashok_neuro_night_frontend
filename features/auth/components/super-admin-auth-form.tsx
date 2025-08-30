@@ -9,14 +9,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useLoginMutation } from "@/redux/services/userApi";
+import { useClarhetAdminLoginMutation } from "@/redux/services/userApi";
 import { setAuthStatus } from "@/redux/slices/appSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { toast } from "sonner";
+
 import * as z from "zod";
 
 interface ILoginValues {
@@ -34,44 +35,44 @@ const formSchema = z.object({
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function SuperAdminAuthForm() {
-  // const [userLogin] = useLoginMutation();
+
   const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const redirect = searchParams.get("redirect") || "/";
   const [loading, startTransition] = useTransition();
 
   const dispatch = useDispatch();
-  const [login, { isLoading, error, data }] = useLoginMutation();
-  console.log("Login data from SuperAdminAuthForm:", data);
+  const [clarhetAdminLogin] = useClarhetAdminLoginMutation();
 
   const defaultValues = {
-    email: "brown@clarhet.com",
+    email: "clarhet@admin.com",
   };
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
-  const onLoginSubmit: SubmitHandler<ILoginValues> = async (data: any) => {
-    // data.preventDefault();
+  const onLoginSubmit: SubmitHandler<ILoginValues> = async (data) => {
     try {
-      const response = await login({
+      const response = await clarhetAdminLogin({
         email: data.email,
         password: data.password,
       }).unwrap();
-      console.log("Login response:", response);
-      if (response) {
-        dispatch(setAuthStatus("authenticated"));
-        toast.success("Login successful!");
+
+      if (!response.success) {
+        toast.error(response.message || "Login failed!");
+        return;
       }
+      dispatch(setAuthStatus("authenticated"));
+      toast.success("Login successful!");
       startTransition(() => {
-        toast.success("Login successful!");
-        router.push("/dashboard");
+        router.push("/super-admin/dashboard");
       });
-    } catch (err) {
-      console.error("Login error:", err);
+
+    } catch (err: any) {
+      toast.error("Login failed!", err.data.message);
     }
   };
+
+
 
   return (
     <>

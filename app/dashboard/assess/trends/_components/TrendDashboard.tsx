@@ -1403,7 +1403,7 @@ const TrendsDashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white rounded-lg shadow-md my-8 p-6">
+    <div className="min-h-screen bg-white rounded-lg shadow-md my-8 ml-6 p-6">
       <div className="">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">

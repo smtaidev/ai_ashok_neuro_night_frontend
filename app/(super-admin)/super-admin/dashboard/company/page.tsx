@@ -1,9 +1,9 @@
-import React from 'react';
+import CompaniesTable from "./_components/CompaniesTable";
 
 const CompanyPage = () => {
   return (
     <div className='p-6'>
-      <h1>This is company page</h1>
+      <CompaniesTable />
     </div>
   );
 };

@@ -61,7 +61,7 @@ const CompetitorsHomePage = () => {
   };
 
   return (
-    <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+    <div className="bg-gray-50 p-6 ml-6 rounded-lg shadow-md">
       <div className="mb-6 flex justify-center">
         <Image
           src={trendImage}

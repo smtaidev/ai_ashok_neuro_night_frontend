@@ -1,9 +1,11 @@
-import React from 'react';
+import AdminMangementTable from "./_components/AdminMangementTable";
+
+
 
 const SuperAdminPage = () => {
   return (
     <div className='p-6'>
-      <h1>This is Super admin page</h1>
+      <AdminMangementTable />
     </div>
   );
 };
