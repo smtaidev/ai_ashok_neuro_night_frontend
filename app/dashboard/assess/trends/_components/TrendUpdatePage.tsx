@@ -681,7 +681,7 @@ const UpdateTrendPage: React.FC = () => {
                   >
                     <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                       isStepCompleted(index)
-                        ? 'bg-green-100 text-green-700'
+                        ? 'bg-green-600 text-white'
                         : currentStep === index
                         ? 'bg-blue-100 text-blue-700'
                         : visitedSteps.has(index)
@@ -719,7 +719,7 @@ const UpdateTrendPage: React.FC = () => {
                   <div className="flex items-center gap-4 mb-2">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium ${
                       isStepCompleted(currentStep)
-                        ? 'bg-green-100 text-green-700'
+                        ? 'bg-green-600 text-white'
                         : 'bg-blue-100 text-blue-700'
                     }`}>
                       {isStepCompleted(currentStep) ? (
@@ -794,14 +794,14 @@ const UpdateTrendPage: React.FC = () => {
                             toast.success('Trend update completed!');
                             router.push('/dashboard/assess/trends');
                           }}
-                          className="px-6 py-2 text-sm font-medium rounded-lg transition-colors bg-blue-600 text-white hover:bg-blue-700"
+                          className="px-6 py-2 text-sm font-medium rounded-lg transition-colors bg-[#22398A] text-white hover:bg-[#22398A]"
                         >
                           Finish Editing
                         </button>
                       ) : (
                         <button
                           onClick={handleNext}
-                          className="px-6 py-2 text-sm font-medium rounded-lg transition-colors bg-blue-600 text-white hover:bg-blue-700"
+                          className="px-6 py-2 text-sm font-medium rounded-lg transition-colors bg-[#22398A] text-white hover:bg-[#22398A]"
                         >
                           Next
                         </button>
