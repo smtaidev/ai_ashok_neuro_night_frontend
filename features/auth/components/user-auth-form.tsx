@@ -15,8 +15,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { toast } from "sonner";
+
 import * as z from "zod";
 
 interface ILoginValues {
@@ -52,24 +53,48 @@ export default function UserAuthForm() {
     defaultValues,
   });
 
-  const onLoginSubmit: SubmitHandler<ILoginValues> = async (data: any) => {
-    // data.preventDefault();
+  // const onLoginSubmit: SubmitHandler<ILoginValues> = async (data: any) => {
+  //   // data.preventDefault();
+  //   try {
+  //     const response = await login({
+  //       email: data.email,
+  //       password: data.password,
+  //     }).unwrap();
+  //     console.log("Login response:", response);
+  //     if (response) {
+  //       dispatch(setAuthStatus("authenticated"));
+  //       toast.success("Login successful!");
+  //     }
+  //     startTransition(() => {
+  //       toast.success("Login successful!");
+  //       router.push("/dashboard");
+  //     });
+  //   } catch (err) {
+  //     console.error("Login error:", err);
+  //     toast.error("Login failed!");
+  //   }
+  // };
+
+  const onLoginSubmit: SubmitHandler<ILoginValues> = async (data) => {
     try {
       const response = await login({
         email: data.email,
         password: data.password,
       }).unwrap();
-      console.log("Login response:", response);
-      if (response) {
-        dispatch(setAuthStatus("authenticated"));
-        toast.success("Login successful!");
+
+      if (!response.success) {
+        toast.error(response.message || "Login failed!");
+        return;
       }
+      dispatch(setAuthStatus("authenticated"));
+      toast.success("Login successful!");
       startTransition(() => {
-        toast.success("Login successful!");
         router.push("/dashboard");
       });
-    } catch (err) {
+
+    } catch (err: any) {
       console.error("Login error:", err);
+      toast.error("Login failed!", err.data.message);
     }
   };
 

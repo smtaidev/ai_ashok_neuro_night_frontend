@@ -1,4 +1,5 @@
-import FailedPayments from "../_components/FailedPayment";
+import FailedPayments from "./_components/FailedPayment";
+
 
 export default function page() {
 
