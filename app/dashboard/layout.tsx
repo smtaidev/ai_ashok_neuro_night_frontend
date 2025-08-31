@@ -9,6 +9,8 @@ import { ThemeProvider } from "next-themes";
 import { cookies } from "next/headers";
 import toast, { Toaster } from "react-hot-toast";
 
+
+
 export const metadata: Metadata = {
   title: "Clarhet Dashboard",
   description: "Basic dashboard with Next.js and Shadcn",
@@ -19,6 +21,8 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+
   // Persisting the sidebar state in the cookie.
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
@@ -59,3 +63,61 @@ export default async function DashboardLayout({
     </ThemeProvider>
   );
 }
+
+
+//! Authorized
+// import { useAppSelector } from "@/redux/hooks";
+// import { currentUser } from "@/redux/slices/auth.slice";
+// const userInfo = useAppSelector(currentUser);
+
+
+// "use client";
+// import ClarhetAIChat from "@/components/chatwithai/ClarhetAIChat";
+// import AppSidebar from "@/components/layout/app-sidebar";
+// import Header from "@/components/layout/header";
+// import Providers from "@/components/layout/providers";
+// import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+// import type { Metadata } from "next";
+// import { ThemeProvider } from "next-themes";
+// import { cookies } from "next/headers";
+// import { Toaster } from "react-hot-toast";
+
+
+
+
+// const DashboardLayout = () => {
+//   return (
+//     <ThemeProvider
+//       attribute="class"
+//       defaultTheme="light"
+//       enableSystem
+//       disableTransitionOnChange
+//       enableColorScheme
+//     >
+//       <Providers activeThemeValue={activeThemeValue as string}>
+//         <KBar>
+//           <SidebarProvider defaultOpen={defaultOpen}>
+//             <AppSidebar />
+//             <SidebarInset>
+//               <Header />
+//               {/* page main content */}
+//               <div
+//                 className={`py-6 pr-6 pl-16 space-y-6 bg-[#F5F7FA] ${isScaled ? "scale-90" : ""
+//                   }`}
+//               >
+//                 {children}
+//               </div>
+//               <ClarhetAIChat
+//                 apiEndpoint="https://clarhet-server-sable.vercel.app/api/v1/chat-bot/create-chat"
+//               />
+//               <Toaster />
+//               {/* page main content ends */}
+//             </SidebarInset>
+//           </SidebarProvider>
+//         </KBar>
+//       </Providers>
+//     </ThemeProvider>
+//   );
+// };
+
+// export default DashboardLayout;
