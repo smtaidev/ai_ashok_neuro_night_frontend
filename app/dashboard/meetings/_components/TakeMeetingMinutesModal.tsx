@@ -47,7 +47,7 @@ const TakeMeetingMinutesModal: React.FC<TakeMeetingMinutesModalProps> = ({
         <div className="p-6 space-y-4">
           {meetingId}
           <br />
-         
+         <h1 className="text-red-500 text-4xl text-center my-20">working on it</h1>
                </div>
       </div>
     </div>

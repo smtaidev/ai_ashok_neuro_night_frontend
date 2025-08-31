@@ -217,9 +217,12 @@ const TakeMeetingMinutes: React.FC = () => {
         {meetings.map((meeting) => (
           <div key={meeting.id}>
             <div className="flex border p-4 rounded-2xl justify-between items-center gap-4 min-w-2xl flex-nowrap">
-              <div className="text-[16px] font-semibold text-gray-800 truncate flex-shrink-0">
+              {/* <div className="text-[16px] font-semibold text-gray-800 truncate flex-shrink-0">
                 {meeting.name}
-              </div>
+              </div> */}
+              <div className="text-[16px] font-semibold text-gray-800 flex-shrink-0">
+  {meeting.name.length > 15 ? `${meeting.name.slice(0, 15)}...` : meeting.name}
+</div>
               <div className="text-[16px] text-gray-500 flex-shrink-0">
                 {meeting.date}
               </div>
