@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import alignmentPng from "@/public/image/Alignment-Check-img.svg";
 import { useCreateAlignmentMutation,  useGetMyAlignmentQuery } from "@/redux/api/Alignment/alignmentApi";
 import toast from "react-hot-toast";
+import Button from "@/components/reusable-button/Button";
 
 
 
@@ -252,7 +253,7 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({}) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Identity Card */}
             <div
-              className={`bg-white rounded-lg shadow-sm border-t-32 border-gray-200 p-6 min-h-[16rem] ${
+              className={`bg-white rounded-lg shadow-sm border-t-24 border-gray-200 p-6 min-h-[16rem] ${
                 getColorProperties(sectionColors.trends).borderTop
               }`}
             >
@@ -276,18 +277,19 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({}) => {
                 {/* Placeholder for content */}
               </div>
               <div className="flex justify-center">
-                <button
+                <Button
                   onClick={() => openModal("trends")}
-                  className="bg-[#22398A] hover:bg-[#1E2A78] text-white px-6 py-2 rounded-md font-medium transition-colors"
                 >
                   Trends
-                </button>
+                </Button>
               </div>
             </div>
 
+            
+
             {/* Swot Card */}
             <div
-              className={`bg-white rounded-lg shadow-sm border-t-32  border-gray-200 p-6 min-h-[16rem] ${
+              className={`bg-white rounded-lg shadow-sm border-t-24  border-gray-200 p-6 min-h-[16rem] ${
                 getColorProperties(sectionColors.swot).borderTop
               }`}
             >
@@ -311,18 +313,17 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({}) => {
                 {/* Placeholder for content */}
               </div>
               <div className="flex justify-center">
-                <button
+                <Button
                   onClick={() => openModal("swot")}
-                  className="bg-[#22398A] hover:bg-[#1E2A78] text-white px-6 py-2 rounded-md font-medium transition-colors"
                 >
                   Swot
-                </button>
+                </Button>
               </div>
             </div>
 
             {/* Challenges Card */}
             <div
-              className={`bg-white rounded-lg shadow-sm border-t-32 border-gray-200 p-6 min-h-[16rem] ${
+              className={`bg-white rounded-lg shadow-sm border-t-24 border-gray-200 p-6 min-h-[16rem] ${
                 getColorProperties(sectionColors.challenges).borderTop
               }`}
             >
@@ -346,18 +347,17 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({}) => {
                 {/* Placeholder for content */}
               </div>
               <div className="flex justify-center">
-                <button
+                <Button
                   onClick={() => openModal("challenges")}
-                  className="bg-[#22398A] hover:bg-[#1E2A78] text-white px-6 py-2 rounded-md font-medium transition-colors"
                 >
                   Challenges
-                </button>
+                </Button>
               </div>
             </div>
 
             {/* Competitor's Analysis Card */}
             <div
-              className={`bg-white rounded-lg shadow-sm border-t-32 border-gray-200 p-6 min-h-[16rem] ${
+              className={`bg-white rounded-lg shadow-sm border-t-24 border-gray-200 p-6 min-h-[16rem] ${
                 getColorProperties(sectionColors.competitor).borderTop
               }`}
             >
@@ -381,12 +381,11 @@ const AlignmentCheck: React.FC<ClarhetAiRecommendationsProps> = ({}) => {
                 {/* Placeholder for content */}
               </div>
               <div className="flex justify-center">
-                <button
+                <Button
                   onClick={() => openModal("competitor")}
-                  className="bg-[#22398A] hover:bg-[#1E2A78] text-white px-6 py-2 rounded-md font-medium transition-colors"
                 >
                   Competitor&#39;s Analysis
-                </button>
+                </Button>
               </div>
             </div>
           </div>

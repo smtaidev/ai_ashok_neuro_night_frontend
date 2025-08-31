@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       disabled={isLoading || disabled}
-      className={`bg-[#1D2A6D] text-white text-base px-6 py-2 rounded-lg hover:bg-[#22398A] disabled:opacity-50 ${className}`}
+      className={`bg-[#22398A] text-white text-base px-6 py-2 rounded-lg hover:bg-[#1D2A6D] disabled:opacity-50 ${className}`}
     >
       {isLoading ? "Saving..." : children}
     </button>

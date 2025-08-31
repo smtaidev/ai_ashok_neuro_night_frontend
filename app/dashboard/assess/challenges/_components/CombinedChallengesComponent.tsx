@@ -1267,7 +1267,7 @@ const CombinedChallengesComponent = () => {
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded h-24 focus:ring-2 focus:ring-[#22398A] focus:border-transparent"
+                  className="w-full p-2 border border-gray-300 rounded h-32 focus:ring-2 focus:ring-[#22398A] focus:border-transparent"
                   placeholder="Describe the challenge..."
                 />
               </div>
