@@ -203,7 +203,7 @@ export default function SwotAnalysis() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="bg-white rounded-xl p-4 shadow-md flex flex-col md:flex-row gap-6 overflow-auto">
+    <div className="bg-white rounded-xl p-4 flex flex-col md:flex-row gap-6 overflow-auto">
       {/* Left grid */}
       <div className="grid grid-cols-2 h-[300px] gap-4 flex-shrink-0">
         {swotData.map((item, idx) => (

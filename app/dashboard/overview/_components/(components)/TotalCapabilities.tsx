@@ -156,7 +156,7 @@ const TotalCapabilities = () => {
 
   return (
     <div className="flex justify-center  ">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full ">
+      <div className="bg-white rounded-2xl p-8 w-full ">
         {/* Header section */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-800">

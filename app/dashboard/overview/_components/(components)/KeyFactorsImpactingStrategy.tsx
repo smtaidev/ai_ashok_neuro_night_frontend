@@ -35,8 +35,9 @@ import TalentSection from './TalentSection';
 
 const KeyFactorsImpactingStrategy = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Row 1 */}
+           
             <div className="col-span-2 md:col-span-1 bg-white rounded-lg ">
                 <BusinessChallenges />
             </div>

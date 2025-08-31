@@ -27,18 +27,11 @@ export const visionApi = api.injectEndpoints({
       query: () => "/blueprint/get-vision", // if you have this endpoint
       providesTags: ["Vision"],
     }),
-    createAIVision: builder.mutation<
-  { success: boolean; data: { vision: string } },
-  { vision: string }
->({
-  query: (body) => ({
-    url: "/ai-recommendations/create-vision",
-    method: "POST",
-    body,
-  }),
-  invalidatesTags: ["Vision"],
-}),
+    createAIVision: builder.query<{ data: Vision[] }, void>({
+      query: () => "/ai-recommendations/create-vision", // if you have this endpoint
+      providesTags: ["Vision"],
+    }),
   }),
 });
 
-export const { useCreateVisionMutation, useGetVisionsQuery, useCreateAIVisionMutation } = visionApi;
+export const { useCreateVisionMutation, useGetVisionsQuery, useCreateAIVisionQuery } = visionApi;
