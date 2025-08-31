@@ -155,6 +155,7 @@ type SwotItem = {
   color: string;
   icon: React.ReactElement;
   details?: string[];
+  bgColor?: string;
 };
 
 const swotData: SwotItem[] = [
@@ -162,6 +163,7 @@ const swotData: SwotItem[] = [
     title: "Strengths",
     percentage: 70,
     color: "red",
+    bgColor:"bg-[#F87171]",
     icon: <FaStar className="text-red-500" />,
     details: [
       "Needs to be more specific about the 'other stuff' mentioned at the end of the vision statement.",
@@ -175,6 +177,7 @@ const swotData: SwotItem[] = [
     title: "Weaknesses",
     percentage: 10,
     color: "yellow",
+    bgColor:"bg-[#F1BA31]",
     icon: <FaLock className="text-yellow-500" />,
     details: []
   },
@@ -182,6 +185,7 @@ const swotData: SwotItem[] = [
     title: "Opportunities",
     percentage: 80,
     color: "blue",
+    bgColor:"bg-[#60A5FA]",
     icon: <FaLightbulb className="text-blue-500" />,
     details: []
   },
@@ -189,6 +193,7 @@ const swotData: SwotItem[] = [
     title: "Threats",
     percentage: 20,
     color: "green",
+    bgColor:"bg-[#166534]",
     icon: <FaExclamationTriangle className="text-green-600" />,
     details: []
   }
@@ -204,7 +209,7 @@ export default function SwotAnalysis() {
         {swotData.map((item, idx) => (
           <div
             key={idx}
-            className={`bg-${item.color}-500 opacity-75 text-white rounded-lg flex flex-col justify-center items-center p-6 font-semibold text-lg`}
+            className={`${item.bgColor}  text-white rounded-lg flex flex-col justify-center items-center p-6 font-semibold text-lg`}
           >
             <p className="text-[16px]">{item.title}</p>
             <p className="text-[36px] font-thin">{item.percentage}%</p>
@@ -240,7 +245,7 @@ export default function SwotAnalysis() {
               {isOpen && item.details && item.details.length > 0 && (
                 <ul className="mt-3 list-inside pl-6 space-y-1 text-gray-700 text-sm">
                   {item.details.map((detail, dIdx) => (
-                    <li key={dIdx}>{detail}</li>
+                    <li key={dIdx}> &gt; {detail}</li>
                   ))}
                 </ul>
               )}

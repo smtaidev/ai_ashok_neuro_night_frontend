@@ -112,6 +112,10 @@ import TalentSection from "./(components)/TalentSection";
 import TotalCapabilities from "./(components)/TotalCapabilities";
 import MeetingsSection from "./(components)/UpcomingMeetingsDashboard";
 import StrategicThemeContainerPage from "./(components)/reuseable/StrategicThemeContainer";
+import KeyFactorsImpactingStrategy from "./(components)/KeyFactorsImpactingStrategy";
+import Realignment from "./(components)/Realignment";
+import FutureOutlookStrategicTrends from "./(components)/FutureOutlookStrategicTrends";
+import ProgressOverview from "./(components)/ProgressOverview";
 
 
 export default function OverviewContainerPage() {
@@ -127,33 +131,23 @@ export default function OverviewContainerPage() {
     {
       value: "key-factors",
       title: "Key Factors Impacting Strategy",
-      content: <BusinessGoalsData />,
+      content: <KeyFactorsImpactingStrategy />,
     },
     {
       value: "realignment",
       title: "Realignment",
-      content: <DifferentiationSection />,
+      content: <Realignment />,
     },
     {
       value: "future-outlook",
       title: "Future Outlook: Strategic Trends",
-      content: <FinancialSnapshot />,
+      content: <FutureOutlookStrategicTrends />,
     },
     {
       value: "progress-overview",
       title: "Progress Overview",
       content: (
-        <div className="space-y-4">
-          <NewCapabilities />
-          <RegulatoryCompliance />
-          <RisksSection />
-          <Roadblocks />
-          <StrategicThemeData />
-          <SwotAnalysis />
-          <TalentSection />
-          <TotalCapabilities />
-
-        </div>
+        <ProgressOverview/>
       ),
     },
   ]
@@ -177,6 +171,7 @@ export default function OverviewContainerPage() {
                 It inspires employees, differentiates the organization, and serves as a benchmark for measuring progress.
                 Crafting a clear Vision statement ensures alignment, focus, and success.
               </CardDescription>
+              <h1 className="text-red-500 text-center text-8xl">Working on it</h1>
             </div>
           </div>
 
