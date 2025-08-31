@@ -270,7 +270,7 @@ export default function IdentityComponent() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="p-0 border-0 w-11/12 max-w-4xl">
           <div className="bg-white rounded-xl shadow-lg relative">
-            <div className="bg-blue-800 text-white p-4 -mt-1 rounded-t-xl">
+            <div className="bg-[#1E3A8A] text-white p-4 -mt-1 rounded-t-xl">
               <DialogTitle className="text-xl font-bold">
                 {activeSection?.title}
               </DialogTitle>

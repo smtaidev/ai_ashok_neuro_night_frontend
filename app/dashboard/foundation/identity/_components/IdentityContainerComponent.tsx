@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import IdentityFirstView from './IdentityFirstView';
 import { useGetIdentityDataQuery } from '@/redux/api/foundation/foundationApi';
-import IdentityFirstTimePage from './IdentityFirstTime';
 import IdentityComponent from './IdentityComponent';
 
 export default function IdentityContainerComponent() {
@@ -11,14 +10,20 @@ export default function IdentityContainerComponent() {
 
   const { data: identityRes, isLoading, isError } = useGetIdentityDataQuery();
 
+  console.log('identityRes', identityRes);
+
   useEffect(() => {
     if (Array.isArray(identityRes?.data) && identityRes.data.length > 0) {
       const firstItem = identityRes.data[0];
       const identity = firstItem.identity || {};
 
-      const hasContent = Object.values(identity).some(
-        (value) => typeof value === 'string' && value.trim() !== ''
-      );
+
+      const hasMission = identity?.mission !== null && identity?.mission?.trim() !== '';
+      const hasValue = identity?.value !== null && identity?.value?.trim() !== '';
+      const hasPurpose = identity?.purpose !== null && identity?.purpose?.trim() !== '';
+
+      const hasContent = hasMission || hasValue || hasPurpose;
+
       setIsStarted(hasContent);
     } else {
       setIsStarted(false);
@@ -40,7 +45,6 @@ export default function IdentityContainerComponent() {
   return (
     <div>
       {isStarted ? (
-        // <IdentityFirstTimePage />
         <IdentityComponent />
       ) : (
         <IdentityFirstView onGetStarted={handleGetStarted} />
@@ -48,6 +52,5 @@ export default function IdentityContainerComponent() {
     </div>
   );
 }
-
 
 
