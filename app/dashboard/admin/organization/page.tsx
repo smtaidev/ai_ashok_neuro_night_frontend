@@ -1,14 +1,12 @@
-import OrganaizationInfo from "./_components/OrganizationInfo";
+import OrganizationInfo from "./_components/OrganizationInfo";
 
 
 
-const   Page = () => {
-  
-
+const Page = () => {
   return (
-      <div className="text-bold text-3xl  text-center">
-        <OrganaizationInfo/>
-      </div>
+    <div className="text-bold text-3xl  text-center">
+      <OrganizationInfo />
+    </div>
   );
 };
 

@@ -19,6 +19,7 @@ import {
 } from "../../_components/drawer-utils";
 import { useGetIdentityDataQuery, usePatchFoundationIdentityMutation } from "@/redux/api/foundation/foundationApi";
 import toast from "react-hot-toast";
+import { formatContent } from "@/utils/formatContent";
 
 interface Section {
   id: string;
@@ -236,7 +237,7 @@ export default function IdentityComponent() {
                 <div>
                   <h3 className="text-lg font-semibold">{section.title}</h3>
                   <p className="text-base text-[#231F20] mt-1">
-                    {section.content || "No content added yet."}
+                    {formatContent(section.content) || "No content added yet."}
                   </p>
                 </div>
               </div>
@@ -270,7 +271,7 @@ export default function IdentityComponent() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="p-0 border-0 w-11/12 max-w-4xl">
           <div className="bg-white rounded-xl shadow-lg relative">
-            <div className="bg-blue-800 text-white p-4 -mt-1 rounded-t-xl">
+            <div className="bg-[#1E3A8A] text-white p-4 -mt-1 rounded-t-xl">
               <DialogTitle className="text-xl font-bold">
                 {activeSection?.title}
               </DialogTitle>
