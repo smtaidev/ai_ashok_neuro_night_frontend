@@ -19,6 +19,7 @@ import {
 } from "../../_components/drawer-utils";
 import { useGetIdentityDataQuery, usePatchFoundationIdentityMutation } from "@/redux/api/foundation/foundationApi";
 import toast from "react-hot-toast";
+import { formatContent } from "@/utils/formatContent";
 
 interface Section {
   id: string;
@@ -236,7 +237,7 @@ export default function IdentityComponent() {
                 <div>
                   <h3 className="text-lg font-semibold">{section.title}</h3>
                   <p className="text-base text-[#231F20] mt-1">
-                    {section.content || "No content added yet."}
+                    {formatContent(section.content) || "No content added yet."}
                   </p>
                 </div>
               </div>
