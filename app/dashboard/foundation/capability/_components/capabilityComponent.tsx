@@ -202,6 +202,7 @@ export default function CapabilityComponent() {
         {/* variant="link" */}
         {/* className="text-sm text-primary font-medium flex items-center gap-1" */}
         <Button
+          variant="getStarted"
           onClick={handleAddNew}
         >
           <Plus className="h-4 w-4" />
@@ -218,7 +219,9 @@ export default function CapabilityComponent() {
           </div>
           <h3 className="text-lg font-medium text-gray-900 mb-2">No capabilities yet</h3>
           <p className="text-gray-500 mb-4">Get started by adding your first capability.</p>
-          <Button onClick={handleAddNew}>
+          <Button
+            variant={"getStarted"}
+            onClick={handleAddNew}>
             <Plus className="h-4 w-4 mr-2" />
             Add New Capability
           </Button>
