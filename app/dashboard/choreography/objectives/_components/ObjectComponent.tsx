@@ -16,6 +16,7 @@ import { useGetBusinessGoalsQuery } from "@/redux/api/blueprint/businessGoal/bus
 import CardView from "./CardView"
 import TimelineView from "./TimelineView"
 import toast from "react-hot-toast"
+import { Textarea } from "@/components/ui/textarea"
 
 const StructureView = dynamic(() => import("./StructureView"), {
   ssr: false,
@@ -260,7 +261,7 @@ const ObjectivesPage = ({ data }: ObjectComponentProps) => {
 
       {/* Add Objective Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="p-0 border-0 max-w-4xl">
+        <DialogContent className="p-0 border-0 max-w-6xl!">
           <div className="bg-white rounded-xl shadow-lg relative">
             <div className="bg-[#22398A] text-white p-4 -mt-1 rounded-t-xl">
               <DialogTitle className="text-xl font-bold">Add an objective</DialogTitle>
@@ -270,31 +271,46 @@ const ObjectivesPage = ({ data }: ObjectComponentProps) => {
               {/* Left side */}
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Title *</Label>
-                  <Input name="title" value={formData.title} onChange={handleChange} placeholder="Add Title..." />
-                </div>
-                <div className="space-y-2">
-                  <Label>Description *</Label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    placeholder="Add Details..."
-                    className="w-full border rounded-md p-3"
-                    rows={4}
+                  <Label className="text-lg font-bold">Title<span className="text-red-500">*</span></Label>
+                  <Input name="title" value={formData.title} onChange={handleChange} placeholder="Add Title..." className="w-full bg-[#F8FBFF] border border-blue-100 p-4 text-lg h-13"
+                    required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Objective Timeline *</Label>
+                  <Label className="text-lg font-bold">Description<span className="text-red-500">*</span></Label>
+                  <Textarea
+                    placeholder="Add Details....."
+                    value={formData.description}
+                    name="description"
+                    onChange={handleChange}
+                    className="w-full min-h-[150px] bg-[#F8FBFF] border border-blue-100 p-4 text-lg"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-lg font-bold">Objective Timeline<span className="text-red-500">*</span></Label>
+
                   <div className="grid grid-cols-2 gap-4 mt-2">
-                    <Input type="date" name="startDate" value={formData.startDate} onChange={handleChange} />
-                    <Input type="date" name="endDate" value={formData.endDate} onChange={handleChange} />
+                    <div>
+                      <Label className="mb-2">Start Date</Label>
+                      <Input type="date" name="startDate" value={formData.startDate} onChange={handleChange} className="w-full bg-[#F8FBFF] border border-blue-100 p-4 text-lg h-13"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label className="mb-2">End Date</Label>
+                      <Input type="date" name="endDate" value={formData.endDate} onChange={handleChange} className="w-full bg-[#F8FBFF] border border-blue-100 p-4 text-lg h-13"
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label>Priority *</Label>
-                    <select name="priority" value={formData.priority} onChange={handleChange} className="w-full border rounded-md p-3">
+                    <Label className="text-lg font-bold">Priority<span className="text-red-500">*</span></Label>
+                    <select name="priority" value={formData.priority} onChange={handleChange} className="w-full border rounded-md p-3"
+                      required
+                    >
                       <option>Select Priority</option>
                       <option>Urgent</option>
                       <option>High</option>
@@ -303,50 +319,96 @@ const ObjectivesPage = ({ data }: ObjectComponentProps) => {
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Progress *</Label>
-                    <Input name="progress" value={formData.progress} onChange={handleChange} placeholder="Planning Phase" />
+                    <Label className="text-lg font-bold">Progress(in %)<span className="text-red-500">*</span></Label>
+                    <Input name="progress" value={formData.progress} onChange={handleChange} placeholder="ie. 10"
+                      className="w-full p-4 text-lg h-13"
+                      required
+                    />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label>Funding Allocated *</Label>
-                  <Input name="fundingAllocated" value={formData.fundingAllocated} onChange={handleChange} placeholder="ie. 100" />
+                  <Label className="text-lg font-bold">Funding allocated toward achieving this objective?<span className="text-red-500">*</span></Label>
+                  <Input name="fundingAllocated" value={formData.fundingAllocated} onChange={handleChange} placeholder="ie. 100"
+                    className="w-full p-4 text-lg h-13"
+                    required
+                  />
                 </div>
                 <div className="space-y-2">
-                  <Label>Environmental & Social Issues?</Label>
+                  <Label className="text-lg font-bold">Are there any environmental and social issues that must be addressed while accomplishing this objective.</Label>
                   <select name="envSocialIssues" value={formData.envSocialIssues} onChange={handleChange} className="w-full border rounded-md p-3">
                     <option>No</option>
                     <option>Yes</option>
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <Label>If yes, explain</Label>
-                  <textarea
-                    name="envSocialDetails"
+                  <Label className="font-bold text-lg">If yes, please explain the environmental and social issues that need to addressing</Label>
+                  <Textarea
+                    placeholder="Add Details....."
                     value={formData.envSocialDetails}
-                    onChange={handleChange}
-                    placeholder="Add Details..."
-                    className="w-full border rounded-md p-3 mt-2"
+                    name="envSocialDetails"
+                    className="w-full min-h-[150px] bg-[#F8FBFF] border border-blue-100 p-4 text-lg"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Risks Associated?</Label>
+                  <Label className="font-bold text-lg" >Are there any risks associated with this objective?</Label>
                   <select name="risksAssociated" value={formData.risksAssociated} onChange={handleChange} className="w-full border rounded-md p-3">
                     <option>No</option>
                     <option>Yes</option>
                   </select>
                 </div>
-                <div className="space-y-2">
-                  <Label>Risk Mitigation</Label>
-                  <Input
-                    placeholder="Risk Level"
-                    value={formData.riskDetails?.lavel}
-                    onChange={(e) => handleNestedChange("riskDetails", "lavel", e.target.value)}
-                  />
-                  <textarea
-                    placeholder="Risk Description"
+                <div className="space-y-3">
+                  <Label className="font-bold text-lg">
+                    If yes, please explain the risk and any risk mitigation.
+                  </Label>
+
+                  {/* Impact Level */}
+                  <div>
+                    <div className="flex items-center gap-6 mt-2">
+                      <p className="font-semibold">Impact</p>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRiskMitigation"
+                          value="High"
+                          checked={formData.riskDetails?.lavel === "High"}
+                          onChange={(e) => handleNestedChange("riskDetails", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-red-500"
+                        />
+                        <span className="text-sm">High</span>
+                      </label>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRiskMitigation"
+                          value="Medium"
+                          checked={formData.riskDetails?.lavel === "Medium"}
+                          onChange={(e) => handleNestedChange("riskDetails", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-yellow-500"
+                        />
+                        <span className="text-sm">Medium</span>
+                      </label>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRiskMitigation"
+                          value="Low"
+                          checked={formData.riskDetails?.lavel === "Low"}
+                          onChange={(e) => handleNestedChange("riskDetails", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-gray-600"
+                        />
+                        <span className="text-sm">Low</span>
+                      </label>
+                    </div>
+
+                  </div>
+                  <Textarea
+                    placeholder="Add Details....."
                     value={formData.riskDetails?.description}
                     onChange={(e) => handleNestedChange("riskDetails", "description", e.target.value)}
-                    className="w-full border rounded-md p-3 mt-2"
+                    className="w-full min-h-[150px] bg-[#F8FBFF] border border-blue-100 rounded-2xl p-4 text-lg"
                   />
                 </div>
               </div>
@@ -354,9 +416,9 @@ const ObjectivesPage = ({ data }: ObjectComponentProps) => {
               {/* Right side */}
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Objective Owner</Label>
+                  <Label className="font-bold text-lg">Objective Owner</Label>
                   <select name="objectiveOwner" value={formData.objectiveOwner} onChange={handleChange} className="w-full border rounded-md p-3">
-                    <option value="">Please Select</option>
+                    <option value="">Please Select Name(s)</option>
                     {orgUsers?.map((user) => (
                       <option key={user._id} value={user._id}>{user.userId.userName}</option>
                     ))}
@@ -365,14 +427,14 @@ const ObjectivesPage = ({ data }: ObjectComponentProps) => {
 
                 {/* Assign Team Members Section */}
                 <div className="space-y-2">
-                  <Label>Assign Team Member</Label>
+                  <Label className="font-bold text-lg">Assign team member to accomplish this objective</Label>
                   <select
                     name="assignedTeamMembers"
                     onChange={handleAddAssignedMember}
                     className="w-full border rounded-md p-3"
                     defaultValue=""
                   >
-                    <option value="">Please Select</option>
+                    <option value="">Please Select Name(s)</option>
                     {teamMembers?.data.map((m) => (
                       <option
                         key={m._id}
@@ -407,7 +469,7 @@ const ObjectivesPage = ({ data }: ObjectComponentProps) => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Cross-team Collaboration?</Label>
+                  <Label className="font-bold text-lg">Dose this objective require cross-function team collaboration?</Label>
                   <select name="crossTeamCollaboration" value={formData.crossTeamCollaboration} onChange={handleChange} className="w-full border rounded-md p-3">
                     <option>No</option>
                     <option>Yes</option>
@@ -416,14 +478,14 @@ const ObjectivesPage = ({ data }: ObjectComponentProps) => {
 
                 {/* Invite Members Section */}
                 <div className="space-y-2">
-                  <Label>Invite Members</Label>
+                  <Label className="font-bold text-lg">If yes, invite team members from other function’s</Label>
                   <select
                     name="invitedTeamMembers"
                     onChange={handleAddInvitedMember}
                     className="w-full border rounded-md p-3"
                     defaultValue=""
                   >
-                    <option value="">Please Select</option>
+                    <option value="">Please Select Name(s)</option>
                     {teamMembers?.data?.map((m) => (
                       <option
                         key={m._id}
@@ -459,16 +521,16 @@ const ObjectivesPage = ({ data }: ObjectComponentProps) => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Business Goals</Label>
+                  <Label className="font-bold text-lg">What business goals is this objective tied to?</Label>
                   <select name="businessGoals" value={formData.businessGoals} onChange={handleChange} className="w-full border rounded-md p-3">
-                    <option value="">Select</option>
+                    <option value="">Select Functionality</option>
                     {businessGoals?.data?.map((goal) => (
                       <option key={goal._id} value={goal._id}>{goal.title}</option>
                     ))}
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <Label>Term Type</Label>
+                  <Label className="font-bold text-lg">Is this a long-term or short-term objective</Label>
                   <select name="termType" value={formData.termType} onChange={handleChange} className="w-full border rounded-md p-3">
                     <option>Please select</option>
                     <option>Annual</option>
@@ -477,49 +539,91 @@ const ObjectivesPage = ({ data }: ObjectComponentProps) => {
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <Label>Specific & Strategic?</Label>
+                  <Label className="font-bold text-lg">Is this objective both specific and strategic?</Label>
                   <select name="specificStrategic" value={formData.specificStrategic} onChange={handleChange} className="w-full border rounded-md p-3">
                     <option>Yes</option>
                     <option>No</option>
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <Label>Resources Available?</Label>
+                  <Label className="font-bold text-lg">Do we possess the necessary resources (human and material) to accomplish this objective.</Label>
                   <select name="necessaryResources" value={formData.necessaryResources} onChange={handleChange} className="w-full border rounded-md p-3">
                     <option>Yes</option>
                     <option>No</option>
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <Label>Additional Talent Needed</Label>
-                  <textarea
+                  <Label className="font-bold text-lg">If not, then explain what talent or other resources we need.</Label>
+                  <Textarea
+                    placeholder="Add Details....."
                     name="additionalTalent"
                     value={formData.additionalTalent}
                     onChange={handleChange}
-                    placeholder="Add Details..."
-                    className="w-full border rounded-md p-3 mt-2"
+                    className="w-full min-h-[150px] bg-[#F8FBFF] border border-blue-100 rounded-2xl p-4 text-lg"
                   />
+
                 </div>
-                <div className="space-y-2">
-                  <Label>Potential Challenges</Label>
-                  <Input
-                    placeholder="Challenge Level"
-                    value={formData.potentialChallenges?.lavel}
-                    onChange={(e) => handleNestedChange("potentialChallenges", "lavel", e.target.value)}
-                  />
-                  <textarea
-                    placeholder="Challenge Description"
+                <div className="space-y-3">
+                  <Label className="font-bold text-lg">
+                    What potential challenges or roadblocks do we expect to encounter while achieving this objective?
+                  </Label>
+
+                  {/* Impact Level */}
+                  <div>
+                    <div className="flex items-center gap-6 mt-2">
+                      <p className="font-semibold">Impact</p>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRoadblock"
+                          value="High"
+                          checked={formData.potentialChallenges?.lavel === "High"}
+                          onChange={(e) => handleNestedChange("potentialChallenges", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-red-500"
+                        />
+                        <span className="text-sm">High</span>
+                      </label>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRoadblock"
+                          value="Medium"
+                          checked={formData.potentialChallenges?.lavel === "Medium"}
+                          onChange={(e) => handleNestedChange("potentialChallenges", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-yellow-500"
+                        />
+                        <span className="text-sm">Medium</span>
+                      </label>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRoadblock"
+                          value="Low"
+                          checked={formData.potentialChallenges?.lavel === "Low"}
+                          onChange={(e) => handleNestedChange("potentialChallenges", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-gray-600"
+                        />
+                        <span className="text-sm">Low</span>
+                      </label>
+                    </div>
+
+                  </div>
+                  <Textarea
+                    placeholder="Add Details....."
                     value={formData.potentialChallenges?.description}
                     onChange={(e) => handleNestedChange("potentialChallenges", "description", e.target.value)}
-                    className="w-full border rounded-md p-3 mt-2"
+                    className="w-full min-h-[150px] bg-[#F8FBFF] border border-blue-100 rounded-2xl p-4 text-lg"
                   />
                 </div>
               </div>
             </div>
 
             <div className="flex justify-end p-4 gap-4">
-              <Button onClick={handleSubmit} className="bg-[#22398A] hover:bg-[#22398A]/90 text-white">
-                Save Objective
+              <Button onClick={handleSubmit} className="bg-[#22398A] hover:bg-[#22398A]/90 text-lg text-white">
+                Save
               </Button>
             </div>
           </div>
