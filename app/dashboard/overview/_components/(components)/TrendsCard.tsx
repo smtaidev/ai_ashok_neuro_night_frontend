@@ -16,7 +16,7 @@ const data = [
 
 export default function TrendsCard() {
   return (
-    <div className="bg-white rounded-xl shadow-sm border p-5 w-full">
+    <div className="bg-white rounded-xl shadow-sm border p-5 h-full w-full">
       {/* Header */}
       <h3 className="text-[18px] font-semibold text-[#1E3A8A]">Trends</h3>
       <p className="text-xs text-gray-500 mb-4">Emerging Industry Patterns</p>

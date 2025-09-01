@@ -55,7 +55,8 @@ export interface BusinessGoal {
   title: string;
   description: string;
   related_strategic_theme: string;
-  strategicID?: string;
+  strategicID?: { _id: string };
+  // strategicID?: string;
   priority: string;
   resource_readiness: string;
   assigned_functions: string[];
@@ -98,6 +99,12 @@ export interface BusinessGoalResponse {
 
 const BusinessGoals = () => {
   const { data, isLoading } = useGetBusinessGoalsQuery<BusinessGoalResponse | any>();
+
+  console.log(
+    " ================================================>",
+    data,
+    "Business Goals Data"
+  );
 
   if (isLoading) return <Loading />;
 

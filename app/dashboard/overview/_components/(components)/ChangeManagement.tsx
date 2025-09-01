@@ -21,7 +21,7 @@ const ChangeManagement = () => {
              subtitle=''
               data={roadblocksData}
                points={roadblocksPoints}
-                footerLinkText = "Explore More"
+                footerLinkText = "View Details"
                  footerLinkHref='#'
                  secondTitle=""
             />

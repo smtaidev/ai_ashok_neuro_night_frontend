@@ -16,7 +16,7 @@ const FeatureRow: React.FC<FeatureProps> = ({ label, value }) => (
 
 const DifferentiationSection: React.FC = () => {
   return (
-    <div className="max-w- mx-auto p-6 bg-white rounded-xl shadow-lg">
+    <div className="max-w- mx-auto p-6 bg-white rounded-xl">
       {/* Header section */}
       <div className="pb-4 border-b border-gray-200">
         <h2 className="text-[18px] font-thin mb-2 text-[#1E3A8A]">Differentiation</h2>

@@ -1,54 +1,55 @@
 export const VisionHTML = () => (
   <div className="space-y-5">
     <div className="border p-4 rounded-lg">
-      <h2 className=" font-semibold mb-5">Why have a vision statement?</h2>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <h2 className=" text-xl font-bold text-[#0b1c33]
+ mb-5">Why have a vision statement?</h2>
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Guiding Force:
         </span>{" "}
         A vision statement acts as a compass, driving a company toward its goals
         by clarifying its intent and ensuring alignment toward a shared vision.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Motivation:
         </span>{" "}
         A clear and inspiring vision motivates employees and fosters a positive
         and productive work environment.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Strategic Decision-Making:
         </span>{" "}
         A clear vision is essential in making strategic decisions and provides a
         framework to ensure that choices align with the company&#39;s goals.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Brand Image:
         </span>{" "}
         A well-crafted vision statement builds a positive brand image. It
         communicates the company&#39;s values and commitments to customers,
         investors, and society.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Employee Engagement:
         </span>{" "}
         Employees are more motivated and engaged when they understand the
         broader purpose of their work. A compelling vision fosters a sense of
         belonging and commitment among team members.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Strategic Alignment:
         </span>{" "}
         A clear vision ensures that everyone within the organization is moving
         in the same direction. It helps align diverse functions and teams toward
         common goals.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Attracting Stakeholders:
         </span>{" "}
         A strong vision statement helps attract investors, partners, and
@@ -57,47 +58,49 @@ export const VisionHTML = () => (
       </p>
     </div>
     <div className="border p-4 rounded-lg">
-      <h2 className=" font-semibold mb-5">What it should include?</h2>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">Clarity</span>{" "}
+      <h2 className=" text-xl font-bold text-[#0b1c33]
+ mb-5">What it should include?</h2>
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">Clarity</span>{" "}
         Keep it clear and concise. A vision statement should be easily
         understood by anyone, both inside and outside the organization.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Inspiration:
         </span>{" "}
         Infuse it with inspiration. A compelling vision statement should evoke a
         sense of purpose and motivation among employees and stakeholders.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Future Orientation:
         </span>{" "}
         Focus on the future. A vision statement is not about the current state
         of the company but about its long-term aspirations and goals.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">Values: </span>{" "}
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">Values: </span>{" "}
         Integrate the company&#39;s core values. The vision should align with the
         principles that define the organization.
       </p>
     </div>
     <div className="border p-4 rounded-lg">
-      <h2 className=" font-semibold mb-5">What it should not include?</h2>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">Jargon:</span>{" "}
+      <h2 className=" text-xl font-bold text-[#0b1c33]
+ mb-5">What it should not include?</h2>
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">Jargon:</span>{" "}
         Avoid industry jargon that may be unclear to those outside the company.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Generic Phrases:{" "}
         </span>{" "}
         Steer clear of generic or cliché phrases that could apply to any
         business. Make it unique to your organization.
       </p>
-      <p className="text-xs font-thin mb-4  text-gray-600">
-        <span className="text-xs mr-2 text-black font-semibold">
+      <p className="text-base text-[#231f20] mb-4 ">
+        <span className=" text-base font-semibold text-gray-700 mr-2">
           Overly Detailed Plans:
         </span>
         A vision statement is not a business plan. It should capture the essence
@@ -106,30 +109,31 @@ export const VisionHTML = () => (
     </div>
 
     <div className="border p-4 rounded-lg">
-      <h2 className=" font-semibold mb-5">
+      <h2 className=" text-xl font-bold text-[#0b1c33]
+ mb-5">
         Dos and Don&#39;ts of Vision Statement
       </h2>
       {/* dos container */}
       <div className="flex justify-between w-full gap-3">
         <div className="border p-2 rounded-md w-full">
-          <h2 className="text-sm font-semibold mb-5">Do&#39;s</h2>
-          <p className="text-[10px] font-thin mb-2  text-gray-600">
-            <span className="text-[10px] mr-2 text-black font-semibold">
+          <h2 className="text-xl font-semibold mb-5">Do&#39;s</h2>
+          <p className="text-[14px] text-[#231f20]">
+            <span className=" text-[15px] font-semibold text-gray-700 mr-2">
               Engage Stakeholders:{" "}
             </span>{" "}
             Involve key stakeholders in the visioning process to ensure all the
             crucial and diverse perspectives are considered.
           </p>
-          <p className="text-[10px] font-thin mb-2  text-gray-600">
-            <span className="text-[10px] mr-2 text-black font-semibold">
+          <p className="text-[14px] text-[#231f20]">
+            <span className=" text-[15px] font-semibold text-gray-700 mr-2">
               Review Regularly:{" "}
             </span>{" "}
             A vision statement is not set in stone. Regularly review and update
             it to reflect changes in the business environment or organizational
             goals.
           </p>
-          <p className="text-[10px] font-thin mb-2  text-gray-600">
-            <span className="text-[10px] mr-2 text-black font-semibold">
+          <p className="text-[14px] text-[#231f20]">
+            <span className=" text-[15px] font-semibold text-gray-700 mr-2">
               Be Memorable:{" "}
             </span>{" "}
             Craft a statement that is memorable and easily recalled by
@@ -137,23 +141,23 @@ export const VisionHTML = () => (
           </p>
         </div>
         <div className="border p-2 rounded-md w-full">
-          <h2 className="text-sm font-semibold mb-5">Don&#39;ts</h2>
-          <p className="text-[10px] font-thin mb-2  text-gray-600">
-            <span className="text-[10px] mr-2 text-black font-semibold">
+          <h2 className="text-xl font-semibold mb-5">Don&#39;ts</h2>
+          <p className="text-[14px] text-[#231f20]">
+            <span className=" text-[15px] font-semibold text-gray-700 mr-2">
               Jargon:
             </span>{" "}
             Steer clear of industry jargon that may be unclear to those outside
             the organization.
           </p>
-          <p className="text-[10px] font-thin mb-2  text-gray-600">
-            <span className="text-[10px] mr-2 text-black font-semibold">
+          <p className="text-[14px] text-[#231f20]">
+            <span className=" text-[15px] font-semibold text-gray-700 mr-2">
               Overcomplicate:
             </span>{" "}
             Keep the language simple. A convoluted vision statement can be
             confusing and lose its impact.
           </p>
-          <p className="text-[10px] font-thin mb-2  text-gray-600">
-            <span className="text-[10px] mr-2 text-black font-semibold">
+          <p className="text-[14px] text-[#231f20]">
+            <span className=" text-[15px] font-semibold text-gray-700 mr-2">
               Copy others:
             </span>{" "}
             Your vision should be unique to your organization. Avoid copying
