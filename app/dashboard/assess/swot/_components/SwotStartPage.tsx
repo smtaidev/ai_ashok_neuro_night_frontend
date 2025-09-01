@@ -150,7 +150,7 @@ const SwotStartPage = () => {
                     <textarea
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded mt-1 h-24"
+                      className="w-full p-2 border border-gray-300 rounded mt-1 h-38"
                       placeholder="Describe"
                     />
                   </div>

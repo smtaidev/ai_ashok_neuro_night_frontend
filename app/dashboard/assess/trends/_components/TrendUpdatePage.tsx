@@ -656,7 +656,7 @@ const UpdateTrendPage: React.FC = () => {
 
       <div className="flex">
         {/* Left Sidebar - Scrollable */}
-        <div className="w-80 bg-white border-r h-screen overflow-y-auto">
+        <div className="w-120 bg-white border-r h-screen overflow-y-auto">
           <div className="p-6">
             <div className="mb-4 p-3 bg-blue-50 rounded-lg">
               <p className="text-xs text-blue-700">
@@ -743,8 +743,8 @@ const UpdateTrendPage: React.FC = () => {
                 {renderStepContent()}
 
                 {/* Navigation Buttons */}
-                <div className="fixed bottom-0 right-0 left-[600px] bg-white border-t p-6">
-                  <div className="ml-10 max-w-4xl flex items-center justify-between">
+                <div className="fixed bottom-0 right-0 left-[800px] bg-white border-t p-6">
+                  <div className="ml-10 max-w-4xl flex items-center justify-end gap-8">
                     <button
                       onClick={handlePrevious}
                       disabled={currentStep === 0}

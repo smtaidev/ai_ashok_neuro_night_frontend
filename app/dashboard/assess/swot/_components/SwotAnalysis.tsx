@@ -6,7 +6,7 @@ import { swotSectionsData } from '@/app/dashboard/foundation/_components/dummyDa
 import Drawer from '@/app/dashboard/blueprint/vision/_comoponents/DrawarModal';
 import { BsFillGridFill } from 'react-icons/bs';
 import { PiSquareSplitHorizontalFill } from "react-icons/pi";
-import { useCreateSwotMutation, useGetSwotsQuery, useUpdateSwotMutation, useDeleteSwotMutation } from '@/redux/api/swot/swotApi';
+import { useCreateSwotMutation, useGetSwotsQuery, useUpdateSwotMutation, useDeleteSwotMutation, useCreateAiSwotMutation } from '@/redux/api/swot/swotApi';
 import toast from 'react-hot-toast';
 import { useGetAiSwotQuery } from '@/redux/api/clarhetai-recomandation/clarhetaiApi';
 import AIRecommendationsDrawer from '@/components/swotAIRecomandation/page';
@@ -220,14 +220,14 @@ const SWOTSection: React.FC<{
           <div className={`w-6 h-6 ${textColor} bg-white rounded-full flex items-center justify-center text-xs font-semibold`}>
             {title.charAt(0)}
           </div>
-          <h3 className="font-semibold text-white">{title}</h3>
+          <h3 className="font-semibold  text-white">{title}</h3>
         </div>
       </div>
       <div className="p-4">
         <div className="space-y-3">
           {displayItems.map((item, index) => (
             <div key={index} className="flex items-center justify-between px-3 py-2 bg-gray-50 border border-gray-200 rounded-md relative hover:bg-gray-100 transition-colors">
-              <span className="text-gray-700 text-sm">{typeof item === 'string' ? item : item.details}</span>
+              <span className="text-gray-700 text-base">{typeof item === 'string' ? item : item.details}</span>
               <div className="relative">
                 <button 
                   className="text-gray-400 hover:text-gray-600 p-1"
@@ -292,26 +292,85 @@ const SWOTAnalysis: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'split'>('grid');
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+const [aiRecommendations, setAiRecommendations] = useState<{
+  strengths: string[];
+  weaknesses: string[];
+  opportunities: string[];
+  threats: string[];
+}>({
+  strengths: [],
+  weaknesses: [],
+  opportunities: [],
+  threats: [],
+});
+
+const [createAiSwot, { isLoading: isCreatingAi }] = useCreateAiSwotMutation();
+
+const handleMoreInfoClickAI = async () => {
+  try {
+    // Assuming createAiSwot requires a payload; replace {} with actual payload if needed (e.g., { companyName } or SWOT data)
+    // Pass an empty object or the required payload as argument
+    const response = await createAiSwot({
+      data: {
+        recommendations: {
+          strengths_recommendation: '',
+          weaknesses_recommendation: '',
+          opportunities_recommendation: '',
+          threats_recommendation: ''
+        }
+      }
+    }).unwrap(); // Use .unwrap() to get the resolved data or throw error
+    console.log("AI SWOT Response:", response);
+
+    const recs = response.data?.recommendations;
+
+    const parseRec = (str: string): string[] => {
+  if (!str.trim()) return [];
+  return str.split('\n')
+    .map((line: string) => line.trim().replace(/^\d+\.\s*/, ''))
+    .filter(Boolean);
+};
+
+    const parsed = {
+      strengths: parseRec(recs.strengths_recommendation),
+      weaknesses: parseRec(recs.weaknesses_recommendation),
+      opportunities: parseRec(recs.opportunities_recommendation),
+      threats: parseRec(recs.threats_recommendation),
+    };
+
+    setAiRecommendations(parsed);
+    setIsDrawerOpen(true);
+  } catch (error) {
+    console.error("Error fetching AI SWOT:", error);
+    // Optionally, show an error message to the user, e.g., via toast or alert
+  }
+};
   
 
   // for drawer modal
 
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     
-      const handleMoreInfoClickAI = () => {
-        setIsDrawerOpen(true);
-      };
+  //     const handleMoreInfoClickAI = () => {
+  //       console.log("AI SWOT Data:", createAiSwot);
+  //       setIsDrawerOpen(true);
+  //     };
     
       const handleCloseDrawerAI = () => {
         setIsDrawerOpen(false);
       };
 
   const [createSwot, {isLoading}] = useCreateSwotMutation();
+  // const [createAiSwot, {isLoading: isCreatingAi}] = useCreateAiSwotMutation();
   const [updateSwot, {isLoading: isUpdating}] = useUpdateSwotMutation();
   const [deleteSwot, {isLoading: isDeleting}] = useDeleteSwotMutation();
 
   const {data: swotData} = useGetSwotsQuery();
   const { data: aiSwotData } = useGetAiSwotQuery();
+
+  
 
   // console.log("ai swot data", aiSwotData ? aiSwotData?.data: "No AI data available");
 
@@ -492,9 +551,17 @@ const SWOTAnalysis: React.FC = () => {
           </div>
           <div className="md:flex md:flex-col  items-start space-y-3">
             <div>
-              <button onClick={handleMoreInfoClickAI} className="px-4 py-2 border cursor-pointer  border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+              {/* <button onClick={handleMoreInfoClickAI} className="px-4 py-2 border cursor-pointer  border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
               ClearhetAI Recommendations
-            </button>
+            </button> */}
+
+            <button 
+  onClick={handleMoreInfoClickAI} 
+  disabled={isCreatingAi} // Disable while loading
+  className="px-4 py-2 border cursor-pointer border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+>
+  {isCreatingAi ? 'Loading...' : 'ClearhetAI Recommendations'}
+</button>
             </div>
             <div className='flex justify-center items-start space-x-3'>
               <button
@@ -624,7 +691,7 @@ const SWOTAnalysis: React.FC = () => {
         {isModalOpen && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div
-              className="bg-[#1D2A6D] rounded-lg w-full max-w-3xl shadow-lg"
+              className="bg-[#1D2A6D] rounded-lg w-full max-w-4xl shadow-lg"
               style={{ fontFamily: "Arial, sans-serif" }}
             >
               <div className="p-3 flex justify-between items-center">
@@ -656,7 +723,7 @@ const SWOTAnalysis: React.FC = () => {
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded mt-1 h-24"
+                    className="w-full p-2 border border-gray-300 rounded mt-1 h-38"
                     placeholder="Describe"
                   />
                 </div>
@@ -684,7 +751,7 @@ const SWOTAnalysis: React.FC = () => {
         {isUpdateModalOpen && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div
-              className="bg-[#1D2A6D] rounded-lg w-full max-w-3xl shadow-lg"
+              className="bg-[#1D2A6D] rounded-lg w-full max-w-4xl shadow-lg"
               style={{ fontFamily: "Arial, sans-serif" }}
             >
               <div className="p-3 flex justify-between items-center">
@@ -707,11 +774,11 @@ const SWOTAnalysis: React.FC = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm text-gray-700">Describe</label>
+                  <label className="block text-base text-gray-700">Describe</label>
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded mt-1 h-24"
+                    className="w-full p-2 border border-gray-300 rounded mt-1 h-38"
                     placeholder="Describe"
                   />
                 </div>
@@ -767,7 +834,35 @@ const SWOTAnalysis: React.FC = () => {
           </div>
         )}
       </div>
+
+
+
       <Drawer
+  isOpen={isDrawerOpen}
+  onClose={() => setIsDrawerOpen(false)} // Updated to use setIsDrawerOpen
+  title="ClearhetAI Swot Recommendations"
+>
+  <div className="grid grid-cols-1 gap-6 mt-4">
+    <div>
+      <h3 className='text-2xl font-bold'>Company Name: {companyName}</h3>
+      <p className='text-lg mt-2 font-semibold'>AI SWOT Analysis</p>
+    </div>
+    
+    {["strengths", "weaknesses", "opportunities", "threats"].map(
+      (key) => (
+        <div key={key} className="border p-4 rounded-lg shadow">
+          <h2 className="text-lg font-bold mb-2">{key.charAt(0).toUpperCase() + key.slice(1)}</h2>
+          <ul className="list-disc list-inside space-y-1">
+            {aiRecommendations[key as keyof typeof aiRecommendations]?.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    )}
+  </div>
+</Drawer>
+      {/* <Drawer
         isOpen={isDrawerOpen}
         onClose={handleCloseDrawerAI}
         title="ClearhetAI Swot Recommendations"
@@ -791,7 +886,7 @@ const SWOTAnalysis: React.FC = () => {
               )
             )}
           </div>
-      </Drawer>
+      </Drawer> */}
     </div>
   );
 };

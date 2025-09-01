@@ -902,6 +902,25 @@ const AIRecommendationsDrawer: React.FC<AIRecommendationsDrawerProps> = ({
         <p className="text-blue-100">AI-Powered Strategic Trend Analysis</p>
       </div>
 
+      {/* Irrelevant Answers Warning - Show only if data exists */}
+      {aiData?.summary?.irrelevant_answers && aiData.summary.irrelevant_answers.length > 0 && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="p-1 bg-red-500 rounded">
+              <AlertTriangle className="w-4 h-4 text-white" />
+            </div>
+            <h4 className="font-semibold text-red-800">Data Quality Warnings</h4>
+          </div>
+          <div className="space-y-2">
+            {aiData.summary.irrelevant_answers.map((warning: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined, index: React.Key | null | undefined) => (
+              <p key={index} className="text-sm text-red-700 leading-relaxed bg-white p-3 rounded border border-red-100">
+                {warning}
+              </p>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">

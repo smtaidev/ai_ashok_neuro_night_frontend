@@ -37,6 +37,7 @@
 
 // const TakeMeetingMinutes: React.FC = () => {
 //   const { data, isLoading } = useGetNextTwoMeetingsQuery();
+//   console.log(data);
 
 //   if (isLoading) {
 //     return (
@@ -110,9 +111,14 @@
 // export default TakeMeetingMinutes;
 
 
-import { useGetNextTwoMeetingsQuery } from "@/redux/api/meeting/meetingApi";
-import React, { useState } from "react";
+
+"use client";
+
+import { useGetMyAllAgendaQuery, useGetNextTwoMeetingsQuery } from "@/redux/api/meeting/meetingApi";
+import React, { useEffect, useState } from "react";
 import Loading from "../../loading";
+import { decodedToken } from "@/utils/jwt";
+import TakeMeetingMinutesModal from "./TakeMeetingMinutesModal";
 
 interface MeetingItem {
   id: string;
@@ -125,6 +131,7 @@ interface MeetingItem {
 const getMeetingTypeBadge = (type: MeetingItem["type"]) => {
   let bgColor = "";
   let textColor = "text-white";
+
   switch (type) {
     case "Monthly":
       bgColor = "bg-teal-600";
@@ -139,6 +146,7 @@ const getMeetingTypeBadge = (type: MeetingItem["type"]) => {
       bgColor = "bg-gray-200";
       textColor = "text-gray-800";
   }
+
   return (
     <span
       className={`inline-flex items-center px-4 py-1.5 rounded-lg text-xs font-medium ${bgColor} ${textColor}`}
@@ -149,18 +157,30 @@ const getMeetingTypeBadge = (type: MeetingItem["type"]) => {
 };
 
 const TakeMeetingMinutes: React.FC = () => {
-  const { data, isLoading } = useGetNextTwoMeetingsQuery();
 
+
+  const { data, isLoading } = useGetNextTwoMeetingsQuery();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedMeetingId, setSelectedMeetingId] = useState<string | null>(
-    null
-  );
+  const [selectedMeetingId, setSelectedMeetingId] = useState<string | null>(null);
+  
+ 
+  // useEffect(() => {
+  //   const token = localStorage.getItem("accessToken");
+  //   if (token) {
+  //     const userInfo = decodedToken(token);
+  //     console.log(
+  //       "User Info: in action item assign to me from take meeting minutes =======================> ",
+  //       userInfo
+  //     );
+  //   }
+  // }, []);
+  // console.log(data);
 
   if (isLoading) {
-    return (
-      <Loading/>
-    );
+    return <Loading />;
   }
+
+
 
   // Map API response into MeetingItem[] format
   const meetings: MeetingItem[] =
@@ -182,6 +202,7 @@ const TakeMeetingMinutes: React.FC = () => {
       };
     }) || [];
 
+
   return (
     <div className="bg-white rounded-lg shadow-lg border overflow-hidden">
       {/* Header */}
@@ -194,11 +215,14 @@ const TakeMeetingMinutes: React.FC = () => {
       {/* Scrollable content */}
       <div className="p-6 space-y-4 max-h-96 overflow-y-auto scrollable">
         {meetings.map((meeting) => (
-          <div key={meeting.id} className="">
+          <div key={meeting.id}>
             <div className="flex border p-4 rounded-2xl justify-between items-center gap-4 min-w-2xl flex-nowrap">
-              <div className="text-[16px] font-semibold text-gray-800 truncate flex-shrink-0">
+              {/* <div className="text-[16px] font-semibold text-gray-800 truncate flex-shrink-0">
                 {meeting.name}
-              </div>
+              </div> */}
+              <div className="text-[16px] font-semibold text-gray-800 flex-shrink-0">
+  {meeting.name.length > 15 ? `${meeting.name.slice(0, 15)}...` : meeting.name}
+</div>
               <div className="text-[16px] text-gray-500 flex-shrink-0">
                 {meeting.date}
               </div>
@@ -226,44 +250,14 @@ const TakeMeetingMinutes: React.FC = () => {
         )}
       </div>
 
-      {/* Take Meeting Minutes Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-hidden">
-          {/* Overlay */}
-          <div
-            className="absolute inset-0  bg-black/20 transition-opacity"
-            onClick={() => setIsModalOpen(false)}
-          ></div>
-
-          {/* Right drawer */}
-          <div className="absolute inset-y-0 right-0 w-full max-w-md bg-white shadow-xl transform transition-all">
-            {/* Header */}
-            <div className="flex justify-between items-center bg-blue-900 px-6 py-4 border-b">
-              <h2 className="text-lg font-semibold text-white">
-                Take Meeting Minutes
-              </h2>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="text-white cursor-pointer hover:text-gray-200 text-xl"
-              >
-                ×
-              </button>
-            </div>
-
-            {/* Content */}
-            <div className="p-6">
-              {selectedMeetingId ? (
-                <p className="text-gray-700">
-                  <span className="font-medium">Meeting ID:</span>{" "}
-                  {selectedMeetingId}
-                </p>
-              ) : (
-                <p className="text-gray-500">No meeting selected.</p>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Modal */}
+      <TakeMeetingMinutesModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        meetingId={selectedMeetingId}
+        // agendas={myAgendas}
+        // loading={agendasLoading}
+      />
     </div>
   );
 };

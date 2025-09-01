@@ -315,7 +315,7 @@ const AfterBusinessGoal: React.FC<AfterBusinessGoalProps> = ({
 
   const handleSave = async (data: any) => {
     try {
-      // console.log("<===================================Business Goal request for testing : =====================>", data.businessGoals);
+      console.log("<===================================Business Goal request  for testing : =====================>", data.businessGoals);
       await createGoal(data?.businessGoals).unwrap();
       toast.success("Business Goal created successfully!");
       setIsModalOpen(false);
@@ -393,7 +393,7 @@ const AfterBusinessGoal: React.FC<AfterBusinessGoalProps> = ({
       <div className="space-y-6">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <h1 className="text-lg sm:text-xl lg:text-3xl font-bold text-center md:text-left">
+          <h1 className="text-lg sm:text-xl  font-bold text-center md:text-left">
             Business Goals
           </h1>
 
@@ -443,7 +443,8 @@ const AfterBusinessGoal: React.FC<AfterBusinessGoalProps> = ({
 
         {/* View & Filters */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <h2 className="text-lg sm:text-xl font-semibold text-center sm:text-left">
+          <h2 className="text-lg sm:text-xl font-bold text-[#0b1c33]
+  text-center sm:text-left">
             {viewMode === "row" && "Row View"}
             {viewMode === "structure" && "Structure View"}
             {viewMode === "gantt" && "Gantt View"}

@@ -37,12 +37,12 @@ const BusinessGoalsData = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl w-full flex flex-row overflow-y-auto scroll-auto min-h-[300px]">
+    <div className="bg-white rounded-2xl w-full flex flex-row overflow-y-auto scroll-auto min-h-[300px]">
       {/* Left column - Business Goals count */}
       <div className="flex flex-col items-center w-[30%] p-6 border-r border-gray-200">
         <h2 className="text-lg md:text-xl xl:text-[24px] font-bold p-6 text-gray-700 mb-4">Business Goals</h2>
         <div className='p-2 bg-blue-100 rounded-full '>
-          <div className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-800 text-white font-bold text-5xl shadow-lg">
+          <div className="flex items-center justify-center w-32 h-32 rounded-full bg-blue-800 text-white font-bold text-5xl">
             {totalGoals}
           </div>
         </div>

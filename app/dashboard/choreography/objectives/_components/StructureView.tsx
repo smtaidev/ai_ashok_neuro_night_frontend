@@ -9,7 +9,7 @@ const StructureView = () => {
   const [treeData, setTreeData] = useState<RawNodeDatum[]>([]);
   const [mounted, setMounted] = useState(false);
   const treeContainer = useRef<HTMLDivElement>(null);
-  const [translate, setTranslate] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [translate, setTranslate] = useState<{ x: number; y: number }>({ x: 150, y: 200 });
 
   // ✅ Convert API Data → D3 Tree format
   const convertData = (themes: any[]): RawNodeDatum[] => {
@@ -65,7 +65,7 @@ const StructureView = () => {
             renderCustomNodeElement={({ nodeDatum }) => {
               const rawName = nodeDatum.name || "Untitled";
               const nodeName = rawName.length > 10 ? rawName.slice(0, 10) + "..." : rawName;
-              const nodeWidth = Math.max(160, nodeName.length * 8 + 30);
+              const nodeWidth = Math.max(160, nodeName.length * 8 + 90);
               const attrs = nodeDatum.attributes ?? {};
 
               return (
@@ -73,7 +73,7 @@ const StructureView = () => {
                   {/* Card Shape */}
                   <rect
                     width={nodeWidth}
-                    height="70"
+                    height="100"
                     x={-nodeWidth / 2}
                     y="-35"
                     rx="12"
@@ -85,18 +85,45 @@ const StructureView = () => {
                     className="shadow-md"
                   />
                   {/* Title */}
-                  <text fill="#111827" x="0" y="-10" textAnchor="middle" fontWeight="100">
+                  {/* <text fill="#111827" x="0" y="-10" textAnchor="middle" fontWeight="100">
+                    {nodeName}
+                  </text> */}
+
+                  <text fill="#1f2937"
+                    strokeWidth="0"
+                    x="0"
+                    y="-5"
+                    textAnchor="middle"
+                    dominantBaseline="middle">
                     {nodeName}
                   </text>
+
                   {/* Priority */}
                   {attrs.priority && (
-                    <text fill="#374151" x="0" y="10" textAnchor="middle" fontWeight="100" fontSize="11">
+                    // <text fill="#374151" x="0" y="10" textAnchor="middle" fontWeight="100" fontSize="11">
+                    //   Priority: {attrs.priority}
+                    // </text>
+                    <text fill="#1f2937"
+                      strokeWidth="0"
+                      x="0"
+                      y="12"
+                      textAnchor="middle"
+                      dominantBaseline="middle">
                       Priority: {attrs.priority}
                     </text>
                   )}
                   {/* Progress */}
                   {attrs.progress && (
-                    <text fill="#374151" x="0" y="24" textAnchor="middle" fontWeight="100" fontSize="11">
+                    // <text fill="#374151" x="0" y="24" textAnchor="middle" fontWeight="100" fontSize="11">
+                    //   {attrs.progress}
+                    // </text>
+
+                    <text fill="#1f2937"
+                      strokeWidth="0"
+                      x="0"
+                      y="35"
+                      textAnchor="middle"
+                      dominantBaseline="middle">
                       {attrs.progress}
                     </text>
                   )}

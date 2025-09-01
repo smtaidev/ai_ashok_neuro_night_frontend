@@ -33,7 +33,7 @@ export default function PieChartReusable({
 }: PieChartReusableProps) {
   return (
     <div className="bg-white rounded-lg shadow p-4">
-      <h2 className="text-lg font-semibold text-blue-800">
+      <h2 className="text-lg font-semibold text-[#1E3A8A]">
         {title}
       </h2>
       <p className="text-sm text-gray-500 mb-4">{subtitle}</p>
