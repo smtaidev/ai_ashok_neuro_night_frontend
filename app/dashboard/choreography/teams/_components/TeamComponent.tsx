@@ -29,6 +29,7 @@ import {
 } from "@/redux/api/choreograph/choreographApi"
 import toast from "react-hot-toast"
 import { useGetAllOrganizationUsersQuery } from "@/redux/api/OrganizationUser/organizationUserApi"
+import { formatContent } from "@/utils/formatContent"
 
 const TeamComponentPage = () => {
   const router = useRouter()
@@ -213,7 +214,7 @@ const TeamComponentPage = () => {
       {/* Team List */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-2xl font-semibold text-gray-900">Team List</h3>
-        <Button onClick={handleAddNew}>
+        <Button variant={"getStarted"} onClick={handleAddNew}>
           <Plus className="h-4 w-4 mr-2" />
           Create Team
         </Button>
@@ -242,7 +243,7 @@ const TeamComponentPage = () => {
                     <span className="font-bold">Team Name:</span> {team.teamName}
                   </h4>
                   <div className="text-base mb-1">
-                    <span className="font-bold">Description:</span> {team.description}
+                    <span className="font-bold">Description:</span> {formatContent(team.description)}
                   </div>
                   <div className="text-base mb-1">
                     <span className="font-bold">Members:</span> {team.members?.length || 0}

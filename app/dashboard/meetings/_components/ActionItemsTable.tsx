@@ -64,13 +64,13 @@ const getStatusBadge = (status: ActionItem["status"]) => {
 
 const ActionItemsTable: React.FC = () => {
 
-   useEffect(() => {
-      const token = localStorage.getItem("accessToken");
-      if (token) {
-        const userInfo = decodedToken(token);
-        console.log("User Info: in action item assign to me =======================> ", userInfo);
-      }
-    }, [])
+  //  useEffect(() => {
+  //     const token = localStorage.getItem("accessToken");
+  //     if (token) {
+  //       const userInfo = decodedToken(token);
+  //       console.log("User Info: in action item assign to me =======================> ", userInfo);
+  //     }
+  //   }, [])
 
   // We'll manage the action items in local state now, so we can update them.
   const [actionItems, setActionItems] = useState<ActionItem[]>([

@@ -23,7 +23,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, title = "More Info", c
 
       {/* Drawer content */}
       <div
-        className={`absolute top-0 right-0 w-[30rem] h-full bg-white shadow-lg transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
+        className={`absolute top-0 right-0 w-[40rem] h-full bg-white shadow-lg transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
           }`}
       >
         {/* Header */}

@@ -22,7 +22,7 @@ const BusinessGoals: React.FC = () => {
 
   // Goal Horizons Data
   const horizonsData = [
-    { name: "Short Term", value: 5, color: "#5AB2FF" },
+    { name: "Short Term", value: 2, color: "#5AB2FF" },
     { name: "Long Term", value: 3, color: "#1E3A8A" },
   ];
 
@@ -46,9 +46,9 @@ const BusinessGoals: React.FC = () => {
       </div>
 
       {/* Top Row (2 sections) */}
-      <div className="grid grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-2 gap-2 mb-6">
         {/* Business Goal Priorities */}
-        <div className="p-4 border rounded-xl">
+        <div className="p-4 ">
           <h3 className="text-sm font-medium mb-2">Business Goal Priorities</h3>
           <div className="flex flex-col items-center">
             <ResponsiveContainer width="100%" height={200}>
@@ -91,25 +91,26 @@ const BusinessGoals: React.FC = () => {
         </div>
 
         {/* Goal Horizons */}
-        <div className="p-4 border rounded-xl flex flex-col items-center">
+        <div className="flex flex-col items-center">
           <h3 className="text-sm font-medium mb-2">Goal Horizons</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart
               layout="vertical"
               data={horizonsData}
-              margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+              margin={{ top: 70, right: 10, left: 0, bottom: 40 }}
             >
               <XAxis type="number" hide />
               <YAxis
-                dataKey="name"
+                // dataKey="name"
                 type="category"
                 tickLine={false}
                 axisLine={false}
+                tick={false} 
               />
               <Tooltip
                 formatter={(value, name) => [`${value}`, name as string]}
               />
-              <Bar dataKey="value" radius={[0, 6, 6, 0]}>
+              <Bar dataKey="value" radius={0}>
                 {horizonsData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
@@ -133,7 +134,7 @@ const BusinessGoals: React.FC = () => {
       </div>
 
       {/* Bottom Row (Full Width) */}
-      <div className="p-4 border rounded-xl">
+      <div className="p-4 ">
         <h3 className="text-sm font-medium mb-2">Goal Breakdown By Function</h3>
         <div className="flex items-center gap-6">
           {/* Donut Chart */}

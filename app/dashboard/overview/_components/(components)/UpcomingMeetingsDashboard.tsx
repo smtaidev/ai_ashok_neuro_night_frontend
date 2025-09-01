@@ -48,7 +48,7 @@ const actionButtonColors = {
 
 const MeetingsSection: React.FC = () => {
   return (
-    <div className=" mx-auto p-6 bg-white rounded-xl border border-gray-200">
+    <div className=" mx-auto p-6 bg-white rounded-xl h-auto">
       <h2 className="text-[18px] text-[#1E3A8A] mb-6">Upcoming Meetings</h2>
       <div className="space-y-4">
         {meetings.map((meeting) => (

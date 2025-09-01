@@ -24,6 +24,8 @@ import { useGetAllChoreographTeamsQuery } from "@/redux/api/choreograph/choreogr
 import { useGetAllOrganizationUsersQuery } from "@/redux/api/OrganizationUser/organizationUserApi"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
+import { Textarea } from "@/components/ui/textarea"
+import { formatDate } from "@/utils/formatDate"
 
 interface FormErrors {
   [key: string]: string
@@ -411,7 +413,7 @@ const CardView: React.FC = () => {
                 {/* Status Badge - Always show "Overdue" in pink as per reference */}
                 <div className="flex-shrink-0">
                   <Badge className="bg-pink-50 text-pink-600 border border-pink-200 text-lg px-2 py-1 font-medium">
-                    {objective.startDate} - {objective.endDate}
+                    {formatDate(objective.startDate)} to {formatDate(objective.endDate)}
                   </Badge>
                 </div>
 
@@ -492,438 +494,370 @@ const CardView: React.FC = () => {
 
       {/* Edit Objective Modal */}
       <Dialog open={isModalOpen} onOpenChange={handleModalClose}>
-        <DialogContent className="p-0 border-0 max-w-4xl max-h-[90vh]">
+        <DialogContent className="p-0 border-0 max-w-6xl!">
           <div className="bg-white rounded-xl shadow-lg relative">
             <div className="bg-[#22398A] text-white p-4 -mt-1 rounded-t-xl">
-              <DialogTitle className="text-xl font-bold">Edit Objective</DialogTitle>
+              <DialogTitle className="text-xl font-bold">Add an objective</DialogTitle>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 p-6 max-h-[75vh] overflow-y-auto">
-              {/* Left Column */}
+            <div className="grid grid-cols-2 gap-6 p-6 max-h-[80vh] overflow-y-auto">
+              {/* Left side */}
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="title">Title *</Label>
-                  <Input
-                    id="title"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    placeholder="Add Title..."
-                    className={formErrors.title ? "border-red-500" : ""}
+                  <Label className="text-lg font-bold">Title<span className="text-red-500">*</span></Label>
+                  <Input name="title" value={formData.title} onChange={handleChange} placeholder="Add Title..." className="w-full bg-[#F8FBFF] border border-blue-100 p-4 text-lg h-13"
+                    required
                   />
-                  {formErrors.title && <p className="text-red-500 text-sm">{formErrors.title}</p>}
                 </div>
-
                 <div className="space-y-2">
-                  <Label htmlFor="description">Description *</Label>
-                  <textarea
-                    id="description"
-                    name="description"
+                  <Label className="text-lg font-bold">Description<span className="text-red-500">*</span></Label>
+                  <Textarea
+                    placeholder="Add Details....."
                     value={formData.description}
+                    name="description"
                     onChange={handleChange}
-                    placeholder="Add Details..."
-                    className={`w-full border rounded-md p-3 resize-none ${formErrors.description ? "border-red-500" : "border-gray-300"} focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]`}
-                    rows={4}
+                    className="w-full min-h-[150px] bg-[#F8FBFF] border border-blue-100 p-4 text-lg"
+                    required
                   />
-                  {formErrors.description && <p className="text-red-500 text-sm">{formErrors.description}</p>}
                 </div>
-
                 <div className="space-y-2">
-                  <Label>Objective Timeline *</Label>
-                  <div className="grid grid-cols-2 gap-4">
+                  <Label className="text-lg font-bold">Objective Timeline<span className="text-red-500">*</span></Label>
+
+                  <div className="grid grid-cols-2 gap-4 mt-2">
                     <div>
-                      <Input
-                        type="date"
-                        name="startDate"
-                        value={formData.startDate}
-                        onChange={handleChange}
-                        className={formErrors.startDate ? "border-red-500" : ""}
+                      <Label className="mb-2">Start Date</Label>
+                      <Input type="date" name="startDate" value={formData.startDate} onChange={handleChange} className="w-full bg-[#F8FBFF] border border-blue-100 p-4 text-lg h-13"
+                        required
                       />
-                      {formErrors.startDate && <p className="text-red-500 text-xs mt-1">{formErrors.startDate}</p>}
                     </div>
                     <div>
-                      <Input
-                        type="date"
-                        name="endDate"
-                        value={formData.endDate}
-                        onChange={handleChange}
-                        className={formErrors.endDate ? "border-red-500" : ""}
+                      <Label className="mb-2">End Date</Label>
+                      <Input type="date" name="endDate" value={formData.endDate} onChange={handleChange} className="w-full bg-[#F8FBFF] border border-blue-100 p-4 text-lg h-13"
+                        required
                       />
-                      {formErrors.endDate && <p className="text-red-500 text-xs mt-1">{formErrors.endDate}</p>}
                     </div>
                   </div>
                 </div>
-
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="priority">Priority *</Label>
-                    <select
-                      id="priority"
-                      name="priority"
-                      value={formData.priority}
-                      onChange={handleChange}
-                      className={`w-full border rounded-md p-3 ${formErrors.priority ? "border-red-500" : "border-gray-300"} focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]`}
+                    <Label className="text-lg font-bold">Priority<span className="text-red-500">*</span></Label>
+                    <select name="priority" value={formData.priority} onChange={handleChange} className="w-full border rounded-md p-3"
+                      required
                     >
-                      <option value="">Select Priority</option>
-                      <option value="Urgent">Urgent</option>
-                      <option value="High">High</option>
-                      <option value="Medium">Medium</option>
-                      <option value="Low">Low</option>
+                      <option>Select Priority</option>
+                      <option>Urgent</option>
+                      <option>High</option>
+                      <option>Medium</option>
+                      <option>Low</option>
                     </select>
-                    {formErrors.priority && <p className="text-red-500 text-sm">{formErrors.priority}</p>}
                   </div>
-
                   <div className="space-y-2">
-                    <Label htmlFor="progress">Progress *</Label>
-                    <Input
-                      id="progress"
-                      name="progress"
-                      value={formData.progress}
-                      onChange={handleChange}
-                      placeholder="e.g., Planning Phase"
-                      className={formErrors.progress ? "border-red-500" : ""}
+                    <Label className="text-lg font-bold">Progress(in %)<span className="text-red-500">*</span></Label>
+                    <Input name="progress" value={formData.progress} onChange={handleChange} placeholder="ie. 10"
+                      className="w-full p-4 text-lg h-13"
+                      required
                     />
-                    {formErrors.progress && <p className="text-red-500 text-sm">{formErrors.progress}</p>}
                   </div>
                 </div>
-
                 <div className="space-y-2">
-                  <Label htmlFor="fundingAllocated">Funding Allocated *</Label>
-                  <Input
-                    id="fundingAllocated"
-                    name="fundingAllocated"
-                    value={formData.fundingAllocated}
-                    onChange={handleChange}
-                    placeholder="e.g., $100,000"
-                    className={formErrors.fundingAllocated ? "border-red-500" : ""}
+                  <Label className="text-lg font-bold">Funding allocated toward achieving this objective?<span className="text-red-500">*</span></Label>
+                  <Input name="fundingAllocated" value={formData.fundingAllocated} onChange={handleChange} placeholder="ie. 100"
+                    className="w-full p-4 text-lg h-13"
+                    required
                   />
-                  {formErrors.fundingAllocated && <p className="text-red-500 text-sm">{formErrors.fundingAllocated}</p>}
                 </div>
-
                 <div className="space-y-2">
-                  <Label htmlFor="envSocialIssues">Environmental & Social Issues?</Label>
-                  <select
-                    id="envSocialIssues"
-                    name="envSocialIssues"
-                    value={formData.envSocialIssues}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md p-3 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                  >
-                    <option value="No">No</option>
-                    <option value="Yes">Yes</option>
+                  <Label className="text-lg font-bold">Are there any environmental and social issues that must be addressed while accomplishing this objective.</Label>
+                  <select name="envSocialIssues" value={formData.envSocialIssues} onChange={handleChange} className="w-full border rounded-md p-3">
+                    <option>No</option>
+                    <option>Yes</option>
                   </select>
                 </div>
-
-                {formData.envSocialIssues === "Yes" && (
-                  <div className="space-y-2">
-                    <Label htmlFor="envSocialDetails">Environmental & Social Details</Label>
-                    <textarea
-                      id="envSocialDetails"
-                      name="envSocialDetails"
-                      value={formData.envSocialDetails}
-                      onChange={handleChange}
-                      placeholder="Explain the environmental and social considerations..."
-                      className="w-full border border-gray-300 rounded-md p-3 resize-none focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                      rows={3}
-                    />
-                  </div>
-                )}
-
                 <div className="space-y-2">
-                  <Label htmlFor="risksAssociated">Risks Associated?</Label>
-                  <select
-                    id="risksAssociated"
-                    name="risksAssociated"
-                    value={formData.risksAssociated}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md p-3 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                  >
-                    <option value="No">No</option>
-                    <option value="Yes">Yes</option>
+                  <Label className="font-bold text-lg">If yes, please explain the environmental and social issues that need to addressing</Label>
+                  <Textarea
+                    placeholder="Add Details....."
+                    value={formData.envSocialDetails}
+                    name="envSocialDetails"
+                    className="w-full min-h-[150px] bg-[#F8FBFF] border border-blue-100 p-4 text-lg"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="font-bold text-lg" >Are there any risks associated with this objective?</Label>
+                  <select name="risksAssociated" value={formData.risksAssociated} onChange={handleChange} className="w-full border rounded-md p-3">
+                    <option>No</option>
+                    <option>Yes</option>
                   </select>
                 </div>
+                <div className="space-y-3">
+                  <Label className="font-bold text-lg">
+                    If yes, please explain the risk and any risk mitigation.
+                  </Label>
 
-                {formData.risksAssociated === "Yes" && (
-                  <div className="space-y-2">
-                    <Label>Risk Details</Label>
-                    <select
-                      value={formData.riskDetails?.lavel || ""}
-                      onChange={(e) => handleNestedChange("riskDetails", "lavel", e.target.value)}
-                      className="w-full border border-gray-300 rounded-md p-3 mb-2 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                    >
-                      <option value="">Select Risk Level</option>
-                      <option value="High">High</option>
-                      <option value="Medium">Medium</option>
-                      <option value="Low">Low</option>
-                    </select>
-                    <textarea
-                      placeholder="Describe the risk and mitigation strategies..."
-                      value={formData.riskDetails?.description || ""}
-                      onChange={(e) => handleNestedChange("riskDetails", "description", e.target.value)}
-                      className="w-full border border-gray-300 rounded-md p-3 resize-none focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                      rows={3}
-                    />
+                  {/* Impact Level */}
+                  <div>
+                    <div className="flex items-center gap-6 mt-2">
+                      <p className="font-semibold">Impact</p>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRiskMitigation"
+                          value="High"
+                          checked={formData.riskDetails?.lavel === "High"}
+                          onChange={(e) => handleNestedChange("riskDetails", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-red-500"
+                        />
+                        <span className="text-sm">High</span>
+                      </label>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRiskMitigation"
+                          value="Medium"
+                          checked={formData.riskDetails?.lavel === "Medium"}
+                          onChange={(e) => handleNestedChange("riskDetails", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-yellow-500"
+                        />
+                        <span className="text-sm">Medium</span>
+                      </label>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRiskMitigation"
+                          value="Low"
+                          checked={formData.riskDetails?.lavel === "Low"}
+                          onChange={(e) => handleNestedChange("riskDetails", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-gray-600"
+                        />
+                        <span className="text-sm">Low</span>
+                      </label>
+                    </div>
+
                   </div>
-                )}
+                  <Textarea
+                    placeholder="Add Details....."
+                    value={formData.riskDetails?.description}
+                    onChange={(e) => handleNestedChange("riskDetails", "description", e.target.value)}
+                    className="w-full min-h-[150px] bg-[#F8FBFF] border border-blue-100 rounded-2xl p-4 text-lg"
+                  />
+                </div>
               </div>
 
-              {/* Right Column */}
+              {/* Right side */}
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="objectiveOwner">Objective Owner</Label>
-                  <select
-                    id="objectiveOwner"
-                    name="objectiveOwner"
-                    value={formData.objectiveOwner}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md p-3 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                  >
-                    <option value="">Please Select</option>
-                    {Array.isArray(orgUsers) &&
-                      orgUsers.map((user: any) => (
-                        <option key={user._id} value={user._id}>
-                          {user.userId?.userName || user.userName || "Unknown User"}
-                        </option>
-                      ))}
+                  <Label className="font-bold text-lg">Objective Owner</Label>
+                  <select name="objectiveOwner" value={formData.objectiveOwner} onChange={handleChange} className="w-full border rounded-md p-3">
+                    <option value="">Please Select Name(s)</option>
+                    {orgUsers?.map((user) => (
+                      <option key={user._id} value={user._id}>{user.userId.userName}</option>
+                    ))}
                   </select>
                 </div>
 
-                {/* Assign Team Members */}
+                {/* Assign Team Members Section */}
                 <div className="space-y-2">
-                  <Label htmlFor="assignedMembers">Assign Team Members</Label>
+                  <Label className="font-bold text-lg">Assign team member to accomplish this objective</Label>
                   <select
-                    id="assignedMembers"
+                    name="assignedTeamMembers"
                     onChange={handleAddAssignedMember}
-                    className="w-full border border-gray-300 rounded-md p-3 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
+                    className="w-full border rounded-md p-3"
                     defaultValue=""
                   >
-                    <option value="">Please Select</option>
-                    {Array.isArray(teamMembers?.data) &&
-                      teamMembers?.data?.map((member: any) => (
-                        <option
-                          key={member._id}
-                          value={member._id}
-                          disabled={formData.assignedTeamMembers.includes(member._id)}
-                          className={formData.assignedTeamMembers.includes(member._id) ? "text-gray-400" : ""}
-                        >
-                          {member.userName}
-                        </option>
-                      ))}
+                    <option value="">Please Select Name(s)</option>
+                    {teamMembers?.data.map((m) => (
+                      <option
+                        key={m._id}
+                        value={m._id}
+                        disabled={formData.assignedTeamMembers.includes(m._id)}
+                      >
+                        {m.userName}
+                      </option>
+                    ))}
                   </select>
 
+                  {/* Display selected assigned members */}
                   {formData.assignedTeamMembers.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-2">
-                      {Array.isArray(formData.assignedTeamMembers) &&
-                        formData.assignedTeamMembers.map((memberId: string, index: number) => (
-                          <div
-                            key={`assigned-${index}`}
-                            className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center gap-2 text-sm"
+                      {Array.isArray(formData.assignedTeamMembers) && formData.assignedTeamMembers.map((memberId: string, index: number) => (
+                        <div
+                          key={index}
+                          className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center gap-2"
+                        >
+                          {getMemberName(memberId)}
+                          <button
+                            type="button"
+                            onClick={() => removeAssignedMember(index)}
+                            className="hover:text-red-600"
                           >
-                            {getMemberName(memberId)}
-                            <button
-                              type="button"
-                              onClick={() => removeAssignedMember(index)}
-                              className="hover:text-red-600 transition-colors"
-                              aria-label="Remove assigned member"
-                            >
-                              <X className="h-3 w-3" />
-                            </button>
-                          </div>
-                        ))}
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="crossTeamCollaboration">Cross-team Collaboration?</Label>
-                  <select
-                    id="crossTeamCollaboration"
-                    name="crossTeamCollaboration"
-                    value={formData.crossTeamCollaboration}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md p-3 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                  >
-                    <option value="No">No</option>
-                    <option value="Yes">Yes</option>
+                  <Label className="font-bold text-lg">Dose this objective require cross-function team collaboration?</Label>
+                  <select name="crossTeamCollaboration" value={formData.crossTeamCollaboration} onChange={handleChange} className="w-full border rounded-md p-3">
+                    <option>No</option>
+                    <option>Yes</option>
                   </select>
                 </div>
 
-                {/* Invite Members */}
+                {/* Invite Members Section */}
                 <div className="space-y-2">
-                  <Label htmlFor="invitedMembers">Invite Members</Label>
+                  <Label className="font-bold text-lg">If yes, invite team members from other function’s</Label>
                   <select
-                    id="invitedMembers"
+                    name="invitedTeamMembers"
                     onChange={handleAddInvitedMember}
-                    className="w-full border border-gray-300 rounded-md p-3 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
+                    className="w-full border rounded-md p-3"
                     defaultValue=""
                   >
-                    <option value="">Please Select</option>
-                    {Array.isArray(teamMembers?.data) &&
-                      teamMembers?.data?.map((member: any) => (
-                        <option
-                          key={member._id}
-                          value={member._id}
-                          disabled={isAssignedMember(member._id) || formData.invitedTeamMembers.includes(member._id)}
-                          className={
-                            isAssignedMember(member._id) || formData.invitedTeamMembers.includes(member._id)
-                              ? "text-gray-400 bg-gray-50"
-                              : ""
-                          }
-                        >
-                          {member.userName} {isAssignedMember(member._id) ? "(Already Assigned)" : ""}
-                        </option>
-                      ))}
+                    <option value="">Please Select Name(s)</option>
+                    {teamMembers?.data?.map((m) => (
+                      <option
+                        key={m._id}
+                        value={m._id}
+                        disabled={isAssignedMember(m._id) || formData.invitedTeamMembers.includes(m._id)}
+                        className={isAssignedMember(m._id) ? "text-gray-400 bg-gray-100" : ""}
+                      >
+                        {m.userName} {isAssignedMember(m._id) ? "(Already Assigned)" : ""}
+                      </option>
+                    ))}
                   </select>
 
+                  {/* Display selected invited members */}
                   {formData.invitedTeamMembers.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-2">
-                      {Array.isArray(formData.invitedTeamMembers) &&
-                        formData.invitedTeamMembers.map((memberId: string, index: number) => (
-                          <div
-                            key={`invited-${index}`}
-                            className="bg-green-100 text-green-800 px-3 py-1 rounded-full flex items-center gap-2 text-sm"
+                      {Array.isArray(formData.invitedTeamMembers) && formData.invitedTeamMembers.map((memberId: string, index: number) => (
+                        <div
+                          key={index}
+                          className="bg-green-100 text-green-800 px-3 py-1 rounded-full flex items-center gap-2"
+                        >
+                          {getMemberName(memberId)}
+                          <button
+                            type="button"
+                            onClick={() => removeInvitedMember(index)}
+                            className="hover:text-red-600"
                           >
-                            {getMemberName(memberId)}
-                            <button
-                              type="button"
-                              onClick={() => removeInvitedMember(index)}
-                              className="hover:text-red-600 transition-colors"
-                              aria-label="Remove invited member"
-                            >
-                              <X className="h-3 w-3" />
-                            </button>
-                          </div>
-                        ))}
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="businessGoals">Business Goals</Label>
-                  <select
-                    id="businessGoals"
-                    name="businessGoals"
-                    value={formData.businessGoals}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md p-3 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                  >
-                    <option value="">Select Business Goal</option>
-                    {Array.isArray(businessGoals?.data) &&
-                      businessGoals?.data?.map((goal: any) => (
-                        <option key={goal._id} value={goal._id}>
-                          {goal.title}
-                        </option>
-                      ))}
+                  <Label className="font-bold text-lg">What business goals is this objective tied to?</Label>
+                  <select name="businessGoals" value={formData.businessGoals} onChange={handleChange} className="w-full border rounded-md p-3">
+                    <option value="">Select Functionality</option>
+                    {businessGoals?.data?.map((goal) => (
+                      <option key={goal._id} value={goal._id}>{goal.title}</option>
+                    ))}
                   </select>
                 </div>
-
                 <div className="space-y-2">
-                  <Label htmlFor="termType">Term Type</Label>
-                  <select
-                    id="termType"
-                    name="termType"
-                    value={formData.termType}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md p-3 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                  >
-                    <option value="">Please select</option>
-                    <option value="Annual">Annual</option>
-                    <option value="Quarterly">Quarterly</option>
-                    <option value="Monthly">Monthly</option>
+                  <Label className="font-bold text-lg">Is this a long-term or short-term objective</Label>
+                  <select name="termType" value={formData.termType} onChange={handleChange} className="w-full border rounded-md p-3">
+                    <option>Please select</option>
+                    <option>Annual</option>
+                    <option>Long-term</option>
+                    <option>Short-term</option>
                   </select>
                 </div>
-
                 <div className="space-y-2">
-                  <Label htmlFor="specificStrategic">Specific & Strategic?</Label>
-                  <select
-                    id="specificStrategic"
-                    name="specificStrategic"
-                    value={formData.specificStrategic}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md p-3 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                  >
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
+                  <Label className="font-bold text-lg">Is this objective both specific and strategic?</Label>
+                  <select name="specificStrategic" value={formData.specificStrategic} onChange={handleChange} className="w-full border rounded-md p-3">
+                    <option>Yes</option>
+                    <option>No</option>
                   </select>
                 </div>
-
                 <div className="space-y-2">
-                  <Label htmlFor="necessaryResources">Resources Available?</Label>
-                  <select
-                    id="necessaryResources"
-                    name="necessaryResources"
-                    value={formData.necessaryResources}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md p-3 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                  >
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
+                  <Label className="font-bold text-lg">Do we possess the necessary resources (human and material) to accomplish this objective.</Label>
+                  <select name="necessaryResources" value={formData.necessaryResources} onChange={handleChange} className="w-full border rounded-md p-3">
+                    <option>Yes</option>
+                    <option>No</option>
                   </select>
                 </div>
-
                 <div className="space-y-2">
-                  <Label htmlFor="additionalTalent">Additional Talent Needed</Label>
-                  <textarea
-                    id="additionalTalent"
+                  <Label className="font-bold text-lg">If not, then explain what talent or other resources we need.</Label>
+                  <Textarea
+                    placeholder="Add Details....."
                     name="additionalTalent"
                     value={formData.additionalTalent}
                     onChange={handleChange}
-                    placeholder="Describe any additional talent or skills needed..."
-                    className="w-full border border-gray-300 rounded-md p-3 resize-none focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                    rows={3}
+                    className="w-full min-h-[150px] bg-[#F8FBFF] border border-blue-100 rounded-2xl p-4 text-lg"
                   />
-                </div>
 
-                <div className="space-y-2">
-                  <Label>Potential Challenges</Label>
-                  <select
-                    value={formData.potentialChallenges?.lavel || ""}
-                    onChange={(e) => handleNestedChange("potentialChallenges", "lavel", e.target.value)}
-                    className="w-full border border-gray-300 rounded-md p-3 mb-2 focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                  >
-                    <option value="">Select Challenge Level</option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                  </select>
-                  <textarea
-                    placeholder="Describe potential challenges and how to address them..."
-                    value={formData.potentialChallenges?.description || ""}
+                </div>
+                <div className="space-y-3">
+                  <Label className="font-bold text-lg">
+                    What potential challenges or roadblocks do we expect to encounter while achieving this objective?
+                  </Label>
+
+                  {/* Impact Level */}
+                  <div>
+                    <div className="flex items-center gap-6 mt-2">
+                      <p className="font-semibold">Impact</p>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRoadblock"
+                          value="High"
+                          checked={formData.potentialChallenges?.lavel === "High"}
+                          onChange={(e) => handleNestedChange("potentialChallenges", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-red-500"
+                        />
+                        <span className="text-sm">High</span>
+                      </label>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRoadblock"
+                          value="Medium"
+                          checked={formData.potentialChallenges?.lavel === "Medium"}
+                          onChange={(e) => handleNestedChange("potentialChallenges", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-yellow-500"
+                        />
+                        <span className="text-sm">Medium</span>
+                      </label>
+
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="impactRoadblock"
+                          value="Low"
+                          checked={formData.potentialChallenges?.lavel === "Low"}
+                          onChange={(e) => handleNestedChange("potentialChallenges", "lavel", e.target.value)}
+                          className="h-4 w-4 accent-gray-600"
+                        />
+                        <span className="text-sm">Low</span>
+                      </label>
+                    </div>
+
+                  </div>
+                  <Textarea
+                    placeholder="Add Details....."
+                    value={formData.potentialChallenges?.description}
                     onChange={(e) => handleNestedChange("potentialChallenges", "description", e.target.value)}
-                    className="w-full border border-gray-300 rounded-md p-3 resize-none focus:border-[#22398A] focus:outline-none focus:ring-1 focus:ring-[#22398A]"
-                    rows={3}
+                    className="w-full min-h-[150px] bg-[#F8FBFF] border border-blue-100 rounded-2xl p-4 text-lg"
                   />
                 </div>
               </div>
             </div>
 
-            {/* Modal Footer */}
-            <div className="flex justify-between items-center p-4 border-t border-gray-200">
-              <div className="text-sm text-gray-500">* Required fields</div>
-              <div className="flex gap-3">
-                <Button
-                  variant="outline"
-                  onClick={handleModalClose}
-                  disabled={isUpdating}
-                  className="px-6 bg-transparent"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  onClick={handleSubmit}
-                  className="bg-[#22398A] hover:bg-[#1a2c73] text-white px-6"
-                  disabled={isUpdating}
-                >
-                  {isUpdating ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Updating...
-                    </>
-                  ) : (
-                    "Update Objective"
-                  )}
-                </Button>
-              </div>
+            <div className="flex justify-end p-4 gap-4">
+              <Button onClick={handleSubmit} className="bg-[#22398A] hover:bg-[#22398A]/90 text-lg text-white">
+                Save
+              </Button>
             </div>
           </div>
         </DialogContent>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import Button from "@/components/reusable-button/Button";
 
 interface CompetitorData {
   id: number;
@@ -144,12 +145,17 @@ const CompetitiveAnalysisForm: React.FC<CompetitiveAnalysisFormProps> = ({
         <h1 className="text-2xl font-semibold text-gray-900">
           Competitive Analysis
         </h1>
-        <button
+        {/* <button
           onClick={handleGetStartedClick}
           className="px-4 py-2 bg-[#22398A] text-white rounded-lg hover:bg-[#1a2d6d] transition-colors"
         >
           + Add Competitor
-        </button>
+        </button> */}
+        <Button
+          onClick={handleGetStartedClick}
+        >
+          + Add Competitor
+        </Button>
       </div>
 
       <div className="space-y-4">
