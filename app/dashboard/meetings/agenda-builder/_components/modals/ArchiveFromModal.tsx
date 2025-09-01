@@ -233,7 +233,7 @@ const ArchiveFromModal: React.FC<DrawerProps> = ({
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-blue-600 rounded-t-lg">
+        <div className="flex items-center justify-between px-6 py-4 bg-[#22398a] rounded-t-lg">
           <h2 id="modal-title" className="text-lg font-semibold text-white">
             {title}
           </h2>

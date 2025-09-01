@@ -113,7 +113,7 @@ const Vision = () => {
   console.log("vision: ", vision);
 
   // If no vision or empty string → show BeforePage
-  if (!vision || !vision.vision || vision.vision === "") {
+  if ( vision?.vision === ""|| !vision?.vision || !vision ) {
     return <BeforePage />;
   }
 
