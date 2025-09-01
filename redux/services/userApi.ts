@@ -14,6 +14,8 @@ interface AuthResponse {
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
+
+    //! Org Admin login
     login: builder.mutation<
       {
         success: boolean;
@@ -26,6 +28,39 @@ export const userApi = api.injectEndpoints({
     >({
       query: (body) => ({
         url: "/auth/login",
+        method: "POST",
+        body,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      try {
+        const { data } = await queryFulfilled;
+        console.log("Login response from userApi:", data);
+
+        // Correct path: data.data.accessToken
+        const accessToken = data.data.accessToken;
+
+        localStorage.setItem("accessToken", accessToken);
+        dispatch(userApi.endpoints.getMe.initiate());
+      } catch {
+        dispatch(addUser(null));
+      }
+    },
+      invalidatesTags: ["User"],
+    }),
+
+    //! Org Employee login
+    employeeLogin: builder.mutation<
+      {
+        success: boolean;
+        message: string;
+        data: {
+          accessToken: string;
+        };
+      },
+      { email: string; password: string }
+    >({
+      query: (body) => ({
+        url: "/auth/organization-login",
         method: "POST",
         body,
       }),
@@ -108,4 +143,4 @@ export const userApi = api.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useClarhetAdminLoginMutation, useSignupMutation, useGetMeQuery } = userApi;
+export const { useLoginMutation, useClarhetAdminLoginMutation, useEmployeeLoginMutation, useSignupMutation, useGetMeQuery } = userApi;
