@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea"
 import Drawer from "@/app/dashboard/blueprint/vision/_comoponents/DrawarModal";
 import { MissionDrawerContent, renderDrawerMission } from "../../_components/drawer-utils";
 import { CapabilitiesData } from "../../_components/dummyData";
+import { formatContent } from "@/utils/formatContent";
 
 
 interface LocalCapability {
@@ -236,7 +237,7 @@ export default function CapabilityComponent() {
                 className={`${getCardColor(item.type, index)} ${getTextColor(item.type, index)} relative border-0`}
               >
                 <CardContent className="p-4 text-lg font-medium">
-                  <div className="pr-4">Team Name: {item.text}</div>
+                  <div className="pr-4">Team Name: {formatContent(item.text)}</div>
                   <div className="pr-4">Type: {item.type}</div>
                   <div className="absolute top-2 right-2 flex items-center gap-1">
                     <DropdownMenu>
