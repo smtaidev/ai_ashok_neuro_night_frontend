@@ -4,6 +4,6 @@ export function formatContent(content: string): string {
   const regex = /(.)\1{25,}/g;
 
   return content.replace(regex, (match) => {
-    return match.slice(0, 20) + ".......";
+    return match.slice(0, 15) + ".......";
   });
 }
