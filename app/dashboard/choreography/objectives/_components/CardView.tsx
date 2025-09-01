@@ -467,7 +467,7 @@ const CardView: React.FC = () => {
       <Dialog open={!!deleteConfirmId} onOpenChange={() => setDeleteConfirmId(null)}>
         <DialogContent className="max-w-md">
           <DialogTitle>Confirm Deletion</DialogTitle>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-xl! text-[#231F20] mt-2">
             Are you sure you want to delete this objective? This action cannot be undone.
           </p>
           <div className="flex justify-end gap-2 mt-4">
