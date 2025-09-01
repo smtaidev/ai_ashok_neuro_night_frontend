@@ -2146,8 +2146,8 @@ const CreateTrendPage: React.FC = () => {
                 {renderStepContent()}
 
                 {/* Navigation Buttons */}
-                <div className="fixed bottom-0 right-0 left-[660px] bg-white border-t p-6">
-                  <div className="ml- max-w-4xl flex items-center justify-end gap-8 ">
+                <div className="fixed bottom-0 right-0 left-[820px] bg-white border-t p-6">
+                  <div className=" max-w-4xl flex items-center justify-end gap-8 ">
                     <button
                       onClick={handlePrevious}
                       disabled={currentStep === 0}
@@ -2183,7 +2183,7 @@ const CreateTrendPage: React.FC = () => {
                       ) : (
                         <button
                           onClick={handleNext}
-                          className="px-6 py-2 text-sm font-medium rounded-lg transition-colors bg-blue-600 text-white hover:bg-blue-700"
+                          className="px-6 py-2 text-sm font-medium rounded-lg transition-colors bg-[#22398A] text-white hover:bg-blue-700"
                         >
                           Next
                         </button>
