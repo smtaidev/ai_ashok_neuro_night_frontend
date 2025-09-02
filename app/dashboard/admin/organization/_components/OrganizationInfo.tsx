@@ -249,7 +249,7 @@ const OrganizationInfo = () => {
           <CardHeader>
             <div className="flex flex-col md:flex-row md:justify-between gap-4 mb-4">
               <div className="flex-1 space-y-4 md:text-left">
-                <CardTitle className="text-[#0B1C33] lg:text-4xl text-2xl">
+                <CardTitle className="text-[#0B1C33] lg:text-4xl font-semibold text-2xl mb-[46px]">
                   Organization Information
                 </CardTitle>
                 <CardDescription className="text-[#000000] mt-1 text-lg">
@@ -270,7 +270,6 @@ const OrganizationInfo = () => {
             <div className="mt-4 flex justify-start">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 max-w-6xl py-10">
-
                   <FormField
                     control={form.control}
                     name="companyName"
