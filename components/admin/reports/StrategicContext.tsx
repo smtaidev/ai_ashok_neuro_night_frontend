@@ -1,4 +1,5 @@
 import React from "react";
+import GaugeChart from "./graph/GaugeChart";
 
 const StrategicContext = () => {
   return (
@@ -35,6 +36,7 @@ const StrategicContext = () => {
               compelling vision.
             </p>
           </div>
+          <GaugeChart/>
         </div>
       </div>
       <div
@@ -45,7 +47,8 @@ const StrategicContext = () => {
           Strategic Fit
         </h6>
         <div className="border-t border-[#DAE3F8] flex items-center gap-14 self-stretch py-5 px-7.5">
-          <div>
+          <div className="w-3/4
+">
             <h6 className="text-[#1E3A8A] font-poppins text-[26px] font-normal leading-normal">
               Strategic Fit Score
             </h6>
@@ -65,7 +68,8 @@ const StrategicContext = () => {
               unaddressed, and some goals depend on underdeveloped capabilities
             </p>
           </div>
-          <div></div>
+          <div className="w-1/4
+">  </div>
         </div>
       </div>
     </>
